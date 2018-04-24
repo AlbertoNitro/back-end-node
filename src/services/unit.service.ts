@@ -15,7 +15,4 @@ export class UnitService {
           );
           await relation.save();
     }
-    prueba() {
-        console.log("ENTRANDO EN METODO DE PRUEBA");
-    }
 }

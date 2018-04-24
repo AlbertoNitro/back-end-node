@@ -1,12 +1,11 @@
-import { HomeController } from "../../controllers/home.controller";
+import { HomeController } from "../../controllers/unit.controller";
 import express from "express";
 import { UnitService } from "../../services/unit.service";
 
 const homeRoutes = express.Router();
 const homeController: HomeController = new HomeController();
 
-// homeRoutes.get("/prueba", homeController.forceCreateUnit);
-homeRoutes.get("/prueba", (req, res) => {
+homeRoutes.get("/forceCreate", (req, res) => {
     homeController.forceCreateUnit(req, res);
 });
 
