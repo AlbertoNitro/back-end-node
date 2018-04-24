@@ -1,6 +1,6 @@
 export enum TypeRelation {
-    INHERIT,
-    COMPOSE,
-    ASOCIATION,
-    USE
+    INHERIT = "INHERIT",
+    COMPOSE = "COMPOSE",
+    ASOCIATION = "ASOCIATION",
+    USE = "USE",
 }
