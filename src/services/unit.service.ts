@@ -6,7 +6,6 @@ import { ObjectId } from "bson";
 export class UnitService {
     constructor() {}
     async forceGenerate(unit: String) {
-        console.log("HOLAAAAA");
         const relation = new Relation(
             {
               type: TypeRelation.USE,

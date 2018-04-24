@@ -3,9 +3,11 @@ import express from "express";
 import { UnitService } from "../../services/unit.service";
 
 const homeRoutes = express.Router();
-const unitService: UnitService = new UnitService();
-const homeController: HomeController = new HomeController(unitService);
+const homeController: HomeController = new HomeController();
 
-homeRoutes.get("/prueba", homeController.forceCreateUnit);
+// homeRoutes.get("/prueba", homeController.forceCreateUnit);
+homeRoutes.get("/prueba", (req, res) => {
+    homeController.forceCreateUnit(req, res);
+});
 
 export default homeRoutes;
