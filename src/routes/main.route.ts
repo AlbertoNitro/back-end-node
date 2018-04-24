@@ -1,8 +1,8 @@
 import express from "express";
-import homeRoutes from "./home/home.route";
+import unitRoutes from "./home/unit.route";
 
 const api = express.Router();
 
-api.use("/pruebas", homeRoutes);
+api.use("/unit", unitRoutes);
 
 export default api;
