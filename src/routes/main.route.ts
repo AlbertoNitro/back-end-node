@@ -3,6 +3,6 @@ import homeRoutes from "./home/home.route";
 
 const api = express.Router();
 
-api.use("/home", homeRoutes);
+api.use("/pruebas", homeRoutes);
 
 export default api;

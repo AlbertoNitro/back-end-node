@@ -4,6 +4,6 @@ import express from "express";
 
 const homeRoutes = express.Router();
 
-homeRoutes.get("/", homeController.index);
+homeRoutes.get("/prueba", homeController.index);
 
 export default homeRoutes;
