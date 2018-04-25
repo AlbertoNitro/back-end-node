@@ -1,12 +1,17 @@
-
-{
-  "language": "node_js",
-  "node_js": "8",
-  "services": [
-    "mongodb"
-  ],
-  "script": [
-    "npm run build",
-    "npm run test"
-  ]
-}
+language: "node_js",
+node_js: "8",
+branches:
+  only:
+  - master
+  - develop
+notifications:
+  email:
+    recipients:
+    - alberto_nitro_eso@hotmail.com
+addons:
+  sonarcloud:
+    organization: SARA2018-backend
+    token:
+      secure: 72fa25715dd7751b90403fc72ac866f2ffe48529
+script:
+  - sonar-scanner
