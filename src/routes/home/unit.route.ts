@@ -5,8 +5,8 @@ import { UnitService } from "../../services/unit.service";
 const homeRoutes = express.Router();
 const homeController: HomeController = new HomeController();
 
-homeRoutes.get("/forceCreate", (req, res) => {
-    homeController.forceCreateUnit(req, res);
+homeRoutes.post("/new", (req, res) => {
+    homeController.create(req, res);
 });
 
 export default homeRoutes;
