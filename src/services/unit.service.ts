@@ -3,7 +3,7 @@ import Relation from "../models/relation.model";
 import { TypeRelation } from "../models/typeralation.enum";
 import { ObjectId } from "bson";
 import Unit from "../models/unit.model";
-import { UnitEntity } from "../entity/unit";
+import { UnitEntity } from "../entities/unit";
 
 export class UnitService {
     constructor() {}
@@ -17,6 +17,14 @@ export class UnitService {
     }
     async create(unitEntity: UnitEntity) {
         const unit = new Unit(unitEntity);
-        unit.save();
+        await unit.save((err) => {
+            if (err) {
+                return "{ success: \"false\", \"message\": \"ERROR: No se ha podido crear la unidad\"}";
+            }
+            else {
+                console.log("Todo correcto");
+                return "HOLA";
+            }
+        });
     }
 }

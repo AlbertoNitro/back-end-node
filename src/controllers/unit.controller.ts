@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Relation from "../models/relation.model";
 import { TypeRelation } from "../models/typeralation.enum";
 import { UnitService } from "../services/unit.service";
-import { UnitEntity } from "../entity/unit";
+import { UnitEntity } from "../entities/unit";
 export class HomeController {
   unitService: UnitService = new UnitService();
   constructor() {
@@ -14,8 +14,8 @@ export class HomeController {
     res.send("OK");
   }
 
-  create(req: Request, res: Response): void {
+  async create(req: Request, res: Response) {
     const unit: UnitEntity = new UnitEntity(req.body.name);
-    this.unitService.create(unit);
+    await console.log( await this.unitService.create(unit) );
   }
 }
