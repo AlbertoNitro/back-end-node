@@ -14,4 +14,5 @@ addons:
     token:
       secure: 72fa25715dd7751b90403fc72ac866f2ffe48529
 script:
+  - npm run test
   - sonar-scanner
