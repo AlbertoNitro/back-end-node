@@ -5,7 +5,7 @@ import { UnitService } from "../../services/unit.service";
 const homeRoutes = express.Router();
 const homeController: HomeController = new HomeController();
 
-homeRoutes.post("/new", (req, res) => {
+homeRoutes.post("", (req, res) => {
     homeController.create(req, res);
 });
 
