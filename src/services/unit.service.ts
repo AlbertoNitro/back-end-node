@@ -4,8 +4,8 @@ import { TypeRelation } from "../models/typeralation.enum";
 import { ObjectId } from "bson";
 import Unit from "../models/unit.model";
 import { UnitEntity } from "../entities/unit";
-
 export class UnitService {
+    response: String;
     constructor() {}
     async forceGenerate(unit: String) {
         const relation = new Unit(
@@ -19,12 +19,12 @@ export class UnitService {
         const unit = new Unit(unitEntity);
         await unit.save((err) => {
             if (err) {
-                return "{ success: \"false\", \"message\": \"ERROR: No se ha podido crear la unidad\"}";
+                this.response = "{ success: \"false\", \"message\": \"ERROR: No se ha podido crear la unidad\"}";
             }
             else {
-                console.log("Todo correcto");
-                return "HOLA";
+                this.response =  "{ success: \"true\", \"unit\":" + unit + "}";
             }
         });
+        return this.response;
     }
 }

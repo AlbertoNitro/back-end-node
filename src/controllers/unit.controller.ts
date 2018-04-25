@@ -16,6 +16,6 @@ export class HomeController {
 
   async create(req: Request, res: Response) {
     const unit: UnitEntity = new UnitEntity(req.body.name);
-    await console.log( await this.unitService.create(unit) );
+    await res.send( await this.unitService.create(unit) );
   }
 }
