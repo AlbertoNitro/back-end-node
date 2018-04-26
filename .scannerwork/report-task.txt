@@ -1,0 +1,7 @@
+organization=chinegua-github
+projectKey=sara-2018
+serverUrl=https://sonarcloud.io
+serverVersion=7.1.1.10702
+dashboardUrl=https://sonarcloud.io/dashboard/index/sara-2018
+ceTaskId=AWMBn5EMOnVewt-wiqn2
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWMBn5EMOnVewt-wiqn2
