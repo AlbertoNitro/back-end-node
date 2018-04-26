@@ -1,4 +1,4 @@
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=sara-2018&metric=alert_status)](https://sonarcloud.io/dashboard?id=sara-2018)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=wvfgh&metric=alert_status)](https://sonarcloud.io/dashboard/index/wvfgh)
 
 [![Build Status](https://travis-ci.org/SARA-2018/back-end-nestjs.svg?branch=develop)](https://travis-ci.org/SARA-2018/back-end-nestjs)
 
