@@ -4,6 +4,9 @@ import { TypeRelation } from "../models/typeralation.enum";
 import { ObjectId } from "bson";
 import { UnitEntity } from "../entities/unit";
 import Unit from "../models/unit.model";
+import logger from "../util/logger";
+
+
 export class UnitService {
     response: any;
     constructor() {}
@@ -26,5 +29,19 @@ export class UnitService {
             }
         });
         return this.response;
+    }
+
+    async findAll(): Promise<any> {
+        await Unit.find({}, (err, unit) => {
+            if (!unit) {
+                return { status: false, message: "Not found unit" };
+            }
+            if (!err) {
+                return { status: true, unit: unit };
+            } else {
+                logger.error(err.message);
+                return { status: false, message: "Server error" };
+            }
+        });
     }
 }
