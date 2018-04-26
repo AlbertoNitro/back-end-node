@@ -1,13 +1,5 @@
-
-import Relation from "../models/relation.model";
-import { TypeRelation } from "../models/typeralation.enum";
-import { ObjectId } from "bson";
 import { UnitEntity } from "../entities/unit";
 import Unit from "../models/unit.model";
-import logger from "../util/logger";
-import {HttpStatusCode} from "../util/http-status-codes.enum";
-
-
 export class UnitService {
     response: any;
     constructor() {}
@@ -31,17 +23,19 @@ export class UnitService {
         });
         return this.response;
     }
-
-    async findAll(): Promise<any> {
-        await Unit.find({}, (err, units) => {
+    async findAll() {
+        return await Unit.find({}, (err, units) => {
             if (!units) {
-                return { statusCode: HttpStatusCode.NOT_FOUND };
+                this.response =  undefined;
+                // return { statusCode: HttpStatusCode.NOT_FOUND };
             }
             if (!err) {
-                return { statusCode: HttpStatusCode.OK, entities: units };
+                this.response =  units;
+                // return { statusCode: HttpStatusCode.OK, entities: units };
             } else {
-                logger.error(err.message);
-                return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
+                this.response =  undefined;
+                // logger.error(err.message);
+                // return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
             }
         });
     }

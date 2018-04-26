@@ -9,4 +9,8 @@ homeRoutes.post("", (req, res) => {
     homeController.create(req, res);
 });
 
+homeRoutes.get("", (req, res) => {
+    homeController.findAll(req, res);
+});
+
 export default homeRoutes;
