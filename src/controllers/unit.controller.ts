@@ -19,7 +19,7 @@ export class HomeController {
 
   async findByName(req: Request, res: Response) {
     const name: String = req.param("name");
-    res.status(200).json(JSON.stringify(await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"))));
+    await res.status(200).json(JSON.stringify(await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"))));
   }
 
   async findAll(req: Request, res: Response) {
