@@ -19,7 +19,7 @@ export class UnitService {
         const unit = new Unit(unitEntity);
         await unit.save((err) => {
             if (err) {
-                this.response = unit;
+                this.response = undefined;
             }
             else {
                 this.response =  unit;
