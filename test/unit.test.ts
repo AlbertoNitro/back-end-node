@@ -18,7 +18,7 @@ describe("POST /unit", () => {
 });
 
 describe("GET /unit", () => {
-    it("should return 200 OK and entity", (done) => {
+    it("should return 200 OK and UnitEntity[] with body", (done) => {
         return request(app).get("/unit")
             .end( (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
