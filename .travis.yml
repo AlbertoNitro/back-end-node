@@ -1,8 +1,7 @@
 language: node_js
 node_js:
     - "9.2.1"
-script: npm run test
+script: npm run travis
 
 before_script:
     - npm install
-    - sonar-scanner -Dsonar.projectKey=sara-2018 -Dsonar.organization=chinegua-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=d759c5afd7ba5e76d290f8f970ebe0ef4e05a771
