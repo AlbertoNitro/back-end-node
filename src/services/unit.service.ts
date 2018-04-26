@@ -5,6 +5,7 @@ import { ObjectId } from "bson";
 import { UnitEntity } from "../entities/unit";
 import Unit from "../models/unit.model";
 import logger from "../util/logger";
+import {HttpStatusCode} from "../util/http-status-codes.enum";
 
 
 export class UnitService {
@@ -32,15 +33,15 @@ export class UnitService {
     }
 
     async findAll(): Promise<any> {
-        await Unit.find({}, (err, unit) => {
-            if (!unit) {
-                return { status: false, message: "Not found unit" };
+        await Unit.find({}, (err, units) => {
+            if (!units) {
+                return { statusCode: HttpStatusCode.NOT_FOUND };
             }
             if (!err) {
-                return { status: true, unit: unit };
+                return { statusCode: HttpStatusCode.OK, entities: units };
             } else {
                 logger.error(err.message);
-                return { status: false, message: "Server error" };
+                return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
             }
         });
     }
