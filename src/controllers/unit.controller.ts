@@ -13,11 +13,15 @@ export class HomeController {
     res.send("OK");
   }
   async create(req: Request, res: Response) {
-    console.log(req.body);
     const unit: UnitEntity = new UnitEntity(req.body.name);
     await res.status(400).json( await this.unitService.create(unit));
-    // await res.send( await this.unitService.create(unit) );
   }
+
+  async findByName(req: Request, res: Response) {
+    const name: String = req.param("name");
+    res.status(200).json(JSON.stringify(await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"))));
+  }
+
   async findAll(req: Request, res: Response) {
       await res.status(200).json( await this.unitService.findAll());
   }
