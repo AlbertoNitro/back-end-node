@@ -4,10 +4,13 @@ import app from "../src/app";
 const chai = require("chai");
 const expect = chai.expect;
 
-describe("GET /unit/new", () => {
-    it("should return 200 OK", () => {
-      return request(app).post("/unit/new")
-        .field("name", "Prueba")
-        .expect(200);
+describe("GET /unit", () => {
+    it("should return 200 OK", (done) => {
+      return request(app).post("/unit")
+        .send({"name": "UnidadDePrueba"})
+        .end( (err, res) => {
+          expect("UnidadDePrueba").to.equal(res.body.name);
+          done();
+        });
     });
   });

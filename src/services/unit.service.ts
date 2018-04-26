@@ -2,10 +2,10 @@
 import Relation from "../models/relation.model";
 import { TypeRelation } from "../models/typeralation.enum";
 import { ObjectId } from "bson";
-import Unit from "../models/unit.model";
 import { UnitEntity } from "../entities/unit";
+import Unit from "../models/unit.model";
 export class UnitService {
-    response: String;
+    response: any;
     constructor() {}
     async forceGenerate(unit: String) {
         const relation = new Unit(
@@ -19,10 +19,10 @@ export class UnitService {
         const unit = new Unit(unitEntity);
         await unit.save((err) => {
             if (err) {
-                this.response = "{ success: \"false\", \"message\": \"ERROR: No se ha podido crear la unidad\"}";
+                this.response = unit;
             }
             else {
-                this.response =  "{ success: \"true\", \"unit\":" + unit + "}";
+                this.response =  unit;
             }
         });
         return this.response;

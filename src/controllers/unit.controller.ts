@@ -3,6 +3,7 @@ import Relation from "../models/relation.model";
 import { TypeRelation } from "../models/typeralation.enum";
 import { UnitService } from "../services/unit.service";
 import { UnitEntity } from "../entities/unit";
+
 export class HomeController {
   unitService: UnitService = new UnitService();
   constructor() {
@@ -15,7 +16,9 @@ export class HomeController {
   }
 
   async create(req: Request, res: Response) {
+    console.log(req.body);
     const unit: UnitEntity = new UnitEntity(req.body.name);
-    await res.send( await this.unitService.create(unit) );
+    await res.status(400).json( await this.unitService.create(unit));
+    // await res.send( await this.unitService.create(unit) );
   }
 }
