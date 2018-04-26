@@ -34,4 +34,20 @@ export class UnitService {
         });
         return this.response;
     }
+    async findAll() {
+        return await Unit.find({}, (err, units) => {
+            if (!units) {
+                this.response =  undefined;
+                // return { statusCode: HttpStatusCode.NOT_FOUND };
+            }
+            if (!err) {
+                this.response =  units;
+                // return { statusCode: HttpStatusCode.OK, entities: units };
+            } else {
+                this.response =  undefined;
+                // logger.error(err.message);
+                // return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
+            }
+        });
+    }
 }
