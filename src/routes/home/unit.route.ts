@@ -9,4 +9,8 @@ homeRoutes.post("", (req, res) => {
     homeController.create(req, res);
 });
 
+homeRoutes.get("/search/:name", (req, res) => {
+    homeController.findByName(req, res);
+});
+
 export default homeRoutes;
