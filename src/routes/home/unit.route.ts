@@ -8,7 +8,9 @@ const homeController: HomeController = new HomeController();
 homeRoutes.post("", (req, res) => {
     homeController.create(req, res);
 });
-
+homeRoutes.get("/search/:name", (req, res) => {
+    homeController.findByName(req, res);
+});
 homeRoutes.get("", (req, res) => {
     homeController.findAll(req, res);
 });
