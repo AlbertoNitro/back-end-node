@@ -33,6 +33,7 @@ describe("GET /unit/search/:name", () => {
   it("should return 200 OK", (done) => {
     return request(app).get("/unit/search/:Jav")
     .end( (err, res) => {
+      expect(HttpStatusCode.OK).to.equal(res.status);
       const jsonResponse: UnitEntity[] = res.body;
       expect(0).to.not.equal(jsonResponse.length);
       done();

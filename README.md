@@ -1,3 +1,8 @@
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=sara-2018&metric=alert_status
+)]
+
+[![Build Status](https://travis-ci.org/SARA-2018/back-end-nestjs.svg?branch=develop)](https://travis-ci.org/SARA-2018/back-end-nestjs)
+
 # TypeScript Node Starter
 
 [![Dependency Status](https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg)](https://david-dm.org/Microsoft/TypeScript-Node-Starter) [![Build Status](https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript-Node-Starter) 
