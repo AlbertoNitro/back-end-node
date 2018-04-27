@@ -1,18 +1,18 @@
-import { HomeController } from "../../controllers/unit.controller";
+import { UnitController } from "../../controllers/unit.controller";
 import express from "express";
 import { UnitService } from "../../services/unit.service";
 
 const homeRoutes = express.Router();
-const homeController: HomeController = new HomeController();
+const unitController: UnitController = new UnitController();
 
 homeRoutes.post("", (req, res) => {
-    homeController.create(req, res);
+    unitController.create(req, res);
 });
 homeRoutes.get("/search/:name", (req, res) => {
-    homeController.findByName(req, res);
+    unitController.findByName(req, res);
 });
 homeRoutes.get("", (req, res) => {
-    homeController.findAll(req, res);
+    unitController.findAll(req, res);
 });
 
 export default homeRoutes;
