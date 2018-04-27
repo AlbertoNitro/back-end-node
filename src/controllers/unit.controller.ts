@@ -3,7 +3,7 @@ import { TypeRelation } from "../models/typeralation.enum";
 import { UnitService } from "../services/unit.service";
 import { UnitEntity } from "../entities/unit";
 
-export class HomeController {
+export class UnitController {
   unitService: UnitService = new UnitService();
   constructor() {
   }
