@@ -50,4 +50,8 @@ export class UnitService {
             }
         });
     }
+
+    async findById(id: Number) {
+        return await Unit.findById(id);
+    }
 }

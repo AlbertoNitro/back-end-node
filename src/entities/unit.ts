@@ -2,6 +2,8 @@
 export class UnitEntity {
     private id: Number;
     private name: String;
+    private topUnit: UnitEntity;
+
     constructor(name: String) {
         this.$name = name;
     }
@@ -33,6 +35,21 @@ export class UnitEntity {
      */
     public set $name(value: String) {
         this.name = value;
+    }
+    /**
+     * Getter $topUnit
+     * @return {UnitEntity}
+     */
+    public get $topUnit(): UnitEntity {
+        return this.topUnit;
+    }
+
+    /**
+     * Setter $topUnit
+     * @param {UnitEntity} value
+     */
+    public set $topUnit(value: UnitEntity) {
+        this.topUnit = value;
     }
     public toJson() {
         return "{ name: \"" + this.$name + "\" }";
