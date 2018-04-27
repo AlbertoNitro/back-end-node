@@ -13,7 +13,10 @@ import passport from "passport";
 import expressValidator from "express-validator";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+const cors = require("cors");
+
 import api from "./routes/main.route";
+
 
 const MongoStore = mongo(session);
 
@@ -43,6 +46,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
+app.use(cors());
 
 app.use("/", api);
 
