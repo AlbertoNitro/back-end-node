@@ -14,7 +14,7 @@ export class UnitController {
   }
   async create(req: Request, res: Response) {
     const unit: UnitEntity = new UnitEntity(req.body.name);
-    await res.status(400).json( await this.unitService.create(unit));
+    await res.status(200).json( await this.unitService.create(unit));
   }
 
   async findByName(req: Request, res: Response) {
