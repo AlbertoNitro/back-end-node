@@ -19,28 +19,26 @@ export class UnitController {
   }
 
   async findByName(req: Request, res: Response) {
-    const _unit: UnitEntity[] = [];
     const name: String = req.param("name");
     const units = await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"));
     const response: UnitEntity[] = [];
-    units.forEach(async (unit: any) => {
-      console.log(unit._id);
-      const relation: any = (await this.relationController.findByLowerUnit(unit._id))[0];
-      console.log(unit);
-      console.log("Relations " + relation);
-      if (relation != undefined  ) {
-        console.log(relation.topUnit);
-        const topDocument: any = await this.unitService.findById(relation.topUnit);
-        const topUnit: UnitEntity = new UnitEntity(topDocument.name);
-        topUnit.$id = topDocument._id;
+    console.log(Object.keys(units).length);
+    for (let i = 0 ; i < Object.keys(units).length; i++) {
+      const relations: any = await this.relationController.findByLowerUnit(units[i]._id); // Obtengo las relaciones
+      if (relations[0] != undefined  ) {
+        for (let j = 0 ; j < Object.keys(relations).length; j++) {
+          let unitEntity: UnitEntity = new UnitEntity(units[i].name);
+          const topDocument: any = await this.unitService.findById(relations[j].topUnit);
+          const topUnit: UnitEntity = new UnitEntity(topDocument.name);
+          topUnit.$id = topDocument._id;
+          unitEntity.$id = units[i]._id;
+          unitEntity.$topUnit = topUnit;
+          response.push(unitEntity);
+          unitEntity = undefined;
 
-        const unitEntity: UnitEntity = new UnitEntity(unit.name);
-        unitEntity.$id = unit._id;
-        unitEntity.$topUnit = topUnit;
-        response.push(unitEntity);
-        // console.log(unitEntity);
+        }
       }
-    });
+    }
     res.status(200).json(response);
   }
 

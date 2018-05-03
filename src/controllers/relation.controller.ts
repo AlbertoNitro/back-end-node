@@ -9,8 +9,8 @@ export class RelationController {
     constructor() {
     }
 
-    findByLowerUnit(unit: Number) {
-        return this.relationService.findByLowerUnit(unit);
+    async findByLowerUnit(unit: Number) {
+        return await this.relationService.findByLowerUnit(unit);
     }
 
 }
