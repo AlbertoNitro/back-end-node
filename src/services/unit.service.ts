@@ -19,7 +19,7 @@ export class UnitService {
         const unit = new Unit(unitEntity);
         await unit.save((err) => {
             if (err) {
-                this.response = unit;
+                this.response = undefined;
             }
             else {
                 this.response =  unit;
@@ -49,5 +49,9 @@ export class UnitService {
                 // return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
             }
         });
+    }
+
+    async findById(id: Number) {
+        return await Unit.findById(id);
     }
 }
