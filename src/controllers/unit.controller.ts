@@ -22,9 +22,12 @@ export class UnitController {
     const _unit: UnitEntity[] = [];
     const name: String = req.param("name");
     const units = await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"));
-    // console.log(units[0]._id);
+    const response: UnitEntity[] = [];
     units.forEach(async (unit: any) => {
+      console.log(unit._id);
       const relation: any = (await this.relationController.findByLowerUnit(unit._id))[0];
+      console.log(unit);
+      console.log("Relations " + relation);
       if (relation != undefined  ) {
         console.log(relation.topUnit);
         const topDocument: any = await this.unitService.findById(relation.topUnit);
@@ -34,11 +37,11 @@ export class UnitController {
         const unitEntity: UnitEntity = new UnitEntity(unit.name);
         unitEntity.$id = unit._id;
         unitEntity.$topUnit = topUnit;
-        // console.log(unitEntity.$topUnit.$name);
-        console.log(JSON.stringify(unitEntity));
-        res.status(200).json(unitEntity);
+        response.push(unitEntity);
+        // console.log(unitEntity);
       }
     });
+    res.status(200).json(response);
   }
 
   async findAll(req: Request, res: Response) {
