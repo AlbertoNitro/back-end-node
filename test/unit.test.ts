@@ -10,11 +10,24 @@ describe("POST /unit", () => {
     it("should return 200 OK", (done) => {
       return request(app).post("/unit")
         .send({"name": "UnidadDePrueba"})
-        .end( (err, res) => {
+        .end( async (err, res) => {
           expect("UnidadDePrueba").to.equal(res.body.name);
+          await request(app).delete("/unit/" + res.body._id);
           done();
         });
     });
+});
+
+describe("DELETE /unit", () => {
+  it("should return 200 OK", (done) => {
+    return request(app).post("/unit")
+      .send({"name": "UnidadDePrueba"})
+      .end( async (err, res) => {
+        expect("UnidadDePrueba").to.equal(res.body.name);
+        await request(app).delete("/unit/" + res.body._id);
+        done();
+      });
+  });
 });
 
 describe("GET /unit", () => {
