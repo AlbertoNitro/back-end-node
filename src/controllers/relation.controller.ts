@@ -13,5 +13,17 @@ export class RelationController {
         return await this.relationService.findByLowerUnit(unit);
     }
 
+    async deleteByConexion(id: Number) {
+        await this.deleteByTop(id);
+        await this.deleteByDown(id);
+    }
+    async deleteByTop(id: Number) {
+        await this.relationService.deleteByTop(id);
+    }
+
+    async deleteByDown(id: Number) {
+        await this.relationService.deleteByDown(id);
+    }
+
 }
 

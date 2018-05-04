@@ -8,11 +8,6 @@ export class UnitController {
   relationController: RelationController = new RelationController();
   constructor() {
   }
-  forceCreateUnit(req: Request, res: Response): void {
-    const unit = "{ type: " + TypeRelation.USE + ", topUnit: new ObjectId(\"5adf231d85dded040f3f6d03\"), lowerUnit: new ObjectId(\"5adf231d85dded040f3f6d03\")}";
-    this.unitService.forceGenerate(unit);
-    res.send("OK");
-  }
   async create(req: Request, res: Response) {
     const unit: UnitEntity = new UnitEntity(req.body.name);
     await res.status(200).json( await this.unitService.create(unit));
@@ -47,5 +42,11 @@ export class UnitController {
 
   async findAll(req: Request, res: Response) {
       await res.status(200).json( await this.unitService.findAll());
+  }
+
+  async delete(req: Request, res: Response) {
+      await this.relationController.deleteByConexion(req.params.id);
+      await res.status(200).json( await this.unitService.delete(req.params.id));
+
   }
 }
