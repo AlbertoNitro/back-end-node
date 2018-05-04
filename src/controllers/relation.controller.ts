@@ -17,8 +17,12 @@ export class RelationController {
     }
     async create(req: Request, res: Response): Promise<any> {
         const relationDto: RelationDto = req.body;
+        /*
+        if (!isValid)
+        res.status(HttpStatusCode.BAD_REQUEST)
+         */
         const relation: RelationEntity = await this.relationService.create(relationDto);
-        relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.BAD_REQUEST);
+        relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
     }
 }
 
