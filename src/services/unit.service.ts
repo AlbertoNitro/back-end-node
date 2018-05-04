@@ -7,14 +7,6 @@ import Unit from "../models/unit.model";
 export class UnitService {
     response: any;
     constructor() {}
-    async forceGenerate(unit: String) {
-        const relation = new Unit(
-            {
-              name: "prueba",
-            }
-          );
-          await relation.save();
-    }
     async create(unitEntity: UnitEntity) {
         const unit = new Unit(unitEntity);
         await unit.save((err) => {
@@ -53,5 +45,9 @@ export class UnitService {
 
     async findById(id: Number) {
         return await Unit.findById(id);
+    }
+
+    async delete(_id: Number) {
+        return await Unit.deleteOne({_id});
     }
 }

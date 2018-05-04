@@ -7,7 +7,15 @@ import Unit from "../models/unit.model";
 
 
 export class RelationService {
-    async findByLowerUnit(unit: Number) {
-        return await Relation.find({ lowerUnit: unit.toString() });
+    async findByLowerUnit(id: Number) {
+        return await Relation.find({ lowerUnit: id.toString() });
+    }
+
+    async deleteByTop(_id: Number) {
+        await Relation.deleteOne({ topUnit: _id });
+    }
+
+    async deleteByDown(_id: Number) {
+        await Relation.deleteOne({ lowerUnit: _id });
     }
 }

@@ -14,5 +14,8 @@ homeRoutes.get("/search/:name", (req, res) => {
 homeRoutes.get("", (req, res) => {
     unitController.findAll(req, res);
 });
+homeRoutes.delete("/:id", (req, res) => {
+    unitController.delete(req, res);
+});
 
 export default homeRoutes;
