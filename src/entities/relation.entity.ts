@@ -1,5 +1,5 @@
 import { TypeRelation } from "../models/typeralation.enum";
-import { UnitEntity } from "./unit";
+import { UnitEntity } from "./unit.entity";
 
 export class RelationEntity {
     private id: Number;

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { TypeRelation } from "../models/typeralation.enum";
 import { RelationService } from "../services/relation.service";
-import { UnitEntity } from "../entities/unit";
+import { UnitEntity } from "unit.entity.ts";
 
 export class RelationController {
 

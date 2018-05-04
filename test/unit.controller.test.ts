@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../src/app";
-import { UnitEntity } from "../src/entities/unit";
+import { UnitEntity } from "unit.entity.ts";
 import { HttpStatusCode } from "../src/util/http-status-codes.enum";
 
 const chai = require("chai");
