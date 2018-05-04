@@ -10,7 +10,7 @@ export class UnitController {
   }
   async create(req: Request, res: Response) {
     const unit: UnitEntity = new UnitEntity(req.body.name);
-    await res.status(200).json( await this.unitService.create(unit));
+    res.status(200).json( await this.unitService.create(unit));
   }
 
   async findByName(req: Request, res: Response) {
@@ -41,12 +41,12 @@ export class UnitController {
   }
 
   async findAll(req: Request, res: Response) {
-      await res.status(200).json( await this.unitService.findAll());
+      res.status(200).json( await this.unitService.findAll());
   }
 
   async delete(req: Request, res: Response) {
       await this.relationController.deleteByConexion(req.params.id);
-      await res.status(200).json( await this.unitService.delete(req.params.id));
+      res.status(200).json( await this.unitService.delete(req.params.id));
 
   }
 }

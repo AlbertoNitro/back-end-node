@@ -9,19 +9,19 @@ export class RelationController {
     constructor() {
     }
 
-    async findByLowerUnit(unit: Number) {
+    async findByLowerUnit(unit: number) {
         return await this.relationService.findByLowerUnit(unit);
     }
 
-    async deleteByConexion(id: Number) {
+    async deleteByConexion(id: number) {
         await this.deleteByTop(id);
         await this.deleteByDown(id);
     }
-    async deleteByTop(id: Number) {
+    async deleteByTop(id: number) {
         await this.relationService.deleteByTop(id);
     }
 
-    async deleteByDown(id: Number) {
+    async deleteByDown(id: number) {
         await this.relationService.deleteByDown(id);
     }
 
