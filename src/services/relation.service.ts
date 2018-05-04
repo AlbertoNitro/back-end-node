@@ -11,10 +11,11 @@ export class RelationService {
     constructor() {
         this.unitService = new UnitService();
     }
-export class RelationService {
+
     async findByLowerUnit(id: Number) {
         return await Relation.find({ lowerUnit: id.toString() });
     }
+
     async create(relationDto: RelationDto): Promise<RelationEntity> {
         const topUnit: UnitEntity = await this.unitService.findById(relationDto.idTopUnit);
         const lowerUnit: UnitEntity = await this.unitService.findById(relationDto.idLowerUnit);
