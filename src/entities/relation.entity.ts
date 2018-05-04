@@ -2,10 +2,16 @@ import { TypeRelation } from "../models/typeralation.enum";
 import { UnitEntity } from "./unit.entity";
 
 export class RelationEntity {
-    private id: Number;
+    private _id: Number;
     private type: TypeRelation;
     private topUnit: UnitEntity;
     private lowerUnit: UnitEntity;
+
+    constructor(type: TypeRelation, topUnit: UnitEntity, lowerUnit: UnitEntity) {
+        this.type = type;
+        this.topUnit = topUnit;
+        this.lowerUnit = lowerUnit;
+    }
     /**
      * Getter $type
      * @return {TypeRelation}
@@ -23,19 +29,19 @@ export class RelationEntity {
     }
 
     /**
-     * Getter $id
+     * Getter $_id
      * @return {Number}
      */
     public get $id(): Number {
-        return this.id;
+        return this._id;
     }
 
     /**
-     * Setter $id
+     * Setter $_id
      * @param {Number} value
      */
     public set $id(value: Number) {
-        this.id = value;
+        this._id = value;
     }
 
     /**
