@@ -11,8 +11,9 @@ export class RelationService {
     constructor() {
         this.unitService = new UnitService();
     }
-    async findByLowerUnit(unit: Number) {
-        return await Relation.find({ lowerUnit: unit.toString() });
+export class RelationService {
+    async findByLowerUnit(id: Number) {
+        return await Relation.find({ lowerUnit: id.toString() });
     }
     async create(relationDto: RelationDto): Promise<RelationEntity> {
         const topUnit: UnitEntity = await this.unitService.findById(relationDto.idTopUnit);
@@ -26,5 +27,13 @@ export class RelationService {
             .catch ( err => {
                 return undefined;
             });
+    }
+
+    async deleteByTop(_id: Number) {
+        await Relation.deleteOne({ topUnit: _id });
+    }
+
+    async deleteByDown(_id: Number) {
+        await Relation.deleteOne({ lowerUnit: _id });
     }
 }

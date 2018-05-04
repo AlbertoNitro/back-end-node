@@ -12,9 +12,10 @@ export class RelationController {
         this.relationService = new RelationService();
     }
 
-    async findByLowerUnit(unit: Number) {
+    async findByLowerUnit(unit: number) {
         return await this.relationService.findByLowerUnit(unit);
     }
+    
     async create(req: Request, res: Response): Promise<any> {
         const relationDto: RelationDto = req.body;
         /*
@@ -23,6 +24,19 @@ export class RelationController {
          */
         const relation: RelationEntity = await this.relationService.create(relationDto);
         relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
+    }
+    
+    async deleteByConexion(id: number) {
+        await this.deleteByTop(id);
+        await this.deleteByDown(id);
+    }
+    
+    async deleteByTop(id: number) {
+        await this.relationService.deleteByTop(id);
+    }
+    
+    async deleteByDown(id: number) {
+        await this.relationService.deleteByDown(id);
     }
 }
 
