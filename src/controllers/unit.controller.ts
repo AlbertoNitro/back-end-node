@@ -38,6 +38,9 @@ export class UnitController {
 
         }
       }
+      else {
+        response.push(units[i]);
+      }
     }
     res.status(200).json(response);
   }
