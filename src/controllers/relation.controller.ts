@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { TypeRelation } from "../models/typeralation.enum";
 import { RelationService } from "../services/relation.service";
-import { UnitEntity } from "unit.entity.ts";
+import {RelationEntity} from "../entities/relation.entity";
+import Relation from "../models/relation.model";
 
 export class RelationController {
 
@@ -11,6 +12,13 @@ export class RelationController {
 
     async findByLowerUnit(unit: Number) {
         return await this.relationService.findByLowerUnit(unit);
+    }
+
+    async create(req: Request, res: Response) {
+        const relationDto: RelationEntity = req.body;
+        console.log(relationDto);
+        const relation: Relation = await this.relationService.create(relationDto);
+        console.log(relation);
     }
 
 }

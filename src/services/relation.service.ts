@@ -1,13 +1,21 @@
-import mongoose from "mongoose";
+import { RelationEntity } from "../entities/relation.entity";
 import Relation from "../models/relation.model";
-import { TypeRelation } from "../models/typeralation.enum";
-import { ObjectId } from "bson";
-import { UnitEntity } from "unit.entity.ts";
-import Unit from "../models/unit.model";
 
 
 export class RelationService {
+    constructor() {}
+
     async findByLowerUnit(unit: Number) {
         return await Relation.find({ lowerUnit: unit.toString() });
+    }
+    async create(relationEntity: RelationEntity): Promise<Relation> {
+        const relation = new Relation(relationEntity);
+        relation.save()
+            .then( (relation: Relation) => {
+                return relation;
+            })
+            .catch ( err => {
+                return undefined;
+            });
     }
 }
