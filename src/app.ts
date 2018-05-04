@@ -32,7 +32,7 @@ const app = express();
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
-(<any>mongoose).Promise = bluebird;
+mongoose.Promise = Promise;
 mongoose.connect(mongoUrl, {useMongoClient: true}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
