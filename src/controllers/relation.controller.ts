@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { TypeRelation } from "../models/typeralation.enum";
 import { RelationService } from "../services/relation.service";
-import {RelationEntity} from "../entities/relation.entity";
-import Relation from "../models/relation.model";
+import { RelationEntity } from "../entities/relation.entity";
+import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { RelationDto } from "../dtos/relation.dto";
 
 export class RelationController {
 
@@ -15,10 +15,9 @@ export class RelationController {
     }
 
     async create(req: Request, res: Response) {
-        const relationDto: RelationEntity = req.body;
-        console.log(relationDto);
-        const relation: Relation = await this.relationService.create(relationDto);
-        console.log(relation);
+        const relationDto: RelationDto = req.body;
+        const relation = await this.relationService.create(relationDto);
+        relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.BAD_REQUEST);
     }
 
 }

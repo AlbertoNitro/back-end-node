@@ -1,6 +1,6 @@
 
-export class UnitEntity {
-    private id: Number;
+export class UnitEntity  {
+    private _id: Number;
     private name: String;
     private topUnit: UnitEntity;
 
@@ -8,18 +8,18 @@ export class UnitEntity {
         this.$name = name;
     }
     /**
-     * Getter $id
+     * Getter $_id
      * @return {Number}
      */
     public get $id(): Number {
-        return this.id;
+        return this._id;
     }
     /**
-     * Setter $id
+     * Setter $_id
      * @param {Number} value
      */
     public set $id(value: Number) {
-        this.id = value;
+        this._id = value;
     }
     /**
      * Getter $name
