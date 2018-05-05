@@ -2,10 +2,9 @@ import { Request, Response } from "express";
 import { RelationService } from "../services/relation.service";
 import { RelationEntity } from "../entities/relation.entity";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
-import { RelationDto } from "../dtos/relation.dto";
+import { RelationInputDto } from "../dtos/relationInput.dto";
 
 export class RelationController {
-
     private relationService: RelationService;
 
     constructor() {
@@ -16,7 +15,7 @@ export class RelationController {
         return await this.relationService.findByLowerUnit(unit);
     }
     async create(req: Request, res: Response): Promise<any> {
-        const relationDto: RelationDto = req.body;
+        const relationDto: RelationInputDto = req.body;
         /*
         if (!isValid)
         res.status(HttpStatusCode.BAD_REQUEST)
