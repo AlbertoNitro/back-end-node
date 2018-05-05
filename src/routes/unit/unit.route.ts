@@ -1,6 +1,5 @@
 import { UnitController } from "../../controllers/unit.controller";
 import express from "express";
-import { UnitService } from "../../services/unit.service";
 
 const unitRoutes = express.Router();
 const unitController: UnitController = new UnitController();

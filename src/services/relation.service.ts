@@ -1,9 +1,8 @@
 import { RelationEntity } from "../entities/relation.entity";
 import Relation from "../models/relation.model";
-import { RelationDto } from "../dtos/relation.dto";
 import { UnitService } from "./unit.service";
-import Unit from "../models/unit.model";
 import { UnitEntity } from "../entities/unit.entity";
+import { RelationInputDto } from "../dtos/relationInput.dto";
 
 export class RelationService {
     private unitService: UnitService;
@@ -15,7 +14,7 @@ export class RelationService {
     async findByLowerUnit(id: Number) {
         return await Relation.find({ lowerUnit: id.toString() });
     }
-    async create(relationDto: RelationDto): Promise<RelationEntity> {
+    async create(relationDto: RelationInputDto): Promise<RelationEntity> {
         const topUnit: UnitEntity = await this.unitService.findById(relationDto.idTopUnit);
         const lowerUnit: UnitEntity = await this.unitService.findById(relationDto.idLowerUnit);
         const relationEntity: RelationEntity = new RelationEntity(relationDto.type, lowerUnit, topUnit);

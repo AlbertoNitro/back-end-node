@@ -1,57 +1,28 @@
-
 export class UnitEntity  {
-    private _id: Number;
-    private name: String;
+    private _id: number;
+    private name: string;
     private topUnit: UnitEntity;
 
-    constructor(name: String) {
+    constructor(name: string) {
         this.$name = name;
     }
-    /**
-     * Getter $_id
-     * @return {Number}
-     */
-    public get $id(): Number {
+
+    public get $id(): number {
         return this._id;
     }
-    /**
-     * Setter $_id
-     * @param {Number} value
-     */
-    public set $id(value: Number) {
+    public set $id(value: number) {
         this._id = value;
     }
-    /**
-     * Getter $name
-     * @return {String}
-     */
-    public get $name(): String {
+    public get $name(): string {
         return this.name;
     }
-
-    /**
-     * Setter $name
-     * @param {String} value
-     */
-    public set $name(value: String) {
+    public set $name(value: string) {
         this.name = value;
     }
-    /**
-     * Getter $topUnit
-     * @return {UnitEntity}
-     */
     public get $topUnit(): UnitEntity {
         return this.topUnit;
     }
-
-    /**
-     * Setter $topUnit
-     * @param {UnitEntity} value
-     */
     public set $topUnit(value: UnitEntity) {
         this.topUnit = value;
-    }
-    public toJson() {
-        return "{ name: \"" + this.$name + "\" }";
     }
 }
