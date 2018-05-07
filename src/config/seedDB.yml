@@ -1,0 +1,70 @@
+# Units
+units:
+- &unit0
+    name: Unidad0 # ROOT
+    topUnit:
+- &unit1
+    name: Unidad1
+    topUnit: *unit0 #INHERIT
+- &unit2
+    name: Unidad2
+    topUnit: *unit0 #INHERIT
+- &unit3
+    name: Unidad3
+    topUnit: *unit1 #COMPOSE
+- &unit4
+    name: Unidad4
+    topUnit: *unit2 #COMPOSE
+- &unit5
+    name: Unidad5
+    topUnit: *unit1 #USE
+- &unit6
+    name: Unidad6
+    topUnit: *unit2 #USE
+- &unit7
+    name: Unidad7
+    topUnit: *unit1 #ASOCIATION
+- &unit8
+    name: Unidad8
+    topUnit: *unit2 #ASOCIATION
+- &unit9
+    name: Unidad9
+    topUnit: *unit0 #NO_RELATIONED
+- &unit10
+    name: Unidad10
+    topUnit: *unit0 #NO_RELATIONED
+
+# Relations
+relations:
+- &relation0
+    type: INHERIT
+    topUnit: *unit0
+    lowerUnit: *unit1
+- &relation1
+    type: INHERIT
+    topUnit: *unit0
+    lowerUnit: *unit2
+- &relation2
+    type: COMPOSE
+    topUnit: *unit1
+    lowerUnit: *unit3
+- &relation3
+    type: COMPOSE
+    topUnit: *unit2
+    lowerUnit: *unit4
+- &relation4
+    type: USE
+    topUnit: *unit1
+    lowerUnit: *unit5
+- &relation5
+    type: USE
+    topUnit: *unit2
+    lowerUnit: *unit6
+- &relation6
+    type: ASOCIATION
+    topUnit: *unit1
+    lowerUnit: *unit7
+- &relation7
+    type: ASOCIATION
+    topUnit: *unit2
+    lowerUnit: *unit8
