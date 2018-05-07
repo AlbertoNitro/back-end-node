@@ -1,7 +1,7 @@
 import request from "supertest";
-import app from "../src/app";
-import { UnitEntity } from "../src/entities/unit";
-import { HttpStatusCode } from "../src/util/http-status-codes.enum";
+import app from "../../src/app";
+import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
+import { UnitEntity } from "../../src/entities/unit.entity";
 
 const chai = require("chai");
 const expect = chai.expect;

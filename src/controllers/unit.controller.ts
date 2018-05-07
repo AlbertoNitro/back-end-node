@@ -1,20 +1,23 @@
 import { Request, Response } from "express";
-import { TypeRelation } from "../models/typeralation.enum";
 import { UnitService } from "../services/unit.service";
-import { UnitEntity } from "../entities/unit";
-import { RelationController } from "../controllers/relation.controller";
+import { UnitEntity } from "../entities/unit.entity";
+import { RelationController } from "./relation.controller";
+
 export class UnitController {
-  unitService: UnitService = new UnitService();
-  relationController: RelationController = new RelationController();
+  private unitService: UnitService;
+  private relationController: RelationController;
+
   constructor() {
+    this.unitService = new UnitService();
+    this.relationController = new RelationController();
   }
+
   async create(req: Request, res: Response) {
     const unit: UnitEntity = new UnitEntity(req.body.name);
     res.status(200).json( await this.unitService.create(unit));
   }
-
   async findByName(req: Request, res: Response) {
-    const name: String = req.param("name");
+    const name: String = req.params.name;
     const units = await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"));
     const response: UnitEntity[] = [];
     console.log(Object.keys(units).length);
@@ -39,11 +42,9 @@ export class UnitController {
     }
     res.status(200).json(response);
   }
-
   async findAll(req: Request, res: Response) {
       res.status(200).json( await this.unitService.findAll());
   }
-
   async delete(req: Request, res: Response) {
       await this.relationController.deleteByConexion(req.params.id);
       res.status(200).json( await this.unitService.delete(req.params.id));

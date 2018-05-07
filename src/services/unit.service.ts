@@ -1,9 +1,6 @@
-import mongoose from "mongoose";
-import Relation from "../models/relation.model";
-import { TypeRelation } from "../models/typeralation.enum";
-import { ObjectId } from "bson";
-import { UnitEntity } from "../entities/unit";
+import { UnitEntity } from "../entities/unit.entity";
 import Unit from "../models/unit.model";
+
 export class UnitService {
     response: any;
     constructor() {}
@@ -43,8 +40,14 @@ export class UnitService {
         });
     }
 
-    async findById(id: Number) {
-        return await Unit.findById(id);
+    async findById(id: number): Promise<UnitEntity> {
+        return await Unit.findById(id)
+            .then( unit => {
+                return unit;
+            })
+            .catch ( err => {
+                return undefined;
+            });
     }
 
     async delete(_id: Number) {

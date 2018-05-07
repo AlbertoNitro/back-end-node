@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-const AutoIncrement = require("mongoose-sequence")(mongoose);
 
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 const UnitSchema = new mongoose.Schema({
-    name: String,
+    name: { type: String, required: true },
 }, { _id: false });
 UnitSchema.plugin(AutoIncrement);
 
