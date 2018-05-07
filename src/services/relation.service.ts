@@ -17,7 +17,7 @@ export class RelationService {
     async create(relationDto: RelationInputDto): Promise<RelationEntity> {
         const topUnit: UnitEntity = await this.unitService.findById(relationDto.idTopUnit);
         const lowerUnit: UnitEntity = await this.unitService.findById(relationDto.idLowerUnit);
-        const relationEntity: RelationEntity = new RelationEntity(relationDto.type, lowerUnit, topUnit);
+        const relationEntity: RelationEntity = new RelationEntity(relationDto.type, topUnit, lowerUnit);
         const relation = new Relation(relationEntity);
         return relation.save()
             .then( relation => {
