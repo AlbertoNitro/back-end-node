@@ -1,36 +1,47 @@
 # Units
 units:
 - &unit0
+    _id: 0
     name: Unidad0 # ROOT
-    topUnit:
+    topUnit: undefined
 - &unit1
+    _id: 1
     name: Unidad1
     topUnit: *unit0 #INHERIT
 - &unit2
+    _id: 2
     name: Unidad2
     topUnit: *unit0 #INHERIT
 - &unit3
+    _id: 3
     name: Unidad3
     topUnit: *unit1 #COMPOSE
 - &unit4
+    _id: 4
     name: Unidad4
     topUnit: *unit2 #COMPOSE
 - &unit5
+    _id: 5
     name: Unidad5
     topUnit: *unit1 #USE
 - &unit6
+    _id: 6
     name: Unidad6
     topUnit: *unit2 #USE
 - &unit7
+    _id: 7
     name: Unidad7
     topUnit: *unit1 #ASOCIATION
 - &unit8
+    _id: 8
     name: Unidad8
     topUnit: *unit2 #ASOCIATION
 - &unit9
+    _id: 9
     name: Unidad9
     topUnit: *unit0 #NO_RELATIONED
 - &unit10
+    _id: 10
     name: Unidad10
     topUnit: *unit0 #NO_RELATIONED
 

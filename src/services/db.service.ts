@@ -1,7 +1,5 @@
 import fs from "fs";
 import { MONGODB_URI } from "../util/secrets";
-import { Response } from "express";
-import mongoose from "mongoose";
 import dookie from "dookie";
 import logger from "../util/logger";
 
@@ -13,12 +11,12 @@ export class DbService {
     }
 
     seedDb(): Promise<boolean> {
-        const contents = fs.readFileSync("../config/test.yml", "utf8");
+        const contents = fs.readFileSync("./src/config/test.yml", "utf8");
         const parsed = this.yaml.safeLoad(contents);
         // const backupDb = JSON.parse(fs.readFileSync("../config/backupDb.json", "utf8"));
          return dookie.push(MONGODB_URI, parsed)
              .then(() => {
-                 logger.info(" >Base de datos poblada");
+                 logger.info("Base de datos poblada");
                 return true;
              })
              .catch ( err => {
@@ -28,9 +26,9 @@ export class DbService {
     }
     saveDbInBackup(): Promise<boolean> {
          return dookie.pull(MONGODB_URI)
-             .then((res: Response) => {
-                fs.writeFileSync("../config/backupDb.json", res);
-                logger.info(" >Backup de base de datos realizada en: /config/backupDb.json");
+             .then((res) => {
+                fs.writeFileSync("./src/config/backupDb.json", res);
+                logger.info("Backup de base de datos realizada en: /config/backupDb.json");
                 return true;
             })
             .catch ( err => {
