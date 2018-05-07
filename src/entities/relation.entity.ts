@@ -2,40 +2,67 @@
 import { UnitEntity } from "./unit.entity";
 import { TypeRelation } from "../models/typeRelation.enum";
 
+export class RelationBuilder {
+    private _id: number;
+    private type: TypeRelation;
+    private topUnit: UnitEntity;
+    private lowerUnit: UnitEntity;
+    constructor() {}
+    get Id() {
+        return this._id;
+    }
+    setId(id: number) {
+        this._id = id;
+        return this;
+    }
+    get Type() {
+        return this.type;
+    }
+    setType(type: TypeRelation) {
+        this.type = type;
+        return this;
+    }
+    get TopUnit() {
+        return this.topUnit;
+    }
+    setTopUnit(topUnit: UnitEntity) {
+        this.topUnit = topUnit;
+        return this;
+    }
+
+    get LowerUnit() {
+        return this.lowerUnit;
+    }
+    setLowerUnit(lowerUnit: UnitEntity) {
+        this.lowerUnit = lowerUnit;
+        return this;
+    }
+    build() {
+        return new RelationEntity(this);
+    }
+}
 export class RelationEntity {
     private _id: number;
     private type: TypeRelation;
     private topUnit: UnitEntity;
     private lowerUnit: UnitEntity;
 
-    constructor(type: TypeRelation, topUnit: UnitEntity, lowerUnit: UnitEntity) {
-        this.type = type;
-        this.topUnit = topUnit;
-        this.lowerUnit = lowerUnit;
+    constructor(builder: RelationBuilder) {
+        this.type = builder.Type;
+        this.topUnit = builder.TopUnit;
+        this.lowerUnit = builder.LowerUnit;
     }
 
-    public get $type(): TypeRelation {
-        return this.type;
-    }
-    public set $type(value: TypeRelation) {
-        this.type = value;
-    }
-    public get $id(): number {
+    get Id() {
         return this._id;
     }
-    public set $id(value: number) {
-        this._id = value;
+    get Type() {
+        return this.type;
     }
-    public get $topUnit(): UnitEntity {
+    get TopUnit() {
         return this.topUnit;
     }
-    public set $topUnit(value: UnitEntity) {
-        this.topUnit = value;
-    }
-    public get $lowerUnit(): UnitEntity {
+    get LowerUnit() {
         return this.lowerUnit;
-    }
-    public set $lowerUnit(value: UnitEntity) {
-        this.lowerUnit = value;
     }
 }
