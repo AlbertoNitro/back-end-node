@@ -23,6 +23,9 @@ export class RelationEntity {
     public get $id(): number {
         return this._id;
     }
+    public set $id(value: number) {
+        this._id = value;
+    }
     public get $topUnit(): UnitEntity {
         return this.topUnit;
     }
