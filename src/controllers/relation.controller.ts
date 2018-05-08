@@ -23,15 +23,21 @@ export class RelationController {
         const relation: RelationEntity = await this.relationService.create(relationDto);
         relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
     }
-    async deleteByConexion(id: number) {
-        await this.deleteByTop(id);
-        await this.deleteByDown(id);
+    async deleteByConexion(id: number): Promise<boolean> {
+        const deleteByTopStatus: Boolean = await this.deleteByTop(id);
+        const deleteByLowerStatus: Boolean = await this.deleteByDown(id);
+        if ( deleteByTopStatus === true && deleteByLowerStatus === true) {
+            return deleteByTopStatus;
+        }
+        else {
+            return undefined;
+        }
     }
-    async deleteByTop(id: number) {
-        await this.relationService.deleteByTop(id);
+    async deleteByTop(id: number): Promise<Boolean> {
+        return await this.relationService.deleteByTop(id);
     }
-    async deleteByDown(id: number) {
-        await this.relationService.deleteByDown(id);
+    async deleteByDown(id: number): Promise<Boolean> {
+        return await this.relationService.deleteByDown(id);
     }
 }
 
