@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UnitService } from "../services/unit.service";
-import { UnitEntity, UnitBuilder } from "../entities/unit.entity";
+import { UnitEntity } from "../entities/unit.entity";
 import { RelationController } from "./relation.controller";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 
