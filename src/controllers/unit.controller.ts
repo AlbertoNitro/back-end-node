@@ -54,19 +54,14 @@ export class UnitController {
           res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
       }
   }
-  async delete(req: Request, res: Response) {
-    if ( await this.unitService.findById(req.params.id) == undefined ) {
-      res.status(HttpStatusCode.NOT_FOUND).json({});
-    }
-    else {
-      const unitDeleteStatus: Boolean = await this.unitService.delete(req.params.id);
-      const relationsDeleteStatus: Boolean = await this.relationController.deleteByConexion(req.params.id);
-      if ( unitDeleteStatus === true && relationsDeleteStatus === true) {
-        res.status(HttpStatusCode.NO_CONTENT).json({});
+  async delete(req: Request, res: Response): Promise<any> {
+      const unit: UnitEntity = await this.unitService.findById(req.params.id);
+      if (unit) {
+          const statusDeleteUnit: boolean = await this.unitService.delete(req.params.id);
+          const statusDeleteRelations: boolean = await this.relationController.deleteByConexion(req.params.id);
+          statusDeleteUnit && statusDeleteRelations ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+      } else {
+          res.status(HttpStatusCode.NOT_FOUND).end();
       }
-      else {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({});
-      }
-    }
   }
 }

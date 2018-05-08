@@ -20,14 +20,25 @@ describe("POST /unit", () => {
 });
 
 describe("DELETE /unit", () => {
-  it("should return 200 OK", (done) => {
-    return request(app).post("/unit")
-      .send({"_id": 10})
+  it("should return 404 - NOT FOUND", (done) => {
+    return request(app).delete("/unit")
+      .send({"id": 9999})
       .end( async (err, res) => {
-          expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+          expect(HttpStatusCode.NOT_FOUND).to.equal(res.status);
         done();
       });
   });
+});
+
+describe("DELETE /unit", () => {
+    it("should return 204 - NOT CONTENT", (done) => {
+        return request(app).delete("/unit")
+            .send({"id": 138})
+            .end( async (err, res) => {
+                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                done();
+            });
+    });
 });
 
 describe("GET /unit", () => {
