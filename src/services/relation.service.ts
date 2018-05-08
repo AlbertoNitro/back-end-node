@@ -10,8 +10,14 @@ export class RelationService {
         this.unitService = new UnitService();
     }
 
-    async findByLowerUnit(id: Number) {
-        return await Relation.find({ lowerUnit: id.toString() });
+    async findByLowerUnit(id: Number): Promise<RelationEntity> {
+        return await Relation.find({ lowerUnit: id.toString() })
+        .then( relation => {
+            return relation;
+        })
+        .catch ( err => {
+            return undefined;
+        });
     }
     async create(relationDto: RelationInputDto): Promise<RelationEntity> {
         const topUnit: UnitEntity = await this.unitService.findById(relationDto.idTopUnit);
