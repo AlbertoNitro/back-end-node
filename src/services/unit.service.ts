@@ -45,8 +45,8 @@ export class UnitService {
                 return undefined;
             });
     }
-    async delete(_id: number): Promise<boolean> {
-        return await Unit.deleteOne({_id})
+    async delete(id: number): Promise<boolean> {
+        return await Unit.deleteOne({id})
             .then( unit => {
                 return true;
             })

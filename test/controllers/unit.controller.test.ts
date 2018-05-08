@@ -32,7 +32,7 @@ describe("DELETE /unit", () => {
 
 describe("DELETE /unit", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const idUnit = 6;
+        const idUnit = 0;
         return request(app).delete("/unit/" + idUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
