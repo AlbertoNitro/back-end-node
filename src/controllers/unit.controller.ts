@@ -15,33 +15,13 @@ export class UnitController {
 
   async create(req: Request, res: Response): Promise<any> {
     const unit: UnitEntity = await this.unitService.create(req.body.name);
-    unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
+    unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
-  /*
   async findByName(req: Request, res: Response) {
-    const name: String = req.params.name;
-    const units = await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"));
-    const response: UnitEntity[] = [];
-    console.log(Object.keys(units).length);
-    for (let i = 0 ; i < Object.keys(units).length; i++) {
-      const relations: any = await this.relationController.findByLowerUnit(units[i]._id);
-      if (relations[0] != undefined  ) {
-        for (let j = 0 ; j < Object.keys(relations).length; j++) {
-          const topDocument: any = await this.unitService.findById(relations[j].topUnit);
-          const topUnit: UnitEntity = new UnitBuilder(topDocument.name).setId(topDocument._id).build();
-          let unitEntity: UnitEntity = new UnitBuilder(units[i].name).setId(units[i]._id).setTopUnit(topUnit).build();
-          response.push(unitEntity);
-          unitEntity = undefined;
-
-        }
-      }
-      else {
-        response.push(units[i]);
-      }
-    }
-    res.status(200).json(response);
+    const name: string = req.params.name;
+    const units: UnitEntity[] = await this.unitService.findByName(name);
+    units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
-  */
   async findAll(req: Request, res: Response): Promise<any> {
       const units: UnitEntity[] = await this.unitService.findAll();
       units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
