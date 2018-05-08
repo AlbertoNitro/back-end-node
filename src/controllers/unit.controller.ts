@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UnitService } from "../services/unit.service";
 import { UnitEntity, UnitBuilder } from "../entities/unit.entity";
 import { RelationController } from "./relation.controller";
+import { HttpStatusCode } from "../util/http-status-codes.enum";
 
 export class UnitController {
   private unitService: UnitService;
@@ -22,7 +23,7 @@ export class UnitController {
     const response: UnitEntity[] = [];
     console.log(Object.keys(units).length);
     for (let i = 0 ; i < Object.keys(units).length; i++) {
-      const relations: any = await this.relationController.findByLowerUnit(units[i]._id); // Obtengo las relaciones
+      const relations: any = await this.relationController.findByLowerUnit(units[i]._id);
       if (relations[0] != undefined  ) {
         for (let j = 0 ; j < Object.keys(relations).length; j++) {
           const topDocument: any = await this.unitService.findById(relations[j].topUnit);
@@ -43,8 +44,9 @@ export class UnitController {
       res.status(200).json( await this.unitService.findAll());
   }
   async delete(req: Request, res: Response) {
-      await this.relationController.deleteByConexion(req.params.id);
-      res.status(200).json( await this.unitService.delete(req.params.id));
+      const unitDeleteStatus: Boolean = await this.unitService.delete(req.params.id);
+      const relationsDeleteStatus: Boolean = await this.relationController.deleteByConexion(req.params.id);
+      code ? res.status(HttpStatusCode.NO_CONTENT) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
 
   }
 }

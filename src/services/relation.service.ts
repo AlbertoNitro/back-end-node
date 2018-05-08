@@ -6,7 +6,6 @@ import { RelationInputDto } from "../dtos/relationInput.dto";
 
 export class RelationService {
     private unitService: UnitService;
-
     constructor() {
         this.unitService = new UnitService();
     }
@@ -27,10 +26,22 @@ export class RelationService {
                 return undefined;
             });
     }
-    async deleteByTop(_id: Number) {
-        await Relation.deleteOne({ topUnit: _id });
+    async deleteByTop(_id: Number): Promise<boolean> {
+        return Relation.deleteOne({ topUnit: _id })
+            .then( message => {
+                return true;
+            })
+            .catch( err => {
+                return false;
+            });
     }
-    async deleteByDown(_id: Number) {
-        await Relation.deleteOne({ lowerUnit: _id });
+    async deleteByDown(_id: Number): Promise<boolean> {
+        return Relation.deleteOne({ lowerUnit: _id })
+            .then( message => {
+                return true;
+            })
+            .catch( err => {
+                return false;
+            });
     }
 }
