@@ -44,15 +44,7 @@ export class UnitController {
   */
   async findAll(req: Request, res: Response): Promise<any> {
       const units: UnitEntity[] = await this.unitService.findAll();
-      if (units) {
-          if (units.length !== 0) {
-              res.status(HttpStatusCode.OK).json(units);
-          } else {
-              res.status(HttpStatusCode.NO_CONTENT).json(units);
-          }
-      } else {
-          res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
-      }
+      units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async delete(req: Request, res: Response): Promise<any> {
       const unit: UnitEntity = await this.unitService.findById(req.params.id);

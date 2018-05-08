@@ -21,8 +21,8 @@ describe("POST /unit", () => {
 
 describe("DELETE /unit", () => {
   it("should return 404 - NOT FOUND", (done) => {
-    return request(app).delete("/unit")
-      .send({"id": 9999})
+      const idUnit = 99999;
+      return request(app).delete("/unit/" + idUnit)
       .end( async (err, res) => {
           expect(HttpStatusCode.NOT_FOUND).to.equal(res.status);
         done();
@@ -32,8 +32,8 @@ describe("DELETE /unit", () => {
 
 describe("DELETE /unit", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        return request(app).delete("/unit")
-            .send({"id": 138})
+        const idUnit = 6;
+        return request(app).delete("/unit/" + idUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
                 done();
@@ -42,7 +42,7 @@ describe("DELETE /unit", () => {
 });
 
 describe("GET /unit", () => {
-    it("should return 200 OK and UnitEntity[]", (done) => {
+    it("should return 200 - OK and UnitEntity[]", (done) => {
         return request(app).get("/unit")
             .end( (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
