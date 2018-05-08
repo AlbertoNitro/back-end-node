@@ -54,13 +54,13 @@ export class UnitService {
             });
     }
 
-    async delete(_id: number) {
+    async delete(_id: number): Promise<boolean> {
         return await Unit.deleteOne({_id})
             .then( unit => {
-                return unit;
+                return true;
             })
             .catch ( err => {
-                return undefined;
+                return false;
             });
     }
 }

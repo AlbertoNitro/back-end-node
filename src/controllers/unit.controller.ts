@@ -47,8 +47,8 @@ export class UnitController {
       res.status(200).json( await this.unitService.findAll());
   }
   async delete(req: Request, res: Response) {
-      await this.relationController.deleteByConexion(req.params.id);
-      res.status(200).json( await this.unitService.delete(req.params.id));
-
+      const successRelation: boolean = await this.relationController.deleteByConexion(req.params.id);
+      const successUnit: boolean = await this.unitService.delete(req.params.id);
+      successRelation && successUnit ? res.status(HttpStatusCode.NO_CONTENT) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
 }
