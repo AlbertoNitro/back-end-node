@@ -1,20 +1,24 @@
 import { UnitEntity } from "../entities/unit.entity";
 import Unit from "../models/unit.model";
+import logger from "../util/logger";
 
 export class UnitService {
     response: any;
-    constructor() {}
-    async create(unitEntity: UnitEntity) {
+
+    constructor() {
+    }
+
+    async create(name: string): Promise<UnitEntity> {
+        const unitEntity = new UnitEntity(name);
         const unit = new Unit(unitEntity);
-        await unit.save((err) => {
-            if (err) {
-                this.response = undefined;
-            }
-            else {
-                this.response =  unit;
-            }
-        });
-        return this.response;
+        return unit.save()
+            .then( unit => {
+                return unit;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
     }
     async findByName(name: RegExp) {
         console.log(name);
@@ -50,7 +54,13 @@ export class UnitService {
             });
     }
 
-    async delete(_id: Number) {
-        return await Unit.deleteOne({_id});
+    async delete(_id: number) {
+        return await Unit.deleteOne({_id})
+            .then( unit => {
+                return unit;
+            })
+            .catch ( err => {
+                return undefined;
+            });
     }
 }

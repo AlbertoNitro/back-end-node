@@ -2,16 +2,19 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { UnitEntity } from "../../src/entities/unit.entity";
+import {UnitInputDto} from "../../src/dtos/unitInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /unit", () => {
-    it("should return 200 OK", (done) => {
+    it("should return: 201 - CREATED + unit created", (done) => {
+        const unitInputDto: UnitInputDto = {"name": "Unidad11"};
       return request(app).post("/unit")
-        .send({"name": "UnidadDePrueba"})
+        .send(unitInputDto)
         .end( async (err, res) => {
-          expect("UnidadDePrueba").to.equal(res.body.name);
+          expect(HttpStatusCode.CREATED).to.equal(res.status);
+          expect("Unidad11").to.equal(res.body.name);
           await request(app).delete("/unit/" + res.body._id);
           done();
         });

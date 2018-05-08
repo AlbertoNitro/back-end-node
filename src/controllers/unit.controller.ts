@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UnitService } from "../services/unit.service";
 import { UnitEntity } from "../entities/unit.entity";
 import { RelationController } from "./relation.controller";
+import { HttpStatusCode } from "../util/http-status-codes.enum";
 
 export class UnitController {
   private unitService: UnitService;
@@ -13,8 +14,8 @@ export class UnitController {
   }
 
   async create(req: Request, res: Response) {
-    const unit: UnitEntity = new UnitEntity(req.body.name);
-    res.status(200).json( await this.unitService.create(unit));
+    const unit: UnitEntity = await this.unitService.create(req.body.name);
+    unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
   async findByName(req: Request, res: Response) {
     const name: String = req.params.name;
