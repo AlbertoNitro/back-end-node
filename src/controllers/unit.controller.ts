@@ -13,7 +13,7 @@ export class UnitController {
     this.relationController = new RelationController();
   }
 
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<any> {
     const unit: UnitEntity = await this.unitService.create(req.body.name);
     unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
@@ -40,10 +40,18 @@ export class UnitController {
     }
     res.status(200).json(response);
   }
-  async findAll(req: Request, res: Response) {
-      res.status(200).json( await this.unitService.findAll());
+  async findAll(req: Request, res: Response): Promise<any> {
+      const units: UnitEntity[] = await this.unitService.findAll();
+      if (units && units.) {
+          res.status(HttpStatusCode.OK).json(units);
+      } else if () {
+          res.status(HttpStatusCode.NO_CONTENT).json(units);
+      } else {
+          res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
+      }
+      units ?  :
   }
-  async delete(req: Request, res: Response) {
+  async delete(req: Request, res: Response): Promise<any> {
       const successRelation: boolean = await this.relationController.deleteByConexion(req.params.id);
       const successUnit: boolean = await this.unitService.delete(req.params.id);
       successRelation && successUnit ? res.status(HttpStatusCode.NO_CONTENT) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
