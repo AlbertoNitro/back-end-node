@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UnitService } from "../services/unit.service";
-import { UnitEntity } from "../entities/unit.entity";
+import { UnitEntity, UnitBuilder } from "../entities/unit.entity";
 import { RelationController } from "./relation.controller";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 
@@ -26,12 +26,9 @@ export class UnitController {
       const relations: any = await this.relationController.findByLowerUnit(units[i]._id); // Obtengo las relaciones
       if (relations[0] != undefined  ) {
         for (let j = 0 ; j < Object.keys(relations).length; j++) {
-          let unitEntity: UnitEntity = new UnitEntity(units[i].name);
           const topDocument: any = await this.unitService.findById(relations[j].topUnit);
-          const topUnit: UnitEntity = new UnitEntity(topDocument.name);
-          topUnit.$id = topDocument._id;
-          unitEntity.$id = units[i]._id;
-          unitEntity.$topUnit = topUnit;
+          const topUnit: UnitEntity = new UnitBuilder(topDocument.name).setId(topDocument._id).build();
+          let unitEntity: UnitEntity = new UnitBuilder(units[i].name).setId(units[i]._id).setTopUnit(topUnit).build();
           response.push(unitEntity);
           unitEntity = undefined;
 

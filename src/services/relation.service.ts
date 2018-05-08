@@ -1,4 +1,4 @@
-import { RelationEntity } from "../entities/relation.entity";
+import { RelationEntity, RelationBuilder } from "../entities/relation.entity";
 import Relation from "../models/relation.model";
 import { UnitService } from "./unit.service";
 import { UnitEntity } from "../entities/unit.entity";
@@ -17,7 +17,7 @@ export class RelationService {
     async create(relationDto: RelationInputDto): Promise<RelationEntity> {
         const topUnit: UnitEntity = await this.unitService.findById(relationDto.idTopUnit);
         const lowerUnit: UnitEntity = await this.unitService.findById(relationDto.idLowerUnit);
-        const relationEntity: RelationEntity = new RelationEntity(relationDto.type, topUnit, lowerUnit);
+        const relationEntity: RelationEntity = new RelationBuilder().setType(relationDto.type).setTopUnit(topUnit).setLowerUnit(lowerUnit).build();
         const relation = new Relation(relationEntity);
         return relation.save()
             .then( relation => {
