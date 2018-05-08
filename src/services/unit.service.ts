@@ -3,8 +3,6 @@ import Unit from "../models/unit.model";
 import logger from "../util/logger";
 
 export class UnitService {
-    response: any;
-
     constructor() {
     }
 
@@ -20,30 +18,6 @@ export class UnitService {
                 return undefined;
             });
     }
-    async findByName(name: RegExp) {
-        console.log(name);
-        await Unit.find({ name }, (err, units) => {
-            this.response = units;
-        });
-        return this.response;
-    }
-    async findAll() {
-        return await Unit.find({}, (err, units) => {
-            if (!units) {
-                this.response =  undefined;
-                // return { statusCode: HttpStatusCode.NOT_FOUND };
-            }
-            if (!err) {
-                this.response =  units;
-                // return { statusCode: HttpStatusCode.OK, entities: units };
-            } else {
-                this.response =  undefined;
-                // logger.error(err.message);
-                // return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
-            }
-        });
-    }
-
     async findById(id: number): Promise<UnitEntity> {
         return await Unit.findById(id)
             .then( unit => {
@@ -53,9 +27,26 @@ export class UnitService {
                 return undefined;
             });
     }
-
-    async delete(_id: number): Promise<boolean> {
-        return await Unit.deleteOne({_id})
+    async findByName(name: RegExp): Promise<UnitEntity> {
+        return await Unit.find({ name })
+            .then( unit => {
+                return unit;
+            })
+            .catch ( err => {
+                return undefined;
+            });
+    }
+    async findAll(): Promise<UnitEntity[]> {
+        return await Unit.find({})
+            .then( units => {
+                return units;
+            })
+            .catch ( err => {
+                return undefined;
+            });
+    }
+    async delete(id: number): Promise<boolean> {
+        return await Unit.deleteOne({id})
             .then( unit => {
                 return true;
             })

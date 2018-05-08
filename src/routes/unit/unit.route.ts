@@ -7,9 +7,11 @@ const unitController: UnitController = new UnitController();
 unitRoutes.post("", (req, res) => {
     unitController.create(req, res);
 });
+/*
 unitRoutes.get("/search/:name", (req, res) => {
     unitController.findByName(req, res);
 });
+*/
 unitRoutes.get("", (req, res) => {
     unitController.findAll(req, res);
 });

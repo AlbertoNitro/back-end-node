@@ -13,10 +13,11 @@ export class UnitController {
     this.relationController = new RelationController();
   }
 
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<any> {
     const unit: UnitEntity = await this.unitService.create(req.body.name);
     unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
+  /*
   async findByName(req: Request, res: Response) {
     const name: String = req.params.name;
     const units = await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"));
@@ -40,22 +41,19 @@ export class UnitController {
     }
     res.status(200).json(response);
   }
-  async findAll(req: Request, res: Response) {
-      res.status(200).json( await this.unitService.findAll());
+  */
+  async findAll(req: Request, res: Response): Promise<any> {
+      const units: UnitEntity[] = await this.unitService.findAll();
+      units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
-  async delete(req: Request, res: Response) {
-    if ( await this.unitService.findById(req.params.id) == undefined ) {
-      res.status(HttpStatusCode.NOT_FOUND).json({});
-    }
-    else {
-      const unitDeleteStatus: Boolean = await this.unitService.delete(req.params.id);
-      const relationsDeleteStatus: Boolean = await this.relationController.deleteByConexion(req.params.id);
-      if ( unitDeleteStatus === true && relationsDeleteStatus === true) {
-        res.status(HttpStatusCode.NO_CONTENT).json({});
+  async delete(req: Request, res: Response): Promise<any> {
+      const unit: UnitEntity = await this.unitService.findById(req.params.id);
+      if (unit) {
+          const statusDeleteUnit: boolean = await this.unitService.delete(req.params.id);
+          const statusDeleteRelations: boolean = await this.relationController.deleteByConexion(req.params.id);
+          statusDeleteUnit && statusDeleteRelations ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+      } else {
+          res.status(HttpStatusCode.NOT_FOUND).end();
       }
-      else {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({});
-      }
-    }
   }
 }
