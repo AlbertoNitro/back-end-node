@@ -17,6 +17,7 @@ export class UnitController {
     const unit: UnitEntity = await this.unitService.create(req.body.name);
     unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
+  /*
   async findByName(req: Request, res: Response) {
     const name: String = req.params.name;
     const units = await this.unitService.findByName(new RegExp(name + "[a-zA-Z]+"));
@@ -40,6 +41,7 @@ export class UnitController {
     }
     res.status(200).json(response);
   }
+  */
   async findAll(req: Request, res: Response): Promise<any> {
       const units: UnitEntity[] = await this.unitService.findAll();
       if (units) {

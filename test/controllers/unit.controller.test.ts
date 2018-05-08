@@ -2,20 +2,18 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { UnitEntity } from "../../src/entities/unit.entity";
-import {UnitInputDto} from "../../src/dtos/unitInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + unit created", (done) => {
-        const unitInputDto: UnitInputDto = {"name": "Unidad11"};
       return request(app).post("/unit")
-        .send(unitInputDto)
+        .send({"name": "Unidad11"})
         .end( async (err, res) => {
           expect(HttpStatusCode.CREATED).to.equal(res.status);
           expect("Unidad11").to.equal(res.body.name);
-          await request(app).delete("/unit/" + res.body._id);
+          //await request(app).delete("/unit/" + res.body._id);
           done();
         });
     });
@@ -24,22 +22,21 @@ describe("POST /unit", () => {
 describe("DELETE /unit", () => {
   it("should return 200 OK", (done) => {
     return request(app).post("/unit")
-      .send({"name": "UnidadDePrueba"})
+      .send({"_id": 10})
       .end( async (err, res) => {
-        expect("UnidadDePrueba").to.equal(res.body.name);
-        await request(app).delete("/unit/" + res.body._id);
+          expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
         done();
       });
   });
 });
 
 describe("GET /unit", () => {
-    it("should return 200 OK and UnitEntity[] with body", (done) => {
+    it("should return 200 OK and UnitEntity[]", (done) => {
         return request(app).get("/unit")
             .end( (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
                 const jsonResponse: UnitEntity[] = res.body;
-                expect(jsonResponse.length).to.not.equal(0);
+                expect(jsonResponse.length).to.be.above(9);
                 done();
             });
     });
