@@ -42,14 +42,15 @@ export class UnitController {
   }
   async findAll(req: Request, res: Response): Promise<any> {
       const units: UnitEntity[] = await this.unitService.findAll();
-      if (units && units.) {
-          res.status(HttpStatusCode.OK).json(units);
-      } else if () {
-          res.status(HttpStatusCode.NO_CONTENT).json(units);
+      if (units) {
+          if (units.length !== 0) {
+              res.status(HttpStatusCode.OK).json(units);
+          } else {
+              res.status(HttpStatusCode.NO_CONTENT).json(units);
+          }
       } else {
           res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
       }
-      units ?  :
   }
   async delete(req: Request, res: Response): Promise<any> {
       const successRelation: boolean = await this.relationController.deleteByConexion(req.params.id);
