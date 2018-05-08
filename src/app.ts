@@ -31,9 +31,8 @@ import * as passportConfig from "./config/passport";
 const app = express();
 
 // Connect to MongoDB
-const mongoUrl = MONGODB_URI;
 mongoose.Promise = Promise;
-mongoose.connect(mongoUrl, {useMongoClient: true}).then(
+mongoose.connect(MONGODB_URI, {useMongoClient: true}).then(
   () => { console.log("  >Connected to MongoDB Database! \n"); /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("  >MongoDB connection error. Please make sure MongoDB is running. " + err);

@@ -14,8 +14,8 @@ export class UnitController {
   }
 
   async create(req: Request, res: Response) {
-    const unit: UnitEntity = new UnitBuilder(req.body.name).build();
-    res.status(200).json( await this.unitService.create(unit));
+    const unit: UnitEntity = await this.unitService.create(req.body.name);
+    unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
   async findByName(req: Request, res: Response) {
     const name: String = req.params.name;
