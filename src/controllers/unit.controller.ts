@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UnitService } from "../services/unit.service";
 import { UnitEntity, UnitBuilder } from "../entities/unit.entity";
 import { RelationController } from "./relation.controller";
+import { HttpStatusCode } from "../util/http-status-codes.enum";
 
 export class UnitController {
   private unitService: UnitService;
@@ -13,8 +14,8 @@ export class UnitController {
   }
 
   async create(req: Request, res: Response) {
-    const unit: UnitEntity = new UnitBuilder(req.body.name).build();
-    res.status(200).json( await this.unitService.create(unit));
+    const unit: UnitEntity = await this.unitService.create(req.body.name);
+    unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
   async findByName(req: Request, res: Response) {
     const name: String = req.params.name;
@@ -43,8 +44,8 @@ export class UnitController {
       res.status(200).json( await this.unitService.findAll());
   }
   async delete(req: Request, res: Response) {
-      await this.relationController.deleteByConexion(req.params.id);
-      res.status(200).json( await this.unitService.delete(req.params.id));
-
+      const successRelation: boolean = await this.relationController.deleteByConexion(req.params.id);
+      const successUnit: boolean = await this.unitService.delete(req.params.id);
+      successRelation && successUnit ? res.status(HttpStatusCode.NO_CONTENT) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
   }
 }
