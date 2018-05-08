@@ -46,7 +46,11 @@ export class UnitController {
   async delete(req: Request, res: Response) {
       const unitDeleteStatus: Boolean = await this.unitService.delete(req.params.id);
       const relationsDeleteStatus: Boolean = await this.relationController.deleteByConexion(req.params.id);
-      code ? res.status(HttpStatusCode.NO_CONTENT) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
-
+      if ( unitDeleteStatus === true && relationsDeleteStatus === true) {
+        res.status(HttpStatusCode.NO_CONTENT);
+      }
+      else {
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
+      }
   }
 }

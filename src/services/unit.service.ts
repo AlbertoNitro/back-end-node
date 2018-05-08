@@ -1,4 +1,4 @@
-import { UnitEntity } from "../entities/unit.entity";
+import { UnitEntity, UnitBuilder } from "../entities/unit.entity";
 import Unit from "../models/unit.model";
 import logger from "../util/logger";
 
@@ -9,7 +9,7 @@ export class UnitService {
     }
 
     async create(name: string): Promise<UnitEntity> {
-        const unitEntity = new UnitEntity(name);
+        const unitEntity = new UnitBuilder(name).build();
         const unit = new Unit(unitEntity);
         return unit.save()
             .then( unit => {
