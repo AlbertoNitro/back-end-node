@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { UnitService } from "../services/unit.service";
-import { UnitEntity } from "../entities/unit.entity";
 import { RelationController } from "./relation.controller";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { Unit } from "../models/unit.model";
 
 export class UnitController {
   private unitService: UnitService;
@@ -14,20 +14,20 @@ export class UnitController {
   }
 
   async create(req: Request, res: Response): Promise<any> {
-    const unit: UnitEntity = await this.unitService.create(req.body.name);
+    const unit: Unit = await this.unitService.create(req.body.name);
     unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async findByName(req: Request, res: Response) {
     const name: string = req.params.name;
-    const units: UnitEntity[] = await this.unitService.findByName(name);
+    const units: Unit[] = await this.unitService.findByName(name);
     units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async findAll(req: Request, res: Response): Promise<any> {
-      const units: UnitEntity[] = await this.unitService.findAll();
+      const units: Unit[] = await this.unitService.findAll();
       units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async delete(req: Request, res: Response): Promise<any> {
-      const unit: UnitEntity = await this.unitService.findById(req.params.id);
+      const unit: Unit = await this.unitService.findById(req.params.id);
       if (unit) {
           const statusDeleteUnit: boolean = await this.unitService.delete(req.params.id);
           const statusDeleteRelations: boolean = await this.relationController.deleteByConexion(req.params.id);
