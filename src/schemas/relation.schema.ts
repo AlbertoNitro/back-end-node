@@ -7,4 +7,4 @@ const Relation = new mongoose.Schema({
 });
 
 const RelationSchema = mongoose.model("Relation", Relation);
-export default Relation;
+export default RelationSchema;

@@ -7,4 +7,4 @@ const Unit = new mongoose.Schema({
 Unit.plugin(AutoIncrement);
 
 const UnitSchema = mongoose.model("Unit", Unit);
-export default Unit;
+export default UnitSchema;
