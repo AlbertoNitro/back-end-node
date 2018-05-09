@@ -1,10 +1,22 @@
-import mongoose from "mongoose";
+import { UnitBuilder } from "./builders/unit.builder";
 
-const AutoIncrement = require("mongoose-sequence")(mongoose);
-const UnitSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-}, { _id: false });
-UnitSchema.plugin(AutoIncrement);
+export class Unit  {
+    private _id: number;
+    private name: string;
+    private topUnit: Unit;
 
-const Unit = mongoose.model("Unit", UnitSchema);
-export default Unit;
+    constructor(builder: UnitBuilder) {
+        this.name = builder.Name;
+        this._id = builder.Id;
+        this.topUnit = builder.TopUnit;
+    }
+    get Name() {
+        return this.name;
+    }
+    get Id() {
+        return this._id;
+    }
+    get TopUnit() {
+        return this.topUnit;
+    }
+}
