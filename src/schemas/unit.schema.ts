@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const AutoIncrement = require("mongoose-sequence")(mongoose);
-const UnitSchema = new mongoose.Schema({
+const Unit = new mongoose.Schema({
     name: { type: String, required: true },
 }, { _id: false });
-UnitSchema.plugin(AutoIncrement);
+Unit.plugin(AutoIncrement);
 
-const Unit = mongoose.model("Unit", UnitSchema);
+const UnitSchema = mongoose.model("Unit", Unit);
 export default Unit;
