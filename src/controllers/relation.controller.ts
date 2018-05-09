@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { RelationService } from "../services/relation.service";
-import { RelationEntity } from "../entities/relation.entity";
+import { Relation } from "../models/relation.model";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 
@@ -16,7 +16,7 @@ export class RelationController {
     }
     async create(req: Request, res: Response): Promise<any> {
         const relationDto: RelationInputDto = req.body;
-        const relation: RelationEntity = await this.relationService.create(relationDto);
+        const relation: Relation = await this.relationService.create(relationDto);
         relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
     }
     async deleteByConexion(id: number): Promise<boolean> {
