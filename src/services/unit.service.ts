@@ -27,10 +27,10 @@ export class UnitService {
                 return undefined;
             });
     }
-    async findByName(name: RegExp): Promise<UnitEntity> {
-        return await Unit.find({ name })
-            .then( unit => {
-                return unit;
+    async findByName(name: string): Promise<UnitEntity[]> {
+        return await Unit.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
+            .then( units => {
+                return units;
             })
             .catch ( err => {
                 return undefined;
