@@ -1,5 +1,5 @@
 import { TypeRelation } from "../../schemas/typeRelation.enum";
-import { Unit } from "../unit.entity";
+import { Unit } from "../unit.model";
 import { Relation } from "../relation.model";
 
 export class RelationBuilder {
