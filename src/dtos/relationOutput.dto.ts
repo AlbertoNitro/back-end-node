@@ -1,5 +1,5 @@
-import { TypeRelation } from "../models/typeRelation.enum";
 import { UnitOutputDto } from "./unitOutput.dto";
+import { TypeRelation } from "../schemas/typeRelation.enum";
 
 export interface RelationOutputDto {
     _id: number;

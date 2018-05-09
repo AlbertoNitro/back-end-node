@@ -23,10 +23,6 @@ const MongoStore = mongo(session);
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env" });
 
-
-// API keys and Passport configuration
-import * as passportConfig from "./config/passport";
-
 // Create Express server
 const app = express();
 
