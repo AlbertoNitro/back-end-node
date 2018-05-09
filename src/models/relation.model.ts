@@ -1,5 +1,4 @@
-
-import { Unit } from "./unit.entity";
+import { Unit } from "./unit.model";
 import { RelationBuilder } from "./builders/relation.builder";
 import { TypeRelation } from "../schemas/typeRelation.enum";
 
