@@ -28,6 +28,7 @@ const app = express();
 
 // Connect to MongoDB
 mongoose.Promise = Promise;
+
 mongoose.connect(MONGODB_URI, {useMongoClient: true}).then(
   () => { console.log("  >Connected to MongoDB Database! \n"); /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
