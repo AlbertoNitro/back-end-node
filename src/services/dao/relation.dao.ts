@@ -1,14 +1,14 @@
 import { Relation } from "../../models/relation.model";
-import { UnitService } from "./unit.dao";
+import { UnitDao } from "./unit.dao";
 import { Unit } from "../../models/unit.model";
 import { RelationInputDto } from "../../dtos/relationInput.dto";
 import RelationSchema from "../../schemas/relation.schema";
 import { RelationBuilder } from "../../models/builders/relation.builder";
 
-export class RelationService {
-    private unitService: UnitService;
+export class RelationDao {
+    private unitDao: UnitDao;
     constructor() {
-        this.unitService = new UnitService();
+        this.unitDao = new UnitDao();
     }
 
     async findByLowerUnit(id: Number): Promise<Relation> {
@@ -21,8 +21,8 @@ export class RelationService {
         });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        const topUnit: Unit = await this.unitService.findById(relationDto.idTopUnit);
-        const lowerUnit: Unit = await this.unitService.findById(relationDto.idLowerUnit);
+        const topUnit: Unit = await this.unitDao.findById(relationDto.idTopUnit);
+        const lowerUnit: Unit = await this.unitDao.findById(relationDto.idLowerUnit);
         const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(topUnit).setLowerUnit(lowerUnit).build();
         const relation = new RelationSchema(relationEntity);
         return relation.save()

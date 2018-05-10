@@ -3,7 +3,7 @@ import logger from "../../util/logger";
 import UnitSchema from "../../schemas/unit.schema";
 import { UnitBuilder } from "../../models/builders/unit.builder";
 
-export class UnitService {
+export class UnitDao {
     constructor() {
     }
 
