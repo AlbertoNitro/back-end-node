@@ -1,14 +1,15 @@
-import { UnitEntity, UnitBuilder } from "../entities/unit.entity";
-import Unit from "../models/unit.model";
-import logger from "../util/logger";
+import { Unit } from "../../models/unit.model";
+import logger from "../../util/logger";
+import UnitSchema from "../../schemas/unit.schema";
+import { UnitBuilder } from "../../models/builders/unit.builder";
 
 export class UnitService {
     constructor() {
     }
 
-    async create(name: string): Promise<UnitEntity> {
+    async create(name: string): Promise<Unit> {
         const unitEntity = new UnitBuilder(name).build();
-        const unit = new Unit(unitEntity);
+        const unit = new UnitSchema(unitEntity);
         return unit.save()
             .then( unit => {
                 return unit;
@@ -18,8 +19,8 @@ export class UnitService {
                 return undefined;
             });
     }
-    async findById(id: number): Promise<UnitEntity> {
-        return await Unit.findById(id)
+    async findById(id: number): Promise<Unit> {
+        return await UnitSchema.findById(id)
             .then( unit => {
                 return unit;
             })
@@ -27,8 +28,8 @@ export class UnitService {
                 return undefined;
             });
     }
-    async findByName(name: string): Promise<UnitEntity[]> {
-        return await Unit.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
+    async findByName(name: string): Promise<Unit[]> {
+        return await UnitSchema.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
             .then( units => {
                 return units;
             })
@@ -36,8 +37,8 @@ export class UnitService {
                 return undefined;
             });
     }
-    async findAll(): Promise<UnitEntity[]> {
-        return await Unit.find({})
+    async findAll(): Promise<Unit[]> {
+        return await UnitSchema.find({})
             .then( units => {
                 return units;
             })
@@ -46,7 +47,7 @@ export class UnitService {
             });
     }
     async delete(id: number): Promise<boolean> {
-        return await Unit.deleteOne({id})
+        return await UnitSchema.deleteOne({id})
             .then( unit => {
                 return true;
             })
