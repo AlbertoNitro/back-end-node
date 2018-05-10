@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RelationService } from "../services/dao/relation.dao";
+import { RelationDao } from "../services/dao/relation.dao";
 import { Relation } from "../models/relation.model";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { RelationInputDto } from "../dtos/relationInput.dto";

@@ -1,19 +1,19 @@
-import { RelationService } from "../services/dao/relation.dao";
+import { RelationDao } from "../services/dao/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 
 export class RelationResource {
 
-    private relationService: RelationService;
+    private relationDao: RelationDao;
 
     constructor() {
-        this.relationService = new RelationService();
+        this.relationDao = new RelationDao();
     }
     async findByLowerUnit(unit: number) {
-        return await this.relationService.findByLowerUnit(unit);
+        return await this.relationDao.findByLowerUnit(unit);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        return await this.relationService.create(relationDto);
+        return await this.relationDao.create(relationDto);
     }
     async deleteByConexion(id: number): Promise<boolean> {
         const deleteByTopStatus: boolean = await this.deleteByTop(id);
@@ -26,9 +26,9 @@ export class RelationResource {
         }
     }
     async deleteByTop(id: number): Promise<boolean> {
-        return await this.relationService.deleteByTop(id);
+        return await this.relationDao.deleteByTop(id);
     }
     async deleteByDown(id: number): Promise<boolean> {
-        return await this.relationService.deleteByDown(id);
+        return await this.relationDao.deleteByDown(id);
     }
 }
