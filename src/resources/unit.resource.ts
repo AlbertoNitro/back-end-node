@@ -1,6 +1,6 @@
 import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
-import {HttpStatusCode} from "../util/http-status-codes.enum";
+import { RelationResource } from "./relation.resource";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -20,14 +20,17 @@ export class UnitResource {
     async findAll(): Promise<Unit[]> {
         return  await this.unitDao.findAll();
     }
-    async delete(id: number): Promise<any> {
+    async delete(id: number): Promise<boolean> {
+        let success = false;
         const unit: Unit = await this.unitDao.findById(id);
         if (unit) {
             const statusDeleteUnit: boolean = await this.unitDao.delete(id);
-            const statusDeleteRelations: boolean = await this..deleteByConexion(req.params.id);
-            statusDeleteUnit && statusDeleteRelations ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-        } else {
-            res.status(HttpStatusCode.NOT_FOUND).end();
+            const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(id);
+            success = statusDeleteUnit && statusDeleteRelations;
         }
+        return success;
+    }
+    async findById(id: number): Promise<Unit> {
+       return await this.unitDao.findById(id);
     }
 }
