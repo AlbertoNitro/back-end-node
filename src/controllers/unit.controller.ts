@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UnitService } from "../services/unit.service";
+import { UnitService } from "../services/dao/unit.dao";
 import { RelationController } from "./relation.controller";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { Unit } from "../models/unit.model";

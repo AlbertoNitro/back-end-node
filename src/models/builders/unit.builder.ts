@@ -3,7 +3,6 @@ import { Unit } from "../unit.model";
 export class UnitBuilder {
     private _id: number;
     private name: string;
-    private topUnit: Unit;
     constructor(name: string) {
         this.name = name;
     }
@@ -20,13 +19,6 @@ export class UnitBuilder {
     }
     setId(id: number) {
         this._id = id;
-        return this;
-    }
-    get TopUnit() {
-        return this.topUnit;
-    }
-    setTopUnit(unit: Unit) {
-        this.topUnit = unit;
         return this;
     }
     build(): Unit {
