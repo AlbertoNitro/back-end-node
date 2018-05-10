@@ -23,7 +23,7 @@ export class UnitController {
     units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async findAll(req: Request, res: Response): Promise<any> {
-      const units: Unit[] = await this.unitService.findAll();
+      const units: Unit[] = await this.unitResource.findAll();
       units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async delete(req: Request, res: Response): Promise<any> {
