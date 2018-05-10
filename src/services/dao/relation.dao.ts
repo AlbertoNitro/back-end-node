@@ -1,9 +1,9 @@
-import { Relation } from "../models/relation.model";
-import { UnitService } from "./unit.service";
-import { Unit } from "../models/unit.model";
-import { RelationInputDto } from "../dtos/relationInput.dto";
-import RelationSchema from "../schemas/relation.schema";
-import { RelationBuilder } from "../models/builders/relation.builder";
+import { Relation } from "../../models/relation.model";
+import { UnitService } from "./unit.dao";
+import { Unit } from "../../models/unit.model";
+import { RelationInputDto } from "../../dtos/relationInput.dto";
+import RelationSchema from "../../schemas/relation.schema";
+import { RelationBuilder } from "../../models/builders/relation.builder";
 
 export class RelationService {
     private unitService: UnitService;
