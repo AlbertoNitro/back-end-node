@@ -33,4 +33,5 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
        return await this.unitDao.findById(id);
     }
+
 }

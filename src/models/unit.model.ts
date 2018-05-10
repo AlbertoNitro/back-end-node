@@ -3,16 +3,20 @@ import { UnitBuilder } from "./builders/unit.builder";
 export class Unit  {
     private _id: number;
     private name: string;
-    // private topUnit: Unit;
 
-    constructor(builder: UnitBuilder) {
-        this.name = builder.Name;
-        this._id = builder.Id;
+    constructor(name: string) {
+        this.name = name;
     }
-    get Name() {
+    public setId(id: number) {
+        this._id = id;
+    }
+    public getName(): string {
         return this.name;
     }
-    get Id() {
+    public setName(name: string) {
+        this.name = name;
+    }
+    public getId(): number {
         return this._id;
     }
 

@@ -11,7 +11,7 @@ export class RelationDao {
         this.unitDao = new UnitDao();
     }
 
-    async findByLowerUnit(id: Number): Promise<Relation> {
+    async findByLowerUnit(id: Number): Promise<Relation[]> {
         return await RelationSchema.find({ lowerUnit: id.toString() })
         .then( relation => {
             return relation;

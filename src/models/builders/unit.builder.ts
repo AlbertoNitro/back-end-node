@@ -1,28 +1,16 @@
 import { Unit } from "../unit.model";
 
 export class UnitBuilder {
-    private _id: number;
-    private name: string;
+    private unit: Unit;
     constructor(name: string) {
-        this.name = name;
-    }
-
-    get Name() {
-        return this.name;
+        this.unit = new Unit(name);
     }
     setName(name: string) {
-        this.name = name;
-        return this;
-    }
-    get Id() {
-        return this._id;
-    }
-    setId(id: number) {
-        this._id = id;
+        this.unit.setName(name);
         return this;
     }
     build(): Unit {
-        return new Unit(this);
+        return this.unit;
     }
 
 }
