@@ -12,9 +12,6 @@ export class RelationResource {
         this.relationDao = new RelationDao();
     }
     async findByLowerUnit(unit: Unit): Promise<Relation[]> {
-        console.log(unit);
-        console.log("-----" + unit.getId());
-        console.log(typeof(unit));
         return await this.relationDao.findByLowerUnit(unit.getId());
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
@@ -42,7 +39,6 @@ export class RelationResource {
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getTopUnit());
         }
-        console.log(topUnits);
         return topUnits;
     }
 }
