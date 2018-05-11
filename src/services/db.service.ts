@@ -41,13 +41,14 @@ export class DbService {
             });
     }
 
-    delete(): Promise<boolean> {
+    delete() {
         logger.info("Base de datos borrada.");
         logger.error("Error al intentar borrar la base de datos.");
         mongoose.connect(MONGODB_URI, {useMongoClient: true})
             .then(() => { logger.info("  >Connected to MongoDB Database! \n"); })
             .catch(err => { logger.error("  >MongoDB connection error. Please make sure MongoDB is running. " + err); });
         mongoose.connection.db.dropDatabase();
+        return true;
     }
 
 
