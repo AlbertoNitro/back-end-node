@@ -4,17 +4,23 @@ import { Unit } from "../../models/unit.model";
 import { RelationInputDto } from "../../dtos/relationInput.dto";
 import RelationSchema from "../../schemas/relation.schema";
 import { RelationBuilder } from "../../models/builders/relation.builder";
-
+import { Document } from "mongoose";
 export class RelationDao {
     private unitDao: UnitDao;
     constructor() {
         this.unitDao = new UnitDao();
     }
-
-    async findByLowerUnit(id: Number): Promise<Relation> {
+    documentArrayToRelation(document: Document[]) {
+        const relationArray: Relation[] = [];
+        for (let i = 0; i < document.length; i++) {
+            relationArray.push(new RelationBuilder().setType(document[i].get("type")).setTopUnit(document[i].get("topUnit")).setLowerUnit(document[i].get("lowerUnit")).build());
+        }
+        return relationArray;
+    }
+    async findByLowerUnit(id: Number): Promise<Relation[]> {
         return await RelationSchema.find({ lowerUnit: id.toString() })
         .then( relation => {
-            return relation;
+            return this.documentArrayToRelation(relation);
         })
         .catch ( err => {
             return undefined;

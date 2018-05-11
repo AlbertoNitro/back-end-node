@@ -18,4 +18,8 @@ unitRoutes.delete("/:id", (req, res) => {
     unitController.delete(req, res);
 });
 
+unitRoutes.get("/friends/:id", (req, res) => {
+    unitController.getFriendsByUnit(req, res);
+});
+
 export default unitRoutes;
