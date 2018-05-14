@@ -17,25 +17,25 @@ export class DbService {
         const contents = fs.readFileSync("./src/config/test.yml", "utf8");
         const parsed = this.yaml.safeLoad(contents);
         // const backupDb = JSON.parse(fs.readFileSync("../config/backupDb.json", "utf8"));
-        await dookie.push(MONGODB_URI, parsed)
+        await this.dookie.push(MONGODB_URI, parsed)
             .then(() => {
                 logger.info("DB poblada.");
                 success = true;
             })
-            .catch ( err => {
+            .catch ( (err: any) => {
                 logger.error("Error al poblar la DB (posiblemente ya este poblada). " + err);
             });
         return success;
      }
     async saveInBackup(): Promise<boolean> {
          let success: boolean = false;
-         await dookie.pull(MONGODB_URI)
-             .then((res) => {
+         await this.dookie.pull(MONGODB_URI)
+             .then((res: any) => {
                 fs.writeFileSync("./src/config/backupDb.json", res);
                 logger.info("Backup de la DB realizada en: /config/backupDb.json");
                  success = true;
             })
-            .catch ( err => {
+            .catch ( (err: any) => {
                 logger.error("Error al realizar el backup de la DB. " + err);
             });
          return success;
@@ -49,7 +49,7 @@ export class DbService {
                         logger.info("DB borrada con exito.");
                         resolve(true);
                     })
-                    .catch(err => {
+                    .catch((err: any) => {
                         logger.error("Error al borrar DB. " + err);
                         resolve(false);
                     });
