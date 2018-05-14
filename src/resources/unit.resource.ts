@@ -34,4 +34,24 @@ export class UnitResource {
         return await this.unitDao.findById(id);
     }
 
+    async getFriends(unit: Unit, n: number): Promise<any> {
+        const lowerUnits: Unit[] = await this.relationResource.findUnitsByTopUnit(unit);
+        console.log(lowerUnits);
+        console.log("lowerUnits.length " + lowerUnits.length);
+
+        if ( lowerUnits.length == 0) {
+            const set =  new Set();
+            set.add(unit);
+            return set;
+        }
+        else {
+            let set =  new Set();
+            for ( let i = 0; i < lowerUnits.length; i++ ) {
+                set = set.add(await this.getFriends(lowerUnits[i], n - 1));
+            }
+            set.add(unit);
+            return set;
+        }
+    }
+
 }

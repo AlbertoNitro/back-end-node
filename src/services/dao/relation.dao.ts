@@ -26,6 +26,15 @@ export class RelationDao {
             return undefined;
         });
     }
+    async findByTopUnit(id: Number): Promise<Relation[]> {
+        return await RelationSchema.find({ topUnit: id.toString() })
+        .then( relation => {
+            return this.documentArrayToRelation(relation);
+        })
+        .catch ( err => {
+            return undefined;
+        });
+    }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         const topUnit: Unit = await this.unitDao.findById(relationDto.idTopUnit);
         const lowerUnit: Unit = await this.unitDao.findById(relationDto.idLowerUnit);
