@@ -2,14 +2,16 @@ import { RelationDao } from "../services/dao/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 import { Unit } from "../models/unit.model";
-import { UnitResource } from "./unit.resource";
 
 export class RelationResource {
-
     private relationDao: RelationDao;
-    private unitResource: UnitResource;
+
     constructor() {
         this.relationDao = new RelationDao();
+    }
+
+    async findAll(): Promise<Relation[]> {
+        return await this.relationDao.findAll();
     }
     async findByLowerUnit(unit: Unit): Promise<Relation[]> {
         return await this.relationDao.findByLowerUnit(unit.getId());

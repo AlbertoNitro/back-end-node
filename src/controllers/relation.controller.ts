@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { RelationDao } from "../services/dao/relation.dao";
 import { Relation } from "../models/relation.model";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { RelationInputDto } from "../dtos/relationInput.dto";
@@ -10,6 +9,11 @@ export class RelationController {
 
     constructor() {
         this.relationResource = new RelationResource();
+    }
+
+    async findAll(req: Request, res: Response): Promise<any> {
+        const relations: Relation[] = await this.relationResource.findAll();
+        relations ? res.status(HttpStatusCode.OK).json(relations) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async create(req: Request, res: Response): Promise<any> {
         const relationDto: RelationInputDto = req.body;
