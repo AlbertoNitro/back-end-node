@@ -2,69 +2,69 @@
 units:
 - &unit0 #ROOT
     _id: 0
-    name: Unidad0
-- &unit1  #INHERIT
+    name: Unidad0 # ROOT
+- &unit1
     _id: 1
-    name: Unidad1
-- &unit2  #INHERIT
+    name: Unidad1 #INHERIT
+- &unit2
     _id: 2
-    name: Unidad2
-- &unit3 #COMPOSE
+    name: Unidad2 #INHERIT
+- &unit3
     _id: 3
-    name: Unidad3
-- &unit4 #COMPOSE
+    name: Unidad3 #COMPOSE
+- &unit4
     _id: 4
-    name: Unidad4
-- &unit5 #USE
+    name: Unidad4 #COMPOSE
+- &unit5
     _id: 5
-    name: Unidad5
-- &unit6 #USE
+    name: Unidad5 #USE
+- &unit6
     _id: 6
-    name: Unidad6
-- &unit7 #ASOCIATION
+    name: Unidad6 #USE
+- &unit7
     _id: 7
-    name: Unidad7
-- &unit8 #ASOCIATION
+    name: Unidad7 #ASOCIATION
+- &unit8
     _id: 8
-    name: Unidad8
-- &unit9 #NO_RELATIONED
+    name: Unidad8 #ASOCIATION
+- &unit9
     _id: 9
-    name: Unidad9
-- &unit10 #NO_RELATIONED
+    name: Unidad9 #NO_RELATIONED
+- &unit10
     _id: 10
-    name: Unidad10
+    name: Unidad10 #NO_RELATIONED
 
 # Relations
 relations:
 - &relation0
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit1
+    topUnit: 0
+    lowerUnit: 1
 - &relation1
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit2
+    topUnit: 0
+    lowerUnit: 2
 - &relation2
     type: COMPOSE
-    topUnit: *unit1
-    lowerUnit: *unit3
+    topUnit: 1
+    lowerUnit: 3
 - &relation3
     type: COMPOSE
-    topUnit: *unit2
-    lowerUnit: *unit4
+    topUnit: 2
+    lowerUnit: 4
 - &relation4
     type: USE
-    topUnit: *unit1
-    lowerUnit: *unit5
+    topUnit: 1
+    lowerUnit: 5
 - &relation5
     type: USE
-    topUnit: *unit2
-    lowerUnit: *unit6
+    topUnit: 2
+    lowerUnit: 6
 - &relation6
     type: ASOCIATION
-    topUnit: *unit1
-    lowerUnit: *unit7
+    topUnit: 1
+    lowerUnit: 7
 - &relation7
     type: ASOCIATION
-    topUnit: *unit2
-    lowerUnit: *unit8
+    topUnit: 2
+    lowerUnit: 8
