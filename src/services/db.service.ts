@@ -1,14 +1,15 @@
 import fs from "fs";
 import { MONGODB_URI } from "../util/secrets";
-import dookie from "dookie";
 import logger from "../util/logger";
 import mongoose from "mongoose";
 
 export class DbService {
     private yaml: any;
+    private dookie: any;
 
     constructor() {
         this.yaml = require("js-yaml");
+        this.dookie = require("dookie");
     }
 
      async seed(): Promise<boolean> {
