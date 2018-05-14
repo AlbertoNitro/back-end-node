@@ -36,16 +36,20 @@ export class UnitResource {
 
     async getFriends(unit: Unit, n: number): Promise<any> {
         const lowerUnits: Unit[] = await this.relationResource.findUnitsByTopUnit(unit);
+        console.log("lowerUnits.length " + lowerUnits.length);
+
         if ( lowerUnits.length == 0) {
             const set =  new Set();
             set.add(unit);
             return set;
         }
         else {
-            const set =  new Set();
+            let set =  new Set();
             for ( let i = 0; i < lowerUnits.length; i++ ) {
-
+                set = set.add(this.getFriends(lowerUnits[i], n - 1));
             }
+            set.add(unit);
+            return set;
         }
     }
 
