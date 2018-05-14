@@ -38,33 +38,33 @@ units:
 relations:
 - &relation0
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit1
+    topUnit: *unit0._id
+    lowerUnit: *unit1._id
 - &relation1
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit2
+    topUnit: *unit0._id
+    lowerUnit: *unit2._id
 - &relation2
     type: COMPOSE
-    topUnit: *unit1
-    lowerUnit: *unit3
+    topUnit: *unit1._id
+    lowerUnit: *unit3._id
 - &relation3
     type: COMPOSE
-    topUnit: *unit2
-    lowerUnit: *unit4
+    topUnit: *unit2._id
+    lowerUnit: *unit4._id
 - &relation4
     type: USE
-    topUnit: *unit1
-    lowerUnit: *unit5
+    topUnit: *unit1._id
+    lowerUnit: *unit5._id
 - &relation5
     type: USE
-    topUnit: *unit2
-    lowerUnit: *unit6
+    topUnit: *unit2._id
+    lowerUnit: *unit6._id
 - &relation6
     type: ASOCIATION
-    topUnit: *unit1
-    lowerUnit: *unit7
+    topUnit: *unit1._id
+    lowerUnit: *unit7._id
 - &relation7
     type: ASOCIATION
-    topUnit: *unit2
-    lowerUnit: *unit8
+    topUnit: *unit2._id
+    lowerUnit: *unit8._id
