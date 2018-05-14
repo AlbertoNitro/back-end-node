@@ -23,7 +23,7 @@ export class Relation {
     public getTopUnit() {
         return this.topUnit;
     }
-    public getLowerUnit() {
+    public getLowerUnit(): Unit {
         return this.lowerUnit;
     }
 }

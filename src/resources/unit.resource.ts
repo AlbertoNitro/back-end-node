@@ -36,7 +36,7 @@ export class UnitResource {
 
     async getFriends(unit: Unit, n: number): Promise<any> {
         const lowerUnits: Unit[] = await this.relationResource.findUnitsByTopUnit(unit);
-        console.log(lowerUnits);
+        console.log(lowerUnits[0]);
         console.log("lowerUnits.length " + lowerUnits.length);
 
         if ( lowerUnits.length == 0) {
