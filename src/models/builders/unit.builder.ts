@@ -15,6 +15,10 @@ export class UnitBuilder {
         this.unit.setName(name);
         return this;
     }
+    setCode(code: number) {
+        this.unit.setCode(code);
+        return this;
+    }
     build(): Unit {
         return this.unit;
     }

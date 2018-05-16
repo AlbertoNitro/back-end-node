@@ -14,7 +14,6 @@ export class RelationDao {
     }
 
     async findAll(): Promise<Relation[]> {
-        console.log("HOLAAAA");
         return await RelationSchema.find({}).populate({path: "Unit", select: "topUnit"})
             .then( relations => {
                 return relations;
@@ -42,15 +41,19 @@ export class RelationDao {
         });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        const topUnit: Unit = await this.unitDao.findById(relationDto.idTopUnit);
-        const lowerUnit: Unit = await this.unitDao.findById(relationDto.idLowerUnit);
-        const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(topUnit).setLowerUnit(lowerUnit).build();
+        console.log("Hola");
+        const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
+        const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.idLowerUnit);
+        console.log(topUnit.getId());
+        const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(topUnit.getId()).setLowerUnit(lowerUnit.getId()).build();
+        console.log("relationEntity" + JSON.stringify(relationEntity));
         const relation = new RelationSchema(relationEntity);
         return relation.save()
             .then( relation => {
                 return relation;
             })
             .catch ( err => {
+                console.log("ERR" + err);
                 return undefined;
             });
     }
