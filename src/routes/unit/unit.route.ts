@@ -19,5 +19,8 @@ unitRoutes.delete("/:id", (req, res) => {
 unitRoutes.get("/friends/:id", (req, res) => {
     unitController.getFriendsByUnit(req, res);
 });
+unitRoutes.get("/:code", (req, res) => {
+    unitController.findByCode(req, res);
+});
 
 export default unitRoutes;
