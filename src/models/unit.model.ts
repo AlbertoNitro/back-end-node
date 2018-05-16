@@ -2,6 +2,8 @@ export class Unit  {
     private _id: number;
     private name: string;
 
+    private code: number;
+
     constructor(name: string) {
         this.name = name;
     }
@@ -16,6 +18,13 @@ export class Unit  {
     }
     public getId(): number {
         return this._id;
+    }
+    public setCode(code: number) {
+        this.code = code;
+    }
+
+    public getCode(code: number) {
+        return this.code;
     }
 
 }
