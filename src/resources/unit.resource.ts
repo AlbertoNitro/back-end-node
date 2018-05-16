@@ -1,6 +1,7 @@
 import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
+import logger from "../util/logger";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -19,6 +20,10 @@ export class UnitResource {
     }
     async findAll(): Promise<Unit[]> {
         return  await this.unitDao.findAll();
+    }
+    async findByCode(code: number): Promise<Unit> {
+        logger.info(code.toString());
+        return await this.unitDao.findByCode(code);
     }
     async delete(id: number): Promise<boolean> {
         let success = false;

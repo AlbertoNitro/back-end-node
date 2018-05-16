@@ -38,6 +38,16 @@ export class UnitDao {
                 return undefined;
             });
     }
+    async findByCode(code: number): Promise<Unit> {
+        logger.info(code.toString());
+        return await UnitSchema.find({ code: code })
+            .then( unit => {
+                return new UnitBuilder(unit[0].get("name")).setId(unit[0].get("_id")).setCode(unit[0].get("code")).build();
+            })
+            .catch ( err => {
+                return undefined;
+            });
+    }
     async findAll(): Promise<Unit[]> {
         return await UnitSchema.find({})
             .then( units => {
