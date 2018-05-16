@@ -57,7 +57,7 @@ export class UnitDao {
             });
     }
     async findByCode(id: number): Promise<Unit> {
-        return await UnitSchema.find({code: id})
+        return await UnitSchema.find({code: id}).populate("Unit")
             .then( unit => {
                 console.log(unit);
                 return new UnitBuilder(unit[0].get("name")).setId(unit[0].get("_id")).setCode(unit[0].get("code")).build();
