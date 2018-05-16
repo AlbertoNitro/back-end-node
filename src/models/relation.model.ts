@@ -5,8 +5,8 @@ import { TypeRelation } from "../schemas/typeRelation.enum";
 export class Relation {
     private _id: number;
     private type: TypeRelation;
-    private topUnit: Unit;
-    private lowerUnit: Unit;
+    private topUnit: number;
+    private lowerUnit: number;
     private semantics: string;
 
     constructor(builder: RelationBuilder) {

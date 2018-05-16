@@ -2,12 +2,16 @@ import { RelationDao } from "../services/dao/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 import { Unit } from "../models/unit.model";
+import { UnitDao } from "../services/dao/unit.dao";
 
 export class RelationResource {
     private relationDao: RelationDao;
 
+    private unitDao: UnitDao;
+
     constructor() {
         this.relationDao = new RelationDao();
+        this.unitDao = new UnitDao();
     }
 
     async findAll(): Promise<Relation[]> {
@@ -20,6 +24,7 @@ export class RelationResource {
         return await this.relationDao.findByTopUnit(unit.getId());
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
+        console.log("relationDto" + JSON.stringify(relationDto));
         return await this.relationDao.create(relationDto);
     }
     async deleteByConexion(id: number): Promise<boolean> {
@@ -42,7 +47,7 @@ export class RelationResource {
         const relations: Relation[] = await this.findByLowerUnit(unit);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
-            topUnits.push(relations[i].getTopUnit());
+            topUnits.push(await this.unitDao.findById(relations[i].getTopUnit()));
         }
         return topUnits;
     }
@@ -51,7 +56,7 @@ export class RelationResource {
         console.log("relations " + relations);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
-            topUnits.push(relations[i].getTopUnit());
+            topUnits.push(await this.unitDao.findById(relations[i].getTopUnit()));
         }
         console.log("topUnits " + topUnits);
         return topUnits;
