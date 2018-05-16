@@ -7,11 +7,13 @@ export class Relation {
     private type: TypeRelation;
     private topUnit: Unit;
     private lowerUnit: Unit;
+    private semantics: string;
 
     constructor(builder: RelationBuilder) {
         this.type = builder.getType();
         this.topUnit = builder.getTopUnit();
         this.lowerUnit = builder.getLowerUnit();
+        this.semantics = builder.getSemantics();
     }
 
     public getId() {
@@ -25,5 +27,8 @@ export class Relation {
     }
     public getLowerUnit() {
         return this.lowerUnit;
+    }
+    public getSemantics() {
+        return this.semantics;
     }
 }

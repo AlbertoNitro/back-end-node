@@ -1,5 +1,3 @@
-import { UnitBuilder } from "./builders/unit.builder";
-
 export class Unit  {
     private _id: number;
     private name: string;

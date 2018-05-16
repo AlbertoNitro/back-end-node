@@ -20,11 +20,8 @@ export class UnitDao {
             });
     }
     async findById(id: number): Promise<Unit> {
-        console.log("DAO");
         return await UnitSchema.findById(id)
             .then( unit => {
-                console.log("Then");
-                console.log(unit);
                 return new UnitBuilder(unit.get("name")).setId(unit.get("_id")).build();
             })
             .catch ( err => {

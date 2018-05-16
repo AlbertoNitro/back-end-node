@@ -5,20 +5,35 @@ import { RelationInputDto } from "../../dtos/relationInput.dto";
 import RelationSchema from "../../schemas/relation.schema";
 import { RelationBuilder } from "../../models/builders/relation.builder";
 import { Document } from "mongoose";
+
 export class RelationDao {
     private unitDao: UnitDao;
+
     constructor() {
         this.unitDao = new UnitDao();
     }
-    documentArrayToRelation(document: Document[]) {
-        const relationArray: Relation[] = [];
-        for (let i = 0; i < document.length; i++) {
-            relationArray.push(new RelationBuilder().setType(document[i].get("type")).setTopUnit(document[i].get("topUnit")).setLowerUnit(document[i].get("lowerUnit")).build());
-        }
-        return relationArray;
+
+    async findAll(): Promise<Relation[]> {
+        console.log("HOLAAAA");
+        return await RelationSchema.find({}).populate({path: "Unit", select: "topUnit"})
+            .then( relations => {
+                return relations;
+            })
+            .catch ( err => {
+                return undefined;
+            });
     }
     async findByLowerUnit(id: Number): Promise<Relation[]> {
         return await RelationSchema.find({ lowerUnit: id.toString() })
+        .then( relation => {
+            return this.documentArrayToRelation(relation);
+        })
+        .catch ( err => {
+            return undefined;
+        });
+    }
+    async findByTopUnit(id: Number): Promise<Relation[]> {
+        return await RelationSchema.find({ topUnit: id.toString() })
         .then( relation => {
             return this.documentArrayToRelation(relation);
         })
@@ -56,5 +71,12 @@ export class RelationDao {
             .catch( err => {
                 return false;
             });
+    }
+    private documentArrayToRelation(document: Document[]) {
+        const relationArray: Relation[] = [];
+        for (let i = 0; i < document.length; i++) {
+            relationArray.push(new RelationBuilder().setType(document[i].get("type")).setTopUnit(document[i].get("topUnit")).setLowerUnit(document[i].get("lowerUnit")).build());
+        }
+        return relationArray;
     }
 }

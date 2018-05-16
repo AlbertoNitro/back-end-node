@@ -33,6 +33,9 @@ units:
 - &unit10
     _id: 10
     name: Unidad10 #NO_RELATIONED
+- &unit11
+    _id: 11
+    name: Unidad11 #INHERIT
 
 # Relations
 relations:
@@ -40,31 +43,44 @@ relations:
     type: INHERIT
     topUnit: 0
     lowerUnit: 1
+    semantics: Nada
 - &relation1
     type: INHERIT
     topUnit: 0
     lowerUnit: 2
+    semantics: Nada
 - &relation2
     type: COMPOSE
     topUnit: 1
     lowerUnit: 3
+    semantics: Nada
 - &relation3
     type: COMPOSE
     topUnit: 2
     lowerUnit: 4
+    semantics: Nada
 - &relation4
     type: USE
     topUnit: 1
     lowerUnit: 5
+    semantics: Nada
 - &relation5
     type: USE
     topUnit: 2
     lowerUnit: 6
+    semantics: Nada
 - &relation6
     type: ASOCIATION
     topUnit: 1
     lowerUnit: 7
+    semantics: Nada
 - &relation7
     type: ASOCIATION
     topUnit: 2
     lowerUnit: 8
+    semantics: Nada
+- &relation0
+    type: INHERIT
+    topUnit: 0
+    lowerUnit: 11
+    semantics: Pelidiosa
