@@ -14,7 +14,7 @@ export class RelationDao {
     }
 
     async findAll(): Promise<Relation[]> {
-        return await RelationSchema.find({}).populate({path: "Unit", select: "topUnit"})
+        return await RelationSchema.find({})
             .then( relations => {
                 return relations;
             })
@@ -22,8 +22,8 @@ export class RelationDao {
                 return undefined;
             });
     }
-    async findByLowerUnit(id: Number): Promise<Relation[]> {
-        return await RelationSchema.find({ lowerUnit: id.toString() })
+    async findByLowerUnit(code: number): Promise<Relation[]> {
+        return await RelationSchema.find({ lowerUnit: code })
         .then( relation => {
             return this.documentArrayToRelation(relation);
         })
@@ -31,8 +31,8 @@ export class RelationDao {
             return undefined;
         });
     }
-    async findByTopUnit(id: Number): Promise<Relation[]> {
-        return await RelationSchema.find({ topUnit: id.toString() })
+    async findByTopUnit(code: number): Promise<Relation[]> {
+        return await RelationSchema.find({ topUnit: code })
         .then( relation => {
             return this.documentArrayToRelation(relation);
         })
@@ -57,6 +57,16 @@ export class RelationDao {
                 return undefined;
             });
     }
+    async delete(_id: Number): Promise<boolean> {
+        return RelationSchema.deleteOne({ topUnit: _id })
+            .then( message => {
+                return true;
+            })
+            .catch( err => {
+                return false;
+            });
+    }
+    
     async deleteByTop(_id: Number): Promise<boolean> {
         return RelationSchema.deleteOne({ topUnit: _id })
             .then( message => {

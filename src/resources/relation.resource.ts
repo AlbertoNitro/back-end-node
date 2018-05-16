@@ -27,21 +27,16 @@ export class RelationResource {
         console.log("relationDto" + JSON.stringify(relationDto));
         return await this.relationDao.create(relationDto);
     }
-    async deleteByConexion(id: number): Promise<boolean> {
-        const deleteByTopStatus: boolean = await this.deleteByTop(id);
-        const deleteByLowerStatus: boolean = await this.deleteByDown(id);
-        if ( deleteByTopStatus === true && deleteByLowerStatus === true) {
-            return deleteByTopStatus;
-        }
-        else {
-            return undefined;
-        }
+    async deleteByConexion(code: number): Promise<boolean> {
+        const statusDeleteByTop: boolean = await this.deleteByTop(code);
+        const statusDeleteByLower: boolean = await this.deleteByDown(code);
+        return statusDeleteByTop && statusDeleteByLower;
     }
-    async deleteByTop(id: number): Promise<boolean> {
-        return await this.relationDao.deleteByTop(id);
+    async deleteByTop(code: number): Promise<boolean> {
+        return await this.relationDao.deleteByTop(code);
     }
-    async deleteByDown(id: number): Promise<boolean> {
-        return await this.relationDao.deleteByDown(id);
+    async deleteByDown(code: number): Promise<boolean> {
+        return await this.relationDao.deleteByDown(code);
     }
     async findUnitsByLowerUnit(unit: Unit) {
         const relations: Relation[] = await this.findByLowerUnit(unit);

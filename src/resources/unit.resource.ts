@@ -24,18 +24,13 @@ export class UnitResource {
     async findByCode(code: number): Promise<Unit> {
         return await this.unitDao.findByCode(code);
     }
-    async delete(id: number): Promise<boolean> {
-        let success = false;
-        const unit: Unit = await this.unitDao.findByCode(id);
-        if (unit) {
-            const statusDeleteUnit: boolean = await this.unitDao.delete(id);
-            const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(id);
-            success = statusDeleteUnit && statusDeleteRelations;
-        }
-        return success;
+    async delete(code: number): Promise<boolean> {
+        const statusDeleteUnit: boolean = await this.unitDao.delete(code);
+        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(code);
+        return statusDeleteUnit && statusDeleteRelations;
     }
     async findById(id: number): Promise<Unit> {
-        return await this.unitDao.findByCode(id);
+        return await this.unitDao.findById(id);
     }
 
     async getFriends(unit: Unit, n: number): Promise<any> {
