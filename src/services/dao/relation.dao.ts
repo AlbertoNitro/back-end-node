@@ -14,7 +14,8 @@ export class RelationDao {
     }
 
     async findAll(): Promise<Relation[]> {
-        return await RelationSchema.find({})
+        console.log("HOLAAAA");
+        return await RelationSchema.find({}).populate({path: "Unit", select: "topUnit"})
             .then( relations => {
                 return relations;
             })
