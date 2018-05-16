@@ -79,7 +79,7 @@ relations:
     topUnit: 2
     lowerUnit: 8
     semantics: Nada
-- &relation0
+- &relation11
     type: INHERIT
     topUnit: 0
     lowerUnit: 11

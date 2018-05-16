@@ -1,21 +1,21 @@
 import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import { UnitEntity } from "../../src/entities/unit.entity";
+import { UnitInputDto } from "../../src/dtos/unitInputDto.dto";
+import { Unit } from "../../src/models/unit.model";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + unit created", (done) => {
-      return request(app).post("/unit")
-        .send({"name": "Unidad11"})
-        .end( async (err, res) => {
-          expect(HttpStatusCode.CREATED).to.equal(res.status);
-          expect("Unidad11").to.equal(res.body.name);
-          //await request(app).delete("/unit/" + res.body._id);
-          done();
-        });
+        return request(app).post("/unit")
+            .send({"name": "UnidadX"})
+            .end( async (err, res) => {
+              expect(HttpStatusCode.CREATED).to.equal(res.status);
+              expect("UnidadX").to.equal(res.body.name);
+              done();
+            });
     });
 });
 
@@ -23,11 +23,22 @@ describe("DELETE /unit", () => {
   it("should return 404 - NOT FOUND", (done) => {
       const idUnit = 99999;
       return request(app).delete("/unit/" + idUnit)
-      .end( async (err, res) => {
-          expect(HttpStatusCode.NOT_FOUND).to.equal(res.status);
-        done();
-      });
+          .end( async (err, res) => {
+              expect(HttpStatusCode.NOT_FOUND).to.equal(res.status);
+              done();
+          });
   });
+});
+
+describe("DELETE /unit", () => {
+    it("should return 204 - NOT CONTENT", (done) => {
+        const idUnit = 10;
+        return request(app).delete("/unit/" + idUnit)
+            .end( async (err, res) => {
+                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                done();
+            });
+    });
 });
 
 describe("DELETE /unit", () => {
@@ -46,13 +57,14 @@ describe("GET /unit", () => {
         return request(app).get("/unit")
             .end( (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
-                const jsonResponse: UnitEntity[] = res.body;
-                expect(jsonResponse.length).to.be.above(9);
+                const units: Unit[] = res.body;
+                expect(units.length).to.be.above(9);
                 done();
             });
     });
 });
 
+/*
 describe("GET /unit/search/:name", () => {
   it("should return 200 OK", (done) => {
     return request(app).get("/unit/search/Jav")
@@ -64,3 +76,4 @@ describe("GET /unit/search/:name", () => {
     });
   });
 });
+*/
