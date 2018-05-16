@@ -66,7 +66,6 @@ export class RelationDao {
                 return false;
             });
     }
-    
     async deleteByTop(_id: Number): Promise<boolean> {
         return RelationSchema.deleteOne({ topUnit: _id })
             .then( message => {

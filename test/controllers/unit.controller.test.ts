@@ -12,8 +12,8 @@ const dbService: DbService = new DbService();
 
 beforeAll( async (done) => {
     logger.info("---------------------------------beforeAll");
-    const success: boolean = await dbService.seed();
-    if (!success) {
+    const success2: boolean = await dbService.seed();
+    if (!success2) {
         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
         process.exit();
     }
@@ -24,16 +24,16 @@ beforeAll( async (done) => {
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + unit created", (done) => {
         return request(app).post("/unit")
-            .send({"name": "UnidadX"})
+            .send({"name":"MonoAgua"})
             .end(  async (err, res) => {
               expect(HttpStatusCode.CREATED).to.equal(res.status);
-              expect("UnidadX").to.equal(res.body.name);
+              expect("MonoAgua").to.equal(res.body.name);
               done();
             });
     });
 });
 
-describe("DELETE /unit", () => {
+describe("DELETE /unit/:code", () => {
   it("should return 404 - NOT FOUND", (done) => {
       const codeUnit = 99999;
       return request(app).delete("/unit/" + codeUnit)
@@ -44,7 +44,7 @@ describe("DELETE /unit", () => {
   });
 });
 
-describe("DELETE /unit", () => {
+describe("DELETE /unit/:code", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const codeUnit = 10;
         return request(app).delete("/unit/" + codeUnit)
@@ -55,7 +55,7 @@ describe("DELETE /unit", () => {
     });
 });
 
-describe("DELETE /unit", () => {
+describe("DELETE /unit/:code", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const codeUnit = 0;
         return request(app).delete("/unit/" + codeUnit)
