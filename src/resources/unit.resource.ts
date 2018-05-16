@@ -22,7 +22,6 @@ export class UnitResource {
         return  await this.unitDao.findAll();
     }
     async findByCode(code: number): Promise<Unit> {
-        logger.info(code.toString());
         return await this.unitDao.findByCode(code);
     }
     async delete(id: number): Promise<boolean> {

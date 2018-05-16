@@ -45,9 +45,7 @@ export class UnitController {
   }
   async findByCode(req: Request, res: Response): Promise<any> {
       const code: number = req.params.code;
-      logger.info(code.toString());
       const unit: Unit = await this.unitResource.findByCode(code);
-      logger.info(unit.toString());
       unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
 
