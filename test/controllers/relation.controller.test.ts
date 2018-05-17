@@ -10,8 +10,8 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /relation", () => {
-    it("should return: 201 - CREATED + relation created", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 1, idLowerUnit: 2};
+    it("should return: 201 - CREATED + Relation", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 53, idLowerUnit: 54};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
