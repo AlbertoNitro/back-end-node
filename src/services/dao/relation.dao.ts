@@ -55,6 +55,7 @@ export class RelationDao {
             });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
+        console.log("$$$$$$" + JSON.stringify(relationDto));
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.idLowerUnit);
         const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
