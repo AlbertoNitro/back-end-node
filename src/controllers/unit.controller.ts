@@ -4,6 +4,7 @@ import { Unit } from "../models/unit.model";
 import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
 import { UnitInputDto } from "../dtos/unitInputDto.dto";
+import logger from "../util/logger";
 
 export class UnitController {
   private unitResource: UnitResource;
@@ -37,12 +38,22 @@ export class UnitController {
           res.status(HttpStatusCode.NOT_FOUND).end();
       }
   }
+  async findById(req: Request, res: Response): Promise<any> {
+      const id: number = req.params.id;
+      const unit: Unit = await this.unitResource.findById(id);
+      unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+  }
+  async findByCode(req: Request, res: Response): Promise<any> {
+      const code: number = req.params.code;
+      const unit: Unit = await this.unitResource.findByCode(code);
+      unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+  }
 
   async getFriendsByUnit(req: Request, res: Response) {
-    const unit: Unit = await this.unitResource.findById(req.params.id);
+    /*const unit: Unit = await this.unitResource.findById(req.params.id);
     const topUnits: Unit[] = await this.relationResource.findUnitsByLowerUnit(unit);
     const lowerUnits: Unit[] = await this.unitResource.getFriends(unit, 5);
-    console.log(lowerUnits);
+    console.log(lowerUnits);*/
     /*const relations: Unit[] = this.relationResource.findRelations(lowerUnits.concat(topUnits.concat(unit)));*/
   }
 

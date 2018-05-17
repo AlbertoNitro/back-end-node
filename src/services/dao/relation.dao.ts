@@ -5,22 +5,36 @@ import { RelationInputDto } from "../../dtos/relationInput.dto";
 import RelationSchema from "../../schemas/relation.schema";
 import { RelationBuilder } from "../../models/builders/relation.builder";
 import { Document } from "mongoose";
+import UnitSchema from "../../schemas/unit.schema";
+import { UnitBuilder } from "../../models/builders/unit.builder";
 
 export class RelationDao {
     private unitDao: UnitDao;
+    private search: any;
 
     constructor() {
         this.unitDao = new UnitDao();
     }
 
-    async findAll(): Promise<Relation[]> {
-        return await RelationSchema.find({})
-            .then( relations => {
-                return relations;
-            })
-            .catch ( err => {
-                return undefined;
-            });
+    toRelation(relations: Document[]) {
+        const relation: Relation[] = [];
+        for ( let i = 0; i < relations.length; i++) {
+            relation.push(new RelationBuilder().setType(relations[i].get("type")).setTopUnit(new UnitBuilder(relations[i].get("topUnit").get("name")).setId(relations[i].get("topUnit").get("_id")).setCode(relations[i].get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(relations[i].get("lowerUnit").get("name")).setId(relations[i].get("lowerUnit").get("_id")).setCode(relations[i].get("lowerUnit").get("code")).build()).build());
+        }
+        return relation;
+    }
+    async findAll() {
+        await RelationSchema.find({}, async (err, relation) => {
+            await UnitSchema.populate(relation, {path: "topUnit"}, async (err, relation) => {
+                await UnitSchema.populate(relation, {path: "lowerUnit"}, (err, relation) => {
+                     this.search = this.toRelation(relation);
+                } );
+            } );
+        })
+        .catch ( err => {
+            this.search = undefined;
+        });
+        return this.search;
     }
     async findByLowerUnit(id: Number): Promise<Relation[]> {
         return await RelationSchema.find({ lowerUnit: id.toString() })
@@ -41,15 +55,19 @@ export class RelationDao {
         });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        const topUnit: Unit = await this.unitDao.findById(relationDto.idTopUnit);
-        const lowerUnit: Unit = await this.unitDao.findById(relationDto.idLowerUnit);
-        const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(topUnit).setLowerUnit(lowerUnit).build();
+        console.log("Hola");
+        const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
+        const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.idLowerUnit);
+        console.log(topUnit.getId());
+        const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
+        console.log("relationEntity" + JSON.stringify(relationEntity));
         const relation = new RelationSchema(relationEntity);
         return relation.save()
             .then( relation => {
                 return relation;
             })
             .catch ( err => {
+                console.log("ERR" + err);
                 return undefined;
             });
     }

@@ -43,7 +43,6 @@ export class DbService {
     async delete(): Promise<any> {
          const promise = await new Promise((resolve, reject) => {
             setTimeout(() => {
-                logger.info("Abriendo conexion a la DB para proceder a eliminarla.");
                 mongoose.connection.db.dropDatabase()
                     .then(() => {
                         logger.info("DB borrada con exito.");

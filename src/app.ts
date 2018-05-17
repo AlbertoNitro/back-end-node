@@ -17,7 +17,6 @@ import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import api from "./routes/main.route";
 const cors = require("cors");
-
 const MongoStore = mongo(session);
 
 // Load environment variables from .env file, where API keys and passwords are configured
@@ -28,13 +27,9 @@ const app = express();
 
 // Connect to MongoDB
 mongoose.Promise = Promise;
-
-mongoose.connect(MONGODB_URI, {useMongoClient: true}).then(
-  () => { console.log("  >Connected to MongoDB Database! \n"); /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-).catch(err => {
-  console.log("  >MongoDB connection error. Please make sure MongoDB is running. " + err);
-  // process.exit();
-});
+mongoose.connect(MONGODB_URI, {useMongoClient: true})
+    .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
+    .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
@@ -44,9 +39,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(cors());
 app.use(morgan("dev"));
-app.disable("etag");
+app.disable("etag"); // Evitar devolver HTTP 304
 app.use(expressStatusMonitor());
-console.log("\n  >Estado del servidor en: http://localhost:3000/status \n");
+logger.info("\n  >Estado del servidor en: http://localhost:3000/status \n");
 app.use("/", api);
+
 
 export default app;

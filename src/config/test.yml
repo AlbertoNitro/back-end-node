@@ -1,86 +1,86 @@
 # Units
 units:
 - &unit0 #ROOT
-    _id: 0
+    code: 0
     name: Unidad0 # ROOT
 - &unit1
-    _id: 1
+    code: 1
     name: Unidad1 #INHERIT
 - &unit2
-    _id: 2
+    code: 2
     name: Unidad2 #INHERIT
 - &unit3
-    _id: 3
+    code: 3
     name: Unidad3 #COMPOSE
 - &unit4
-    _id: 4
+    code: 4
     name: Unidad4 #COMPOSE
 - &unit5
-    _id: 5
+    code: 5
     name: Unidad5 #USE
 - &unit6
-    _id: 6
+    code: 6
     name: Unidad6 #USE
 - &unit7
-    _id: 7
+    code: 7
     name: Unidad7 #ASOCIATION
 - &unit8
-    _id: 8
+    code: 8
     name: Unidad8 #ASOCIATION
 - &unit9
-    _id: 9
+    code: 9
     name: Unidad9 #NO_RELATIONED
 - &unit10
-    _id: 10
+    code: 10
     name: Unidad10 #NO_RELATIONED
 - &unit11
-    _id: 11
+    code: 11
     name: Unidad11 #INHERIT
 
 # Relations
 relations:
 - &relation0
     type: INHERIT
-    topUnit: 0
-    lowerUnit: 1
+    topUnit: *unit0
+    lowerUnit: *unit1
     semantics: Nada
 - &relation1
     type: INHERIT
-    topUnit: 0
-    lowerUnit: 2
+    topUnit: *unit0
+    lowerUnit: *unit2
     semantics: Nada
 - &relation2
     type: COMPOSE
-    topUnit: 1
-    lowerUnit: 3
+    topUnit: *unit1
+    lowerUnit: *unit3
     semantics: Nada
 - &relation3
     type: COMPOSE
-    topUnit: 2
-    lowerUnit: 4
+    topUnit: *unit2
+    lowerUnit: *unit4
     semantics: Nada
 - &relation4
     type: USE
-    topUnit: 1
-    lowerUnit: 5
+    topUnit: *unit1
+    lowerUnit: *unit5
     semantics: Nada
 - &relation5
     type: USE
-    topUnit: 2
-    lowerUnit: 6
+    topUnit: *unit2
+    lowerUnit: *unit6
     semantics: Nada
 - &relation6
     type: ASOCIATION
-    topUnit: 1
-    lowerUnit: 7
+    topUnit: *unit1
+    lowerUnit: *unit7
     semantics: Nada
 - &relation7
     type: ASOCIATION
-    topUnit: 2
-    lowerUnit: 8
+    topUnit: *unit2
+    lowerUnit: *unit8
     semantics: Nada
-- &relation0
+- &relation11
     type: INHERIT
-    topUnit: 0
-    lowerUnit: 11
+    topUnit: *unit0
+    lowerUnit: *unit11
     semantics: Pelidiosa

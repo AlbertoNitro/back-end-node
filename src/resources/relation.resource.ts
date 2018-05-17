@@ -2,15 +2,19 @@ import { RelationDao } from "../services/dao/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 import { Unit } from "../models/unit.model";
+import { UnitDao } from "../services/dao/unit.dao";
 
 export class RelationResource {
     private relationDao: RelationDao;
 
+    private unitDao: UnitDao;
+
     constructor() {
         this.relationDao = new RelationDao();
+        this.unitDao = new UnitDao();
     }
 
-    async findAll(): Promise<Relation[]> {
+    async findAll() {
         return await this.relationDao.findAll();
     }
     async findByLowerUnit(unit: Unit): Promise<Relation[]> {
@@ -20,6 +24,7 @@ export class RelationResource {
         return await this.relationDao.findByTopUnit(unit.getId());
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
+        console.log("relationDto" + JSON.stringify(relationDto));
         return await this.relationDao.create(relationDto);
     }
     async deleteByConexion(id: number): Promise<boolean> {

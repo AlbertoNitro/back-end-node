@@ -20,11 +20,8 @@ export class UnitDao {
             });
     }
     async findById(id: number): Promise<Unit> {
-        console.log("DAO");
         return await UnitSchema.findById(id)
             .then( unit => {
-                console.log("Then");
-                console.log(unit);
                 return new UnitBuilder(unit.get("name")).setId(unit.get("_id")).build();
             })
             .catch ( err => {
@@ -36,6 +33,15 @@ export class UnitDao {
         return await UnitSchema.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
             .then( units => {
                 return units;
+            })
+            .catch ( err => {
+                return undefined;
+            });
+    }
+    async findByCode(code: number): Promise<Unit> {
+        return await UnitSchema.find({ code: code })
+            .then( units => {
+                return new UnitBuilder(units[0].get("name")).setId(units[0].get("_id")).setCode(units[0].get("code")).build();
             })
             .catch ( err => {
                 return undefined;
@@ -59,4 +65,5 @@ export class UnitDao {
                 return false;
             });
     }
+
 }
