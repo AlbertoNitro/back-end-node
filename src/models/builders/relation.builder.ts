@@ -5,8 +5,8 @@ import { Relation } from "../relation.model";
 export class RelationBuilder {
     private _id: number;
     private type: TypeRelation;
-    private topUnit: number;
-    private lowerUnit: number;
+    private topUnit: Unit;
+    private lowerUnit: Unit;
     private semantics: string;
 
     constructor() {}
@@ -35,14 +35,14 @@ export class RelationBuilder {
     public getTopUnit() {
         return this.topUnit;
     }
-    public setTopUnit(topUnit: number) {
+    public setTopUnit(topUnit: Unit) {
         this.topUnit = topUnit;
         return this;
     }
     public getLowerUnit() {
         return this.lowerUnit;
     }
-    public setLowerUnit(lowerUnit: number) {
+    public setLowerUnit(lowerUnit: Unit) {
         this.lowerUnit = lowerUnit;
         return this;
     }
