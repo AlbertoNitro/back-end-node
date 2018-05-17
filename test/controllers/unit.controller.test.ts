@@ -10,32 +10,36 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-beforeAll( async () => {
-    logger.info("------------------------------------------------------------------------beforeAll");
-    const success: boolean = await dbService.seed();
-    if (!success) {
+beforeAll( async (done) => {
+    const successDeleteDb: boolean = await dbService.delete();
+    if (!successDeleteDb) {
+        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
+        process.exit();
+    }
+    const successSeedDb: boolean = await dbService.seed();
+    if (!successSeedDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
         process.exit();
     }
-    logger.info("------------------------------------------------------------------------beforeAll fin");
+    done();
 });
 
 describe("POST /unit", () => {
-    it("should return: 201 - CREATED + unit created", (done) => {
+    it("should return: 201 - CREATED + Unit", (done) => {
         return request(app).post("/unit")
-            .send({"name": "UnidadX"})
+            .send({"name": "Unidad2000" })
             .end(  async (err, res) => {
               expect(HttpStatusCode.CREATED).to.equal(res.status);
-              expect("UnidadX").to.equal(res.body.name);
+              expect("Unidad2000").to.equal(res.body.name);
               done();
             });
     });
 });
 
-describe("DELETE /unit", () => {
+describe("DELETE /unit/:code", () => {
   it("should return 404 - NOT FOUND", (done) => {
-      const idUnit = 99999;
-      return request(app).delete("/unit/" + idUnit)
+      const codeUnit = 99999;
+      return request(app).delete("/unit/" + codeUnit)
           .end( async (err, res) => {
               expect(HttpStatusCode.NOT_FOUND).to.equal(res.status);
               done();
@@ -43,10 +47,10 @@ describe("DELETE /unit", () => {
   });
 });
 
-describe("DELETE /unit", () => {
+describe("DELETE /unit/:code", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const idUnit = 10;
-        return request(app).delete("/unit/" + idUnit)
+        const codeUnit = 60;
+        return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
                 done();
@@ -54,10 +58,21 @@ describe("DELETE /unit", () => {
     });
 });
 
-describe("DELETE /unit", () => {
+describe("DELETE /unit/:code", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const idUnit = 0;
-        return request(app).delete("/unit/" + idUnit)
+        const codeUnit = 55;
+        return request(app).delete("/unit/" + codeUnit)
+            .end( async (err, res) => {
+                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                done();
+            });
+    });
+});
+
+describe("DELETE /unit/:code", () => {
+    it("should return 204 - NOT CONTENT", (done) => {
+        const codeUnit = 50;
+        return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
                 done();
@@ -66,7 +81,7 @@ describe("DELETE /unit", () => {
 });
 
 describe("GET /unit", () => {
-    it("should return 200 - OK and UnitEntity[]", (done) => {
+    it("should return 200 - OK and Unit[]", (done) => {
         return request(app).get("/unit")
             .end( async (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
@@ -77,38 +92,28 @@ describe("GET /unit", () => {
     });
 });
 
-describe("GET /unit/:id", () => {
-    const idUnit = 1;
+describe("GET /unit/:code", () => {
+    const codeUnit = 1;
     it("should return 200 - OK and Unit", (done) => {
-        return request(app).get("/unit/" + idUnit)
+        return request(app).get("/unit/" + codeUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
-                const unit: Unit = res.body;
-                expect(idUnit).to.equal(unit.getCode());
+                expect(codeUnit).to.equal(res.body.code);
                 done();
             });
     });
 });
 
-/*
-describe("GET /unit/search/:name", () => {
-  it("should return 200 OK", (done) => {
-    return request(app).get("/unit/search/Jav")
-    .end( (err, res) => {
-      expect(HttpStatusCode.OK).to.equal(res.status);
-      const jsonResponse: UnitEntity[] = res.body;
-      expect(0).to.not.equal(jsonResponse.length);
-      done();
-    });
-  });
-});
-*/
 
-afterAll(async () => {
-    logger.info("------------------------------------------------------------------------afterAll");
-    const success: boolean = await dbService.delete();
-    if (!success) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-        process.exit();
-    }
-});
+// describe("GET /unit/search/:name", () => {
+//   it("should return 200 OK", (done) => {
+//     return request(app).get("/unit/search/Jav")
+//     .end( (err, res) => {
+//       expect(HttpStatusCode.OK).to.equal(res.status);
+//       const jsonResponse: UnitEntity[] = res.body;
+//       expect(0).to.not.equal(jsonResponse.length);
+//       done();
+//     });
+//   });
+// });
+
