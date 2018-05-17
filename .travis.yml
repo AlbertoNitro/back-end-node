@@ -3,7 +3,9 @@ node_js:
     - "9.2.1"
 services:
     - mongodb
-script: npm run travis
-
 before_script:
     - npm install
+script:
+    - npm run travis
+
+
