@@ -55,21 +55,24 @@ export class RelationDao {
             });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        console.log("Hola");
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.idLowerUnit);
-        console.log(topUnit.getId());
         const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
-        console.log("relationEntity" + JSON.stringify(relationEntity));
         const relation = new RelationSchema(relationEntity);
-        return relation.save()
-            .then( relation => {
-                return relation;
+        return await relation.save()
+            .then( async relation => {
+                return await UnitSchema.populate(relation, {path: "topUnit"}, async (err, relation) => {
+                    return await UnitSchema.populate(relation, {path: "lowerUnit"}, (err, relation) => {
+                        this.search = relation;
+                        return relation;
+                    } );
+                } );
             })
             .catch ( err => {
                 console.log("ERR" + err);
                 return undefined;
             });
+
     }
     async delete(id: number): Promise<boolean> {
         return RelationSchema.deleteOne({ _id: id })
