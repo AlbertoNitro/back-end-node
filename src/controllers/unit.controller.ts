@@ -3,7 +3,7 @@ import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { Unit } from "../models/unit.model";
 import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
-import { UnitInputDto } from "../dtos/unitInputDto.dto";
+import { AutocompleteOutputDto } from "../dtos/autocompleteOutput.dto";
 import logger from "../util/logger";
 
 export class UnitController {
@@ -21,8 +21,9 @@ export class UnitController {
   }
   async findByName(req: Request, res: Response) {
     const name: string = req.params.name;
-    const units: Unit[] = await this.unitResource.findByName(name);
-    units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.NOT_FOUND).end();
+    logger.info(name);
+    const autocompleteOutputDtos: AutocompleteOutputDto[] = await this.unitResource.findByName(name);
+      autocompleteOutputDtos ? res.status(HttpStatusCode.OK).json(autocompleteOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
   }
   async findAll(req: Request, res: Response): Promise<any> {
       const units: Unit[] = await this.unitResource.findAll();

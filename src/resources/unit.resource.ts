@@ -1,8 +1,9 @@
 import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
+import { Relation } from "../models/relation.model";
+import { AutocompleteOutputDto } from "../dtos/autocompleteOutput.dto";
 import logger from "../util/logger";
-import {Relation} from "../models/relation.model";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -16,11 +17,27 @@ export class UnitResource {
     async create(name: string): Promise<Unit> {
         return await this.unitDao.create(name);
     }
-    async findByName(name: string): Promise<Unit[]> {
+    async findByName(name: string): Promise<AutocompleteOutputDto[]> {
+        let result: AutocompleteOutputDto[] = undefined;
         const units: Unit[] = await this.unitDao.findByName(name);
-        for (let i = 0 ; i < units.length; i++) {
-            
+        logger.info(units);
+        if (units) {
+            result = [];
+            let topUnits: Unit[] = [];
+            for (let i = 0 ; i < units.length; i++) {
+                topUnits = await this.getTopUnits(units[i].getId());
+                if (topUnits) {
+                    for (let j = 0 ; j < units.length; j++) {
+                        const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: topUnits[j]};
+                        result.push(autocompleteOutputDto);
+                    }
+                } else {
+                    const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: undefined};
+                    result.push(autocompleteOutputDto);
+                }
+            }
         }
+        return result;
     }
     async findAll(): Promise<Unit[]> {
         return  await this.unitDao.findAll();
