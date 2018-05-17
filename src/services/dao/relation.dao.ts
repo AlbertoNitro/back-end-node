@@ -61,11 +61,9 @@ export class RelationDao {
         const relation = new RelationSchema(relationEntity);
         return await relation.save()
             .then( async relation => {
-                return await UnitSchema.populate(relation, {path: "topUnit"}, async (err, relation) => {
-                    return await UnitSchema.populate(relation, {path: "lowerUnit"}, (err, relation) => {
-                        this.search = relation;
-                        return relation;
-                    } );
+                console.log("then" + relation);
+                return await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
+                    return relation;
                 } );
             })
             .catch ( err => {
