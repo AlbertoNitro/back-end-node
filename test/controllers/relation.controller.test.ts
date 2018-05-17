@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/relationInput.dto";
-import { TypeRelation } from "../../src/models/typeRelation.enum";
+import { TypeRelation } from "../../src/models/typerelation.enum";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
 
@@ -10,8 +10,8 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /relation", () => {
-    it("should return: 201 - CREATED + relation created", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 1, idLowerUnit: 2};
+    it("should return: 201 - CREATED + Relation", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 53, idLowerUnit: 54};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
