@@ -2,6 +2,7 @@ import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
 import logger from "../util/logger";
+import {Relation} from "../models/relation.model";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -16,7 +17,10 @@ export class UnitResource {
         return await this.unitDao.create(name);
     }
     async findByName(name: string): Promise<Unit[]> {
-        return await this.unitDao.findByName(name);
+        const units: Unit[] = await this.unitDao.findByName(name);
+        for (let i = 0 ; i < units.length; i++) {
+            
+        }
     }
     async findAll(): Promise<Unit[]> {
         return  await this.unitDao.findAll();
@@ -31,6 +35,20 @@ export class UnitResource {
     }
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
+    }
+    async getTopUnits(code: number): Promise<Unit[]> {
+        let topUnits: Unit[] = undefined;
+        const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
+        if (relations) {
+            topUnits = [];
+        }
+        for (let i = 0 ; i < relations.length; i++) {
+            const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());
+            if (topUnit) {
+                topUnits.push(topUnit);
+            }
+        }
+        return topUnits;
     }
     async getFriends(unit: Unit, n: number): Promise<any> {
         const lowerUnits: Unit[] = await this.relationResource.findUnitsByTopUnit(unit);
