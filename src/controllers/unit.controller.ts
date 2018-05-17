@@ -23,7 +23,7 @@ export class UnitController {
     const name: string = req.params.name;
     logger.info(name);
     const autocompleteOutputDtos: AutocompleteOutputDto[] = await this.unitResource.findByName(name);
-      autocompleteOutputDtos ? res.status(HttpStatusCode.OK).json(autocompleteOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
+    autocompleteOutputDtos ? res.status(HttpStatusCode.OK).json(autocompleteOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
   }
   async findAll(req: Request, res: Response): Promise<any> {
       const units: Unit[] = await this.unitResource.findAll();

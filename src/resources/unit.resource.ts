@@ -20,7 +20,7 @@ export class UnitResource {
     async findByName(name: string): Promise<AutocompleteOutputDto[]> {
         let result: AutocompleteOutputDto[] = undefined;
         const units: Unit[] = await this.unitDao.findByName(name);
-        logger.info(units);
+        logger.info(JSON.stringify(units));
         if (units) {
             result = [];
             let topUnits: Unit[] = [];
