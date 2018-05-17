@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/relationInput.dto";
-import { TypeRelation } from "../../src/models/typeRelation.enum";
+import { TypeRelation } from "../../src/models/typerelation.enum";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
 
