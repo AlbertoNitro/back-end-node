@@ -26,7 +26,7 @@ export class UnitResource {
     }
     async delete(code: number): Promise<boolean> {
         const statusDeleteUnit: boolean = await this.unitDao.delete(code);
-        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(code);
+        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion2(code);
         return statusDeleteUnit && statusDeleteRelations;
     }
     async findById(id: number): Promise<Unit> {

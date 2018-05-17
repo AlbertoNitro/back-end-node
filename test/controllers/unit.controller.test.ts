@@ -22,7 +22,7 @@ beforeAll( async (done) => {
 });
 
 describe("POST /unit", () => {
-    it("should return: 201 - CREATED + unit created", (done) => {
+    it("should return: 201 - CREATED + Unit", (done) => {
         return request(app).post("/unit")
             .send({"name":"MonoAgua"})
             .end(  async (err, res) => {
@@ -46,7 +46,7 @@ describe("DELETE /unit/:code", () => {
 
 describe("DELETE /unit/:code", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const codeUnit = 10;
+        const codeUnit = 60;
         return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
@@ -57,7 +57,18 @@ describe("DELETE /unit/:code", () => {
 
 describe("DELETE /unit/:code", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const codeUnit = 0;
+        const codeUnit = 55;
+        return request(app).delete("/unit/" + codeUnit)
+            .end( async (err, res) => {
+                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                done();
+            });
+    });
+});
+
+describe("DELETE /unit/:code", () => {
+    it("should return 204 - NOT CONTENT", (done) => {
+        const codeUnit = 50;
         return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);

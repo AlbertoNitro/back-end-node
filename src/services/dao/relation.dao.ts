@@ -57,8 +57,8 @@ export class RelationDao {
                 return undefined;
             });
     }
-    async delete(_id: Number): Promise<boolean> {
-        return RelationSchema.deleteOne({ topUnit: _id })
+    async delete(id: number): Promise<boolean> {
+        return RelationSchema.deleteOne({ _id: id })
             .then( message => {
                 return true;
             })
