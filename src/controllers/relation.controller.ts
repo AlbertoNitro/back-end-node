@@ -3,6 +3,7 @@ import { Relation } from "../models/relation.model";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 import { RelationResource } from "../resources/relation.resource";
+import logger from "../util/logger";
 
 export class RelationController {
     private relationResource: RelationResource;
@@ -17,6 +18,8 @@ export class RelationController {
     }
     async create(req: Request, res: Response): Promise<any> {
         const relationDto: RelationInputDto = req.body;
+        console.log(relationDto);
+        logger.info(req.body);
         const relation: Relation = await this.relationResource.create(relationDto);
         relation ? res.status(HttpStatusCode.CREATED).json(relation) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR);
     }

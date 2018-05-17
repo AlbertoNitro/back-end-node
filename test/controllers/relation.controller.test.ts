@@ -10,8 +10,8 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /relation", () => {
-    it("should return: 201 - CREATED + relation created", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 169, idLowerUnit: 161};
+    it("should return: 201 - CREATED + Relation", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 53, idLowerUnit: 54};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
@@ -20,8 +20,8 @@ describe("POST /relation", () => {
                 expect(relationOutputDto.type).to.equal(relationInputDto.type);
                 const unitOutputDtoTop: UnitOutputDto = relationOutputDto.topUnit;
                 const unitOutputDtoLower: UnitOutputDto = relationOutputDto.lowerUnit;
-                expect(unitOutputDtoTop._id).to.equal(relationInputDto.idTopUnit);
-                expect(unitOutputDtoLower._id).to.equal(relationInputDto.idLowerUnit);
+                expect(unitOutputDtoTop.code).to.equal(relationInputDto.idTopUnit);
+                expect(unitOutputDtoLower.code).to.equal(relationInputDto.idLowerUnit);
                 done();
             });
     });

@@ -1,86 +1,98 @@
 # Units
 units:
 - &unit0 #ROOT
-    code: 0
+    _id: {$oid: "161d87b8b260cf35147998ca"}
+    code: 50
     name: Unidad0 # ROOT
 - &unit1
-    code: 1
+    _id: {$oid: "261d87b8b260cf35147998ca"}
+    code: 51
     name: Unidad1 #INHERIT
 - &unit2
-    code: 2
+    _id: {$oid: "361d87b8b260cf35147998ca"}
+    code: 52
     name: Unidad2 #INHERIT
 - &unit3
-    code: 3
+    _id: {$oid: "461d87b8b260cf35147998ca"}
+    code: 53
     name: Unidad3 #COMPOSE
 - &unit4
-    code: 4
+    _id: {$oid: "561d87b8b260cf35147998ca"}
+    code: 54
     name: Unidad4 #COMPOSE
 - &unit5
-    code: 5
+    _id: {$oid: "661d87b8b260cf35147998ca"}
+    code: 55
     name: Unidad5 #USE
 - &unit6
-    code: 6
+    _id: {$oid: "761d87b8b260cf35147998ca"}
+    code: 56
     name: Unidad6 #USE
 - &unit7
-    code: 7
+    _id: {$oid: "861d87b8b260cf35147998ca"}
+    code: 57
     name: Unidad7 #ASOCIATION
 - &unit8
-    code: 8
+    _id: {$oid: "961d87b8b260cf35147998ca"}
+    code: 58
     name: Unidad8 #ASOCIATION
 - &unit9
-    code: 9
+    _id: {$oid: "221d87b8b260cf35147998ca"}
+    code: 59
     name: Unidad9 #NO_RELATIONED
 - &unit10
-    code: 10
+    _id: {$oid: "331d87b8b260cf35147998ca"}
+    code: 60
     name: Unidad10 #NO_RELATIONED
 - &unit11
-    code: 11
+    _id: {$oid: "441d87b8b260cf35147998ca"}
+    code: 61
     name: Unidad11 #INHERIT
 
 # Relations
 relations:
 - &relation0
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit1
+    topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit0
+    lowerUnit: {$oid: "261d87b8b260cf35147998ca"} #unit1
     semantics: Nada
 - &relation1
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit2
+    topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit0
+    lowerUnit: {$oid: "361d87b8b260cf35147998ca"} #unit2
     semantics: Nada
 - &relation2
     type: COMPOSE
-    topUnit: *unit1
-    lowerUnit: *unit3
+    topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit1
+    lowerUnit: {$oid: "461d87b8b260cf35147998ca"} #unit3
     semantics: Nada
 - &relation3
     type: COMPOSE
-    topUnit: *unit2
-    lowerUnit: *unit4
+    topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit2
+    lowerUnit: {$oid: "561d87b8b260cf35147998ca"} #unit4
     semantics: Nada
 - &relation4
     type: USE
-    topUnit: *unit1
-    lowerUnit: *unit5
+    topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit1
+    lowerUnit: {$oid: "661d87b8b260cf35147998ca"} #unit5
     semantics: Nada
 - &relation5
     type: USE
-    topUnit: *unit2
-    lowerUnit: *unit6
+    topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit2
+    lowerUnit: {$oid: "761d87b8b260cf35147998ca"} #unit6
     semantics: Nada
 - &relation6
     type: ASOCIATION
-    topUnit: *unit1
-    lowerUnit: *unit7
+    topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit1
+    lowerUnit: {$oid: "861d87b8b260cf35147998ca"} #unit7
     semantics: Nada
 - &relation7
     type: ASOCIATION
-    topUnit: *unit2
-    lowerUnit: *unit8
+    topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit2
+    lowerUnit: {$oid: "961d87b8b260cf35147998ca"} #unit8
     semantics: Nada
 - &relation11
     type: INHERIT
-    topUnit: *unit0
-    lowerUnit: *unit11
+    topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit0
+    lowerUnit: {$oid: "441d87b8b260cf35147998ca"} #unit11
     semantics: Pelidiosa

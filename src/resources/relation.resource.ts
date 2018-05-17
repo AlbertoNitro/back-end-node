@@ -3,6 +3,7 @@ import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 import { Unit } from "../models/unit.model";
 import { UnitDao } from "../services/dao/unit.dao";
+import logger from "../util/logger";
 
 export class RelationResource {
     private relationDao: RelationDao;
@@ -17,34 +18,42 @@ export class RelationResource {
     async findAll() {
         return await this.relationDao.findAll();
     }
-    async findByLowerUnit(unit: Unit): Promise<Relation[]> {
-        return await this.relationDao.findByLowerUnit(unit.getId());
+    async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
+        return await this.relationDao.findByLowerUnit(codeUnit);
     }
-    async findByTopUnit(unit: Unit): Promise<Relation[]> {
-        return await this.relationDao.findByTopUnit(unit.getId());
+    async findByTopUnit(codeUnit: number): Promise<Relation[]> {
+        return await this.relationDao.findByTopUnit(codeUnit);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         console.log("relationDto" + JSON.stringify(relationDto));
         return await this.relationDao.create(relationDto);
     }
-    async deleteByConexion(id: number): Promise<boolean> {
-        const deleteByTopStatus: boolean = await this.deleteByTop(id);
-        const deleteByLowerStatus: boolean = await this.deleteByDown(id);
-        if ( deleteByTopStatus === true && deleteByLowerStatus === true) {
-            return deleteByTopStatus;
+    async deleteByConexion(codeUnit: number): Promise<boolean> {
+        const relationsLower: Relation[] = await this.findByLowerUnit(codeUnit);
+        const relationsTop: Relation[] = await this.findByTopUnit(codeUnit);
+        let sucessDeleteLowers: boolean = true;
+        let sucessDeleteTops: boolean = true;
+        if (relationsLower) {
+            for (let i = 0 ; i < relationsLower.length ; i++ ) {
+                const success: boolean = await this.delete(relationsLower[i].getId());
+                logger.info(success.toString());
+                sucessDeleteLowers = sucessDeleteLowers && success;
+            }
         }
-        else {
-            return undefined;
+        if (relationsTop) {
+            for (let i = 0 ; i < relationsTop.length ; i++ ) {
+                const success: boolean = await this.delete(relationsTop[i].getId());
+                logger.info(success.toString());
+                sucessDeleteTops = sucessDeleteTops && success;
+            }
         }
+        return sucessDeleteLowers && sucessDeleteTops;
     }
-    async deleteByTop(id: number): Promise<boolean> {
-        return await this.relationDao.deleteByTop(id);
-    }
-    async deleteByDown(id: number): Promise<boolean> {
-        return await this.relationDao.deleteByDown(id);
+    async delete(id: number): Promise<boolean> {
+        return await this.relationDao.delete(id);
     }
     async findUnitsByLowerUnit(unit: Unit) {
-        const relations: Relation[] = await this.findByLowerUnit(unit);
+        const relations: Relation[] = await this.findByLowerUnit(unit.getId());
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getTopUnit());
@@ -52,7 +61,7 @@ export class RelationResource {
         return topUnits;
     }
     async findUnitsByTopUnit(unit: Unit) {
-        const relations: Relation[] = await this.findByTopUnit(unit);
+        const relations: Relation[] = await this.findByTopUnit(unit.getId());
         console.log("relations " + relations);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {

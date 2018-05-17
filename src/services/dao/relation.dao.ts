@@ -27,61 +27,53 @@ export class RelationDao {
         await RelationSchema.find({}, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit"}, async (err, relation) => {
                 await UnitSchema.populate(relation, {path: "lowerUnit"}, (err, relation) => {
-                     this.search = this.toRelation(relation);
+                    this.search = this.toRelation(relation);
                 } );
             } );
         })
-        .catch ( err => {
-            this.search = undefined;
-        });
+            .catch ( err => {
+                this.search = undefined;
+            });
         return this.search;
     }
-    async findByLowerUnit(id: Number): Promise<Relation[]> {
-        return await RelationSchema.find({ lowerUnit: id.toString() })
-        .then( relation => {
-            return this.documentArrayToRelation(relation);
-        })
-        .catch ( err => {
-            return undefined;
-        });
+    async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
+        return await RelationSchema.find({ lowerUnit: codeUnit })
+            .then( relation => {
+                return this.documentArrayToRelation(relation);
+            })
+            .catch ( err => {
+                return undefined;
+            });
     }
-    async findByTopUnit(id: Number): Promise<Relation[]> {
-        return await RelationSchema.find({ topUnit: id.toString() })
-        .then( relation => {
-            return this.documentArrayToRelation(relation);
-        })
-        .catch ( err => {
-            return undefined;
-        });
+    async findByTopUnit(codeUnit: number): Promise<Relation[]> {
+        return await RelationSchema.find({ topUnit: codeUnit })
+            .then( relation => {
+                return this.documentArrayToRelation(relation);
+            })
+            .catch ( err => {
+                return undefined;
+            });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        console.log("Hola");
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.idLowerUnit);
-        console.log(topUnit.getId());
         const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
-        console.log("relationEntity" + JSON.stringify(relationEntity));
         const relation = new RelationSchema(relationEntity);
-        return relation.save()
-            .then( relation => {
-                return relation;
+        return await relation.save()
+            .then( async relation => {
+                console.log("then" + relation);
+                return await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
+                    return relation;
+                } );
             })
             .catch ( err => {
                 console.log("ERR" + err);
                 return undefined;
             });
+
     }
-    async deleteByTop(_id: Number): Promise<boolean> {
-        return RelationSchema.deleteOne({ topUnit: _id })
-            .then( message => {
-                return true;
-            })
-            .catch( err => {
-                return false;
-            });
-    }
-    async deleteByDown(_id: Number): Promise<boolean> {
-        return RelationSchema.deleteOne({ lowerUnit: _id })
+    async delete(id: number): Promise<boolean> {
+        return RelationSchema.deleteOne({ _id: id })
             .then( message => {
                 return true;
             })
