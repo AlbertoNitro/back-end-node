@@ -11,23 +11,26 @@ const expect = chai.expect;
 const dbService: DbService = new DbService();
 
 beforeAll( async (done) => {
-    logger.info("---------------------------------beforeAll");
-    const success2: boolean = await dbService.seed();
-    if (!success2) {
+    const successDeleteDb: boolean = await dbService.delete();
+    if (!successDeleteDb) {
+        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
+        process.exit();
+    }
+    const successSeedDb: boolean = await dbService.seed();
+    if (!successSeedDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
         process.exit();
     }
-    logger.info("---------------------------------beforeAll fin");
     done();
 });
 
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + Unit", (done) => {
         return request(app).post("/unit")
-            .send({"name":"MonoAgua"})
+            .send({"name": "Unidad2000" })
             .end(  async (err, res) => {
               expect(HttpStatusCode.CREATED).to.equal(res.status);
-              expect("MonoAgua").to.equal(res.body.name);
+              expect("Unidad2000").to.equal(res.body.name);
               done();
             });
     });
@@ -78,7 +81,7 @@ describe("DELETE /unit/:code", () => {
 });
 
 describe("GET /unit", () => {
-    it("should return 200 - OK and UnitEntity[]", (done) => {
+    it("should return 200 - OK and Unit[]", (done) => {
         return request(app).get("/unit")
             .end( async (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
@@ -101,27 +104,16 @@ describe("GET /unit/:code", () => {
     });
 });
 
-/*
-describe("GET /unit/search/:name", () => {
-  it("should return 200 OK", (done) => {
-    return request(app).get("/unit/search/Jav")
-    .end( (err, res) => {
-      expect(HttpStatusCode.OK).to.equal(res.status);
-      const jsonResponse: UnitEntity[] = res.body;
-      expect(0).to.not.equal(jsonResponse.length);
-      done();
-    });
-  });
-});
-*/
 
-afterAll(async (done) => {
-    logger.info("---------------------------------afterAll");
-    const success: boolean = await dbService.delete();
-    if (!success) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-        process.exit();
-    }
-    done();
-    logger.info("---------------------------------afterAll fin");
-});
+// describe("GET /unit/search/:name", () => {
+//   it("should return 200 OK", (done) => {
+//     return request(app).get("/unit/search/Jav")
+//     .end( (err, res) => {
+//       expect(HttpStatusCode.OK).to.equal(res.status);
+//       const jsonResponse: UnitEntity[] = res.body;
+//       expect(0).to.not.equal(jsonResponse.length);
+//       done();
+//     });
+//   });
+// });
+

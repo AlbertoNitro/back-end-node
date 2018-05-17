@@ -26,13 +26,12 @@ export class UnitResource {
     }
     async delete(code: number): Promise<boolean> {
         const statusDeleteUnit: boolean = await this.unitDao.delete(code);
-        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion2(code);
+        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(code);
         return statusDeleteUnit && statusDeleteRelations;
     }
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-
     async getFriends(unit: Unit, n: number): Promise<any> {
         const lowerUnits: Unit[] = await this.relationResource.findUnitsByTopUnit(unit);
         console.log(lowerUnits);
@@ -52,5 +51,4 @@ export class UnitResource {
             return set;
         }
     }
-
 }
