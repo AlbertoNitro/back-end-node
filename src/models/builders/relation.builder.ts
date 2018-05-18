@@ -3,50 +3,48 @@ import { Unit } from "../unit.model";
 import { Relation } from "../relation.model";
 
 export class RelationBuilder {
-    private _id: number;
-    private type: TypeRelation;
-    private topUnit: Unit;
-    private lowerUnit: Unit;
-    private semantics: string;
+    private relation: Relation;
 
-    constructor() {}
+    constructor() {
+        this.relation = new Relation();
+    }
 
-    public getSemantics() {
-        return this.semantics;
+    public getId(): string {
+        return this.getId();
     }
-    public setSemantics(semantics: string) {
-        this.semantics = semantics;
+    public setId(id: string): RelationBuilder {
+        this.relation.setId(id);
         return this;
     }
-    public getId() {
-        return this._id;
+    public getType(): TypeRelation {
+        return this.getType();
     }
-    public setId(id: number) {
-        this._id = id;
+    public setType(type: TypeRelation): RelationBuilder {
+        this.relation.setType(type);
         return this;
     }
-    public getType() {
-        return this.type;
+    public getTopUnit(): Unit {
+        return this.getTopUnit();
     }
-    public setType(type: TypeRelation) {
-        this.type = type;
+    public setTopUnit(topUnit: Unit): RelationBuilder {
+        this.relation.setTopUnit(topUnit);
         return this;
     }
-    public getTopUnit() {
-        return this.topUnit;
+    public getLowerUnit(): Unit {
+        return this.getLowerUnit();
     }
-    public setTopUnit(topUnit: Unit) {
-        this.topUnit = topUnit;
+    public setLowerUnit(lowerUnit: Unit): RelationBuilder {
+        this.relation.setLowerUnit(lowerUnit);
         return this;
     }
-    public getLowerUnit() {
-        return this.lowerUnit;
+    public getSemantics(): string {
+        return this.getSemantics();
     }
-    public setLowerUnit(lowerUnit: Unit) {
-        this.lowerUnit = lowerUnit;
+    public setSemantics(semantics: string): RelationBuilder {
+        this.relation.setSemantics(semantics);
         return this;
     }
     public build() {
-        return new Relation(this);
+        return this.relation;
     }
 }

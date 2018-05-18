@@ -16,10 +16,11 @@ export class RelationResource {
     }
 
     async findAll() {
-        return await this.relationDao.findAll();
+        const relations: Relation[] = await this.relationDao.findAll();
+        console.log(relations[0].getId());
+        return relations;
     }
     async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
-        console.log("???????????" + await this.relationDao.findByLowerUnit(codeUnit));
         return await this.relationDao.findByLowerUnit(codeUnit);
     }
     async findByTopUnit(codeUnit: number): Promise<Relation[]> {
@@ -50,7 +51,7 @@ export class RelationResource {
         }
         return sucessDeleteLowers && sucessDeleteTops;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await this.relationDao.delete(id);
     }
     async findUnitsByLowerUnit(unit: Unit) {
@@ -87,9 +88,13 @@ export class RelationResource {
         console.log("_____________________");
         const relations: Relation[] = await this.findByLowerUnit(unit);
         console.log(JSON.stringify(relations));
+        console.log(JSON.stringify(relations[0]));
+        console.log(JSON.stringify(relations[0].getId()));
+        console.log(JSON.stringify(relations[0].getSemantics()));
+
         const topUnits: number[] = [];
         for ( let i = 0; i < relations.length ; i++) {
-            console.log("]]]]]]]]]]+" + relations[i]);
+            console.log("]]]]]]]]]]+" + relations[i].getId());
             // topUnits.push(relations[i].getTopUnit().getId());
         }
         console.log("lowerUnits " + topUnits);
