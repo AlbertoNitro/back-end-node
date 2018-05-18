@@ -10,7 +10,6 @@ import { UnitBuilder } from "../../models/builders/unit.builder";
 
 export class RelationDao {
     private unitDao: UnitDao;
-    private search: any;
 
     constructor() {
         this.unitDao = new UnitDao();
@@ -28,10 +27,8 @@ export class RelationDao {
     async findAll() {
         return await RelationSchema.find({})
         .then( async relations => {
-            return await UnitSchema.populate(relations, {path: "topUnit"}, async (err, relation) => {
-                await UnitSchema.populate(relations, {path: "lowerUnit"}, (err, relation) => {
-                    return this.toRelation(relation);
-                } );
+            return await UnitSchema.populate(relations, {path: "topUnit lowerUnit"}, async (err, relation) => {
+                    return this.toArrayRelations(relations);
             } );
         } )
         .catch ( err => {
@@ -39,25 +36,22 @@ export class RelationDao {
             });
     }
     async findByLowerUnit(codeUnit: number) {
-        return await RelationSchema.find({ lowerUnit: codeUnit })
-        .then( async relations => {
-            return await UnitSchema.populate(relations, {path: "topUnit"}, async (err, relation) => {
-                await UnitSchema.populate(relations, {path: "lowerUnit"}, (err, relation) => {
-                    console.log(this.toRelation(relation));
-                    return this.toRelation(relation);
-                } );
-            } );
-        } )
-        .catch ( err => {
-                return undefined;
-        });
+        return await RelationSchema.find({ lowerUnit: codeUnit }, async (err, relation) => {
+            await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
+                console.log("relation" + JSON.stringify(relation));
+                return this.toArrayRelations(relation);
 
+            } );
+        })
+            .catch ( err => {
+                return undefined;
+            });
     }
     async findByTopUnit(codeUnit: number): Promise<Relation[]> {
         return await RelationSchema.find({ topUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
                 console.log("relation" + JSON.stringify(relation));
-                return this.documentArrayToRelation(relation);
+                return this.toArrayRelations(relation);
 
             } );
         })
@@ -92,12 +86,5 @@ export class RelationDao {
             .catch( err => {
                 return false;
             });
-    }
-    private documentArrayToRelation(document: Document[]) {
-        const relationArray: Relation[] = [];
-        for (let i = 0; i < document.length; i++) {
-            relationArray.push(new RelationBuilder().setType(document[i].get("type")).setTopUnit(new UnitBuilder(document[i].get("topUnit").get("name")).setId(document[i].get("topUnit").get("_id")).setCode(document[i].get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document[i].get("lowerUnit").get("name")).setId(document[i].get("lowerUnit").get("_id")).setCode(document[i].get("lowerUnit").get("code")).build()).build());
-        }
-        return relationArray;
     }
 }
