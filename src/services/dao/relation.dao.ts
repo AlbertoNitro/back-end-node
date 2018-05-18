@@ -10,7 +10,6 @@ import { UnitBuilder } from "../../models/builders/unit.builder";
 
 export class RelationDao {
     private unitDao: UnitDao;
-    private search: any;
 
     constructor() {
         this.unitDao = new UnitDao();
@@ -29,8 +28,8 @@ export class RelationDao {
         return await RelationSchema.find({})
         .then( async relations => {
             return await UnitSchema.populate(relations, {path: "topUnit"}, async (err, relation) => {
-                await UnitSchema.populate(relations, {path: "lowerUnit"}, (err, relation) => {
-                    return this.toRelation(relation);
+                await UnitSchema.populate(relations, {path: "lowerUnit"}, (err, relations) => {
+                    return this.toRelation(relations);
                 } );
             } );
         } )
@@ -42,9 +41,9 @@ export class RelationDao {
         return await RelationSchema.find({ lowerUnit: codeUnit })
         .then( async relations => {
             return await UnitSchema.populate(relations, {path: "topUnit"}, async (err, relation) => {
-                await UnitSchema.populate(relations, {path: "lowerUnit"}, (err, relation) => {
-                    console.log(this.toRelation(relation));
-                    return this.toRelation(relation);
+                await UnitSchema.populate(relations, {path: "lowerUnit"}, (err, relations) => {
+                    console.log(this.toRelation(relations));
+                    return this.toRelation(relations);
                 } );
             } );
         } )
