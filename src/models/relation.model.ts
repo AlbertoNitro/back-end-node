@@ -1,34 +1,44 @@
 import { Unit } from "./unit.model";
-import { RelationBuilder } from "./builders/relation.builder";
 import { TypeRelation } from "../schemas/typeRelation.enum";
 
 export class Relation {
-    private _id: number;
+    private _id: string;
     private type: TypeRelation;
     private topUnit: Unit;
     private lowerUnit: Unit;
     private semantics: string;
 
-    constructor(builder: RelationBuilder) {
-        this.type = builder.getType();
-        this.topUnit = builder.getTopUnit();
-        this.lowerUnit = builder.getLowerUnit();
-        this.semantics = builder.getSemantics();
+    constructor() {
     }
 
-    public getId() {
+    getId(): number {
         return this._id;
     }
-    public getType() {
+    getType(): TypeRelation {
         return this.type;
     }
-    public getTopUnit() {
+    getTopUnit(): Unit {
         return this.topUnit;
     }
-    public getLowerUnit() {
+    getLowerUnit(): Unit {
         return this.lowerUnit;
     }
-    public getSemantics() {
+    getSemantics(): string {
         return this.semantics;
+    }
+    setId(value: number) {
+        this._id = value;
+    }
+    setType(value: TypeRelation) {
+        this.type = value;
+    }
+    setTopUnit(value: Unit) {
+        this.topUnit = value;
+    }
+    setLowerUnit(value: Unit) {
+        this.lowerUnit = value;
+    }
+    setSemantics(value: string) {
+        this.semantics = value;
     }
 }

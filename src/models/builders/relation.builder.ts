@@ -3,50 +3,55 @@ import { Unit } from "../unit.model";
 import { Relation } from "../relation.model";
 
 export class RelationBuilder {
-    private _id: number;
-    private type: TypeRelation;
-    private topUnit: Unit;
-    private lowerUnit: Unit;
-    private semantics: string;
+    private relation: Relation;
 
-    constructor() {}
+    constructor() {
+        this.relation = new Relation();
+    }
 
-    public getSemantics() {
-        return this.semantics;
+    public getId(): string {
+        return this.getId();
+    }
+    public setId(id: string) {
+        this.relation.setId(id);
+    }
+
+    public getType(): TypeRelation {
+        return this.getType();
+    }
+    public setSemantics(type: TypeRelation) {
+        this.relation.setSemantics(semantics);
+    }
+
+    public getSemantics(): string {
+        return this.getSemantics();
     }
     public setSemantics(semantics: string) {
-        this.semantics = semantics;
-        return this;
+        this.relation.setSemantics(semantics);
     }
-    public getId() {
-        return this._id;
+
+    public getSemantics(): string {
+        return this.getSemantics();
     }
-    public setId(id: number) {
-        this._id = id;
-        return this;
+    public setSemantics(semantics: string) {
+        this.relation.setSemantics(semantics);
     }
-    public getType() {
-        return this.type;
+
+    public getSemantics(): string {
+        return this.getSemantics();
     }
-    public setType(type: TypeRelation) {
-        this.type = type;
-        return this;
+    public setSemantics(semantics: string) {
+        this.relation.setSemantics(semantics);
     }
-    public getTopUnit() {
-        return this.topUnit;
+
+    public getSemantics(): string {
+        return this.getSemantics();
     }
-    public setTopUnit(topUnit: Unit) {
-        this.topUnit = topUnit;
-        return this;
+    public setSemantics(semantics: string) {
+        this.relation.setSemantics(semantics);
     }
-    public getLowerUnit() {
-        return this.lowerUnit;
-    }
-    public setLowerUnit(lowerUnit: Unit) {
-        this.lowerUnit = lowerUnit;
-        return this;
-    }
+
     public build() {
-        return new Relation(this);
+        return this.relation;
     }
 }

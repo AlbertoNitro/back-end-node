@@ -27,7 +27,7 @@ export class RelationDao {
     async findAll() {
         return await RelationSchema.find({})
         .then( async relations => {
-            return await UnitSchema.populate(relations, {path: "topUnit lowerUnit"}, async (err, relation) => {
+            return await UnitSchema.populate(relations, {path: "topUnit lowerUnit"}, async (err, relations) => {
                     return this.toArrayRelations(relations);
             } );
         } )
@@ -39,7 +39,6 @@ export class RelationDao {
         return await RelationSchema.find({ lowerUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
                 return this.toArrayRelations(relation);
-
             } );
         })
             .catch ( err => {
