@@ -62,13 +62,13 @@ export class RelationResource {
     }
     async findUnitsByTopUnit(unit: Unit) {
         const relations: Relation[] = await this.findByTopUnit(unit.getId());
-        console.log("relations " + relations);
+        /*console.log("relations " + relations);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getTopUnit());
         }
         console.log("topUnits " + topUnits);
-        return topUnits;
+        return topUnits;*/
     }
 
     async findIdByTopUnit(unit: number): Promise<number[]> {
@@ -84,9 +84,10 @@ export class RelationResource {
 
     async findIdByLowerUnit(unit: number): Promise<number[]> {
         const relations: Relation[] = await this.findByLowerUnit(unit);
-        console.log(JSON.stringify(relations));
+        console.log("HOLAAAAA" + JSON.stringify(relations));
         const topUnits: number[] = [];
         for ( let i = 0; i < relations.length ; i++) {
+            console.log("Iteración" + relations[i]);
             topUnits.push(relations[i].getTopUnit().getId());
         }
         console.log("lowerUnits " + topUnits);
