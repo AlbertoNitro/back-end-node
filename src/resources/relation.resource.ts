@@ -19,6 +19,7 @@ export class RelationResource {
         return await this.relationDao.findAll();
     }
     async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
+        console.log("???????????" + await this.relationDao.findByLowerUnit(codeUnit));
         return await this.relationDao.findByLowerUnit(codeUnit);
     }
     async findByTopUnit(codeUnit: number): Promise<Relation[]> {
@@ -83,11 +84,13 @@ export class RelationResource {
     }
 
     async findIdByLowerUnit(unit: number): Promise<number[]> {
+        console.log("_____________________");
         const relations: Relation[] = await this.findByLowerUnit(unit);
         console.log(JSON.stringify(relations));
         const topUnits: number[] = [];
         for ( let i = 0; i < relations.length ; i++) {
-            topUnits.push(relations[i].getTopUnit().getId());
+            console.log("]]]]]]]]]]+" + relations[i]);
+            // topUnits.push(relations[i].getTopUnit().getId());
         }
         console.log("lowerUnits " + topUnits);
         return topUnits;
