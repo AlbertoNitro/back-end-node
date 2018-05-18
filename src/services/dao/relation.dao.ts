@@ -28,7 +28,7 @@ export class RelationDao {
         return await RelationSchema.find({})
         .then( async relations => {
             return await UnitSchema.populate(relations, {path: "topUnit lowerUnit"}, async (err, relation) => {
-                    return this.documentArrayToRelation(relations);
+                    return this.toArrayRelations(relations);
             } );
         } )
         .catch ( err => {
@@ -39,7 +39,7 @@ export class RelationDao {
         return await RelationSchema.find({ lowerUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
                 console.log("relation" + JSON.stringify(relation));
-                return this.documentArrayToRelation(relation);
+                return this.toArrayRelations(relation);
 
             } );
         })
@@ -51,7 +51,7 @@ export class RelationDao {
         return await RelationSchema.find({ topUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
                 console.log("relation" + JSON.stringify(relation));
-                return this.documentArrayToRelation(relation);
+                return this.toArrayRelations(relation);
 
             } );
         })
@@ -86,12 +86,5 @@ export class RelationDao {
             .catch( err => {
                 return false;
             });
-    }
-    private documentArrayToRelation(document: Document[]) {
-        const relationArray: Relation[] = [];
-        for (let i = 0; i < relationArray.length; i++) {
-            relationArray.push(new RelationBuilder().setType(document[i].get("type")).setTopUnit(new UnitBuilder(document[i].get("topUnit").get("name")).setId(document[i].get("topUnit").get("_id")).setCode(document[i].get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document[i].get("lowerUnit").get("name")).setId(document[i].get("lowerUnit").get("_id")).setCode(document[i].get("lowerUnit").get("code")).build()).build());
-        }
-        return relationArray;
     }
 }
