@@ -49,9 +49,10 @@ export class UnitDao {
             });
     }
     async findByCode(code: number): Promise<Unit> {
-        return await UnitSchema.find({ code: code })
+        return await UnitSchema.find({ code })
             .then( units => {
-                return this.toUnit(units[0]);
+                console.log(units);
+                return new UnitBuilder(units[0].get("name")).setId(units[0].get("_id")).setCode(units[0].get("code")).build();
             })
             .catch ( err => {
                 return undefined;

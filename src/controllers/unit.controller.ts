@@ -51,10 +51,10 @@ export class UnitController {
   }
 
   async getFriendsByUnit(req: Request, res: Response) {
-    /*const unit: Unit = await this.unitResource.findById(req.params.id);
-    const topUnits: Unit[] = await this.relationResource.findUnitsByLowerUnit(unit);
-    const lowerUnits: Unit[] = await this.unitResource.getFriends(unit, 5);
-    console.log(lowerUnits);*/
+    const unit: Unit = await this.unitResource.findByCode(req.params.id);
+    const topUnits: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
+    // const lowerUnits: Unit[] = await this.unitResource.getFriends(unit, 5);
+    console.log("$$$$$$$" + topUnits);
     /*const relations: Unit[] = this.relationResource.findRelations(lowerUnits.concat(topUnits.concat(unit)));*/
   }
 
