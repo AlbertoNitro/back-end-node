@@ -93,7 +93,7 @@ export class RelationDao {
     }
     private documentArrayToRelation(document: Document[]) {
         const relationArray: Relation[] = [];
-        for (let i = 0; i < document.length; i++) {
+        for (let i = 0; i < relationArray.length; i++) {
             relationArray.push(new RelationBuilder().setType(document[i].get("type")).setTopUnit(new UnitBuilder(document[i].get("topUnit").get("name")).setId(document[i].get("topUnit").get("_id")).setCode(document[i].get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document[i].get("lowerUnit").get("name")).setId(document[i].get("lowerUnit").get("_id")).setCode(document[i].get("lowerUnit").get("code")).build()).build());
         }
         return relationArray;
