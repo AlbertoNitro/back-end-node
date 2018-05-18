@@ -15,26 +15,15 @@ export class RelationDao {
     constructor() {
         this.unitDao = new UnitDao();
     }
-
-    toRelation(relations: Document[]) {
-        const relation: Relation[] = [];
-        for ( let i = 0; i < relations.length; i++) {
-            relation.push(new RelationBuilder().setType(relations[i].get("type")).setTopUnit(new UnitBuilder(relations[i].get("topUnit").get("name")).setId(relations[i].get("topUnit").get("_id")).setCode(relations[i].get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(relations[i].get("lowerUnit").get("name")).setId(relations[i].get("lowerUnit").get("_id")).setCode(relations[i].get("lowerUnit").get("code")).build()).build());
-        }
-        return relation;
+    private toRelation(document: Document): Relation {
+        return new RelationBuilder().setSemantics(document.get("semantics")).setId(document.get("_id")).setType(document.get("type")).setTopUnit(new UnitBuilder(document.get("topUnit").get("name")).setId(document.get("topUnit").get("_id")).setCode(document.get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document.get("lowerUnit").get("name")).setId(document.get("lowerUnit").get("_id")).setCode(document.get("lowerUnit").get("code")).build()).build();
     }
-    async findAll() {
-        await RelationSchema.find({}, async (err, relation) => {
-            await UnitSchema.populate(relation, {path: "topUnit"}, async (err, relation) => {
-                await UnitSchema.populate(relation, {path: "lowerUnit"}, (err, relation) => {
-                    this.search = this.toRelation(relation);
-                } );
-            } );
-        })
-            .catch ( err => {
-                this.search = undefined;
-            });
-        return this.search;
+    private toArrayRelations(documents: Document[]): Relation[] {
+        const relations: Relation[] = [];
+        for ( let i = 0; i < documents.length; i++) {
+            relations.push(this.toRelation(documents[i]));
+        }
+        return relations;
     }
     async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
         return await RelationSchema.find({ lowerUnit: codeUnit })
