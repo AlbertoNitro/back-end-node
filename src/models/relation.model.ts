@@ -11,7 +11,7 @@ export class Relation {
     constructor() {
     }
 
-    getId(): number {
+    getId(): string {
         return this._id;
     }
     getType(): TypeRelation {
@@ -26,8 +26,8 @@ export class Relation {
     getSemantics(): string {
         return this.semantics;
     }
-    setId(value: number) {
-        this._id = value;
+    setId(id: string) {
+        this._id = id;
     }
     setType(value: TypeRelation) {
         this.type = value;

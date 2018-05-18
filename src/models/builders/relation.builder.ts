@@ -12,45 +12,38 @@ export class RelationBuilder {
     public getId(): string {
         return this.getId();
     }
-    public setId(id: string) {
+    public setId(id: string): RelationBuilder {
         this.relation.setId(id);
+        return this;
     }
-
     public getType(): TypeRelation {
         return this.getType();
     }
-    public setSemantics(type: TypeRelation) {
-        this.relation.setSemantics(semantics);
+    public setType(type: TypeRelation): RelationBuilder {
+        this.relation.setType(type);
+        return this;
     }
-
+    public getTopUnit(): Unit {
+        return this.getTopUnit();
+    }
+    public setTopUnit(topUnit: Unit): RelationBuilder {
+        this.relation.setTopUnit(topUnit);
+        return this;
+    }
+    public getLowerUnit(): Unit {
+        return this.getLowerUnit();
+    }
+    public setLowerUnit(lowerUnit: Unit): RelationBuilder {
+        this.relation.setLowerUnit(lowerUnit);
+        return this;
+    }
     public getSemantics(): string {
         return this.getSemantics();
     }
-    public setSemantics(semantics: string) {
+    public setSemantics(semantics: string): RelationBuilder {
         this.relation.setSemantics(semantics);
+        return this;
     }
-
-    public getSemantics(): string {
-        return this.getSemantics();
-    }
-    public setSemantics(semantics: string) {
-        this.relation.setSemantics(semantics);
-    }
-
-    public getSemantics(): string {
-        return this.getSemantics();
-    }
-    public setSemantics(semantics: string) {
-        this.relation.setSemantics(semantics);
-    }
-
-    public getSemantics(): string {
-        return this.getSemantics();
-    }
-    public setSemantics(semantics: string) {
-        this.relation.setSemantics(semantics);
-    }
-
     public build() {
         return this.relation;
     }

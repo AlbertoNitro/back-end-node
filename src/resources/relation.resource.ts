@@ -49,7 +49,7 @@ export class RelationResource {
         }
         return sucessDeleteLowers && sucessDeleteTops;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await this.relationDao.delete(id);
     }
     async findUnitsByLowerUnit(unit: Unit) {

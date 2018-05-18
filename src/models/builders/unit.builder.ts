@@ -7,15 +7,15 @@ export class UnitBuilder {
         this.unit = new Unit(name);
     }
 
-    setId(id: number) {
+    setId(id: number): UnitBuilder {
         this.unit.setId(id);
         return this;
     }
-    setName(name: string) {
+    setName(name: string): UnitBuilder {
         this.unit.setName(name);
         return this;
     }
-    setCode(code: number) {
+    setCode(code: number): UnitBuilder {
         this.unit.setCode(code);
         return this;
     }
