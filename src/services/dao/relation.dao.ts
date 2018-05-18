@@ -50,7 +50,6 @@ export class RelationDao {
         return await RelationSchema.find({ topUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
                 return this.toArrayRelations(relation);
-
             } );
         })
             .catch ( err => {
