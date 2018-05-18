@@ -38,7 +38,6 @@ export class RelationDao {
     async findByLowerUnit(codeUnit: number) {
         return await RelationSchema.find({ lowerUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
-                console.log("relation" + JSON.stringify(relation));
                 return this.toArrayRelations(relation);
 
             } );
@@ -50,9 +49,7 @@ export class RelationDao {
     async findByTopUnit(codeUnit: number): Promise<Relation[]> {
         return await RelationSchema.find({ topUnit: codeUnit }, async (err, relation) => {
             await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
-                console.log("relation" + JSON.stringify(relation));
                 return this.toArrayRelations(relation);
-
             } );
         })
             .catch ( err => {
