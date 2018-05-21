@@ -23,15 +23,17 @@ export class UnitResource {
         logger.info(JSON.stringify(units));
         if (units) {
             result = [];
-            let topUnits: Unit[] = [];
-            for (let i = 0 ; i < units.length; i++) {
-                topUnits = await this.getTopUnits(units[i].getId());
+            for (let i = 0 ; i < units.length ; i++) {
+                const topUnits: Unit[] = await this.getTopUnits(units[i].getId());
                 if (topUnits) {
-                    for (let j = 0 ; j < units.length; j++) {
+                    logger.info("topUnits " + topUnits.length);
+                    logger.info("2--------------------------- " + topUnits.length);
+                    for (let j = 0 ; j < topUnits.length ; j++) {
                         const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: topUnits[j]};
                         result.push(autocompleteOutputDto);
                     }
                 } else {
+                    logger.info("topUnits UNDEFINED");
                     const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: undefined};
                     result.push(autocompleteOutputDto);
                 }
@@ -78,13 +80,15 @@ export class UnitResource {
         const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
         if (relations) {
             topUnits = [];
-        }
-        for (let i = 0 ; i < relations.length; i++) {
-            const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());
-            if (topUnit) {
-                topUnits.push(topUnit);
+            logger.info("----------------------- relations " + JSON.stringify(relations));
+            for (let i = 0 ; i < relations.length; i++) {
+                const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());
+                if (topUnit) {
+                    topUnits.push(topUnit);
+                }
             }
         }
+        logger.info("----------------------- topUnits " + JSON.stringify(topUnits));
         return topUnits;
     }
 }

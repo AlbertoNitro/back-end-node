@@ -20,7 +20,7 @@ export class UnitController {
     unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
   async findByName(req: Request, res: Response) {
-    const name: string = req.params.name;
+    const name: string = req.query.name;
     logger.info(name);
     const autocompleteOutputDtos: AutocompleteOutputDto[] = await this.unitResource.findByName(name);
     autocompleteOutputDtos ? res.status(HttpStatusCode.OK).json(autocompleteOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();

@@ -5,9 +5,13 @@ import { RelationInputDto } from "../../src/dtos/relationInput.dto";
 import { TypeRelation } from "../../src/models/typerelation.enum";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
+import { DbService } from "../../src/services/db.service";
+import { Relation } from "../../src/models/relation.model";
 
 const chai = require("chai");
 const expect = chai.expect;
+
+const dbService: DbService = new DbService();
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
@@ -22,6 +26,17 @@ describe("POST /relation", () => {
                 const unitOutputDtoLower: UnitOutputDto = relationOutputDto.lowerUnit;
                 expect(unitOutputDtoTop.code).to.equal(relationInputDto.idTopUnit);
                 expect(unitOutputDtoLower.code).to.equal(relationInputDto.idLowerUnit);
+                done();
+            });
+    });
+});
+
+describe("GET /relation", () => {
+    it("should return 200 - OK and Relation[]", (done) => {
+        return request(app).get("/relation")
+            .end( async (err, res) => {
+                expect(HttpStatusCode.OK).to.equal(res.status);
+                const relations: Relation[] = res.body;
                 done();
             });
     });
