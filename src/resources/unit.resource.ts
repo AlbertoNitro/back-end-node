@@ -2,8 +2,8 @@ import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
 import { Relation } from "../models/relation.model";
-import { AutocompleteOutputDto } from "searchByNameOutput.dto.ts";
 import logger from "../util/logger";
+import { SearchByNameOutputDto } from "../dtos/searchByNameOutput.dto";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -17,8 +17,8 @@ export class UnitResource {
     async create(name: string): Promise<Unit> {
         return await this.unitDao.create(name);
     }
-    async findByName(name: string): Promise<AutocompleteOutputDto[]> {
-        let result: AutocompleteOutputDto[] = undefined;
+    async findByName(name: string): Promise<SearchByNameOutputDto[]> {
+        let result: SearchByNameOutputDto[] = undefined;
         const units: Unit[] = await this.unitDao.findByName(name);
         logger.info(JSON.stringify(units));
         if (units) {
@@ -29,12 +29,12 @@ export class UnitResource {
                     logger.info("topUnits " + topUnits.length);
                     logger.info("2--------------------------- " + topUnits.length);
                     for (let j = 0 ; j < topUnits.length ; j++) {
-                        const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: topUnits[j]};
+                        const autocompleteOutputDto: SearchByNameOutputDto = {unit: units[i], topUnit: topUnits[j]};
                         result.push(autocompleteOutputDto);
                     }
                 } else {
                     logger.info("topUnits UNDEFINED");
-                    const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: undefined};
+                    const autocompleteOutputDto: SearchByNameOutputDto = {unit: units[i], topUnit: undefined};
                     result.push(autocompleteOutputDto);
                 }
             }
