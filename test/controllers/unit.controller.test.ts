@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-beforeAll( async (done) => {
+beforeEach( async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
@@ -86,15 +86,15 @@ describe("GET /unit", () => {
             .end( async (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
                 const units: Unit[] = res.body;
-                expect(units.length).to.be.above(9);
+                expect(units.length).to.equal(12);
                 done();
             });
     });
 });
 
 describe("GET /unit/:code", () => {
-    const codeUnit = 1;
     it("should return 200 - OK and Unit", (done) => {
+        const codeUnit = 50;
         return request(app).get("/unit/" + codeUnit)
             .end( async (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
@@ -104,16 +104,16 @@ describe("GET /unit/:code", () => {
     });
 });
 
-
-// describe("GET /unit/search/:name", () => {
-//   it("should return 200 OK", (done) => {
-//     return request(app).get("/unit/search/Jav")
-//     .end( (err, res) => {
-//       expect(HttpStatusCode.OK).to.equal(res.status);
-//       const jsonResponse: UnitEntity[] = res.body;
-//       expect(0).to.not.equal(jsonResponse.length);
-//       done();
-//     });
-//   });
-// });
+describe("GET /unit/search/:name", () => {
+  it("should return 200 - OK and Unit[]", (done) => {
+        const nameToSearch = "Unida";
+        return request(app).get("/unit/search/" + nameToSearch)
+        .end( (err, res) => {
+          expect(HttpStatusCode.OK).to.equal(res.status);
+          const units: Unit[] = res.body;
+          expect(units.length).to.equal(9);
+          done();
+        });
+  });
+});
 
