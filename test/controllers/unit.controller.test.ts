@@ -107,7 +107,7 @@ describe("GET /unit/:code", () => {
 describe("GET /unit/search/:name", () => {
   it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unida";
-        return request(app).get("/unit/search/" + nameToSearch)
+        return request(app).get("/unit/search?name=" + nameToSearch)
         .end( (err, res) => {
           expect(HttpStatusCode.OK).to.equal(res.status);
           const units: Unit[] = res.body;
