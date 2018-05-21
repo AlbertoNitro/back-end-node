@@ -77,7 +77,7 @@ export class RelationResource {
         const relations: Relation[] = await this.findByTopUnit(unit);
         const topUnits: number[] = [];
         for ( let i = 0; i < relations.length ; i++) {
-            topUnits.push(relations[i].getTopUnit().getId());
+            topUnits.push(relations[i].getLowerUnit().getId());
         }
         return topUnits;
     }
@@ -86,8 +86,10 @@ export class RelationResource {
         const relations: Relation[] = await this.findByLowerUnit(unit);
 
         const topUnits: number[] = [];
-        for ( let i = 0; i < relations.length ; i++) {
-            // topUnits.push(relations[i].getTopUnit().getId());
+        if (relations.length) {
+            for ( let i = 0; i < relations.length ; i++) {
+                topUnits.push(relations[i].getTopUnit().getId());
+            }
         }
         console.log("lowerUnits " + topUnits);
         return topUnits;

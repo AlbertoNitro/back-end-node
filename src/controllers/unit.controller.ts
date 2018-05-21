@@ -53,8 +53,17 @@ export class UnitController {
   async getFriendsByUnit(req: Request, res: Response) {
     const unit: Unit = await this.unitResource.findByCode(req.params.id);
     const topUnits: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
-    // const lowerUnits: Unit[] = await this.unitResource.getFriends(unit, 5);
-    console.log("$$$$$$$" + topUnits);
+    const lowerUnits: any[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5));
+    for ( let i = 0 ; i < lowerUnits.length - 1; i++) {
+        const set: Set<number> = lowerUnits[i];
+        const setArray: number[] = Array.from(set);
+        for (let j = 0 ; j < setArray.length; j++) {
+            // if (typeof(setArray[j]) == "number")
+            // console.log(typeof(setArray[j]));
+            // console.log("HOLAAAAA" + setArray[j]);
+        }
+    }
+    console.log("$$$$$$$" + JSON.stringify(lowerUnits));
     /*const relations: Unit[] = this.relationResource.findRelations(lowerUnits.concat(topUnits.concat(unit)));*/
   }
 
