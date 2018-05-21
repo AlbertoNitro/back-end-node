@@ -31,11 +31,11 @@ units:
 - &unit7
     _id: {$oid: "861d87b8b260cf35147998ca"}
     code: 57
-    name: Unidad57 #ASOCIATION
+    name: Unidad57 #ASSOCIATION
 - &unit8
     _id: {$oid: "961d87b8b260cf35147998ca"}
     code: 58
-    name: Unidad58 #ASOCIATION
+    name: Unidad58 #ASSOCIATION
 - &unit9
     _id: {$oid: "221d87b8b260cf35147998ca"}
     code: 59
@@ -82,12 +82,12 @@ relations:
     lowerUnit: {$oid: "761d87b8b260cf35147998ca"} #unit56
     semantics: Nada
 - &relation6
-    type: ASOCIATION
+    type: ASSOCIATION
     topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     lowerUnit: {$oid: "861d87b8b260cf35147998ca"} #unit57
     semantics: Nada
 - &relation7
-    type: ASOCIATION
+    type: ASSOCIATION
     topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     lowerUnit: {$oid: "961d87b8b260cf35147998ca"} #unit58
     semantics: Nada
