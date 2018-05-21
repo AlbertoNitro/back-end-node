@@ -1,12 +1,11 @@
 {
-  "name": "express-typescript-starter",
+  "name": "SARA2018",
   "version": "0.1.0",
-  "description": "A starting point for Node.js express apps with TypeScript",
+  "description": "FAST AND AUTONOMOUS LEARNING SYSTEM. BACK-END",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
+    "url": "https://github.com/SARA-2018/back-end-node"
   },
-  "author": "Bowden Kelly",
   "license": "MIT",
   "scripts": {
     "start": "npm run build && npm run serve",

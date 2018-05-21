@@ -1,34 +1,58 @@
 import { Unit } from "./unit.model";
-import { RelationBuilder } from "./builders/relation.builder";
 import { TypeRelation } from "../schemas/typeRelation.enum";
 
 export class Relation {
-    private _id: number;
+    private _id: string;
     private type: TypeRelation;
     private topUnit: Unit;
     private lowerUnit: Unit;
     private semantics: string;
+    private cardinalTopUnit: string;
+    private cardinalLowerUnit: string;
 
-    constructor(builder: RelationBuilder) {
-        this.type = builder.getType();
-        this.topUnit = builder.getTopUnit();
-        this.lowerUnit = builder.getLowerUnit();
-        this.semantics = builder.getSemantics();
+    constructor() {
     }
 
-    public getId() {
+    getId(): string {
         return this._id;
     }
-    public getType() {
+    getType(): TypeRelation {
         return this.type;
     }
-    public getTopUnit() {
+    getTopUnit(): Unit {
         return this.topUnit;
     }
-    public getLowerUnit() {
+    getLowerUnit(): Unit {
         return this.lowerUnit;
     }
-    public getSemantics() {
+    getSemantics(): string {
         return this.semantics;
+    }
+    getCardinalTopUnit(): string {
+        return this.cardinalTopUnit;
+    }
+    getCardinalLowerUnit(): string {
+        return this.cardinalLowerUnit;
+    }
+    setId(id: string) {
+        this._id = id;
+    }
+    setType(type: TypeRelation) {
+        this.type = type;
+    }
+    setTopUnit(topUnit: Unit) {
+        this.topUnit = topUnit;
+    }
+    setLowerUnit(lowerUnit: Unit) {
+        this.lowerUnit = lowerUnit;
+    }
+    setSemantics(semantics: string) {
+        this.semantics = semantics;
+    }
+    setCardinalTopUnit(cardinalTopUnit: string) {
+        this.cardinalTopUnit = cardinalTopUnit;
+    }
+    setCardinalLowerUnit(cardinalLowerUnit: string) {
+        this.cardinalLowerUnit = cardinalLowerUnit;
     }
 }

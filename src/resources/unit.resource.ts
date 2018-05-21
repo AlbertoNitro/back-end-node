@@ -1,6 +1,8 @@
 import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
+import { Relation } from "../models/relation.model";
+import { AutocompleteOutputDto } from "searchByNameOutput.dto.ts";
 import logger from "../util/logger";
 
 export class UnitResource {
@@ -15,8 +17,29 @@ export class UnitResource {
     async create(name: string): Promise<Unit> {
         return await this.unitDao.create(name);
     }
-    async findByName(name: string): Promise<Unit[]> {
-        return await this.unitDao.findByName(name);
+    async findByName(name: string): Promise<AutocompleteOutputDto[]> {
+        let result: AutocompleteOutputDto[] = undefined;
+        const units: Unit[] = await this.unitDao.findByName(name);
+        logger.info(JSON.stringify(units));
+        if (units) {
+            result = [];
+            for (let i = 0 ; i < units.length ; i++) {
+                const topUnits: Unit[] = await this.getTopUnits(units[i].getId());
+                if (topUnits) {
+                    logger.info("topUnits " + topUnits.length);
+                    logger.info("2--------------------------- " + topUnits.length);
+                    for (let j = 0 ; j < topUnits.length ; j++) {
+                        const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: topUnits[j]};
+                        result.push(autocompleteOutputDto);
+                    }
+                } else {
+                    logger.info("topUnits UNDEFINED");
+                    const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: undefined};
+                    result.push(autocompleteOutputDto);
+                }
+            }
+        }
+        return result;
     }
     async findAll(): Promise<Unit[]> {
         return  await this.unitDao.findAll();
@@ -32,10 +55,14 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(unit: Unit, n: number): Promise<any> {
-        const lowerUnits: Unit[] = await this.relationResource.findUnitsByTopUnit(unit);
+    async getFriends(unit: number, n: number): Promise<Set<number>> {
+        console.log("ESTOY EN: " + unit);
+        const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unit);
         console.log(lowerUnits);
-        console.log("lowerUnits.length " + lowerUnits.length);
+        console.log("-------------");
+
+        // console.log(lowerUnits);
+        // ∫console.log("lowerUnits.length " + lowerUnits.length);
 
         if ( lowerUnits.length == 0) {
             const set =  new Set();
@@ -45,10 +72,29 @@ export class UnitResource {
         else {
             let set =  new Set();
             for ( let i = 0; i < lowerUnits.length; i++ ) {
-                set = set.add(await this.getFriends(lowerUnits[i], n - 1));
+                if (n > -1) {
+                    set = set.add(await this.getFriends(lowerUnits[i], n - 1));
+                }
             }
             set.add(unit);
+            // console.log("SETTT-----" + JSON.stringify(set));
             return set;
         }
+    }
+    async getTopUnits(code: number): Promise<Unit[]> {
+        let topUnits: Unit[] = undefined;
+        const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
+        if (relations) {
+            topUnits = [];
+            logger.info("----------------------- relations " + JSON.stringify(relations));
+            for (let i = 0 ; i < relations.length; i++) {
+                const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());
+                if (topUnit) {
+                    topUnits.push(topUnit);
+                }
+            }
+        }
+        logger.info("----------------------- topUnits " + JSON.stringify(topUnits));
+        return topUnits;
     }
 }

@@ -3,50 +3,62 @@ import { Unit } from "../unit.model";
 import { Relation } from "../relation.model";
 
 export class RelationBuilder {
-    private _id: number;
-    private type: TypeRelation;
-    private topUnit: Unit;
-    private lowerUnit: Unit;
-    private semantics: string;
+    private relation: Relation;
 
-    constructor() {}
+    constructor() {
+        this.relation = new Relation();
+    }
 
-    public getSemantics() {
-        return this.semantics;
-    }
-    public setSemantics(semantics: string) {
-        this.semantics = semantics;
+    setId(id: string): RelationBuilder {
+        this.relation.setId(id);
         return this;
     }
-    public getId() {
-        return this._id;
-    }
-    public setId(id: number) {
-        this._id = id;
+    setType(type: TypeRelation): RelationBuilder {
+        this.relation.setType(type);
         return this;
     }
-    public getType() {
-        return this.type;
-    }
-    public setType(type: TypeRelation) {
-        this.type = type;
+    setTopUnit(topUnit: Unit): RelationBuilder {
+        this.relation.setTopUnit(topUnit);
         return this;
     }
-    public getTopUnit() {
-        return this.topUnit;
-    }
-    public setTopUnit(topUnit: Unit) {
-        this.topUnit = topUnit;
+    setLowerUnit(lowerUnit: Unit): RelationBuilder {
+        this.relation.setLowerUnit(lowerUnit);
         return this;
     }
-    public getLowerUnit() {
-        return this.lowerUnit;
-    }
-    public setLowerUnit(lowerUnit: Unit) {
-        this.lowerUnit = lowerUnit;
+    setSemantics(semantics: string): RelationBuilder {
+        this.relation.setSemantics(semantics);
         return this;
+    }
+    setCardinalTopUnit(cardinalTopUnit: string): RelationBuilder {
+        this.relation.setCardinalTopUnit(cardinalTopUnit);
+        return this;
+    }
+    setCardinalLowerUnit(cardinalLowerUnit: string): RelationBuilder {
+        this.relation.setCardinalLowerUnit(cardinalLowerUnit);
+        return this;
+    }
+    getId(): string {
+        return this.getId();
+    }
+    getType(): TypeRelation {
+        return this.getType();
+    }
+    getTopUnit(): Unit {
+        return this.getTopUnit();
+    }
+    getLowerUnit(): Unit {
+        return this.getLowerUnit();
+    }
+    getSemantics(): string {
+        return this.getSemantics();
+    }
+    getCardinalTopUnit(): string {
+        return this.getCardinalTopUnit();
+    }
+    getCardinalLowerUnit(): string {
+        return this.getCardinalLowerUnit();
     }
     public build() {
-        return new Relation(this);
+        return this.relation;
     }
 }

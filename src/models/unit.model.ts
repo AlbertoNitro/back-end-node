@@ -6,22 +6,22 @@ export class Unit  {
     constructor(name: string) {
         this.name = name;
     }
-    public getCode(): number {
-        return this.code;
-    }
     public setId(id: number) {
         this._id = id;
-    }
-    public setCode(code: number) {
-        this.code = code;
-    }
-    public getName(): string {
-        return this.name;
     }
     public setName(name: string) {
         this.name = name;
     }
+    public setCode(code: number) {
+        this.code = code;
+    }
     public getId(): number {
         return this._id;
+    }
+    public getName(): string {
+        return this.name;
+    }
+    public getCode(): number {
+        return this.code;
     }
 }
