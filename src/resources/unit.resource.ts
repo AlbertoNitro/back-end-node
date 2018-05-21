@@ -2,7 +2,7 @@ import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
 import { Relation } from "../models/relation.model";
-import { AutocompleteOutputDto } from "../dtos/autocompleteOutput.dto";
+import { AutocompleteOutputDto } from "searchByNameOutput.dto.ts";
 import logger from "../util/logger";
 
 export class UnitResource {

@@ -7,6 +7,8 @@ export class Relation {
     private topUnit: Unit;
     private lowerUnit: Unit;
     private semantics: string;
+    private cardinalTopUnit: string;
+    private cardinalLowerUnit: string;
 
     constructor() {
     }
@@ -26,19 +28,31 @@ export class Relation {
     getSemantics(): string {
         return this.semantics;
     }
+    getCardinalTopUnit(): string {
+        return this.cardinalTopUnit;
+    }
+    getCardinalLowerUnit(): string {
+        return this.cardinalLowerUnit;
+    }
     setId(id: string) {
         this._id = id;
     }
-    setType(value: TypeRelation) {
-        this.type = value;
+    setType(type: TypeRelation) {
+        this.type = type;
     }
-    setTopUnit(value: Unit) {
-        this.topUnit = value;
+    setTopUnit(topUnit: Unit) {
+        this.topUnit = topUnit;
     }
-    setLowerUnit(value: Unit) {
-        this.lowerUnit = value;
+    setLowerUnit(lowerUnit: Unit) {
+        this.lowerUnit = lowerUnit;
     }
-    setSemantics(value: string) {
-        this.semantics = value;
+    setSemantics(semantics: string) {
+        this.semantics = semantics;
+    }
+    setCardinalTopUnit(cardinalTopUnit: string) {
+        this.cardinalTopUnit = cardinalTopUnit;
+    }
+    setCardinalLowerUnit(cardinalLowerUnit: string) {
+        this.cardinalLowerUnit = cardinalLowerUnit;
     }
 }

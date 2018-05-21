@@ -19,8 +19,18 @@ export class UnitBuilder {
         this.unit.setCode(code);
         return this;
     }
+    getId(id: number): number {
+        return this.unit.getId();
+    }
+    getName(name: string): UnitBuilder {
+        this.unit.setName(name);
+        return this;
+    }
+    getCode(code: number): UnitBuilder {
+        this.unit.setCode(code);
+        return this;
+    }
     build(): Unit {
         return this.unit;
     }
-
 }
