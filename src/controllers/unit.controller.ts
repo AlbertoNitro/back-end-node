@@ -3,7 +3,7 @@ import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { Unit } from "../models/unit.model";
 import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
-import { AutocompleteOutputDto } from "../dtos/autocompleteOutput.dto";
+import { AutocompleteOutputDto } from "searchByNameOutput.dto.ts";
 import logger from "../util/logger";
 
 export class UnitController {

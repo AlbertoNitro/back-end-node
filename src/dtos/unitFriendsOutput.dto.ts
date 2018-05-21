@@ -6,5 +6,4 @@ export interface UnitFriendsOutputDto {
     topUnits: Unit[];
     lowerUnits: Unit[];
     relations: Relation;
-
 }

@@ -9,40 +9,54 @@ export class RelationBuilder {
         this.relation = new Relation();
     }
 
-    public getId(): string {
-        return this.getId();
-    }
-    public setId(id: string): RelationBuilder {
+    setId(id: string): RelationBuilder {
         this.relation.setId(id);
         return this;
     }
-    public getType(): TypeRelation {
-        return this.getType();
-    }
-    public setType(type: TypeRelation): RelationBuilder {
+    setType(type: TypeRelation): RelationBuilder {
         this.relation.setType(type);
         return this;
     }
-    public getTopUnit(): Unit {
-        return this.getTopUnit();
-    }
-    public setTopUnit(topUnit: Unit): RelationBuilder {
+    setTopUnit(topUnit: Unit): RelationBuilder {
         this.relation.setTopUnit(topUnit);
         return this;
     }
-    public getLowerUnit(): Unit {
-        return this.getLowerUnit();
-    }
-    public setLowerUnit(lowerUnit: Unit): RelationBuilder {
+    setLowerUnit(lowerUnit: Unit): RelationBuilder {
         this.relation.setLowerUnit(lowerUnit);
         return this;
     }
-    public getSemantics(): string {
-        return this.getSemantics();
-    }
-    public setSemantics(semantics: string): RelationBuilder {
+    setSemantics(semantics: string): RelationBuilder {
         this.relation.setSemantics(semantics);
         return this;
+    }
+    setCardinalTopUnit(cardinalTopUnit: string): RelationBuilder {
+        this.relation.setCardinalTopUnit(cardinalTopUnit);
+        return this;
+    }
+    setCardinalLowerUnit(cardinalLowerUnit: string): RelationBuilder {
+        this.relation.setCardinalLowerUnit(cardinalLowerUnit);
+        return this;
+    }
+    getId(): string {
+        return this.getId();
+    }
+    getType(): TypeRelation {
+        return this.getType();
+    }
+    getTopUnit(): Unit {
+        return this.getTopUnit();
+    }
+    getLowerUnit(): Unit {
+        return this.getLowerUnit();
+    }
+    getSemantics(): string {
+        return this.getSemantics();
+    }
+    getCardinalTopUnit(): string {
+        return this.getCardinalTopUnit();
+    }
+    getCardinalLowerUnit(): string {
+        return this.getCardinalLowerUnit();
     }
     public build() {
         return this.relation;
