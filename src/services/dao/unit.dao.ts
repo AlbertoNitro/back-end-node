@@ -52,7 +52,6 @@ export class UnitDao {
     async findByCode(code: number): Promise<Unit> {
         return await UnitSchema.find({code: code })
             .then( units => {
-                console.log(units);
                 return this.toUnit(units[0]);
             })
             .catch ( err => {

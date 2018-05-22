@@ -7,15 +7,14 @@ import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
 import { DbService } from "../../src/services/db.service";
 import { Relation } from "../../src/models/relation.model";
 import { TypeRelation } from "../../src/models/typeRelation.enum";
+import logger from "../../src/util/logger";
 
 const chai = require("chai");
 const expect = chai.expect;
 
-const dbService: DbService = new DbService();
-
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 53, idLowerUnit: 54};
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 60, idLowerUnit: 61};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
