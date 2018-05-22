@@ -52,30 +52,23 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(unit: number, n: number): Promise<Set<number>> {
-        console.log("ESTOY EN: " + unit);
-        const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unit);
-        console.log(lowerUnits);
-        console.log("-------------");
-
-        // console.log(lowerUnits);
-        // ∫console.log("lowerUnits.length " + lowerUnits.length);
+    async getFriends(unitCode: number, iteracion: number): Promise<Set<number>> {
+        const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unitCode);
 
         if ( lowerUnits.length == 0) {
             const set =  new Set();
-            set.add(unit);
-            return set;
+            return set.add(unitCode);
         }
         else {
             let set =  new Set();
             for ( let i = 0; i < lowerUnits.length; i++ ) {
-                if (n > -1) {
-                    set = set.add(await this.getFriends(lowerUnits[i], n - 1));
+                if (iteracion > -1) {
+                    const temporal = Array.from(await this.getFriends(lowerUnits[i], iteracion - 1));
+                    for ( let j = 0; j < temporal.length; j++)
+                        set = set.add(temporal[j]);
                 }
             }
-            set.add(unit);
-            // console.log("SETTT-----" + JSON.stringify(set));
-            return set;
+            return set.add(unitCode);
         }
     }
     async getTopUnits(code: number): Promise<Unit[]> {
@@ -91,5 +84,12 @@ export class UnitResource {
             }
         }
         return topUnits;
+    }
+    async getUnits(unitCodes: number[]): Promise<Unit[]> {
+        const unitArray: Unit[] = [];
+        for (let i = 0; i < unitCodes.length ; i++) {
+            unitArray.push(await this.unitDao.findById(unitCodes[i]));
+        }
+        return unitArray;
     }
 }
