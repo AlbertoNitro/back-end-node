@@ -4,7 +4,7 @@ import { Unit } from "../models/unit.model";
 import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
 import logger from "../util/logger";
-import { SearchByNameOutputDto } from "../dtos/searchByNameOutput.dto";
+import { UnitOutputDto } from "../dtos/unitOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -22,8 +22,8 @@ export class UnitController {
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
         logger.info(name);
-        const searchByNameOutputDtos: SearchByNameOutputDto[] = await this.unitResource.findByName(name);
-        searchByNameOutputDtos ? res.status(HttpStatusCode.OK).json(searchByNameOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
+        const unitOutputDtos: UnitOutputDto[] = await this.unitResource.findByName(name);
+        unitOutputDtos ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();

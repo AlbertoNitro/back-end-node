@@ -86,7 +86,7 @@ describe("GET /unit", () => {
             .end( async (err, res) => {
                 expect(HttpStatusCode.OK).to.equal(res.status);
                 const units: Unit[] = res.body;
-                expect(units.length).to.equal(12);
+                expect(12).to.equal(units.length);
                 done();
             });
     });
@@ -111,7 +111,7 @@ describe("GET /unit/search/:name", () => {
         .end( (err, res) => {
           expect(HttpStatusCode.OK).to.equal(res.status);
           const units: Unit[] = res.body;
-          expect(units.length).to.equal(9);
+          expect(12).to.equal(units.length);
           done();
         });
   });
