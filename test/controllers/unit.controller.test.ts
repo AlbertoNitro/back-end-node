@@ -4,6 +4,8 @@ import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { Unit } from "../../src/models/unit.model";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
+import { UnitBuilder } from "../../src/models/builders/unit.builder";
+import { Relation } from "../../src/models/relation.model";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -115,5 +117,22 @@ describe("GET /unit/search/:name", () => {
           done();
         });
   });
+
+  describe("GET /unit/friends/51", () => {
+    it("should return 200 - OK and Unit[]", (done) => {
+          return request(app).get("/unit/friends/51")
+          .end( (err, res) => {
+            expect(HttpStatusCode.OK).to.equal(res.status);
+            const unit: Unit = new UnitBuilder(res.body.unit.name).setId(res.body.unit._id).setCode(res.body.unit.code).build();
+            const topUnits: Unit[] = res.body.topUnits;
+            const lowerUnits: Unit[] = res.body.lowerUnits;
+            const relations: Relation[] = res.body.relations;
+            expect(51).to.equal(unit.getCode());
+            expect(1).to.equal(topUnits.length);
+            expect(4).to.equal(lowerUnits.length);
+            expect(4).to.equal(lowerUnits.length);
+            done();
+          });
+    });
 });
 

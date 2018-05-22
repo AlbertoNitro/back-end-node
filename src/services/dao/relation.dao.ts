@@ -7,6 +7,7 @@ import { RelationBuilder } from "../../models/builders/relation.builder";
 import { Document } from "mongoose";
 import UnitSchema from "../../schemas/unit.schema";
 import { UnitBuilder } from "../../models/builders/unit.builder";
+import logger from "../../util/logger";
 
 export class RelationDao {
     private unitDao: UnitDao;
@@ -36,6 +37,7 @@ export class RelationDao {
             else {return undefined; }
         } )
         .catch ( err => {
+                logger.error(err);
                 return undefined;
             });
     }
@@ -50,6 +52,7 @@ export class RelationDao {
             else {return undefined; }
         } )
         .catch ( err => {
+                logger.error(err);
                 return undefined;
             });
     }
@@ -64,6 +67,7 @@ export class RelationDao {
             else {return undefined; }
         } )
         .catch ( err => {
+                logger.error(err);
                 return undefined;
             });
 

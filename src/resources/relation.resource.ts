@@ -8,11 +8,9 @@ import logger from "../util/logger";
 export class RelationResource {
     private relationDao: RelationDao;
 
-    private unitDao: UnitDao;
 
     constructor() {
         this.relationDao = new RelationDao();
-        this.unitDao = new UnitDao();
     }
 
     async findAll() {
