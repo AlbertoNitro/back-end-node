@@ -21,8 +21,6 @@ export class RelationResource {
     }
     async findByLowerUnit(unit: number): Promise<Relation[]> {
         const relations: Relation[] = await this.relationDao.findByLowerUnit(unit);
-        logger.info(JSON.stringify(relations));
-        logger.info(relations.length.toString());
         return relations;
     }
     async findByTopUnit(unit: number): Promise<Relation[]> {
