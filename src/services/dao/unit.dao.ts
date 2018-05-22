@@ -52,7 +52,6 @@ export class UnitDao {
     async findByCode(code: number): Promise<Unit> {
         return await UnitSchema.find({code: code })
             .then( units => {
-                console.log(units);
                 return this.toUnit(units[0]);
             })
             .catch ( err => {
@@ -70,8 +69,8 @@ export class UnitDao {
                 return undefined;
             });
     }
-    async delete(code: number): Promise<boolean> {
-        return await UnitSchema.deleteOne({code: code })
+    async delete(id: number): Promise<boolean> {
+        return await UnitSchema.deleteOne({_id: id })
             .then( unit => {
                 return true;
             })
