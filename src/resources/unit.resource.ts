@@ -24,17 +24,13 @@ export class UnitResource {
         if (units) {
             result = [];
             for (let i = 0 ; i < units.length ; i++) {
-                logger.info(units[i].getName().toString());
                 const topUnits: Unit[] = await this.getTopUnits(units[i].getId());
                 if (topUnits) {
-                    logger.info("Tiene top units");
                     for (let j = 0 ; j < topUnits.length ; j++) {
                         const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
                         result.push(unitOutputDto);
                     }
                 } else {
-                    logger.info("NO Tiene top units");
-                    logger.info(units[i].getName().toString());
                     const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
                     result.push(unitOutputDto);
                 }
@@ -87,7 +83,6 @@ export class UnitResource {
         const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
         if (relations && (relations.length > 0)) {
             topUnits = [];
-            logger.info("----------------------- relations " + JSON.stringify(relations));
             for (let i = 0 ; i < relations.length; i++) {
                 const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());
                 if (topUnit) {
@@ -95,7 +90,6 @@ export class UnitResource {
                 }
             }
         }
-        logger.info("----------------------- topUnits " + JSON.stringify(topUnits));
         return topUnits;
     }
 }
