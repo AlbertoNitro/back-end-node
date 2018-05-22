@@ -2,8 +2,9 @@ import { UnitDao } from "../services/dao/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
 import { Relation } from "../models/relation.model";
-import { AutocompleteOutputDto } from "../dtos/autocompleteOutput.dto";
 import logger from "../util/logger";
+
+import { UnitOutputDto } from "../dtos/unitOutput.dto";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -17,25 +18,21 @@ export class UnitResource {
     async create(name: string): Promise<Unit> {
         return await this.unitDao.create(name);
     }
-    async findByName(name: string): Promise<AutocompleteOutputDto[]> {
-        let result: AutocompleteOutputDto[] = undefined;
+    async findByName(name: string): Promise<UnitOutputDto[]> {
+        let result: UnitOutputDto[] = undefined;
         const units: Unit[] = await this.unitDao.findByName(name);
-        logger.info(JSON.stringify(units));
         if (units) {
             result = [];
             for (let i = 0 ; i < units.length ; i++) {
                 const topUnits: Unit[] = await this.getTopUnits(units[i].getId());
                 if (topUnits) {
-                    logger.info("topUnits " + topUnits.length);
-                    logger.info("2--------------------------- " + topUnits.length);
                     for (let j = 0 ; j < topUnits.length ; j++) {
-                        const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: topUnits[j]};
-                        result.push(autocompleteOutputDto);
+                        const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
+                        result.push(unitOutputDto);
                     }
                 } else {
-                    logger.info("topUnits UNDEFINED");
-                    const autocompleteOutputDto: AutocompleteOutputDto = {unit: units[i], topUnit: undefined};
-                    result.push(autocompleteOutputDto);
+                    const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
+                    result.push(unitOutputDto);
                 }
             }
         }
@@ -77,7 +74,7 @@ export class UnitResource {
     async getTopUnits(code: number): Promise<Unit[]> {
         let topUnits: Unit[] = undefined;
         const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
-        if (relations) {
+        if (relations && (relations.length > 0)) {
             topUnits = [];
             for (let i = 0 ; i < relations.length; i++) {
                 const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());

@@ -56,43 +56,61 @@ relations:
     topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit50
     lowerUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation1
     type: INHERIT
     topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit50
     lowerUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation2
     type: COMPOSE
     topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     lowerUnit: {$oid: "461d87b8b260cf35147998ca"} #unit53
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation3
     type: COMPOSE
     topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     lowerUnit: {$oid: "561d87b8b260cf35147998ca"} #unit54
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation4
     type: USE
     topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     lowerUnit: {$oid: "661d87b8b260cf35147998ca"} #unit55
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation5
     type: USE
     topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     lowerUnit: {$oid: "761d87b8b260cf35147998ca"} #unit56
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation6
     type: ASSOCIATION
     topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     lowerUnit: {$oid: "861d87b8b260cf35147998ca"} #unit57
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation7
     type: ASSOCIATION
     topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     lowerUnit: {$oid: "961d87b8b260cf35147998ca"} #unit58
     semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
 - &relation8
     type: INHERIT
     topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit50
     lowerUnit: {$oid: "441d87b8b260cf35147998ca"} #unit61
     semantics: Pelidiosa
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
