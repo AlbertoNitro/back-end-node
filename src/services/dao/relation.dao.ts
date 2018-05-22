@@ -97,4 +97,17 @@ export class RelationDao {
                 return false;
             });
     }
+    async findByTopAndLowerUnit(top: Unit, lower: Unit): Promise<Relation[]> {
+        return RelationSchema.find({ topUnit: top, lowerUnit: lower})
+            .then( async relations => {
+                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
+                if (relationsDocument) {
+                    return this.toArrayRelations(relationsDocument);
+                }
+                else {return undefined; }
+            } )
+            .catch ( err => {
+                    return undefined;
+                });
+    }
 }

@@ -91,4 +91,20 @@ export class RelationResource {
         }
         return topUnits;
     }
+
+    async findByTopAndLowerUnit(top: Unit, lower: Unit): Promise<Relation[]> {
+        return this.relationDao.findByTopAndLowerUnit(top, lower);
+    }
+    async getRelations(units: Unit[]): Promise<Relation[]> {
+        const relationArray: Relation[] = [];
+        for (let i = 0; i < units.length; i++) {
+            for (let j = 0; j < units.length; j++) {
+                const relation: any = await this.findByTopAndLowerUnit(units[i], units[j]);
+                if (relation.length > 0) {
+                    relationArray.push(relation[0]);
+                }
+            }
+        }
+        return relationArray;
+    }
 }
