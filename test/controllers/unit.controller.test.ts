@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-beforeEach( async (done) => {
+beforeAll( async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
@@ -29,21 +29,21 @@ describe("POST /unit", () => {
         return request(app).post("/unit")
             .send({"name": "Unidad2000" })
             .end(  async (err, res) => {
-              expect(HttpStatusCode.CREATED).to.equal(res.status);
-              expect("Unidad2000").to.equal(res.body.name);
-              done();
+                expect(res.status).to.equal(HttpStatusCode.CREATED);
+                expect(res.body.name).to.equal("Unidad2000");
+                done();
             });
     });
 });
 
 describe("DELETE /unit/:code", () => {
-  it("should return 404 - NOT FOUND", (done) => {
-      const codeUnit = 99999;
-      return request(app).delete("/unit/" + codeUnit)
-          .end( async (err, res) => {
-              expect(HttpStatusCode.NOT_FOUND).to.equal(res.status);
-              done();
-          });
+    it("should return 404 - NOT FOUND", (done) => {
+        const codeUnit = 99999;
+        return request(app).delete("/unit/" + codeUnit)
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                done();
+            });
   });
 });
 
@@ -52,7 +52,7 @@ describe("DELETE /unit/:code", () => {
         const codeUnit = 60;
         return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
-                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
@@ -63,7 +63,7 @@ describe("DELETE /unit/:code", () => {
         const codeUnit = 55;
         return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
-                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
@@ -74,7 +74,7 @@ describe("DELETE /unit/:code", () => {
         const codeUnit = 50;
         return request(app).delete("/unit/" + codeUnit)
             .end( async (err, res) => {
-                expect(HttpStatusCode.NO_CONTENT).to.equal(res.status);
+                expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
@@ -84,9 +84,9 @@ describe("GET /unit", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         return request(app).get("/unit")
             .end( async (err, res) => {
-                expect(HttpStatusCode.OK).to.equal(res.status);
+                expect(res.status).to.equal(HttpStatusCode.OK);
                 const units: Unit[] = res.body;
-                expect(12).to.equal(units.length);
+                expect(units.length).to.be.above(9);
                 done();
             });
     });
@@ -94,26 +94,26 @@ describe("GET /unit", () => {
 
 describe("GET /unit/:code", () => {
     it("should return 200 - OK and Unit", (done) => {
-        const codeUnit = 50;
+        const codeUnit = 61;
         return request(app).get("/unit/" + codeUnit)
             .end( async (err, res) => {
-                expect(HttpStatusCode.OK).to.equal(res.status);
-                expect(codeUnit).to.equal(res.body.code);
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                expect(res.body.code).to.equal(codeUnit);
                 done();
             });
     });
 });
 
 describe("GET /unit/search/:name", () => {
-  it("should return 200 - OK and Unit[]", (done) => {
+    it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unida";
         return request(app).get("/unit/search?name=" + nameToSearch)
         .end( (err, res) => {
-          expect(HttpStatusCode.OK).to.equal(res.status);
-          const units: Unit[] = res.body;
-          expect(12).to.equal(units.length);
-          done();
+            expect(res.status).to.equal(HttpStatusCode.OK);
+            const units: Unit[] = res.body;
+            expect(units.length).to.be.above(9);
+            done();
         });
-  });
+    });
 });
 
