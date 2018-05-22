@@ -44,10 +44,10 @@ export class UnitResource {
     async findByCode(code: number): Promise<Unit> {
         return await this.unitDao.findByCode(code);
     }
-    async delete(code: number): Promise<boolean> {
-        const statusDeleteUnit: boolean = await this.unitDao.delete(code);
-        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(code);
-        return statusDeleteUnit && statusDeleteRelations;
+    async delete(unit: Unit): Promise<boolean> {
+        const statusDeleteRelations: boolean = await this.relationResource.deleteByConexion(unit);
+        const statusDeleteUnit: boolean = await this.unitDao.delete(unit.getId());
+        return statusDeleteRelations && statusDeleteUnit;
     }
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);

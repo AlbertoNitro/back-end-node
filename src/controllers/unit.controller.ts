@@ -33,7 +33,7 @@ export class UnitController {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
         if (unit) {
-            const success: boolean = await this.unitResource.delete(code);
+            const success: boolean = await this.unitResource.delete(unit);
             success ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();

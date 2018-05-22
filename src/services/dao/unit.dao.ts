@@ -69,8 +69,8 @@ export class UnitDao {
                 return undefined;
             });
     }
-    async delete(code: number): Promise<boolean> {
-        return await UnitSchema.deleteOne({code: code })
+    async delete(id: number): Promise<boolean> {
+        return await UnitSchema.deleteOne({_id: id })
             .then( unit => {
                 return true;
             })

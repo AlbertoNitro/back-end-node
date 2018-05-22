@@ -19,21 +19,21 @@ export class RelationResource {
         const relations: Relation[] = await this.relationDao.findAll();
         return relations;
     }
-    async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
-        const relations: Relation[] = await this.relationDao.findByLowerUnit(codeUnit);
+    async findByLowerUnit(unit: Unit): Promise<Relation[]> {
+        const relations: Relation[] = await this.relationDao.findByLowerUnit(unit);
         logger.info(JSON.stringify(relations));
         logger.info(relations.length.toString());
         return relations;
     }
-    async findByTopUnit(codeUnit: number): Promise<Relation[]> {
-        return await this.relationDao.findByTopUnit(codeUnit);
+    async findByTopUnit(unit: Unit): Promise<Relation[]> {
+        return await this.relationDao.findByTopUnit(unit);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         return await this.relationDao.create(relationDto);
     }
-    async deleteByConexion(codeUnit: number): Promise<boolean> {
-        const relationsLower: Relation[] = await this.findByLowerUnit(codeUnit);
-        const relationsTop: Relation[] = await this.findByTopUnit(codeUnit);
+    async deleteByConexion(unit: Unit): Promise<boolean> {
+        const relationsLower: Relation[] = await this.findByLowerUnit(unit);
+        const relationsTop: Relation[] = await this.findByTopUnit(unit);
         let sucessDeleteLowers: boolean = true;
         let sucessDeleteTops: boolean = true;
         if (relationsLower) {
