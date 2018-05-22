@@ -5,6 +5,8 @@ import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
 import { AutocompleteOutputDto } from "../dtos/autocompleteOutput.dto";
 import logger from "../util/logger";
+import { Relation } from "../models/relation.model";
+import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 
 export class UnitController {
   private unitResource: UnitResource;
@@ -52,19 +54,13 @@ export class UnitController {
 
   async getFriendsByUnit(req: Request, res: Response) {
     const unit: Unit = await this.unitResource.findByCode(req.params.id);
-    const topUnits: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
-    const lowerUnits: any[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5));
-    for ( let i = 0 ; i < lowerUnits.length - 1; i++) {
-        const set: Set<number> = lowerUnits[i];
-        const setArray: number[] = Array.from(set);
-        for (let j = 0 ; j < setArray.length; j++) {
-            // if (typeof(setArray[j]) == "number")
-            // console.log(typeof(setArray[j]));
-            // console.log("HOLAAAAA" + setArray[j]);
-        }
-    }
-    console.log("$$$$$$$" + JSON.stringify(lowerUnits));
-    /*const relations: Unit[] = this.relationResource.findRelations(lowerUnits.concat(topUnits.concat(unit)));*/
+    const topUnitsId: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
+    const topUnits: Unit[] = await this.unitResource.getUnits(topUnitsId);
+    const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5));
+    const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsId);
+    const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
+    const cincoNivelesOutput: CincoNivelesOutputDto = { unit: unit, topUnits: topUnits, lowerUnits: lowerUnits, relations: relations };
+    cincoNivelesOutput ? res.status(HttpStatusCode.OK).json(cincoNivelesOutput) : res.status(HttpStatusCode.NOT_FOUND).end();
   }
 
 }
