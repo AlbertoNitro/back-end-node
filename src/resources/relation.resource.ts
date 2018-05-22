@@ -17,18 +17,21 @@ export class RelationResource {
         const relations: Relation[] = await this.relationDao.findAll();
         return relations;
     }
-    async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
-        return await this.relationDao.findByLowerUnit(codeUnit);
+    async findByLowerUnit(unit: number): Promise<Relation[]> {
+        const relations: Relation[] = await this.relationDao.findByLowerUnit(unit);
+        logger.info(JSON.stringify(relations));
+        logger.info(relations.length.toString());
+        return relations;
     }
-    async findByTopUnit(codeUnit: number): Promise<Relation[]> {
-        return await this.relationDao.findByTopUnit(codeUnit);
+    async findByTopUnit(unit: number): Promise<Relation[]> {
+        return await this.relationDao.findByTopUnit(unit);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         return await this.relationDao.create(relationDto);
     }
-    async deleteByConexion(codeUnit: number): Promise<boolean> {
-        const relationsLower: Relation[] = await this.findByLowerUnit(codeUnit);
-        const relationsTop: Relation[] = await this.findByTopUnit(codeUnit);
+    async deleteByConexion(unit: Unit): Promise<boolean> {
+        const relationsLower: Relation[] = await this.findByLowerUnit(unit.getCode());
+        const relationsTop: Relation[] = await this.findByTopUnit(unit.getCode());
         let sucessDeleteLowers: boolean = true;
         let sucessDeleteTops: boolean = true;
         if (relationsLower) {
@@ -49,7 +52,7 @@ export class RelationResource {
         return await this.relationDao.delete(id);
     }
     async findUnitsByLowerUnit(unit: Unit) {
-        const relations: Relation[] = await this.findByLowerUnit(unit.getId());
+        const relations: Relation[] = await this.findByLowerUnit(unit.getCode());
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getTopUnit());
@@ -57,7 +60,7 @@ export class RelationResource {
         return topUnits;
     }
     async findUnitsByTopUnit(unit: Unit) {
-        const relations: Relation[] = await this.findByTopUnit(unit.getId());
+        const relations: Relation[] = await this.findByTopUnit(unit.getCode());
         console.log("relations " + relations);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {

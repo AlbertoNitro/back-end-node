@@ -41,11 +41,10 @@ export class RelationDao {
                 return undefined;
             });
     }
-    async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
-        return await RelationSchema.find({lowerUnit: codeUnit})
+    async findByLowerUnit(unit: number): Promise<Relation[]> {
+        return await RelationSchema.find({lowerUnit: unit})
         .then( async relations => {
             const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-
             if (relationsDocument) {
                 return this.toArrayRelations(relationsDocument);
             }
@@ -54,13 +53,12 @@ export class RelationDao {
         .catch ( err => {
                 logger.error(err);
                 return undefined;
-            });
+        });
     }
-    async findByTopUnit(codeUnit: number): Promise<Relation[]> {
-        return await RelationSchema.find({topUnit: codeUnit})
+    async findByTopUnit(unit: number): Promise<Relation[]> {
+        return await RelationSchema.find({topUnit: unit})
         .then( async relations => {
             const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-
             if (relationsDocument) {
                 return this.toArrayRelations(relationsDocument);
             }
@@ -69,8 +67,7 @@ export class RelationDao {
         .catch ( err => {
                 logger.error(err);
                 return undefined;
-            });
-
+        });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
@@ -85,7 +82,7 @@ export class RelationDao {
                 } );
             })
             .catch ( err => {
-                console.log("ERR" + err);
+                logger.error(err);
                 return undefined;
             });
 
@@ -96,6 +93,7 @@ export class RelationDao {
                 return true;
             })
             .catch( err => {
+                logger.error(err);
                 return false;
             });
     }
