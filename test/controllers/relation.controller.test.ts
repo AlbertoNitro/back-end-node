@@ -14,20 +14,6 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-beforeAll( async (done) => {
-    const successDeleteDb: boolean = await dbService.delete();
-    if (!successDeleteDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-        process.exit();
-    }
-    const successSeedDb: boolean = await dbService.seed();
-    if (!successSeedDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-        process.exit();
-    }
-    done();
-});
-
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
         const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, idTopUnit: 60, idLowerUnit: 61};
