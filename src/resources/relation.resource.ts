@@ -54,7 +54,7 @@ export class RelationResource {
         return await this.relationDao.delete(id);
     }
     async findUnitsByLowerUnit(unit: Unit) {
-        const relations: Relation[] = await this.findByLowerUnit(unit.getId());
+        const relations: Relation[] = await this.findByLowerUnit(unit);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getTopUnit());
@@ -62,7 +62,7 @@ export class RelationResource {
         return topUnits;
     }
     async findUnitsByTopUnit(unit: Unit) {
-        const relations: Relation[] = await this.findByTopUnit(unit.getId());
+        const relations: Relation[] = await this.findByTopUnit(unit);
         console.log("relations " + relations);
         const topUnits: Unit[] = [];
         for ( let i = 0; i < relations.length ; i++) {
@@ -72,7 +72,7 @@ export class RelationResource {
         return topUnits;
     }
 
-    async findIdByTopUnit(unit: number): Promise<number[]> {
+    async findIdByTopUnit(unit: Unit): Promise<number[]> {
         const relations: Relation[] = await this.findByTopUnit(unit);
         const topUnits: number[] = [];
         for ( let i = 0; i < relations.length ; i++) {
@@ -81,7 +81,7 @@ export class RelationResource {
         return topUnits;
     }
 
-    async findIdByLowerUnit(unit: number): Promise<number[]> {
+    async findIdByLowerUnit(unit: Unit): Promise<number[]> {
         const relations: Relation[] = await this.findByLowerUnit(unit);
         const topUnits: number[] = [];
         if (relations.length) {
