@@ -20,7 +20,10 @@ export class RelationResource {
         return relations;
     }
     async findByLowerUnit(codeUnit: number): Promise<Relation[]> {
-        return await this.relationDao.findByLowerUnit(codeUnit);
+        const relations: Relation[] = await this.relationDao.findByLowerUnit(codeUnit);
+        logger.info(JSON.stringify(relations));
+        logger.info(relations.length.toString());
+        return relations;
     }
     async findByTopUnit(codeUnit: number): Promise<Relation[]> {
         return await this.relationDao.findByTopUnit(codeUnit);
