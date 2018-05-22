@@ -70,8 +70,8 @@ export class RelationDao {
         });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        const topUnit: Unit = await this.unitDao.findByCode(relationDto.idTopUnit);
-        const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.idLowerUnit);
+        const topUnit: Unit = await this.unitDao.findByCode(relationDto.codeTopUnit);
+        const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.codeLowerUnit);
         const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
         const relation = new RelationSchema(relationEntity);
         return await relation.save()
