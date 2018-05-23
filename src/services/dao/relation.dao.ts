@@ -26,21 +26,6 @@ export class RelationDao {
         }
         return relations;
     }
-    async findAll(): Promise<Relation[]> {
-        return await RelationSchema.find({})
-            .then( async (relations: Document[]) => {
-                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-                if (relationsDocument) {
-                    return this.toArrayRelations(relationsDocument);
-                } else {
-                    return undefined;
-                }
-            })
-            .catch ( err => {
-                    logger.error(err);
-                    return undefined;
-            });
-    }
     async findByLowerUnit(unitId: number): Promise<Relation[]> {
         return await RelationSchema.find({lowerUnit: unitId})
             .then( async (relations: Document[]) => {
@@ -71,6 +56,21 @@ export class RelationDao {
                     return undefined;
             });
     }
+    async findAll(): Promise<Relation[]> {
+        return await RelationSchema.find({})
+            .then( async (relations: Document[]) => {
+                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
+                if (relationsDocument) {
+                    return this.toArrayRelations(relationsDocument);
+                } else {
+                    return undefined;
+                }
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.topUnitCode);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
@@ -88,6 +88,7 @@ export class RelationDao {
                     return undefined;
                 });
         } else {
+            logger.info("L");
             return undefined;
         }
     }
