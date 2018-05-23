@@ -16,7 +16,7 @@ const dbService: DbService = new DbService();
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, codeTopUnit: 60, codeLowerUnit: 61};
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 60, lowerUnitCode: 61};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
@@ -25,8 +25,8 @@ describe("POST /relation", () => {
                 expect(relationOutputDto.type).to.equal(relationInputDto.type);
                 const unitOutputDtoTop: UnitOutputDto = relationOutputDto.topUnit;
                 const unitOutputDtoLower: UnitOutputDto = relationOutputDto.lowerUnit;
-                expect(unitOutputDtoTop.code).to.equal(relationInputDto.codeTopUnit);
-                expect(unitOutputDtoLower.code).to.equal(relationInputDto.codeLowerUnit);
+                expect(unitOutputDtoTop.code).to.equal(relationInputDto.topUnitCode);
+                expect(unitOutputDtoLower.code).to.equal(relationInputDto.lowerUnitCode);
                 done();
             });
     });

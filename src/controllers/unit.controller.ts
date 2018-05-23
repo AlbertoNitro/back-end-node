@@ -33,7 +33,6 @@ export class UnitController {
     }
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
-        logger.info(name);
         const unitOutputDtos: UnitOutputDto[] = await this.unitResource.findByName(name);
         unitOutputDtos ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
