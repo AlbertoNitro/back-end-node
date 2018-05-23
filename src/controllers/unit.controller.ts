@@ -33,7 +33,22 @@ export class UnitController {
     }
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
-        const unitOutputDtos: UnitOutputDto[] = await this.unitResource.findByName(name);
+        const units: Unit[] = await this.unitResource.findByName(name);
+        const unitOutputDtos: UnitOutputDto[] = [];
+        if (units) {
+            for (let i = 0 ; i < units.length ; i++) {
+                const topUnits: Unit[] = await this.unitResource.getTopUnits(units[i].getId());
+                if (topUnits) {
+                    for (let j = 0 ; j < topUnits.length ; j++) {
+                        const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
+                        unitOutputDtos.push(unitOutputDto);
+                    }
+                } else {
+                    const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
+                    unitOutputDtos.push(unitOutputDto);
+                }
+            }
+        }
         unitOutputDtos ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findAll(req: Request, res: Response): Promise<any> {

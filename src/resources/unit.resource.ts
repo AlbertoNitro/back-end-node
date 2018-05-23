@@ -18,28 +18,11 @@ export class UnitResource {
     async create(name: string): Promise<Unit> {
         return await this.unitDao.create(name);
     }
-    async findByName(name: string): Promise<UnitOutputDto[]> {
-        let result: UnitOutputDto[] = undefined;
-        const units: Unit[] = await this.unitDao.findByName(name);
-        if (units) {
-            result = [];
-            for (let i = 0 ; i < units.length ; i++) {
-                const topUnits: Unit[] = await this.getTopUnits(units[i].getId());
-                if (topUnits) {
-                    for (let j = 0 ; j < topUnits.length ; j++) {
-                        const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
-                        result.push(unitOutputDto);
-                    }
-                } else {
-                    const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
-                    result.push(unitOutputDto);
-                }
-            }
-        }
-        return result;
+    async findByName(name: string): Promise<Unit[]> {
+        return await this.unitDao.findByName(name);
     }
     async findAll(): Promise<Unit[]> {
-        return  await this.unitDao.findAll();
+        return await this.unitDao.findAll();
     }
     async findByCode(code: number): Promise<Unit> {
         return await this.unitDao.findByCode(code);
