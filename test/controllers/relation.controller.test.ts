@@ -4,15 +4,11 @@ import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
-import { DbService } from "../../src/services/db.service";
-import { Relation } from "../../src/models/relation.model";
 import { TypeRelation } from "../../src/models/typeRelation.enum";
 import logger from "../../src/util/logger";
 
 const chai = require("chai");
 const expect = chai.expect;
-
-const dbService: DbService = new DbService();
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
@@ -23,10 +19,10 @@ describe("POST /relation", () => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const relationOutputDto: RelationOutputDto = res.body;
                 expect(relationOutputDto.type).to.equal(TypeRelation.COMPOSE);
-                const unitOutputDtoTop: UnitOutputDto = relationOutputDto.topUnit;
-                const unitOutputDtoLower: UnitOutputDto = relationOutputDto.lowerUnit;
-                expect(unitOutputDtoTop.code).to.equal(relationInputDto.topUnitCode);
-                expect(unitOutputDtoLower.code).to.equal(relationInputDto.lowerUnitCode);
+                const topUnitOutputDto: UnitOutputDto = relationOutputDto.topUnit;
+                const LowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
+                expect(topUnitOutputDto.code).to.equal(relationInputDto.topUnitCode);
+                expect(LowerunitOutputDto.code).to.equal(relationInputDto.lowerUnitCode);
                 done();
             });
     });
@@ -73,7 +69,8 @@ describe("GET /relation", () => {
         return request(app).get("/relation")
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                const relations: Relation[] = res.body;
+                const relationOutputDtos: RelationOutputDto[] = res.body;
+                expect(relationOutputDtos.length).to.be.above(8);
                 done();
             });
     });
