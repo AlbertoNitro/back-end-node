@@ -127,10 +127,10 @@ describe("GET /unit/friends/51", () => {
             const topUnits: Unit[] = res.body.topUnits;
             const lowerUnits: Unit[] = res.body.lowerUnits;
             const relations: Relation[] = res.body.relations;
-            expect(51).to.equal(unit.getCode());
-            expect(1).to.equal(topUnits.length);
-            expect(4).to.equal(lowerUnits.length);
-            expect(4).to.equal(relations.length);
+            expect(unit.getCode()).to.equal(51);
+            expect(topUnits.length).to.equal(0);
+            expect(lowerUnits.length).to.equal(3);
+            expect(relations.length).to.equal(2);
             done();
           });
     });

@@ -70,13 +70,22 @@ export class RelationResource {
     async findByTopAndLowerUnit(top: Unit, lower: Unit): Promise<Relation[]> {
         return this.relationDao.findByTopAndLowerUnit(top, lower);
     }
+    existValue(relationArray: Relation[], relation: Relation): boolean {
+        for ( let i = 0; i < relationArray.length; i++) {
+            if (relationArray[i].getId().toString() == relation.getId().toString()) {
+                return true;
+            }
+        }
+        return false;
+    }
     async getRelations(units: Unit[]): Promise<Relation[]> {
         const relationArray: Relation[] = [];
         for (let i = 0; i < units.length; i++) {
             for (let j = 0; j < units.length; j++) {
                 const relation: any = await this.findByTopAndLowerUnit(units[i], units[j]);
                 if (relation.length > 0) {
-                    relationArray.push(relation[0]);
+                    if (this.existValue(relationArray, relation[0]) == false)
+                        relationArray.push(relation[0]);
                 }
             }
         }
