@@ -6,6 +6,7 @@ import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
 import { UnitBuilder } from "../../src/models/builders/unit.builder";
 import { Relation } from "../../src/models/relation.model";
+import {CincoNivelesOutputDto} from "../../src/dtos/cincoNivelesOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -108,7 +109,7 @@ describe("GET /unit/:code", () => {
 
 describe("GET /unit/search/:name", () => {
     it("should return 200 - OK and Unit[]", (done) => {
-        const nameToSearch = "Unida";
+        const nameToSearch = "Unidad";
         return request(app).get("/unit/search?name=" + nameToSearch)
         .end( (err, res) => {
             expect(res.status).to.equal(HttpStatusCode.OK);
@@ -118,20 +119,19 @@ describe("GET /unit/search/:name", () => {
         });
   });
 });
-describe("GET /unit/friends/51", () => {
+
+describe("GET /unit/friends/:code", () => {
     it("should return 200 - OK and Unit[]", (done) => {
-          return request(app).get("/unit/friends/51")
-          .end( (err, res) => {
-            expect(res.status).to.equal(HttpStatusCode.OK);
-            const unit: Unit = new UnitBuilder(res.body.unit.name).setId(res.body.unit._id).setCode(res.body.unit.code).build();
-            const topUnits: Unit[] = res.body.topUnits;
-            const lowerUnits: Unit[] = res.body.lowerUnits;
-            const relations: Relation[] = res.body.relations;
-            expect(unit.getCode()).to.equal(51);
-            expect(topUnits.length).to.equal(0);
-            expect(lowerUnits.length).to.equal(3);
-            expect(relations.length).to.equal(2);
-            done();
+        const codeUnit = 51;
+        return request(app).get("/unit/friends/" + codeUnit)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
+                expect(cincoNivelesOutputDto.unit.getCode()).to.equal(51);
+                expect(cincoNivelesOutputDto.topUnits[0].getCode()).to.equal(50);
+                expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
+                expect(cincoNivelesOutputDto.relations.length).to.equal(4);
+                done();
           });
     });
 });
