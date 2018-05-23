@@ -20,9 +20,9 @@ describe("POST /relation", () => {
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
-                expect(HttpStatusCode.CREATED).to.equal(res.status);
+                expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const relationOutputDto: RelationOutputDto = res.body;
-                expect(relationOutputDto.type).to.equal(relationInputDto.type);
+                expect(relationOutputDto.type).to.equal(TypeRelation.COMPOSE);
                 const unitOutputDtoTop: UnitOutputDto = relationOutputDto.topUnit;
                 const unitOutputDtoLower: UnitOutputDto = relationOutputDto.lowerUnit;
                 expect(unitOutputDtoTop.code).to.equal(relationInputDto.topUnitCode);
@@ -72,7 +72,7 @@ describe("GET /relation", () => {
     it("should return 200 - OK and Relation[]", (done) => {
         return request(app).get("/relation")
             .end( async (err, res) => {
-                expect(HttpStatusCode.OK).to.equal(res.status);
+                expect(res.status).to.equal(HttpStatusCode.OK);
                 const relations: Relation[] = res.body;
                 done();
             });

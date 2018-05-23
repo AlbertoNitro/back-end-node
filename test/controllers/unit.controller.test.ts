@@ -122,7 +122,7 @@ describe("GET /unit/friends/51", () => {
     it("should return 200 - OK and Unit[]", (done) => {
           return request(app).get("/unit/friends/51")
           .end( (err, res) => {
-            expect(HttpStatusCode.OK).to.equal(res.status);
+            expect(res.status).to.equal(HttpStatusCode.OK);
             const unit: Unit = new UnitBuilder(res.body.unit.name).setId(res.body.unit._id).setCode(res.body.unit.code).build();
             const topUnits: Unit[] = res.body.topUnits;
             const lowerUnits: Unit[] = res.body.lowerUnits;
