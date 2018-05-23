@@ -28,10 +28,8 @@ export class RelationResource {
         return await this.relationDao.create(relationDto);
     }
     async deleteByConexion(unit: Unit): Promise<boolean> {
-        const relationsLower: Relation[] = await this.findByLowerUnit(unit.getCode());
-        logger.info(JSON.stringify(relationsLower));
-        const relationsTop: Relation[] = await this.findByTopUnit(unit.getCode());
-        logger.info(JSON.stringify(relationsTop));
+        const relationsLower: Relation[] = await this.findByLowerUnit(unit.getId());
+        const relationsTop: Relation[] = await this.findByTopUnit(unit.getId());
         let sucessDeleteLowers: boolean = true;
         let sucessDeleteTops: boolean = true;
         if (relationsLower) {
@@ -48,7 +46,7 @@ export class RelationResource {
         }
         return sucessDeleteLowers && sucessDeleteTops;
     }
-    async delete(id: string): Promise<boolean> {
+    async delete(id: number): Promise<boolean> {
         return await this.relationDao.delete(id);
     }
     async findIdByTopUnit(unit: number): Promise<number[]> {

@@ -2,7 +2,7 @@ import { Unit } from "./unit.model";
 import { TypeRelation } from "../schemas/typeRelation.enum";
 
 export class Relation {
-    private _id: string;
+    private _id: number;
     private type: TypeRelation;
     private topUnit: Unit;
     private lowerUnit: Unit;
@@ -13,7 +13,7 @@ export class Relation {
     constructor() {
     }
 
-    getId(): string {
+    getId(): number {
         return this._id;
     }
     getType(): TypeRelation {
@@ -34,7 +34,7 @@ export class Relation {
     getCardinalLowerUnit(): string {
         return this.cardinalLowerUnit;
     }
-    setId(id: string) {
+    setId(id: number) {
         this._id = id;
     }
     setType(type: TypeRelation) {
