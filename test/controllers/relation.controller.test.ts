@@ -32,6 +32,42 @@ describe("POST /relation", () => {
     });
 });
 
+describe("POST /relation", () => {
+    it("should return: 400 - BAD_REQUEST", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 9999, lowerUnitCode: 51};
+        return request(app).post("/relation")
+            .send(relationInputDto)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
+                done();
+            });
+    });
+});
+
+describe("POST /relation", () => {
+    it("should return: 400 - BAD_REQUEST", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 9999};
+        return request(app).post("/relation")
+            .send(relationInputDto)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
+                done();
+            });
+    });
+});
+
+describe("POST /relation", () => {
+    it("should return: 400 - BAD_REQUEST", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 88888, lowerUnitCode: 9999};
+        return request(app).post("/relation")
+            .send(relationInputDto)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
+                done();
+            });
+    });
+});
+
 describe("GET /relation", () => {
     it("should return 200 - OK and Relation[]", (done) => {
         return request(app).get("/relation")
