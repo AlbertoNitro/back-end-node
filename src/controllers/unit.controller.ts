@@ -21,7 +21,7 @@ export class UnitController {
         const unit: Unit = await this.unitResource.findByCode(req.params.id);
         const topUnitsId: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
         const topUnits: Unit[] = await this.unitResource.getUnits(topUnitsId);
-        const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5));
+        const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5, unit.getId()));
         const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsId);
         const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
         const cincoNivelesOutput: CincoNivelesOutputDto = { unit: unit, topUnits: topUnits, lowerUnits: lowerUnits, relations: relations };

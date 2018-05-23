@@ -52,24 +52,33 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(unitCode: number, iteracion: number): Promise<Set<number>> {
+    async getFriends(unitCode: number, iteracion: number, shaftUnit: number): Promise<Set<number>> {
         const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unitCode);
         logger.info(JSON.stringify(lowerUnits));
         if ( lowerUnits.length == 0) {
             const set =  new Set();
-            return set.add(unitCode);
+            if (unitCode != shaftUnit) {
+                return set.add(unitCode);
+            }
+            else {
+                return set;
+            }
         }
         else {
             let set =  new Set();
             for ( let i = 0; i < lowerUnits.length; i++ ) {
                 if (iteracion > -1) {
-                    const temporal = Array.from(await this.getFriends(lowerUnits[i], iteracion - 1));
+                    const temporal = Array.from(await this.getFriends(lowerUnits[i], iteracion - 1, shaftUnit));
                     for ( let j = 0; j < temporal.length; j++)
                         set = set.add(temporal[j]);
                 }
             }
-            return set.add(unitCode);
-        }
+            if (unitCode != shaftUnit) {
+                return set.add(unitCode);
+            }
+            else {
+                return set;
+            }        }
     }
     async getTopUnits(code: number): Promise<Unit[]> {
         let topUnits: Unit[] = undefined;
