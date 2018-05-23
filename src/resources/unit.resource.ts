@@ -35,13 +35,13 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(unitCode: number, iteracion: number, shaftUnit: number): Promise<Set<number>> {
-        const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unitCode);
+    async getFriends(unitId: number, iteracion: number, shaftUnit: number): Promise<Set<number>> {
+        const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unitId);
         logger.info(JSON.stringify(lowerUnits));
         if ( lowerUnits.length == 0) {
             const set =  new Set();
-            if (unitCode != shaftUnit) {
-                return set.add(unitCode);
+            if (unitId != shaftUnit) {
+                return set.add(unitId);
             }
             else {
                 return set;
@@ -56,8 +56,8 @@ export class UnitResource {
                         set = set.add(temporal[j]);
                 }
             }
-            if (unitCode != shaftUnit) {
-                return set.add(unitCode);
+            if (unitId != shaftUnit) {
+                return set.add(unitId);
             }
             else {
                 return set;
