@@ -130,7 +130,7 @@ describe("GET /unit/friends/51", () => {
             expect(51).to.equal(unit.getCode());
             expect(1).to.equal(topUnits.length);
             expect(4).to.equal(lowerUnits.length);
-            expect(4).to.equal(lowerUnits.length);
+            expect(4).to.equal(relations.length);
             done();
           });
     });

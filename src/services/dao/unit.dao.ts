@@ -7,6 +7,7 @@ import { Document } from "mongoose";
 export class UnitDao {
     constructor() {
     }
+
     private toUnit(document: Document): Unit {
         return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).build();
     }
@@ -21,7 +22,7 @@ export class UnitDao {
         const unit: Unit = new UnitBuilder(name).build();
         const unitSchema = new UnitSchema(unit);
         return unitSchema.save()
-            .then( unit => {
+            .then( (unit: Document) => {
                 return this.toUnit(unit);
             })
             .catch ( err => {
@@ -31,7 +32,7 @@ export class UnitDao {
     }
     async findById(id: number): Promise<Unit> {
         return await UnitSchema.findById(id)
-            .then( unit => {
+            .then( (unit: Document) => {
                 return this.toUnit(unit);
             })
             .catch ( err => {
@@ -41,7 +42,7 @@ export class UnitDao {
     }
     async findByName(name: string): Promise<Unit[]> {
         return await UnitSchema.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
-            .then( units => {
+            .then( (units: Document[]) => {
                 return this.toArrayUnits(units);
             })
             .catch ( err => {
@@ -50,9 +51,12 @@ export class UnitDao {
             });
     }
     async findByCode(code: number): Promise<Unit> {
-        return await UnitSchema.find({code: code })
-            .then( units => {
-                return this.toUnit(units[0]);
+        return await UnitSchema.findOne({code: code })
+            .then( (unit: Document) => {
+                if (unit)
+                    return this.toUnit(unit);
+                else
+                    return undefined;
             })
             .catch ( err => {
                 logger.error(err);
@@ -61,7 +65,7 @@ export class UnitDao {
     }
     async findAll(): Promise<Unit[]> {
         return await UnitSchema.find({})
-            .then( units => {
+            .then( (units: Document[]) => {
                 return this.toArrayUnits(units);
             })
             .catch ( err => {
@@ -71,7 +75,7 @@ export class UnitDao {
     }
     async delete(id: number): Promise<boolean> {
         return await UnitSchema.deleteOne({_id: id })
-            .then( unit => {
+            .then( () => {
                 return true;
             })
             .catch ( err => {
