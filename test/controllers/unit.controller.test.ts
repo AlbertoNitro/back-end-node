@@ -127,8 +127,8 @@ describe("GET /unit/friends/:code", () => {
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
-                expect(cincoNivelesOutputDto.unit.getCode()).to.equal(51);
-                expect(cincoNivelesOutputDto.topUnits[0].getCode()).to.equal(50);
+                expect(cincoNivelesOutputDto.unit.code).to.equal(51);
+                expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
                 expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
                 expect(cincoNivelesOutputDto.relations.length).to.equal(4);
                 done();
