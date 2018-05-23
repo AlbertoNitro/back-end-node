@@ -9,7 +9,7 @@ export class RelationBuilder {
         this.relation = new Relation();
     }
 
-    setId(id: string): RelationBuilder {
+    setId(id: number): RelationBuilder {
         this.relation.setId(id);
         return this;
     }
@@ -37,7 +37,7 @@ export class RelationBuilder {
         this.relation.setCardinalLowerUnit(cardinalLowerUnit);
         return this;
     }
-    getId(): string {
+    getId(): number {
         return this.getId();
     }
     getType(): TypeRelation {

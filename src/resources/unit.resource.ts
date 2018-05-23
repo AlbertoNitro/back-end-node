@@ -54,7 +54,7 @@ export class UnitResource {
     }
     async getFriends(unitCode: number, iteracion: number): Promise<Set<number>> {
         const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unitCode);
-
+        logger.info(JSON.stringify(lowerUnits));
         if ( lowerUnits.length == 0) {
             const set =  new Set();
             return set.add(unitCode);

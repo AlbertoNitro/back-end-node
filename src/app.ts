@@ -5,15 +5,10 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 const expressStatusMonitor = require("express-status-monitor");
 import logger from "./util/logger";
-import lusca from "lusca";
 import dotenv from "dotenv";
 import mongo from "connect-mongo";
-import flash from "express-flash";
-import path from "path";
 import mongoose from "mongoose";
-import passport from "passport";
 import expressValidator from "express-validator";
-import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import api from "./routes/main.route";
 const cors = require("cors");
@@ -43,6 +38,5 @@ app.disable("etag"); // Evitar devolver HTTP 304
 app.use(expressStatusMonitor());
 logger.info("\n  >Estado del servidor en: http://localhost:3000/status \n");
 app.use("/", api);
-
 
 export default app;
