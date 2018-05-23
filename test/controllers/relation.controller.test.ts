@@ -16,7 +16,7 @@ const dbService: DbService = new DbService();
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 52};
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 58};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
