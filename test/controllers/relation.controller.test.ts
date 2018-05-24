@@ -5,8 +5,6 @@ import { RelationInputDto } from "../../src/dtos/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
 import { TypeRelation } from "../../src/models/typeRelation.enum";
-import logger from "../../src/util/logger";
-import { DbService } from "../../src/services/db.service";
 
 const chai = require("chai");
 const expect = chai.expect;
