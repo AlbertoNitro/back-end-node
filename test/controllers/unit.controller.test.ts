@@ -11,18 +11,16 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-beforeEach( async (done) => {
+beforeAll( async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-        process.exit();
     }
     const successSeedDb: boolean = await dbService.seed();
     if (!successSeedDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-        process.exit();
     }
-    done();
+    successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
 });
 
 describe("POST /unit", () => {
@@ -38,7 +36,7 @@ describe("POST /unit", () => {
     });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/99999", () => {
     it("should return 404 - NOT FOUND", (done) => {
         const unitCode = 99999;
         return request(app).delete("/unit/" + unitCode)
@@ -49,7 +47,7 @@ describe("DELETE /unit/:code", () => {
   });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/60", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 60;
         return request(app).delete("/unit/" + unitCode)
@@ -60,9 +58,9 @@ describe("DELETE /unit/:code", () => {
     });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/52", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const unitCode = 55;
+        const unitCode = 52;
         return request(app).delete("/unit/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
@@ -71,9 +69,9 @@ describe("DELETE /unit/:code", () => {
     });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/58", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const unitCode = 50;
+        const unitCode = 58;
         return request(app).delete("/unit/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
@@ -94,7 +92,7 @@ describe("GET /unit", () => {
     });
 });
 
-describe("GET /unit/:code", () => {
+describe("GET /unit/61", () => {
     it("should return 200 - OK and Unit", (done) => {
         const unitCode = 61;
         return request(app).get("/unit/" + unitCode)
@@ -107,7 +105,7 @@ describe("GET /unit/:code", () => {
     });
 });
 
-describe("GET /unit/search/:name", () => {
+describe("GET /unit/search/Unidad", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unidad";
         return request(app).get("/unit/search?name=" + nameToSearch)
@@ -120,8 +118,7 @@ describe("GET /unit/search/:name", () => {
   });
 });
 
-/*
-describe("GET /unit/friends/:code", () => {
+describe("GET /unit/friends/51", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const unitCode = 51;
         return request(app).get("/unit/friends/" + unitCode)
@@ -136,4 +133,4 @@ describe("GET /unit/friends/:code", () => {
           });
     });
 });
-*/
+
