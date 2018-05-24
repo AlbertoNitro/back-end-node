@@ -1,7 +1,5 @@
-import { TypeRelation } from "../schemas/typeRelation.enum";
-
 export interface RelationInputDto {
-     type: TypeRelation;
+     type: string;
      topUnitCode: number;
      lowerUnitCode: number;
      semantics?: string;
