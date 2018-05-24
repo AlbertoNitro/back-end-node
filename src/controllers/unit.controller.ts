@@ -7,7 +7,6 @@ import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
 import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
-import {RelationOutputDto} from "../dtos/relationOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -30,7 +29,8 @@ export class UnitController {
     }
     async create(req: Request, res: Response): Promise<any> {
         const unit: Unit = await this.unitResource.create(req.body.name);
-        unit ? res.status(HttpStatusCode.CREATED).json(unit) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        const unitOutputDto: UnitOutputDto = UnitController.toUnitOutputDto(unit);
+        unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
