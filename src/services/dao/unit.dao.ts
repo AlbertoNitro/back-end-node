@@ -51,8 +51,9 @@ export class UnitDao {
             });
     }
     async findByCode(code: number): Promise<Unit> {
-        return await UnitSchema.findOne({code: code })
+        return await UnitSchema.findOne({ code: code })
             .then( (unit: Document) => {
+                console.log("UNIT: " + unit);
                 if (unit)
                     return this.toUnit(unit);
                 else
