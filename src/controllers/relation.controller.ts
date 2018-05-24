@@ -25,20 +25,25 @@ export class RelationController {
         relation ? res.status(HttpStatusCode.CREATED).json(relationOutputDto) : res.status(HttpStatusCode.BAD_REQUEST).end();
     }
     private static toRelationOutputDto(relation: Relation): RelationOutputDto {
-        const relationOutputDto: RelationOutputDto = {
-            type: relation.getType(),
-            topUnit: {name: relation.getTopUnit().getName(), code: relation.getTopUnit().getCode()},
-            lowerUnit: {name: relation.getLowerUnit().getName(), code: relation.getLowerUnit().getCode()},
-            semantics: relation.getSemantics(),
-            cardinalTopUnit: relation.getCardinalTopUnit(),
-            cardinalLowerUnit: relation.getCardinalLowerUnit()
-        };
+        let relationOutputDto: RelationOutputDto = undefined;
+        if (relation) {
+            relationOutputDto = {
+                type: relation.getType(),
+                topUnit: {name: relation.getTopUnit().getName(), code: relation.getTopUnit().getCode()},
+                lowerUnit: {name: relation.getLowerUnit().getName(), code: relation.getLowerUnit().getCode()},
+                semantics: relation.getSemantics(),
+                cardinalTopUnit: relation.getCardinalTopUnit(),
+                cardinalLowerUnit: relation.getCardinalLowerUnit()
+            };
+        }
         return relationOutputDto;
     }
     private static toArrayRelationOutputDto(relations: Relation[]): RelationOutputDto[] {
         const relationOutputDtos: RelationOutputDto[] = [];
-        for (let i = 0 ; i < relations.length ; i++ ) {
-            relationOutputDtos.push(RelationController.toRelationOutputDto(relations[i]));
+        if (relations.length > 0) {
+            for (let i = 0; i < relations.length; i++) {
+                relationOutputDtos.push(RelationController.toRelationOutputDto(relations[i]));
+            }
         }
         return relationOutputDtos;
     }

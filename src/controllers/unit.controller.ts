@@ -54,7 +54,8 @@ export class UnitController {
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();
-        units ? res.status(HttpStatusCode.OK).json(units) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        const unitOutputDtos: UnitOutputDto[] = UnitController.toArrayUnitOutputDto(units);
+        units ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const code: number = req.params.code;
@@ -69,21 +70,28 @@ export class UnitController {
     async findById(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
         const unit: Unit = await this.unitResource.findById(id);
-        unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
+        const unitOutputDto: UnitOutputDto = UnitController.toUnitOutputDto(unit);
+        unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findByCode(req: Request, res: Response): Promise<any> {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
-        unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
+        const unitOutputDto: UnitOutputDto = UnitController.toUnitOutputDto(unit);
+        unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     private static toUnitOutputDto(unit: Unit): UnitOutputDto {
-        const unitOutputDto: UnitOutputDto = {name: unit.getName(), code: unit.getCode()};
+        let unitOutputDto: UnitOutputDto = undefined;
+        if (unit) {
+            unitOutputDto = {name: unit.getName(), code: unit.getCode()};
+        }
         return unitOutputDto;
     }
     private static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
         const unitOutputDtos: UnitOutputDto[] = [];
-        for (let i = 0 ; i < units.length ; i++ ) {
-            unitOutputDtos.push(UnitController.toUnitOutputDto(units[i]));
+        if (units.length > 0) {
+            for (let i = 0 ; i < units.length ; i++ ) {
+                unitOutputDtos.push(UnitController.toUnitOutputDto(units[i]));
+            }
         }
         return unitOutputDtos;
     }
