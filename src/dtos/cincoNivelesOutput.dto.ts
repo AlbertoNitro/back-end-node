@@ -6,5 +6,5 @@ export interface CincoNivelesOutputDto {
     unit: UnitOutputDto;
     topUnits: UnitOutputDto[];
     lowerUnits: UnitOutputDto[];
-    relations: RelationOutputDto[];
+    relations: Relation[];
 }

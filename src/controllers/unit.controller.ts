@@ -7,7 +7,7 @@ import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
 import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
-import {RelationOutputDto} from "../dtos/relationOutput.dto";
+import { RelationOutputDto } from "../dtos/relationOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -25,7 +25,7 @@ export class UnitController {
         const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5, unit.getId()));
         const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsId);
         const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
-        const cincoNivelesOutput: CincoNivelesOutputDto = { unit: unit, topUnits: topUnits, lowerUnits: lowerUnits, relations: relations };
+        const cincoNivelesOutput: CincoNivelesOutputDto = { unit: UnitController.toUnitOutputDto(unit), topUnits: UnitController.toArrayUnitOutputDto(topUnits), lowerUnits: UnitController.toArrayUnitOutputDto(lowerUnits), relations: relations };
         cincoNivelesOutput ? res.status(HttpStatusCode.OK).json(cincoNivelesOutput) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async create(req: Request, res: Response): Promise<any> {
