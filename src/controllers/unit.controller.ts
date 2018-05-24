@@ -7,6 +7,7 @@ import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
 import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
+import {RelationOutputDto} from "../dtos/relationOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -74,5 +75,16 @@ export class UnitController {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
         unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
+    }
+    private static toUnitOutputDto(unit: Unit): UnitOutputDto {
+        const unitOutputDto: UnitOutputDto = {name: unit.getName(), code: unit.getCode()};
+        return unitOutputDto;
+    }
+    private static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
+        const unitOutputDtos: UnitOutputDto[] = [];
+        for (let i = 0 ; i < units.length ; i++ ) {
+            unitOutputDtos.push(UnitController.toUnitOutputDto(units[i]));
+        }
+        return unitOutputDtos;
     }
 }
