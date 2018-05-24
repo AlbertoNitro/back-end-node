@@ -26,8 +26,8 @@ export class UnitController {
         const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5, unit.getId()));
         const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsId);
         const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
-        const cincoNivelesOutput: CincoNivelesOutputDto = { unit: DtoService.toUnitOutputDto(unit), topUnits: DtoService.toArrayUnitOutputDto(topUnits), lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits), relations: DtoService.toArrayRelationOutputDto(relations) };
-        cincoNivelesOutput ? res.status(HttpStatusCode.OK).json(cincoNivelesOutput) : res.status(HttpStatusCode.NOT_FOUND).end();
+        const cincoNivelesOutputDto: CincoNivelesOutputDto = DtoService.toFriendsOutputDto(unit, topUnits, lowerUnits, relations);
+        cincoNivelesOutputDto ? res.status(HttpStatusCode.OK).json(cincoNivelesOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async create(req: Request, res: Response): Promise<any> {
         const unit: Unit = await this.unitResource.create(req.body.name);
