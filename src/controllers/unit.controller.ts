@@ -7,6 +7,7 @@ import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
 import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
+import {RelationOutputDto} from "../dtos/relationOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -33,7 +34,22 @@ export class UnitController {
     }
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
-        const unitOutputDtos: UnitOutputDto[] = await this.unitResource.findByName(name);
+        const units: Unit[] = await this.unitResource.findByName(name);
+        const unitOutputDtos: UnitOutputDto[] = [];
+        if (units) {
+            for (let i = 0 ; i < units.length ; i++) {
+                const topUnits: Unit[] = await this.unitResource.getTopUnits(units[i].getId());
+                if (topUnits) {
+                    for (let j = 0 ; j < topUnits.length ; j++) {
+                        const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
+                        unitOutputDtos.push(unitOutputDto);
+                    }
+                } else {
+                    const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
+                    unitOutputDtos.push(unitOutputDto);
+                }
+            }
+        }
         unitOutputDtos ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findAll(req: Request, res: Response): Promise<any> {
@@ -59,5 +75,16 @@ export class UnitController {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
         unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
+    }
+    private static toUnitOutputDto(unit: Unit): UnitOutputDto {
+        const unitOutputDto: UnitOutputDto = {name: unit.getName(), code: unit.getCode()};
+        return unitOutputDto;
+    }
+    private static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
+        const unitOutputDtos: UnitOutputDto[] = [];
+        for (let i = 0 ; i < units.length ; i++ ) {
+            unitOutputDtos.push(UnitController.toUnitOutputDto(units[i]));
+        }
+        return unitOutputDtos;
     }
 }
