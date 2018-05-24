@@ -58,9 +58,9 @@ describe("DELETE /unit/60", () => {
     });
 });
 
-describe("DELETE /unit/55", () => {
+describe("DELETE /unit/52", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const unitCode = 55;
+        const unitCode = 52;
         return request(app).delete("/unit/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
@@ -69,9 +69,9 @@ describe("DELETE /unit/55", () => {
     });
 });
 
-describe("DELETE /unit/50", () => {
+describe("DELETE /unit/58", () => {
     it("should return 204 - NOT CONTENT", (done) => {
-        const unitCode = 50;
+        const unitCode = 58;
         return request(app).delete("/unit/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
@@ -118,20 +118,20 @@ describe("GET /unit/search/Unidad", () => {
   });
 });
 
-//
-// describe("GET /unit/friends/51", () => {
-//     it("should return 200 - OK and Unit[]", (done) => {
-//         const unitCode = 51;
-//         return request(app).get("/unit/friends/" + unitCode)
-//             .end( (err, res) => {
-//                 expect(res.status).to.equal(HttpStatusCode.OK);
-//                 const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
-//                 expect(cincoNivelesOutputDto.unit.code).to.equal(51);
-//                 expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
-//                 expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
-//                 expect(cincoNivelesOutputDto.relations.length).to.equal(4);
-//                 done();
-//           });
-//     });
-// });
+
+describe("GET /unit/friends/51", () => {
+    it("should return 200 - OK and Unit[]", (done) => {
+        const unitCode = 51;
+        return request(app).get("/unit/friends/" + unitCode)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
+                expect(cincoNivelesOutputDto.unit.code).to.equal(51);
+                expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
+                expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
+                expect(cincoNivelesOutputDto.relations.length).to.equal(4);
+                done();
+          });
+    });
+});
 
