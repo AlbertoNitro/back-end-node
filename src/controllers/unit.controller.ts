@@ -8,6 +8,7 @@ import { Relation } from "../models/relation.model";
 import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
 import { RelationOutputDto } from "../dtos/relationOutput.dto";
+import { DtoService } from "../services/dto.service";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -25,12 +26,12 @@ export class UnitController {
         const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5, unit.getId()));
         const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsId);
         const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
-        const cincoNivelesOutput: CincoNivelesOutputDto = { unit: UnitController.toUnitOutputDto(unit), topUnits: UnitController.toArrayUnitOutputDto(topUnits), lowerUnits: UnitController.toArrayUnitOutputDto(lowerUnits), relations: relations };
+        const cincoNivelesOutput: CincoNivelesOutputDto = { unit: DtoService.toUnitOutputDto(unit), topUnits: DtoService.toArrayUnitOutputDto(topUnits), lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits), relations: DtoService.toArrayRelationOutputDto(relations) };
         cincoNivelesOutput ? res.status(HttpStatusCode.OK).json(cincoNivelesOutput) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async create(req: Request, res: Response): Promise<any> {
         const unit: Unit = await this.unitResource.create(req.body.name);
-        const unitOutputDto: UnitOutputDto = UnitController.toUnitOutputDto(unit);
+        const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findByName(req: Request, res: Response) {
@@ -55,7 +56,7 @@ export class UnitController {
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();
-        const unitOutputDtos: UnitOutputDto[] = UnitController.toArrayUnitOutputDto(units);
+        const unitOutputDtos: UnitOutputDto[] = DtoService.toArrayUnitOutputDto(units);
         units ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
@@ -71,29 +72,14 @@ export class UnitController {
     async findById(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
         const unit: Unit = await this.unitResource.findById(id);
-        const unitOutputDto: UnitOutputDto = UnitController.toUnitOutputDto(unit);
+        const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findByCode(req: Request, res: Response): Promise<any> {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
-        const unitOutputDto: UnitOutputDto = UnitController.toUnitOutputDto(unit);
+        const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
-    private static toUnitOutputDto(unit: Unit): UnitOutputDto {
-        let unitOutputDto: UnitOutputDto = undefined;
-        if (unit) {
-            unitOutputDto = {name: unit.getName(), code: unit.getCode()};
-        }
-        return unitOutputDto;
-    }
-    private static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
-        const unitOutputDtos: UnitOutputDto[] = [];
-        if (units.length > 0) {
-            for (let i = 0 ; i < units.length ; i++ ) {
-                unitOutputDtos.push(UnitController.toUnitOutputDto(units[i]));
-            }
-        }
-        return unitOutputDtos;
-    }
+
 }
