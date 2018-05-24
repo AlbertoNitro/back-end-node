@@ -118,7 +118,6 @@ describe("GET /unit/search/Unidad", () => {
   });
 });
 
-
 describe("GET /unit/friends/51", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const unitCode = 51;
