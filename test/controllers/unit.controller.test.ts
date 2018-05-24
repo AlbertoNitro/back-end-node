@@ -36,7 +36,7 @@ describe("POST /unit", () => {
     });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/99999", () => {
     it("should return 404 - NOT FOUND", (done) => {
         const unitCode = 99999;
         return request(app).delete("/unit/" + unitCode)
@@ -47,7 +47,7 @@ describe("DELETE /unit/:code", () => {
   });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/60", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 60;
         return request(app).delete("/unit/" + unitCode)
@@ -58,7 +58,7 @@ describe("DELETE /unit/:code", () => {
     });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/55", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 55;
         return request(app).delete("/unit/" + unitCode)
@@ -69,7 +69,7 @@ describe("DELETE /unit/:code", () => {
     });
 });
 
-describe("DELETE /unit/:code", () => {
+describe("DELETE /unit/50", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 50;
         return request(app).delete("/unit/" + unitCode)
@@ -92,7 +92,7 @@ describe("GET /unit", () => {
     });
 });
 
-describe("GET /unit/:code", () => {
+describe("GET /unit/61", () => {
     it("should return 200 - OK and Unit", (done) => {
         const unitCode = 61;
         return request(app).get("/unit/" + unitCode)
@@ -119,7 +119,7 @@ describe("GET /unit/search/Unidad", () => {
 });
 
 //
-// describe("GET /unit/friends/:code", () => {
+// describe("GET /unit/friends/51", () => {
 //     it("should return 200 - OK and Unit[]", (done) => {
 //         const unitCode = 51;
 //         return request(app).get("/unit/friends/" + unitCode)
