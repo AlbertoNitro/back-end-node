@@ -76,8 +76,8 @@ export class RelationDao {
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
         if (topUnit && lowerUnit) {
             const relationEntity: Relation = new RelationBuilder().setCardinalTopUnit(relationDto.cardinalTopUnit).setCardinalLowerUnit(relationDto.cardinalLowerUnit).setSemantics(relationDto.semantics).setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setCode(lowerUnit.getCode()).build()).build();
-            const relation = new RelationSchema(relationEntity);
-            return await relation.save()
+            const relationSchema = new RelationSchema(relationEntity);
+            return await relationSchema.save()
                 .then( async (relation: Document) => {
                     return this.toRelation(await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}));
                 })
