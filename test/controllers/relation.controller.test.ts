@@ -29,6 +29,28 @@ describe("POST /relation", () => {
 });
 
 describe("POST /relation", () => {
+    it("should return: 201 - CREATED + Relation", (done) => {
+        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 58, semantics: "Description", cardinalTopUnit: "1..n", cardinalLowerUnit: "1..2"};
+        return request(app).post("/relation")
+            .send(relationInputDto)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.CREATED);
+                const relationOutputDto: RelationOutputDto = res.body;
+                expect(relationOutputDto.type).to.equal(TypeRelation.COMPOSE);
+                const topUnitOutputDto: UnitOutputDto = relationOutputDto.topUnit;
+                expect(topUnitOutputDto.code).to.equal(relationInputDto.topUnitCode);
+                const LowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
+                expect(LowerunitOutputDto.code).to.equal(relationInputDto.lowerUnitCode);
+                const cardinalTopUnit: string = relationOutputDto.cardinalTopUnit;
+                expect(cardinalTopUnit).to.equal(relationInputDto.cardinalTopUnit);
+                const cardinalLowerUnit: string = relationOutputDto.cardinalLowerUnit;
+                expect(cardinalLowerUnit).to.equal(relationInputDto.lowerUnitCode);
+                done();
+            });
+    });
+});
+
+describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
         const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 9999, lowerUnitCode: 51};
         return request(app).post("/relation")
