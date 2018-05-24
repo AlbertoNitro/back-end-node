@@ -11,18 +11,18 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-beforeEach( async (done) => {
+beforeAll( async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-        process.exit();
     }
     const successSeedDb: boolean = await dbService.seed();
     if (!successSeedDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-        process.exit();
     }
-    done();
+    if (successSeedDb && successDeleteDb) {
+        done();
+    }
 });
 
 describe("POST /unit", () => {
@@ -107,7 +107,7 @@ describe("GET /unit/:code", () => {
     });
 });
 
-describe("GET /unit/search/:name", () => {
+describe("GET /unit/search/Unidad", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unidad";
         return request(app).get("/unit/search?name=" + nameToSearch)
@@ -120,20 +120,20 @@ describe("GET /unit/search/:name", () => {
   });
 });
 
-/*
-describe("GET /unit/friends/:code", () => {
-    it("should return 200 - OK and Unit[]", (done) => {
-        const unitCode = 51;
-        return request(app).get("/unit/friends/" + unitCode)
-            .end( (err, res) => {
-                expect(res.status).to.equal(HttpStatusCode.OK);
-                const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
-                expect(cincoNivelesOutputDto.unit.code).to.equal(51);
-                expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
-                expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
-                expect(cincoNivelesOutputDto.relations.length).to.equal(4);
-                done();
-          });
-    });
-});
-*/
+//
+// describe("GET /unit/friends/:code", () => {
+//     it("should return 200 - OK and Unit[]", (done) => {
+//         const unitCode = 51;
+//         return request(app).get("/unit/friends/" + unitCode)
+//             .end( (err, res) => {
+//                 expect(res.status).to.equal(HttpStatusCode.OK);
+//                 const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
+//                 expect(cincoNivelesOutputDto.unit.code).to.equal(51);
+//                 expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
+//                 expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
+//                 expect(cincoNivelesOutputDto.relations.length).to.equal(4);
+//                 done();
+//           });
+//     });
+// });
+
