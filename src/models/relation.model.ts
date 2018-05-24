@@ -1,9 +1,8 @@
 import { Unit } from "./unit.model";
-import { TypeRelation } from "../schemas/typeRelation.enum";
 
 export class Relation {
     private _id: number;
-    private type: TypeRelation;
+    private type: string;
     private topUnit: Unit;
     private lowerUnit: Unit;
     private semantics: string;
@@ -16,7 +15,7 @@ export class Relation {
     getId(): number {
         return this._id;
     }
-    getType(): TypeRelation {
+    getType(): string {
         return this.type;
     }
     getTopUnit(): Unit {
@@ -37,7 +36,7 @@ export class Relation {
     setId(id: number) {
         this._id = id;
     }
-    setType(type: TypeRelation) {
+    setType(type: string) {
         this.type = type;
     }
     setTopUnit(topUnit: Unit) {

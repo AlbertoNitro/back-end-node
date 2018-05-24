@@ -72,13 +72,10 @@ export class RelationDao {
             });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        console.log("relationDto.topUnitCode" + relationDto.topUnitCode);
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.topUnitCode);
-        console.log(topUnit);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
-        console.log(lowerUnit);
         if (topUnit && lowerUnit) {
-            const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
+            const relationEntity: Relation = new RelationBuilder().setCardinalTopUnit(relationDto.cardinalTopUnit).setCardinalLowerUnit(relationDto.cardinalLowerUnit).setSemantics(relationDto.semantics).setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setCode(lowerUnit.getCode()).build()).build();
             const relation = new RelationSchema(relationEntity);
             return await relation.save()
                 .then( async (relation: Document) => {
@@ -89,7 +86,6 @@ export class RelationDao {
                     return undefined;
                 });
         } else {
-            logger.info("L");
             return undefined;
         }
     }
