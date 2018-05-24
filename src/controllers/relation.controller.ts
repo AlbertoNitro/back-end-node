@@ -20,6 +20,7 @@ export class RelationController {
         relations ? res.status(HttpStatusCode.OK).json(relationOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async create(req: Request, res: Response): Promise<any> {
+
         const relationDto: RelationInputDto = req.body;
         const relation: Relation = await this.relationResource.create(relationDto);
         const relationOutputDto: RelationOutputDto = DtoService.toRelationOutputDto(relation);

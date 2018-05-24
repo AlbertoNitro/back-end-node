@@ -16,7 +16,7 @@ export class RelationDao {
         this.unitDao = new UnitDao();
     }
 
-    private toRelation(document: Document): Relation {
+    private toRelation(document: any): Relation {
         return new RelationBuilder().setCardinalTopUnit(document.get("cardinalTopUnit")).setCardinalLowerUnit(document.get("cardinalLowerUnit")).setSemantics(document.get("semantics")).setId(document.get("_id")).setType(document.get("type")).setTopUnit(new UnitBuilder(document.get("topUnit").get("name")).setId(document.get("topUnit").get("_id")).setCode(document.get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document.get("lowerUnit").get("name")).setId(document.get("lowerUnit").get("_id")).setCode(document.get("lowerUnit").get("code")).build()).build();
     }
     private toArrayRelations(documents: Document[]): Relation[] {
@@ -72,19 +72,20 @@ export class RelationDao {
             });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
+        console.log("relationDto.topUnitCode" + relationDto.topUnitCode);
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.topUnitCode);
+        console.log(topUnit);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
+        console.log(lowerUnit);
         if (topUnit && lowerUnit) {
             const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
             const relation = new RelationSchema(relationEntity);
             return await relation.save()
                 .then( async (relation: Document) => {
-                    return await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}, async (err, relation) => {
-                        return relation;
-                    });
+                    return this.toRelation(await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}));
                 })
                 .catch ( err => {
-                    logger.error(err);
+                    logger.error("Error al guardar " + err);
                     return undefined;
                 });
         } else {
