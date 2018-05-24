@@ -11,22 +11,6 @@ import { DbService } from "../../src/services/db.service";
 const chai = require("chai");
 const expect = chai.expect;
 
-const dbService: DbService = new DbService();
-
-beforeEach( async (done) => {
-    const successDeleteDb: boolean = await dbService.delete();
-    if (!successDeleteDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-    }
-    const successSeedDb: boolean = await dbService.seed();
-    if (!successSeedDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-    }
-    if (successSeedDb && successDeleteDb) {
-        done();
-    }
-});
-
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
         const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 58};

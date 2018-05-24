@@ -20,9 +20,7 @@ beforeAll( async (done) => {
     if (!successSeedDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
     }
-    if (successSeedDb && successDeleteDb) {
-        done();
-    }
+    successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
 });
 
 describe("POST /unit", () => {
