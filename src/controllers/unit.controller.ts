@@ -19,7 +19,7 @@ export class UnitController {
     }
 
     async getFriendsByUnit(req: Request, res: Response): Promise<any> {
-        const LEVELSTOEXPLORER = 5;
+        const LEVELSTOEXPLORER: number = 5;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
             const topUnitIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
