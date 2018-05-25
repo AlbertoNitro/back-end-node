@@ -21,9 +21,6 @@ export class RelationResource {
         return await this.relationDao.findByTopUnit(unit);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        console.log("Estamos en el recurso");
-        const aux = await this.relationDao.create(relationDto);
-        // console.log(aux.getId());
         return await this.relationDao.create(relationDto);
     }
     async deleteByConexion(unit: Unit): Promise<boolean> {

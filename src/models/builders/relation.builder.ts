@@ -1,4 +1,3 @@
-import { TypeRelation } from "../../schemas/typeRelation.enum";
 import { Unit } from "../unit.model";
 import { Relation } from "../relation.model";
 
@@ -13,7 +12,7 @@ export class RelationBuilder {
         this.relation.setId(id);
         return this;
     }
-    setType(type: TypeRelation): RelationBuilder {
+    setType(type: string): RelationBuilder {
         this.relation.setType(type);
         return this;
     }
@@ -40,7 +39,7 @@ export class RelationBuilder {
     getId(): number {
         return this.getId();
     }
-    getType(): TypeRelation {
+    getType(): string {
         return this.getType();
     }
     getTopUnit(): Unit {

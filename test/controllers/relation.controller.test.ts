@@ -4,20 +4,19 @@ import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
-import { TypeRelation } from "../../src/models/typeRelation.enum";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 58};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 58};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const relationOutputDto: RelationOutputDto = res.body;
-                expect(relationOutputDto.type).to.equal(TypeRelation.COMPOSE);
+                expect(relationOutputDto.type).to.equal("COMPOSE");
                 const topUnitOutputDto: UnitOutputDto = relationOutputDto.topUnit;
                 const LowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
                 expect(topUnitOutputDto.code).to.equal(relationInputDto.topUnitCode);
@@ -29,13 +28,13 @@ describe("POST /relation", () => {
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 58, semantics: "Description", cardinalTopUnit: "1..n", cardinalLowerUnit: "1..2"};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 58, semantics: "Description", cardinalTopUnit: "1..n", cardinalLowerUnit: "1..2"};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const relationOutputDto: RelationOutputDto = res.body;
-                expect(relationOutputDto.type).to.equal(TypeRelation.COMPOSE);
+                expect(relationOutputDto.type).to.equal("COMPOSE");
                 const topUnitOutputDto: UnitOutputDto = relationOutputDto.topUnit;
                 expect(topUnitOutputDto.code).to.equal(relationInputDto.topUnitCode);
                 const LowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
@@ -51,7 +50,7 @@ describe("POST /relation", () => {
 
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 9999, lowerUnitCode: 51};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 9999, lowerUnitCode: 51};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
@@ -63,7 +62,7 @@ describe("POST /relation", () => {
 
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 51, lowerUnitCode: 9999};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 9999};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
@@ -75,7 +74,7 @@ describe("POST /relation", () => {
 
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
-        const relationInputDto: RelationInputDto = {type: TypeRelation.COMPOSE, topUnitCode: 88888, lowerUnitCode: 9999};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 88888, lowerUnitCode: 9999};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
@@ -91,7 +90,7 @@ describe("GET /relation", () => {
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const relationOutputDtos: RelationOutputDto[] = res.body;
-                expect(relationOutputDtos.length).to.be.above(8);
+                expect(relationOutputDtos.length).to.be.above(4);
                 done();
             });
     });

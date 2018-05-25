@@ -1,8 +1,7 @@
 import { UnitOutputDto } from "./unitOutput.dto";
-import { TypeRelation } from "../schemas/typeRelation.enum";
 
 export interface RelationOutputDto {
-    type: TypeRelation;
+    type: string;
     topUnit: UnitOutputDto;
     lowerUnit: UnitOutputDto;
     semantics: string;
