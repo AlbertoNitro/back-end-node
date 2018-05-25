@@ -5,10 +5,9 @@ import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
 import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
-import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
-import { RelationOutputDto } from "../dtos/relationOutput.dto";
 import { DtoService } from "../services/dto.service";
+import { FriendsOutputDto } from "../dtos/friendsOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -19,15 +18,20 @@ export class UnitController {
         this.relationResource = new RelationResource();
     }
 
-    async getFriendsByUnit(req: Request, res: Response) {
-        const unit: Unit = await this.unitResource.findByCode(req.params.id);
-        const topUnitsId: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
-        const topUnits: Unit[] = await this.unitResource.getUnits(topUnitsId);
-        const lowerUnitsId: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), 5, unit.getId()));
-        const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsId);
-        const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
-        const cincoNivelesOutputDto: CincoNivelesOutputDto = DtoService.toFriendsOutputDto(unit, topUnits, lowerUnits, relations);
-        cincoNivelesOutputDto ? res.status(HttpStatusCode.OK).json(cincoNivelesOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+    async getFriendsByUnit(req: Request, res: Response): Promise<any> {
+        const LEVELSTOEXPLORER: number = 5;
+        const unit: Unit = await this.unitResource.findByCode(req.params.code);
+        if (unit) {
+            const topUnitIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
+            const topUnits: Unit[] = await this.unitResource.getUnits(topUnitIds);
+            const lowerUnitIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELSTOEXPLORER, unit.getId()));
+            const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitIds);
+            const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
+            const friendsOutputDto: FriendsOutputDto = DtoService.toFriendsOutputDto(unit, topUnits, lowerUnits, relations);
+            friendsOutputDto ? res.status(HttpStatusCode.OK).json(friendsOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        } else {
+            res.status(HttpStatusCode.NOT_FOUND).end();
+        }
     }
     async create(req: Request, res: Response): Promise<any> {
         const unit: Unit = await this.unitResource.create(req.body.name);
