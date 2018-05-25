@@ -3,7 +3,7 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { CincoNivelesOutputDto } from "../../src/dtos/cincoNivelesOutput.dto";
+import { CincoNivelesOutputDto } from "neighborsOutput.dto.ts";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
 
 const chai = require("chai");
