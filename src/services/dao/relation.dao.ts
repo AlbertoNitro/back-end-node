@@ -72,22 +72,24 @@ export class RelationDao {
             });
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
-        console.log("relationDto.topUnitCode" + relationDto.topUnitCode);
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.topUnitCode);
-        console.log(topUnit);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
-        console.log(lowerUnit);
         if (topUnit && lowerUnit) {
             const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
             const relation = new RelationSchema(relationEntity);
             return await relation.save()
-                .then( async (relation: Document) => {
-                    return this.toRelation(await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}));
-                })
-                .catch ( err => {
-                    logger.error("Error al guardar " + err);
+            .then( async (relations: Document) => {
+                const relationsDocument: any = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
+                if (relationsDocument) {
+                    return this.toRelation(relationsDocument);
+                } else {
                     return undefined;
-                });
+                }
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
         } else {
             logger.info("L");
             return undefined;
