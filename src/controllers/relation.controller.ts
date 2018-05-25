@@ -6,6 +6,7 @@ import { RelationResource } from "../resources/relation.resource";
 import logger from "../util/logger";
 import { RelationOutputDto } from "../dtos/relationOutput.dto";
 import { DtoService } from "../services/dto.service";
+import { DeleteRelationInputDto } from "../dtos/deleteRelationInput.dto";
 
 export class RelationController {
     private relationResource: RelationResource;
@@ -25,5 +26,10 @@ export class RelationController {
         const relationOutputDto: RelationOutputDto = DtoService.toRelationOutputDto(relation);
         relation ? res.status(HttpStatusCode.CREATED).json(relationOutputDto) : res.status(HttpStatusCode.BAD_REQUEST).end();
     }
+
+    /*async delete(req: Request, res: Response): Promise<any> {
+        const deleteRelationInputDto: DeleteRelationInputDto = req.body;
+
+    }*/
 }
 
