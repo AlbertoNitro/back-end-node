@@ -57,6 +57,7 @@ export class UnitController {
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();
         const unitOutputDtos: UnitOutputDto[] = DtoService.toArrayUnitOutputDto(units);
+        logger.info("nodemon");
         units ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async delete(req: Request, res: Response): Promise<any> {

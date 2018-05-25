@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run build && npm run serve",
+    "start:prod": "npm run build && SET NODE_ENV=prod && npm run serve",
     "build": "npm run build-ts && npm run tslint && npm run copy-static-assets",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
