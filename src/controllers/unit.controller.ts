@@ -7,7 +7,7 @@ import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
 import { DtoService } from "../services/dto.service";
-import { FriendsOutputDto } from "../dtos/friendsOutput.dto";
+import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -18,7 +18,7 @@ export class UnitController {
         this.relationResource = new RelationResource();
     }
 
-    async getFriendsByUnit(req: Request, res: Response): Promise<any> {
+    async getNeighborsByUnit(req: Request, res: Response): Promise<any> {
         const LEVELSTOEXPLORER: number = 5;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
@@ -27,8 +27,8 @@ export class UnitController {
             const lowerUnitIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELSTOEXPLORER, unit.getId()));
             const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitIds);
             const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
-            const friendsOutputDto: FriendsOutputDto = DtoService.toFriendsOutputDto(unit, topUnits, lowerUnits, relations);
-            friendsOutputDto ? res.status(HttpStatusCode.OK).json(friendsOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            const neighborsOutputDto: NeighborsOutputDto = DtoService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);
+            neighborsOutputDto ? res.status(HttpStatusCode.OK).json(neighborsOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
