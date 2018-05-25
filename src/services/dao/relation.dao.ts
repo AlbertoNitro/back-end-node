@@ -75,16 +75,21 @@ export class RelationDao {
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.topUnitCode);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
         if (topUnit && lowerUnit) {
-            const relationEntity: Relation = new RelationBuilder().setCardinalTopUnit(relationDto.cardinalTopUnit).setCardinalLowerUnit(relationDto.cardinalLowerUnit).setSemantics(relationDto.semantics).setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setCode(lowerUnit.getCode()).build()).build();
-            const relationSchema = new RelationSchema(relationEntity);
-            return await relationSchema.save()
-                .then( async (relation: Document) => {
-                    return this.toRelation(await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}));
-                })
-                .catch ( err => {
-                    logger.error("Error al guardar " + err);
+            const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
+            const relation = new RelationSchema(relationEntity);
+            return await relation.save()
+            .then( async (relations: Document) => {
+                const relationsDocument: any = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
+                if (relationsDocument) {
+                    return this.toRelation(relationsDocument);
+                } else {
                     return undefined;
-                });
+                }
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
         } else {
             return undefined;
         }
