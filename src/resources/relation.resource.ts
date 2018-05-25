@@ -4,7 +4,7 @@ import { RelationInputDto } from "../dtos/relationInput.dto";
 import { Unit } from "../models/unit.model";
 import logger from "../util/logger";
 
-export class RelationResource {
+export class   RelationResource {
     private relationDao: RelationDao;
 
     constructor() {

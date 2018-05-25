@@ -11,4 +11,8 @@ relationRoutes.get("", (req, res) => {
     relationController.findAll(req, res);
 });
 
+relationRoutes.delete("", (req, res) => {
+    relationController.findAll(req, res);
+});
+
 export default relationRoutes;
