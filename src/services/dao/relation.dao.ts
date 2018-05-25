@@ -75,7 +75,6 @@ export class RelationDao {
         const topUnit: Unit = await this.unitDao.findByCode(relationDto.topUnitCode);
         const lowerUnit: Unit = await this.unitDao.findByCode(relationDto.lowerUnitCode);
         if (topUnit && lowerUnit) {
-<<<<<<< HEAD
             const relationEntity: Relation = new RelationBuilder().setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setId(topUnit.getId()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setId(lowerUnit.getId()).setCode(lowerUnit.getCode()).build()).build();
             const relation = new RelationSchema(relationEntity);
             return await relation.save()
@@ -84,16 +83,6 @@ export class RelationDao {
                 if (relationsDocument) {
                     return this.toRelation(relationsDocument);
                 } else {
-=======
-            const relationEntity: Relation = new RelationBuilder().setCardinalTopUnit(relationDto.cardinalTopUnit).setCardinalLowerUnit(relationDto.cardinalLowerUnit).setSemantics(relationDto.semantics).setType(relationDto.type).setTopUnit(new UnitBuilder(topUnit.getName()).setCode(topUnit.getCode()).build()).setLowerUnit(new UnitBuilder(lowerUnit.getName()).setCode(lowerUnit.getCode()).build()).build();
-            const relationSchema = new RelationSchema(relationEntity);
-            return await relationSchema.save()
-                .then( async (relation: Document) => {
-                    return this.toRelation(await UnitSchema.populate(relation, {path: "topUnit lowerUnit"}));
-                })
-                .catch ( err => {
-                    logger.error("Error al guardar " + err);
->>>>>>> develop
                     return undefined;
                 }
             })
