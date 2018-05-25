@@ -90,7 +90,7 @@ describe("GET /relation", () => {
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const relationOutputDtos: RelationOutputDto[] = res.body;
-                expect(relationOutputDtos.length).to.be.above(8);
+                expect(relationOutputDtos.length).to.be.above(4);
                 done();
             });
     });
