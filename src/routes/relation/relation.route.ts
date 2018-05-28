@@ -10,9 +10,8 @@ relationRoutes.post("", (req, res) => {
 relationRoutes.get("", (req, res) => {
     relationController.findAll(req, res);
 });
-
 relationRoutes.delete("", (req, res) => {
-    relationController.findAll(req, res);
+    relationController.delete(req, res);
 });
 
 export default relationRoutes;

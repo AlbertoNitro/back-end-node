@@ -115,7 +115,7 @@ describe("DELETE /relation", () => {
         return request(app).delete("/relation")
             .send(deleteRelationInputDto)
             .end( async (err, res) => {
-                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
                 done();
             });
     });
@@ -127,7 +127,7 @@ describe("DELETE /relation", () => {
         return request(app).delete("/relation")
             .send(deleteRelationInputDto)
             .end( async (err, res) => {
-                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
                 done();
             });
     });
@@ -139,7 +139,7 @@ describe("DELETE /relation", () => {
         return request(app).delete("/relation")
             .send(deleteRelationInputDto)
             .end( async (err, res) => {
-                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
                 done();
             });
     });

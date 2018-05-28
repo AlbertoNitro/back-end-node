@@ -7,14 +7,17 @@ import logger from "../util/logger";
 import { RelationOutputDto } from "../dtos/relationOutput.dto";
 import { DtoService } from "../services/dto.service";
 import { DeleteRelationInputDto } from "../dtos/deleteRelationInput.dto";
+import { UnitResource } from "../resources/unit.resource";
+import { Unit } from "../models/unit.model";
 
 export class RelationController {
     private relationResource: RelationResource;
+    private unitResource: UnitResource;
 
     constructor() {
         this.relationResource = new RelationResource();
+        this.unitResource = new UnitResource();
     }
-
     async findAll(req: Request, res: Response): Promise<any> {
         const relations: Relation[] = await this.relationResource.findAll();
         const relationOutputDtos: RelationOutputDto[] = DtoService.toArrayRelationOutputDto(relations);
@@ -26,10 +29,17 @@ export class RelationController {
         const relationOutputDto: RelationOutputDto = DtoService.toRelationOutputDto(relation);
         relation ? res.status(HttpStatusCode.CREATED).json(relationOutputDto) : res.status(HttpStatusCode.BAD_REQUEST).end();
     }
-
-    /*async delete(req: Request, res: Response): Promise<any> {
+    async delete(req: Request, res: Response): Promise<any> {
         const deleteRelationInputDto: DeleteRelationInputDto = req.body;
-
-    }*/
+        const topUnit: Unit = await this.unitResource.findByCode(deleteRelationInputDto.topUnitCode);
+        const lowerUnit: Unit = await this.unitResource.findByCode(deleteRelationInputDto.lowerUnitCode);
+        if (topUnit && lowerUnit) {
+            const relations: Relation[] =  await this.relationResource.findByTopAndLowerUnit(topUnit, lowerUnit);
+            const success: boolean = await this.relationResource.delete(relations[0].getId());
+            success ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        } else {
+            res.status(HttpStatusCode.BAD_REQUEST).end();
+        }
+    }
 }
 
