@@ -4,6 +4,7 @@ import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
+import {DeleteRelationInputDto} from "../../src/dtos/deleteRelationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -91,6 +92,54 @@ describe("GET /relation", () => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const relationOutputDtos: RelationOutputDto[] = res.body;
                 expect(relationOutputDtos.length).to.be.above(4);
+                done();
+            });
+    });
+});
+
+describe("DELETE /relation", () => {
+    it("should return 204 - NOT_CONTENT", (done) => {
+        const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 50, lowerUnitCode: 61 };
+        return request(app).delete("/relation")
+            .send(deleteRelationInputDto)
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
+                done();
+            });
+    });
+});
+
+describe("DELETE /relation", () => {
+    it("should return 404 - NOT_FOUND", (done) => {
+        const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 99999, lowerUnitCode: 88888 };
+        return request(app).delete("/relation")
+            .send(deleteRelationInputDto)
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                done();
+            });
+    });
+});
+
+describe("DELETE /relation", () => {
+    it("should return 404 - NOT_FOUND", (done) => {
+        const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 50, lowerUnitCode: 99999 };
+        return request(app).delete("/relation")
+            .send(deleteRelationInputDto)
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                done();
+            });
+    });
+});
+
+describe("DELETE /relation", () => {
+    it("should return 404 - NOT_FOUND", (done) => {
+        const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 99999, lowerUnitCode: 50 };
+        return request(app).delete("/relation")
+            .send(deleteRelationInputDto)
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
                 done();
             });
     });
