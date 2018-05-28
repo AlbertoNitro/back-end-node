@@ -1,4 +1,4 @@
-import { RelationDao } from "../services/dao/relation.dao";
+import { RelationDao } from "../services/daos/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/relationInput.dto";
 import { Unit } from "../models/unit.model";
@@ -75,16 +75,16 @@ export class   RelationResource {
         return false;
     }
     async getRelations(units: Unit[]): Promise<Relation[]> {
-        const relationArray: Relation[] = [];
+        const resultRelations: Relation[] = [];
         for (let i = 0; i < units.length; i++) {
             for (let j = 0; j < units.length; j++) {
-                const relation: any = await this.findByTopAndLowerUnit(units[i], units[j]);
-                if (relation.length > 0) {
-                    if (this.existValue(relationArray, relation[0]) == false)
-                        relationArray.push(relation[0]);
+                const peersRelations: Relation[] = await this.findByTopAndLowerUnit(units[i], units[j]);
+                if (peersRelations && peersRelations.length > 0) {
+                    if (this.existValue(resultRelations, peersRelations[0]) == false)
+                        resultRelations.push(peersRelations[0]);
                 }
             }
         }
-        return relationArray;
+        return resultRelations;
     }
 }

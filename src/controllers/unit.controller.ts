@@ -19,12 +19,12 @@ export class UnitController {
     }
 
     async getNeighborsByUnit(req: Request, res: Response): Promise<any> {
-        const LEVELSTOEXPLORER: number = 5;
+        const LEVELS_TO_EXPLORER: number = 5;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
             const topUnitIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
             const topUnits: Unit[] = await this.unitResource.getUnits(topUnitIds);
-            const lowerUnitIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELSTOEXPLORER, unit.getId()));
+            const lowerUnitIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
             const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitIds);
             const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
             const neighborsOutputDto: NeighborsOutputDto = DtoService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);
