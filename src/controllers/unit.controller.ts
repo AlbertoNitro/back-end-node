@@ -52,7 +52,7 @@ export class UnitController {
                         relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                     }
                 } else {
-                    const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: {name: topUnits[i].getName(), code: topUnits[i].getCode()}};
+                    const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: undefined};
                     relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                 }
             }
