@@ -8,6 +8,7 @@ import { Relation } from "../models/relation.model";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
 import { DtoService } from "../services/dto.service";
 import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
+import { RelatedUnitsOutputDto } from "../dtos/relatedUnitsOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -41,22 +42,22 @@ export class UnitController {
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
         const units: Unit[] = await this.unitResource.findByName(name);
-        const unitOutputDtos: UnitOutputDto[] = [];
+        const relatedUnitsOutputDtos: RelatedUnitsOutputDto[] = [];
         if (units) {
             for (let i = 0 ; i < units.length ; i++) {
                 const topUnits: Unit[] = await this.unitResource.getTopUnits(units[i].getId());
                 if (topUnits) {
                     for (let j = 0 ; j < topUnits.length ; j++) {
-                        const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
-                        unitOutputDtos.push(unitOutputDto);
+                        const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
+                        relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                     }
                 } else {
-                    const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
-                    unitOutputDtos.push(unitOutputDto);
+                    const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: undefined};
+                    relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                 }
             }
         }
-        unitOutputDtos ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
+        relatedUnitsOutputDtos ? res.status(HttpStatusCode.OK).json(relatedUnitsOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();

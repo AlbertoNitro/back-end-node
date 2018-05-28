@@ -5,6 +5,7 @@ import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
 import { NeighborsOutputDto } from "../../src/dtos/neighborsOutput.dto";
+import {RelatedUnitsOutputDto} from "../../src/dtos/relatedUnitsOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -105,14 +106,14 @@ describe("GET /unit/61", () => {
     });
 });
 
-describe("GET /unit/search/Unidad", () => {
+describe("GET /unit/search?name=Unidad", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unidad";
         return request(app).get("/unit/search?name=" + nameToSearch)
         .end( (err, res) => {
             expect(res.status).to.equal(HttpStatusCode.OK);
-            const unitOutputDtos: UnitOutputDto[] = res.body;
-            expect(unitOutputDtos.length).to.be.above(9);
+            const relatedUnitsOutputDtos: RelatedUnitsOutputDto[] = res.body;
+            expect(relatedUnitsOutputDtos.length).to.be.above(9);
             done();
         });
   });
