@@ -74,17 +74,10 @@ export class UnitController {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
     }
-    async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
-        const unit: Unit = await this.unitResource.findById(id);
-        const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
-        unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
-    }
     async findByCode(req: Request, res: Response): Promise<any> {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
         const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
-
 }
