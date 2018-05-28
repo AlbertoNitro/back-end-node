@@ -16,25 +16,22 @@ export class RelationDao {
         this.unitDao = new UnitDao();
     }
 
-    private toRelation(document: any): Relation {
+    private static toRelation(document: any): Relation {
         return new RelationBuilder().setCardinalTopUnit(document.get("cardinalTopUnit")).setCardinalLowerUnit(document.get("cardinalLowerUnit")).setSemantics(document.get("semantics")).setId(document.get("_id")).setType(document.get("type")).setTopUnit(new UnitBuilder(document.get("topUnit").get("name")).setId(document.get("topUnit").get("_id")).setCode(document.get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document.get("lowerUnit").get("name")).setId(document.get("lowerUnit").get("_id")).setCode(document.get("lowerUnit").get("code")).build()).build();
     }
-    private toArrayRelations(documents: Document[]): Relation[] {
+    private static toArrayRelations(documents: Document[]): Relation[] {
         const relations: Relation[] = [];
         for ( let i = 0; i < documents.length; i++) {
-            relations.push(this.toRelation(documents[i]));
+            relations.push(RelationDao.toRelation(documents[i]));
         }
         return relations;
     }
     async findByLowerUnit(unitId: number): Promise<Relation[]> {
         return await RelationSchema.find({lowerUnit: unitId})
-            .then( async (relations: Document[]) => {
-                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-                if (relationsDocument) {
-                    return this.toArrayRelations(relationsDocument);
-                } else {
-                    return undefined;
-                }
+            .then( async (relationsDocument: Document[]) => {
+                const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
+                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                return relations;
             })
             .catch ( err => {
                     logger.error(err);
@@ -43,13 +40,10 @@ export class RelationDao {
     }
     async findByTopUnit(unitId: number): Promise<Relation[]> {
         return await RelationSchema.find({topUnit: unitId})
-            .then( async (relations: Document[]) => {
-                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-                if (relationsDocument) {
-                    return this.toArrayRelations(relationsDocument);
-                } else {
-                    return undefined;
-                }
+            .then( async (relationsDocument: Document[]) => {
+                const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
+                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                return relations;
             })
             .catch ( err => {
                     logger.error(err);
@@ -58,13 +52,10 @@ export class RelationDao {
     }
     async findAll(): Promise<Relation[]> {
         return await RelationSchema.find({})
-            .then( async (relations: Document[]) => {
-                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-                if (relationsDocument) {
-                    return this.toArrayRelations(relationsDocument);
-                } else {
-                    return undefined;
-                }
+            .then( async (relationsDocument: Document[]) => {
+                const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
+                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                return relations;
             })
             .catch ( err => {
                 logger.error(err);
@@ -81,8 +72,7 @@ export class RelationDao {
             .then( async (relations: Document) => {
                 const relationsDocument: any = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
                 if (relationsDocument) {
-                    console.log(this.toRelation(relationsDocument));
-                    return this.toRelation(relationsDocument);
+                    return RelationDao.toRelation(relationsDocument);
                 } else {
                     return undefined;
                 }
@@ -107,13 +97,10 @@ export class RelationDao {
     }
     async findByTopAndLowerUnit(top: Unit, lower: Unit): Promise<Relation[]> {
         return RelationSchema.find({ topUnit: top, lowerUnit: lower})
-            .then( async (relations: Document[]) => {
-                const relationsDocument: Document[] = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
-                if (relationsDocument) {
-                    return this.toArrayRelations(relationsDocument);
-                } else {
-                    return undefined;
-                }
+            .then( async (relationsDocument: Document[]) => {
+                const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
+                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                return relations;
             })
             .catch ( err => {
                     logger.error(err);

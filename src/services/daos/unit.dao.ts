@@ -8,13 +8,13 @@ export class UnitDao {
     constructor() {
     }
 
-    private toUnit(document: Document): Unit {
+    private static toUnit(document: Document): Unit {
         return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).build();
     }
-    private toArrayUnits(documents: Document[]) {
+    private static toArrayUnits(documents: Document[]) {
         const units: Unit[] = [];
         for (let i = 0; i < documents.length; i++) {
-            units.push(this.toUnit(documents[i]));
+            units.push(UnitDao.toUnit(documents[i]));
         }
         return units;
     }
@@ -22,8 +22,9 @@ export class UnitDao {
         const unit: Unit = new UnitBuilder(name).build();
         const unitSchema = new UnitSchema(unit);
         return unitSchema.save()
-            .then( (unit: Document) => {
-                return this.toUnit(unit);
+            .then( (unitDocument: Document) => {
+                const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                return unit;
             })
             .catch ( err => {
                 logger.error(err);
@@ -32,8 +33,9 @@ export class UnitDao {
     }
     async findById(id: number): Promise<Unit> {
         return await UnitSchema.findById(id)
-            .then( (unit: Document) => {
-                return this.toUnit(unit);
+            .then( (unitDocument: Document) => {
+                const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                return unit;
             })
             .catch ( err => {
                 logger.error(err);
@@ -42,8 +44,9 @@ export class UnitDao {
     }
     async findByName(name: string): Promise<Unit[]> {
         return await UnitSchema.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
-            .then( (units: Document[]) => {
-                return this.toArrayUnits(units);
+            .then( (unitsDocument: Document[]) => {
+                const units: Unit[] = unitsDocument ? UnitDao.toArrayUnits(unitsDocument) : undefined;
+                return units;
             })
             .catch ( err => {
                 logger.error(err);
@@ -52,12 +55,9 @@ export class UnitDao {
     }
     async findByCode(code: number): Promise<Unit> {
         return await UnitSchema.findOne({ code: code })
-            .then( (unit: Document) => {
-                console.log("UNIT: " + unit);
-                if (unit)
-                    return this.toUnit(unit);
-                else
-                    return undefined;
+            .then( (unitDocument: Document) => {
+                const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                return unit;
             })
             .catch ( err => {
                 logger.error(err);
@@ -66,8 +66,9 @@ export class UnitDao {
     }
     async findAll(): Promise<Unit[]> {
         return await UnitSchema.find({})
-            .then( (units: Document[]) => {
-                return this.toArrayUnits(units);
+            .then( (unitsDocument: Document[]) => {
+                const units: Unit[] = unitsDocument ? UnitDao.toArrayUnits(unitsDocument) : undefined;
+                return units;
             })
             .catch ( err => {
                 logger.error(err);
