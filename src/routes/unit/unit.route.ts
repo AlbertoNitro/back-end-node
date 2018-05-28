@@ -17,7 +17,7 @@ unitRoutes.delete("/:code", (req, res) => {
     unitController.delete(req, res);
 });
 unitRoutes.get("/friends/:code", (req, res) => {
-    unitController.getNeighborsByUnit(req, res);
+    unitController.getNeighbors(req, res);
 });
 unitRoutes.get("/:code", (req, res) => {
     unitController.findByCode(req, res);

@@ -18,9 +18,9 @@ describe("POST /relation", () => {
                 const relationOutputDto: RelationOutputDto = res.body;
                 expect(relationOutputDto.type).to.equal("COMPOSE");
                 const topUnitOutputDto: UnitOutputDto = relationOutputDto.topUnit;
-                const LowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
+                const lowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
                 expect(topUnitOutputDto.code).to.equal(relationInputDto.topUnitCode);
-                expect(LowerunitOutputDto.code).to.equal(relationInputDto.lowerUnitCode);
+                expect(lowerunitOutputDto.code).to.equal(relationInputDto.lowerUnitCode);
                 done();
             });
     });
@@ -37,8 +37,8 @@ describe("POST /relation", () => {
                 expect(relationOutputDto.type).to.equal("COMPOSE");
                 const topUnitOutputDto: UnitOutputDto = relationOutputDto.topUnit;
                 expect(topUnitOutputDto.code).to.equal(relationInputDto.topUnitCode);
-                const LowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
-                expect(LowerunitOutputDto.code).to.equal(relationInputDto.lowerUnitCode);
+                const lowerunitOutputDto: UnitOutputDto = relationOutputDto.lowerUnit;
+                expect(lowerunitOutputDto.code).to.equal(relationInputDto.lowerUnitCode);
                 const cardinalTopUnit: string = relationOutputDto.cardinalTopUnit;
                 expect(cardinalTopUnit).to.equal(relationInputDto.cardinalTopUnit);
                 const cardinalLowerUnit: string = relationOutputDto.cardinalLowerUnit;

@@ -18,7 +18,7 @@ export class UnitController {
         this.relationResource = new RelationResource();
     }
 
-    async getNeighborsByUnit(req: Request, res: Response): Promise<any> {
+    async getNeighbors(req: Request, res: Response): Promise<any> {
         const LEVELS_TO_EXPLORER: number = 5;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {

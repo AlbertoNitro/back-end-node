@@ -60,7 +60,7 @@ export class UnitResource {
         return unitArray;
     }
     private async getFriendsAux(id: number, iteration: number, shaftUnitId: number): Promise<Set<number>> {
-        const lowerUnitsIds: number[]  =  await this.relationResource.findIdByTopUnit(id);
+        const lowerUnitsIds: number[] = await this.relationResource.findIdByTopUnit(id);
         const set =  new Set<number>();
         if ( lowerUnitsIds && lowerUnitsIds.length === 0) {
             if (id !== shaftUnitId) {

@@ -3,8 +3,8 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { CincoNivelesOutputDto } from "neighborsOutput.dto.ts";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
+import { NeighborsOutputDto } from "../../src/dtos/neighborsOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -124,7 +124,7 @@ describe("GET /unit/friends/51", () => {
         return request(app).get("/unit/friends/" + unitCode)
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
+                const cincoNivelesOutputDto: NeighborsOutputDto = res.body;
                 expect(cincoNivelesOutputDto.unit.code).to.equal(51);
                 expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
                 expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
