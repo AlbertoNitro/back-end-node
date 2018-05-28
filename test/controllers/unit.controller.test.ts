@@ -134,3 +134,14 @@ describe("GET /unit/friends/51", () => {
     });
 });
 
+describe("GET /unit/friends/99999", () => {
+    it("should return 404 - NOT_FOUND", (done) => {
+        const unitCode = 99999;
+        return request(app).get("/unit/friends/" + unitCode)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                done();
+            });
+    });
+});
+
