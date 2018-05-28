@@ -22,10 +22,10 @@ export class UnitController {
         const LEVELS_TO_EXPLORER: number = 5;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
-            const topUnitIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
-            const topUnits: Unit[] = await this.unitResource.getUnits(topUnitIds);
-            const lowerUnitIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
-            const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitIds);
+            const topUnitsIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
+            const topUnits: Unit[] = await this.unitResource.getUnits(topUnitsIds);
+            const lowerUnitsIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
+            const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsIds);
             const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
             const neighborsOutputDto: NeighborsOutputDto = DtoService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);
             neighborsOutputDto ? res.status(HttpStatusCode.OK).json(neighborsOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
@@ -34,9 +34,7 @@ export class UnitController {
         }
     }
     async create(req: Request, res: Response): Promise<any> {
-        logger.info(req.body.name);
         const unit: Unit = await this.unitResource.create(req.body.name);
-        logger.info(JSON.stringify(unit));
         const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }

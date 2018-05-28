@@ -11,7 +11,7 @@ export class   RelationResource {
         this.relationDao = new RelationDao();
     }
 
-    async findAll() {
+    async findAll(): Promise<Relation[]> {
         return await this.relationDao.findAll();
     }
     async findByLowerUnit(unitId: number): Promise<Relation[]> {
