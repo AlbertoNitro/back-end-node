@@ -14,11 +14,11 @@ export class   RelationResource {
     async findAll() {
         return await this.relationDao.findAll();
     }
-    async findByLowerUnit(unit: number): Promise<Relation[]> {
-        return await this.relationDao.findByLowerUnit(unit);
+    async findByLowerUnit(unitId: number): Promise<Relation[]> {
+        return await this.relationDao.findByLowerUnit(unitId);
     }
-    async findByTopUnit(unit: number): Promise<Relation[]> {
-        return await this.relationDao.findByTopUnit(unit);
+    async findByTopUnit(unitId: number): Promise<Relation[]> {
+        return await this.relationDao.findByTopUnit(unitId);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
         return await this.relationDao.create(relationDto);
@@ -45,16 +45,16 @@ export class   RelationResource {
     async delete(id: number): Promise<boolean> {
         return await this.relationDao.delete(id);
     }
-    async findIdByTopUnit(unit: number): Promise<number[]> {
-        const relations: Relation[] = await this.findByTopUnit(unit);
+    async findIdByTopUnit(unitId: number): Promise<number[]> {
+        const relations: Relation[] = await this.findByTopUnit(unitId);
         const topUnits: number[] = [];
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getLowerUnit().getId());
         }
         return topUnits;
     }
-    async findIdByLowerUnit(unit: number): Promise<number[]> {
-        const relations: Relation[] = await this.findByLowerUnit(unit);
+    async findIdByLowerUnit(unitId: number): Promise<number[]> {
+        const relations: Relation[] = await this.findByLowerUnit(unitId);
         const topUnits: number[] = [];
         if (relations.length) {
             for ( let i = 0; i < relations.length ; i++) {
@@ -63,16 +63,8 @@ export class   RelationResource {
         }
         return topUnits;
     }
-    async findByTopAndLowerUnit(top: Unit, lower: Unit): Promise<Relation[]> {
-        return this.relationDao.findByTopAndLowerUnit(top, lower);
-    }
-    existValue(relationArray: Relation[], relation: Relation): boolean {
-        for ( let i = 0; i < relationArray.length; i++) {
-            if (relationArray[i].getId().toString() == relation.getId().toString()) {
-                return true;
-            }
-        }
-        return false;
+    async findByTopAndLowerUnit(topUnit: Unit, lowerUnit: Unit): Promise<Relation[]> {
+        return this.relationDao.findByTopAndLowerUnit(topUnit, lowerUnit);
     }
     async getRelations(units: Unit[]): Promise<Relation[]> {
         const resultRelations: Relation[] = [];
@@ -80,11 +72,16 @@ export class   RelationResource {
             for (let j = 0; j < units.length; j++) {
                 const peersRelations: Relation[] = await this.findByTopAndLowerUnit(units[i], units[j]);
                 if (peersRelations && peersRelations.length > 0) {
-                    if (this.existValue(resultRelations, peersRelations[0]) == false)
+                    const existingRelation: Relation = resultRelations.find(element => {
+                        return peersRelations[i] === element;
+                    });
+                    if (!existingRelation) {
                         resultRelations.push(peersRelations[0]);
+                    }
                 }
             }
         }
         return resultRelations;
     }
 }
+

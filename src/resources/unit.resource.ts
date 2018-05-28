@@ -35,8 +35,8 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(unitId: number, iteracion: number): Promise<Set<number>> {
-        return this.getFriendsAux(unitId, iteracion, unitId);
+    async getFriends(id: number, iteracion: number): Promise<Set<number>> {
+        return this.getFriendsAux(id, iteracion, id);
     }
     async getTopUnits(code: number): Promise<Unit[]> {
         let topUnits: Unit[] = undefined;
@@ -52,30 +52,30 @@ export class UnitResource {
         }
         return topUnits;
     }
-    async getUnits(unitCodes: number[]): Promise<Unit[]> {
+    async getUnits(unitsCodes: number[]): Promise<Unit[]> {
         const unitArray: Unit[] = [];
-        for (let i = 0; i < unitCodes.length ; i++) {
-            unitArray.push(await this.unitDao.findById(unitCodes[i]));
+        for (let i = 0; i < unitsCodes.length ; i++) {
+            unitArray.push(await this.unitDao.findById(unitsCodes[i]));
         }
         return unitArray;
     }
-    private async getFriendsAux(unitId: number, iteration: number, shaftUnit: number): Promise<Set<number>> {
-        const lowerUnitsIds: number[]  =  await this.relationResource.findIdByTopUnit(unitId);
+    private async getFriendsAux(id: number, iteration: number, shaftUnitId: number): Promise<Set<number>> {
+        const lowerUnitsIds: number[]  =  await this.relationResource.findIdByTopUnit(id);
         const set =  new Set<number>();
         if ( lowerUnitsIds && lowerUnitsIds.length === 0) {
-            if (unitId !== shaftUnit) {
-                set.add(unitId);
+            if (id !== shaftUnitId) {
+                set.add(id);
             }
         } else {
             for ( let i = 0; i < lowerUnitsIds.length; i++ ) {
                 if (iteration > -1) {
-                    const temporal = Array.from(await this.getFriendsAux(lowerUnitsIds[i], iteration - 1, shaftUnit));
+                    const temporal = Array.from(await this.getFriendsAux(lowerUnitsIds[i], iteration - 1, shaftUnitId));
                     for ( let j = 0; j < temporal.length; j++)
                         set.add(temporal[j]);
                 }
             }
-            if (unitId != shaftUnit) {
-                set.add(unitId);
+            if (id != shaftUnitId) {
+                set.add(id);
             }
         }
         return set;

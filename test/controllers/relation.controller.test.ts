@@ -42,7 +42,7 @@ describe("POST /relation", () => {
                 const cardinalTopUnit: string = relationOutputDto.cardinalTopUnit;
                 expect(cardinalTopUnit).to.equal(relationInputDto.cardinalTopUnit);
                 const cardinalLowerUnit: string = relationOutputDto.cardinalLowerUnit;
-                expect(cardinalLowerUnit).to.equal(relationInputDto.lowerUnitCode);
+                expect(cardinalLowerUnit).to.equal(relationInputDto.cardinalLowerUnit);
                 done();
             });
     });
