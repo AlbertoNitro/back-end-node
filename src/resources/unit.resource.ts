@@ -1,10 +1,8 @@
-import { UnitDao } from "../services/dao/unit.dao";
+import { UnitDao } from "../services/daos/unit.dao";
 import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
 import { Relation } from "../models/relation.model";
 import logger from "../util/logger";
-
-import { UnitOutputDto } from "../dtos/unitOutput.dto";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -35,38 +33,13 @@ export class UnitResource {
     async findById(id: number): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(unitId: number, iteracion: number, shaftUnit: number): Promise<Set<number>> {
-        const lowerUnits: number[]  =  await this.relationResource.findIdByTopUnit(unitId);
-        logger.info(JSON.stringify(lowerUnits));
-        if ( lowerUnits.length == 0) {
-            const set =  new Set();
-            if (unitId != shaftUnit) {
-                return set.add(unitId);
-            }
-            else {
-                return set;
-            }
-        }
-        else {
-            let set =  new Set();
-            for ( let i = 0; i < lowerUnits.length; i++ ) {
-                if (iteracion > -1) {
-                    const temporal = Array.from(await this.getFriends(lowerUnits[i], iteracion - 1, shaftUnit));
-                    for ( let j = 0; j < temporal.length; j++)
-                        set = set.add(temporal[j]);
-                }
-            }
-            if (unitId != shaftUnit) {
-                return set.add(unitId);
-            }
-            else {
-                return set;
-            }        }
+    async getFriends(id: number, iteration: number): Promise<Set<number>> {
+        return this.getFriendsAux(id, iteration, id);
     }
     async getTopUnits(code: number): Promise<Unit[]> {
         let topUnits: Unit[] = undefined;
         const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
-        if (relations && (relations.length > 0)) {
+        if (relations && relations.length > 0 ) {
             topUnits = [];
             for (let i = 0 ; i < relations.length; i++) {
                 const topUnit: Unit = await this.findById(relations[i].getTopUnit().getId());
@@ -77,11 +50,32 @@ export class UnitResource {
         }
         return topUnits;
     }
-    async getUnits(unitCodes: number[]): Promise<Unit[]> {
-        const unitArray: Unit[] = [];
-        for (let i = 0; i < unitCodes.length ; i++) {
-            unitArray.push(await this.unitDao.findById(unitCodes[i]));
+    async getUnits(unitsCodes: number[]): Promise<Unit[]> {
+        const units: Unit[] = [];
+        for (let i = 0; i < unitsCodes.length ; i++) {
+            units.push(await this.unitDao.findById(unitsCodes[i]));
         }
-        return unitArray;
+        return units;
+    }
+    private async getFriendsAux(id: number, iteration: number, shaftUnitId: number): Promise<Set<number>> {
+        const lowerUnitsIds: number[] = await this.relationResource.findIdByTopUnit(id);
+        const set =  new Set<number>();
+        if ( lowerUnitsIds && lowerUnitsIds.length === 0) {
+            if (id !== shaftUnitId) {
+                set.add(id);
+            }
+        } else {
+            for ( let i = 0; i < lowerUnitsIds.length; i++ ) {
+                if (iteration > -1) {
+                    const temporal = Array.from(await this.getFriendsAux(lowerUnitsIds[i], iteration - 1, shaftUnitId));
+                    for ( let j = 0; j < temporal.length; j++)
+                        set.add(temporal[j]);
+                }
+            }
+            if (id != shaftUnitId) {
+                set.add(id);
+            }
+        }
+        return set;
     }
 }

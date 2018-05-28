@@ -8,6 +8,7 @@ import { Relation } from "../models/relation.model";
 import { UnitOutputDto } from "../dtos/unitOutput.dto";
 import { DtoService } from "../services/dto.service";
 import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
+import { RelatedUnitsOutputDto } from "../dtos/relatedUnitsOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -18,14 +19,14 @@ export class UnitController {
         this.relationResource = new RelationResource();
     }
 
-    async getNeighborsByUnit(req: Request, res: Response): Promise<any> {
-        const LEVELSTOEXPLORER: number = 5;
+    async getNeighbors(req: Request, res: Response): Promise<any> {
+        const LEVELS_TO_EXPLORER: number = 5;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
-            const topUnitIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
-            const topUnits: Unit[] = await this.unitResource.getUnits(topUnitIds);
-            const lowerUnitIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELSTOEXPLORER, unit.getId()));
-            const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitIds);
+            const topUnitsIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
+            const topUnits: Unit[] = await this.unitResource.getUnits(topUnitsIds);
+            const lowerUnitsIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
+            const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsIds);
             const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
             const neighborsOutputDto: NeighborsOutputDto = DtoService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);
             neighborsOutputDto ? res.status(HttpStatusCode.OK).json(neighborsOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
@@ -41,22 +42,22 @@ export class UnitController {
     async findByName(req: Request, res: Response) {
         const name: string = req.query.name;
         const units: Unit[] = await this.unitResource.findByName(name);
-        const unitOutputDtos: UnitOutputDto[] = [];
+        const relatedUnitsOutputDtos: RelatedUnitsOutputDto[] = [];
         if (units) {
             for (let i = 0 ; i < units.length ; i++) {
                 const topUnits: Unit[] = await this.unitResource.getTopUnits(units[i].getId());
                 if (topUnits) {
                     for (let j = 0 ; j < topUnits.length ; j++) {
-                        const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
-                        unitOutputDtos.push(unitOutputDto);
+                        const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
+                        relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                     }
                 } else {
-                    const unitOutputDto: UnitOutputDto = {name: units[i].getName(), code: units[i].getCode(), topUnit: undefined};
-                    unitOutputDtos.push(unitOutputDto);
+                    const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: undefined};
+                    relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                 }
             }
         }
-        unitOutputDtos ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
+        relatedUnitsOutputDtos ? res.status(HttpStatusCode.OK).json(relatedUnitsOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();
@@ -73,17 +74,10 @@ export class UnitController {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
     }
-    async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
-        const unit: Unit = await this.unitResource.findById(id);
-        const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
-        unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
-    }
     async findByCode(req: Request, res: Response): Promise<any> {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
         const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
-
 }
