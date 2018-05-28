@@ -34,7 +34,9 @@ export class UnitController {
         }
     }
     async create(req: Request, res: Response): Promise<any> {
+        logger.info(req.body.name);
         const unit: Unit = await this.unitResource.create(req.body.name);
+        logger.info(JSON.stringify(unit));
         const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }

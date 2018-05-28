@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 58};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 53};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
@@ -28,7 +28,7 @@ describe("POST /relation", () => {
 
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
-        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 58, semantics: "Description", cardinalTopUnit: "1..n", cardinalLowerUnit: "1..2"};
+        const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 53, semantics: "Description", cardinalTopUnit: "1..n", cardinalLowerUnit: "1..2"};
         return request(app).post("/relation")
             .send(relationInputDto)
             .end( (err, res) => {
