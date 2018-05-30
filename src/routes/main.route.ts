@@ -1,6 +1,7 @@
 import dbRoutes from "./db/db.route";
 import exerciseRoutes from "./exercise/exercise.route";
 import express from "express";
+import formationRoutes from "./formation/formation.route";
 import justificationRoutes from "./justification/justification.route";
 import lessonRoutes from "./lesson/lesson.route";
 import lessonsItineraryRoutes from "./lessonsItinerary/lessonsItinerary.route";
@@ -14,6 +15,7 @@ const api = express.Router();
 
 api.use("/db", dbRoutes);
 api.use("/exercise", exerciseRoutes);
+api.use("/formation", formationRoutes);
 api.use("/justification", justificationRoutes);
 api.use("/lesson", lessonRoutes);
 api.use("/lessonsItinerary", lessonsItineraryRoutes);
