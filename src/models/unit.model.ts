@@ -1,4 +1,4 @@
-export class Unit  {
+export class Unit {
     private _id: number;
     private name: string;
     private code: number;

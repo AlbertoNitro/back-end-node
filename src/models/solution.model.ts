@@ -1,6 +1,6 @@
 import { Justification } from "./justification.model";
 
-export class Solution  {
+export class Solution {
     private _id: number;
     private isCorrect: boolean;
     private text: string;
