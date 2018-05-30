@@ -5,5 +5,5 @@ const Exercise = new mongoose.Schema({
     lesson: { type: mongoose.Schema.Types.ObjectId, ref: "Lesson", required: true },
 });
 
-const ExerciseSchema = mongoose.model("Justification", Exercise);
+const ExerciseSchema = mongoose.model("Exercise", Exercise);
 export default ExerciseSchema;

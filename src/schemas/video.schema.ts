@@ -5,5 +5,5 @@ const Video = new mongoose.Schema({
     lesson: { type: mongoose.Schema.Types.ObjectId, ref: "Lesson", required: true },
 });
 
-const VideoSchema = mongoose.model("Justification", Video);
+const VideoSchema = mongoose.model("Video", Video);
 export default VideoSchema;

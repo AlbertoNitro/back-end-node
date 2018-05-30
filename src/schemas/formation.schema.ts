@@ -5,5 +5,5 @@ const Formation = new mongoose.Schema({
     unit: { type: mongoose.Schema.Types.ObjectId, ref: "Unit", required: true },
 });
 
-const FormationSchema = mongoose.model("Lesson", Formation);
+const FormationSchema = mongoose.model("Formation", Formation);
 export default FormationSchema;
