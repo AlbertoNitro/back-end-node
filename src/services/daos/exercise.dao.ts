@@ -9,6 +9,8 @@ import UnitSchema from "../../schemas/unit.schema";
 import { UnitBuilder } from "../../models/builders/unit.builder";
 import logger from "../../util/logger";
 import SolutionSchema from "../../schemas/solution.schema";
+import { Justification } from "../../models/justification.model";
+import JustificationSchema from "../../schemas/justification.schema";
 
 export class ExerciseDao {
 
@@ -16,6 +18,7 @@ export class ExerciseDao {
     }
 
     async findWithSolution() {
-        return await SolutionSchema.find({}).populate("justifications");
+        return await JustificationSchema.populate(await SolutionSchema.find({}), {path: "justifications"});
+
     }
 }
