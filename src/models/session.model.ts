@@ -1,6 +1,6 @@
 import { LessonsItinerary } from "./lessonsItinerary.model";
 
-export class Session  {
+export class Session {
     private _id: number;
     private name: string;
     private lessonsItineraries: LessonsItinerary[];

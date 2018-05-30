@@ -1,6 +1,6 @@
 import { Lesson } from "./lesson.model";
 
-export class LessonsItinerary  {
+export class LessonsItinerary {
     private _id: number;
     private name: string;
     private lessons: Lesson[];

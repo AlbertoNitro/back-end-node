@@ -1,4 +1,4 @@
-export class Slider  {
+export class Slider {
     private _id: number;
 
     constructor() {

@@ -1,9 +1,9 @@
-import { SessionItinerary } from "./sessionsItinerary.model";
+import { SessionsItinerary } from "./sessionsItinerary.model";
 
-export class Formation  {
+export class Formation {
     private _id: number;
     private name: string;
-    private sessionsItineraries: SessionItinerary[];
+    private sessionsItineraries: SessionsItinerary[];
 
     constructor(name: string) {
         this.name = name;
@@ -15,7 +15,7 @@ export class Formation  {
     setName(name: string) {
         this.name = name;
     }
-    setSessionItineraries(sessionItineraries: SessionItinerary[]) {
+    setSessionItineraries(sessionItineraries: SessionsItinerary[]) {
         this.sessionsItineraries = sessionItineraries;
     }
     getId(): number {
@@ -24,7 +24,7 @@ export class Formation  {
     getName(): string {
         return this.name;
     }
-    getSessionItineraries(): SessionItinerary[] {
+    getSessionItineraries(): SessionsItinerary[] {
         return this.sessionsItineraries;
     }
 }

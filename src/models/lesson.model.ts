@@ -2,7 +2,7 @@ import { Exercise } from "./exercise.model";
 import { Slider } from "./slider.model";
 import { Video } from "./video.model";
 
-export class Lesson  {
+export class Lesson {
     private _id: number;
     private name: string;
     private sliders: Slider[];
