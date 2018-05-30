@@ -16,6 +16,6 @@ export class ExerciseDao {
     }
 
     async findWithSolution() {
-        return await SolutionSchema.find({}).populate("Justification");
+        return await SolutionSchema.find({}).populate("justifications");
     }
 }
