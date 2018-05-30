@@ -2,7 +2,7 @@ import { UnitOutputDto } from "../dtos/unitOutput.dto";
 import { Unit } from "../models/unit.model";
 import { RelationOutputDto } from "../dtos/relationOutput.dto";
 import { Relation } from "../models/relation.model";
-import { CincoNivelesOutputDto } from "../dtos/cincoNivelesOutput.dto";
+import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
 
 export class DtoService {
     constructor() {
@@ -48,11 +48,11 @@ export class DtoService {
         return relationOutputDtos;
     }
 
-    public static toFriendsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): CincoNivelesOutputDto {
-        let cincoNivelesOutputDto: CincoNivelesOutputDto = undefined;
+    public static toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
+        let neighborsOutputDto: NeighborsOutputDto = undefined;
         if (unit) {
-            cincoNivelesOutputDto = {unit: DtoService.toUnitOutputDto(unit), topUnits: DtoService.toArrayUnitOutputDto(topUnits), lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits), relations: DtoService.toArrayRelationOutputDto(relations)};
+            neighborsOutputDto = {unit: DtoService.toUnitOutputDto(unit), topUnits: DtoService.toArrayUnitOutputDto(topUnits), lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits), relations: DtoService.toArrayRelationOutputDto(relations)};
         }
-        return cincoNivelesOutputDto;
+        return neighborsOutputDto;
     }
 }

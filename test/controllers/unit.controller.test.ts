@@ -3,8 +3,9 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { CincoNivelesOutputDto } from "../../src/dtos/cincoNivelesOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
+import { NeighborsOutputDto } from "../../src/dtos/neighborsOutput.dto";
+import {RelatedUnitsOutputDto} from "../../src/dtos/relatedUnitsOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -105,14 +106,14 @@ describe("GET /unit/61", () => {
     });
 });
 
-describe("GET /unit/search/Unidad", () => {
+describe("GET /unit/search?name=Unidad", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unidad";
         return request(app).get("/unit/search?name=" + nameToSearch)
         .end( (err, res) => {
             expect(res.status).to.equal(HttpStatusCode.OK);
-            const unitOutputDtos: UnitOutputDto[] = res.body;
-            expect(unitOutputDtos.length).to.be.above(9);
+            const relatedUnitsOutputDtos: RelatedUnitsOutputDto[] = res.body;
+            expect(relatedUnitsOutputDtos.length).to.be.above(9);
             done();
         });
   });
@@ -124,13 +125,24 @@ describe("GET /unit/friends/51", () => {
         return request(app).get("/unit/friends/" + unitCode)
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                const cincoNivelesOutputDto: CincoNivelesOutputDto = res.body;
+                const cincoNivelesOutputDto: NeighborsOutputDto = res.body;
                 expect(cincoNivelesOutputDto.unit.code).to.equal(51);
                 expect(cincoNivelesOutputDto.topUnits[0].code).to.equal(50);
                 expect(cincoNivelesOutputDto.lowerUnits.length).to.equal(3);
                 expect(cincoNivelesOutputDto.relations.length).to.equal(4);
                 done();
           });
+    });
+});
+
+describe("GET /unit/friends/99999", () => {
+    it("should return 404 - NOT_FOUND", (done) => {
+        const unitCode = 99999;
+        return request(app).get("/unit/friends/" + unitCode)
+            .end( (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                done();
+            });
     });
 });
 
