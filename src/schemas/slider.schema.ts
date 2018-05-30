@@ -5,5 +5,5 @@ const Slider = new mongoose.Schema({
     lesson: { type: mongoose.Schema.Types.ObjectId, ref: "Lesson", required: true },
 });
 
-const SliderSchema = mongoose.model("Justification", Slider);
+const SliderSchema = mongoose.model("Slider", Slider);
 export default SliderSchema;
