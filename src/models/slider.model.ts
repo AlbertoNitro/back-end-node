@@ -3,10 +3,11 @@ export class Slider  {
 
     constructor() {
     }
-    public setId(id: number) {
+
+    setId(id: number) {
         this._id = id;
     }
-    public getId(): number {
+    getId(): number {
         return this._id;
     }
 }
