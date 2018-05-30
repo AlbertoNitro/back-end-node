@@ -1,12 +1,30 @@
+import { Lesson } from "./lesson.model";
+
 export class LessonsItinerary  {
     private _id: number;
+    private name: string;
+    private lessons: Lesson[];
 
-    constructor() {
+    constructor(name: string) {
+        this.name = name;
     }
-    public setId(id: number) {
+
+    setId(id: number) {
         this._id = id;
     }
-    public getId(): number {
+    setName(name: string) {
+        this.name = name;
+    }
+    setLessons(lessons: Lesson[]) {
+        this.lessons = lessons;
+    }
+    getId(): number {
         return this._id;
+    }
+    getName(): string {
+        return this.name;
+    }
+    getLessons(): Lesson[] {
+        return this.lessons;
     }
 }
