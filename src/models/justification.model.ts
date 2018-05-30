@@ -1,27 +1,27 @@
 export class Justification  {
     private _id: number;
     private isCorrect: boolean;
-    private text: string;
-
+    private text: boolean;
     constructor() {
     }
-
-    setId(id: number) {
+    public setId(id: number) {
         this._id = id;
     }
-    setIsCorrect(isCorrect: boolean) {
-        this.isCorrect = isCorrect;
-    }
-    setText(text: string) {
-        this.text = text;
-    }
-    getId(): number {
+    public getId(): number {
         return this._id;
     }
-    getIsCorrect(): boolean {
-        return this.isCorrect;
+
+    public setIsCorrect(id: number) {
+        this._id = id;
     }
-    getText(): string {
-        return this.text;
+    public getIsCorrect(): number {
+        return this._id;
+    }
+
+    public setText(id: number) {
+        this._id = id;
+    }
+    public getText(): number {
+        return this._id;
     }
 }
