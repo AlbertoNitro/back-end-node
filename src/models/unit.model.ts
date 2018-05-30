@@ -2,26 +2,34 @@ export class Unit  {
     private _id: number;
     private name: string;
     private code: number;
+    private content: string;
 
     constructor(name: string) {
         this.name = name;
     }
-    public setId(id: number) {
+
+    setId(id: number) {
         this._id = id;
     }
-    public setName(name: string) {
+    setName(name: string) {
         this.name = name;
     }
-    public setCode(code: number) {
+    setCode(code: number) {
         this.code = code;
     }
-    public getId(): number {
+    setContent(content: string) {
+        this.content = content;
+    }
+    getId(): number {
         return this._id;
     }
-    public getName(): string {
+    getName(): string {
         return this.name;
     }
-    public getCode(): number {
+    getCode(): number {
         return this.code;
+    }
+    getContent(): string {
+        return this.content;
     }
 }

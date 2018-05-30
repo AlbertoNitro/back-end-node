@@ -5,16 +5,16 @@ export class Video  {
     constructor(url: string) {
         this.url = url;
     }
-    public setId(id: number) {
+    setId(id: number) {
         this._id = id;
     }
-    public setUrl(url: string) {
+    setUrl(url: string) {
         this.url = url;
     }
-    public getId(): number {
+    getId(): number {
         return this._id;
     }
-    public getUrl(): string {
+    getUrl(): string {
         return this.url;
     }
 }

@@ -1,12 +1,30 @@
-export class Slider  {
-    private _id: number;
+import { SessionItinerary } from "./sessionsItinerary.model";
 
-    constructor() {
+export class Formation  {
+    private _id: number;
+    private name: string;
+    private sessionsItineraries: SessionItinerary[];
+
+    constructor(name: string) {
+        this.name = name;
     }
-    public setId(id: number) {
+
+    setId(id: number) {
         this._id = id;
     }
-    public getId(): number {
+    setName(name: string) {
+        this.name = name;
+    }
+    setSessionItineraries(sessionItineraries: SessionItinerary[]) {
+        this.sessionsItineraries = sessionItineraries;
+    }
+    getId(): number {
         return this._id;
+    }
+    getName(): string {
+        return this.name;
+    }
+    getSessionItineraries(): SessionItinerary[] {
+        return this.sessionsItineraries;
     }
 }
