@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Solution = new mongoose.Schema({
     isCorrect: { type: Boolean, required: true },
-    formulation: { type: mongoose.Schema.Types.ObjectId, ref: "Formulation", required: true },
+    formulation: { type: mongoose.Schema.Types.ObjectId, ref: "Exercise", required: true },
     text: { type: String, required: true },
 });
 
