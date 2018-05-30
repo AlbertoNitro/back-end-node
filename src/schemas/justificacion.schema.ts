@@ -6,5 +6,5 @@ const Justification = new mongoose.Schema({
     text: { type: String, required: true },
 });
 
-const RelationSchema = mongoose.model("Justificacion", Justification);
-export default RelationSchema;
+const JustificationSchema = mongoose.model("Justification", Justification);
+export default JustificationSchema;
