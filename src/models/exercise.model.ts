@@ -1,6 +1,6 @@
 import { Solution } from "./solution.model";
 
-export class Exercise  {
+export class Exercise {
     private _id: number;
     private formulation: string;
     private solutions: Solution[];

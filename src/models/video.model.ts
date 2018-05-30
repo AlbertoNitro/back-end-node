@@ -1,4 +1,4 @@
-export class Video  {
+export class Video {
     private _id: number;
     private url: string;
 

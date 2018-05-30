@@ -1,4 +1,4 @@
-export class Justification  {
+export class Justification {
     private _id: number;
     private isCorrect: boolean;
     private text: string;

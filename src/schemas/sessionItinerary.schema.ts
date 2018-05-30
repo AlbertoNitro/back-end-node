@@ -5,5 +5,5 @@ const SessionItinerary = new mongoose.Schema({
     formation: { type: mongoose.Schema.Types.ObjectId, ref: "Formation", required: true },
 });
 
-const SessionItinerarySchema = mongoose.model("SessionItinerary", SessionItinerary);
+const SessionItinerarySchema = mongoose.model("SessionsItinerary", SessionItinerary);
 export default SessionItinerarySchema;
