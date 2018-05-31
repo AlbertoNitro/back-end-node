@@ -1,13 +1,11 @@
 import { Solution } from "./solution.model";
-import { Interaction } from "./interaction.model";
 
-export class Exercise extends Interaction {
+export class Exercise {
     private _id: number;
     private formulation: string;
     private solutions: Solution[];
 
     constructor() {
-        super();
         this.solutions = [];
     }
 

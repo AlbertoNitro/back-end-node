@@ -1,11 +1,8 @@
-import { Interaction } from "./interaction.model";
-
-export class Video extends Interaction {
+export class Video  {
     private _id: number;
     private url: string;
 
     constructor(url: string) {
-        super();
         this.url = url;
     }
     setId(id: number) {
