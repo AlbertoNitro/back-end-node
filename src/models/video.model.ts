@@ -1,6 +1,6 @@
 import { Interaction } from "./interaction.model";
 
-export class Video extends Interaction {
+export class Video extends Interaction  {
     private _id: number;
     private url: string;
 
@@ -8,11 +8,13 @@ export class Video extends Interaction {
         super();
         this.url = url;
     }
-    setId(id: number) {
+    setId(id: number): Video {
         this._id = id;
+        return this;
     }
-    setUrl(url: string) {
+    setUrl(url: string): Video {
         this.url = url;
+        return this;
     }
     getId(): number {
         return this._id;

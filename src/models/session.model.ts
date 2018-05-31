@@ -10,14 +10,17 @@ export class Session {
         this.lessons = [];
     }
 
-    setId(id: number) {
+    setId(id: number): Session {
         this._id = id;
+        return this;
     }
-    setName(name: string) {
+    setName(name: string): Session {
         this.name = name;
+        return this;
     }
-    setLessons(lessons: Lesson[]) {
+    setLessons(lessons: Lesson[]): Session {
         this.lessons = lessons;
+        return this;
     }
     getId(): number {
         return this._id;

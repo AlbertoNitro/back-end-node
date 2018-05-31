@@ -10,14 +10,17 @@ export class Itinerary {
         this.sessions = [];
     }
 
-    setId(id: number) {
+    setId(id: number): Itinerary {
         this._id = id;
+        return this;
     }
-    setName(name: string) {
+    setName(name: string): Itinerary {
         this.name = name;
+        return this;
     }
-    setSessions(sessions: Session[]) {
+    setSessions(sessions: Session[]): Itinerary {
         this.sessions = sessions;
+        return this;
     }
     getId(): number {
         return this._id;
