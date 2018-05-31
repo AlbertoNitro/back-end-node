@@ -1,9 +1,13 @@
 export class Justification {
     private _id: number;
     private isCorrect: boolean;
-    private text: boolean;
-    constructor() {
+    private text: string;
+
+    constructor(text: string, isCorrect: boolean) {
+        this.text = text;
+        this.isCorrect = isCorrect;
     }
+
     public setId(id: number) {
         this._id = id;
     }

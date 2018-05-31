@@ -7,7 +7,7 @@ export class JustificationDao {
     constructor() {
     }
     private static toJustification(document: Document): Justification {
-        return new JustificationBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorect")).build();
+        return new JustificationBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArrayJustifications(documents: Document[]): Justification[] {
         const justifications: Justification[] = [];

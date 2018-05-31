@@ -1,12 +1,13 @@
-import { Lesson } from "./lesson.model";
+import { Session } from "./session.model";
 
-export class LessonsItinerary {
+export class Itinerary {
     private _id: number;
     private name: string;
-    private lessons: Lesson[];
+    private sessions: Session[];
 
     constructor(name: string) {
         this.name = name;
+        this.sessions = [];
     }
 
     setId(id: number) {
@@ -15,8 +16,8 @@ export class LessonsItinerary {
     setName(name: string) {
         this.name = name;
     }
-    setLessons(lessons: Lesson[]) {
-        this.lessons = lessons;
+    setSessions(sessions: Session[]) {
+        this.sessions = sessions;
     }
     getId(): number {
         return this._id;
@@ -24,7 +25,7 @@ export class LessonsItinerary {
     getName(): string {
         return this.name;
     }
-    getLessons(): Lesson[] {
-        return this.lessons;
+    getSessions(): Session[] {
+        return this.sessions;
     }
 }

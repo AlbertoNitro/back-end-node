@@ -1,11 +1,14 @@
 import { Solution } from "./solution.model";
+import { Interaction } from "./interaction.model";
 
-export class Exercise {
+export class Exercise extends Interaction {
     private _id: number;
     private formulation: string;
     private solutions: Solution[];
 
     constructor() {
+        super();
+        this.solutions = [];
     }
 
     setId(id: number) {
