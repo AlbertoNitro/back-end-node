@@ -12,17 +12,21 @@ export class Solution {
         this.justifications = [];
     }
 
-    setId(id: number) {
+    setId(id: number): Solution {
         this._id = id;
+        return this;
     }
-    setIsCorrect(isCorrect: boolean) {
+    setIsCorrect(isCorrect: boolean): Solution {
         this.isCorrect = isCorrect;
+        return this;
     }
-    setText(text: string) {
+    setText(text: string): Solution {
         this.text = text;
+        return this;
     }
-    setJustifications(justifications: Justification[]) {
+    setJustifications(justifications: Justification[]): Solution {
         this.justifications = justifications;
+        return this;
     }
     getId(): number {
         return this._id;
