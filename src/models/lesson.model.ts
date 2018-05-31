@@ -1,10 +1,9 @@
-import { Exercise } from "./exercise.model";
-import { Video } from "./video.model";
+import { Interaction } from "./interaction.model";
 
 export class Lesson {
     private _id: number;
     private name: string;
-    private interactions: any[]; // Solo almacenar objetos Video o Exercise.
+    private interactions: Interaction[];
 
     constructor(name: string) {
         this.name = name;
@@ -17,7 +16,7 @@ export class Lesson {
     setName(name: string) {
         this.name = name;
     }
-    setInteractions(interactions: any[]) {
+    setInteractions(interactions: Interaction[]) {
         this.interactions = interactions;
     }
     getId(): number {
@@ -26,7 +25,7 @@ export class Lesson {
     getName(): string {
         return this.name;
     }
-    getInteractions(): any[] {
+    getInteractions(): Interaction[] {
         return this.interactions;
     }
 }
