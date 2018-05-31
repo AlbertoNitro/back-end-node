@@ -1,16 +1,14 @@
 import { Exercise } from "./exercise.model";
-import { Slider } from "./slider.model";
 import { Video } from "./video.model";
 
 export class Lesson {
     private _id: number;
     private name: string;
-    private sliders: Slider[];
-    private videos: Video[];
-    private exercises: Exercise[];
+    private interactions: any[]; // Solo almacenar objetos Video o Exercise.
 
     constructor(name: string) {
         this.name = name;
+        this.interactions = [];
     }
 
     setId(id: number) {
@@ -19,14 +17,8 @@ export class Lesson {
     setName(name: string) {
         this.name = name;
     }
-    setSliders(sliders: Slider[]) {
-        this.sliders = sliders;
-    }
-    setVideos(videos: Video[]) {
-        this.videos = videos;
-    }
-    setExercises(exercises: Exercise[]) {
-        this.exercises = exercises;
+    setInteractions(interactions: any[]) {
+        this.interactions = interactions;
     }
     getId(): number {
         return this._id;
@@ -34,13 +26,7 @@ export class Lesson {
     getName(): string {
         return this.name;
     }
-    getSliders(): Slider[] {
-        return this.sliders;
-    }
-    getVideos(): Video[] {
-        return this.videos;
-    }
-    getExercises(): Exercise[] {
-        return this.exercises;
+    getInteractions(): any[] {
+        return this.interactions;
     }
 }

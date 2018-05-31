@@ -1,11 +1,15 @@
+import { Itinerary } from "./itinerary.model";
+
 export class Unit {
     private _id: number;
     private name: string;
     private code: number;
     private content: string;
+    private itineraries: Itinerary[];
 
     constructor(name: string) {
         this.name = name;
+        this.itineraries = [];
     }
 
     setId(id: number) {
@@ -20,6 +24,9 @@ export class Unit {
     setContent(content: string) {
         this.content = content;
     }
+    setItineraries(itineraries: Itinerary[]) {
+        this.itineraries = itineraries;
+    }
     getId(): number {
         return this._id;
     }
@@ -31,5 +38,8 @@ export class Unit {
     }
     getContent(): string {
         return this.content;
+    }
+    getItineraries(): Itinerary[] {
+        return this.itineraries;
     }
 }

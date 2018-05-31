@@ -1,17 +1,17 @@
 import { Document } from "mongoose";
 import logger from "../util/logger";
-import { LessonsItinerary } from "../../models/lessonsItinerary.model";
+import { Lesson } from "../../models/lessonsItinerary.model";
 import LessonsItinerarySchema from "../../schemas/lessonsItinerary.schema";
 
 export class LessonsItineraryDao {
     constructor() {
     }
 
-    private static toLessonsItinerary(document: Document): LessonsItinerary {
+    private static toLessonsItinerary(document: Document): Lesson {
         return new LessonsItineraryBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
-    private static toArrayLessonsItinerarys(documents: Document[]): LessonsItinerary[] {
-        const lessonsItinerarys: LessonsItinerary[] = [];
+    private static toArrayLessonsItinerarys(documents: Document[]): Lesson[] {
+        const lessonsItinerarys: Lesson[] = [];
         for (let i = 0; i < documents.length; i++) {
             lessonsItinerarys.push(LessonsItineraryDao.toLessonsItinerary(documents[i]));
         }
@@ -27,10 +27,10 @@ export class LessonsItineraryDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<LessonsItinerary> {
+    async findById(id: number): Promise<Lesson> {
         return await LessonsItinerarySchema.findById(id)
             .then( (lessonsItineraryDocument: Document) => {
-                const lessonsItinerary: LessonsItinerary = lessonsItineraryDocument ? LessonsItineraryDao.toLessonsItinerary(lessonsItineraryDocument) : undefined;
+                const lessonsItinerary: Lesson = lessonsItineraryDocument ? LessonsItineraryDao.toLessonsItinerary(lessonsItineraryDocument) : undefined;
                 return lessonsItinerary;
             })
             .catch ( err => {
@@ -38,12 +38,12 @@ export class LessonsItineraryDao {
                 return undefined;
             });
     }
-    async create(isCorrect: boolean, text: string): Promise<LessonsItinerary> {
-        const lessonsItinerary: LessonsItinerary = new LessonsItineraryBuilder().setIsCorrect(isCorrect).setText(text).build();
+    async create(isCorrect: boolean, text: string): Promise<Lesson> {
+        const lessonsItinerary: Lesson = new LessonsItineraryBuilder().setIsCorrect(isCorrect).setText(text).build();
         const lessonsItinerarySchema = new LessonsItinerarySchema(lessonsItinerary);
         return lessonsItinerarySchema.save()
             .then( (lessonsItineraryDocument: Document) => {
-                const lessonsItinerary: LessonsItinerary = lessonsItineraryDocument ? LessonsItineraryDao.toLessonsItinerary(lessonsItineraryDocument) : undefined;
+                const lessonsItinerary: Lesson = lessonsItineraryDocument ? LessonsItineraryDao.toLessonsItinerary(lessonsItineraryDocument) : undefined;
                 return lessonsItinerary;
             })
             .catch ( err => {

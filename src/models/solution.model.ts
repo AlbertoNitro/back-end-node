@@ -4,10 +4,14 @@ export class Solution {
     private _id: number;
     private isCorrect: boolean;
     private text: string;
-    private justification: Justification;
+    private justifications: Justification[];
 
-    constructor() {
+    constructor(text: string, isCorrect: boolean) {
+        this.text = text;
+        this.isCorrect = isCorrect;
+        this.justifications = [];
     }
+
     setId(id: number) {
         this._id = id;
     }
@@ -17,8 +21,8 @@ export class Solution {
     setText(text: string) {
         this.text = text;
     }
-    setJustification(justification: Justification) {
-        this.justification = justification;
+    setJustifications(justifications: Justification[]) {
+        this.justifications = justifications;
     }
     getId(): number {
         return this._id;
@@ -29,7 +33,7 @@ export class Solution {
     getText(): string {
         return this.text;
     }
-    getJustification(): Justification {
-        return this.justification;
+    getJustifications(): Justification[] {
+        return this.justifications;
     }
 }
