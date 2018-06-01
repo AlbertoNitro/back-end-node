@@ -1,12 +1,12 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
+// import logger from "../util/logger";
 import { Solution } from "../../models/solution.model";
 import SolutionSchema from "../../schemas/solution.schema";
 
 export class SolutionDao {
     constructor() {
     }
-    private static toSolution(document: Document): Solution {
+    /* private static toSolution(document: Document): Solution {
         return new SolutionBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArraySolutions(documents: Document[]): Solution[] {
@@ -49,5 +49,5 @@ export class SolutionDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 }

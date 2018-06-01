@@ -1,12 +1,12 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
+// import logger from "../util/logger";
 import JustificationSchema from "../../schemas/justification.schema";
 import { Justification } from "../../models/justification.model";
 
 export class JustificationDao {
     constructor() {
     }
-    private static toJustification(document: Document): Justification {
+    /* private static toJustification(document: Document): Justification {
         return new JustificationBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArrayJustifications(documents: Document[]): Justification[] {
@@ -49,5 +49,5 @@ export class JustificationDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 }

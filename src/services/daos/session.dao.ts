@@ -1,12 +1,12 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
-import {Session} from "../../models/session.model";
+// import logger from "../util/logger";
+// import {Session} from "../../models/session.model";
 
 export class SessionDao {
     constructor() {
     }
 
-    private static toSession(document: Document): Session {
+    /* private static toSession(document: Document): Session {
         return new SessionBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArraySessions(documents: Document[]): Session[] {
@@ -49,6 +49,6 @@ export class SessionDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 
 }

@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import InteractionSchema from "./interaction.schema";
 
-const Video = new mongoose.Schema({
-    url: { type: String, required: true },
+const Video = new Schema({
+    url: { type: String },
 });
 
 const VideoSchema = InteractionSchema.discriminator("Video", Video);

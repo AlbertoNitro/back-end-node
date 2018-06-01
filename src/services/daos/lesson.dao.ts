@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
+// import logger from "../util/logger";
 import { Lesson } from "../../models/lesson.model";
 import LessonSchema from "../../schemas/lesson.schema";
 
@@ -7,7 +7,7 @@ export class LessonDao {
     constructor() {
     }
 
-    private static toLesson(document: Document): Lesson {
+    /*private static toLesson(document: Document): Lesson {
         return new LessonBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArrayLessons(documents: Document[]): Lesson[] {
@@ -50,5 +50,5 @@ export class LessonDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 }
