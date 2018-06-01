@@ -4,21 +4,29 @@ export class Solution {
     private _id: number;
     private isCorrect: boolean;
     private text: string;
-    private justification: Justification;
+    private justifications: Justification[];
 
-    constructor() {
-    }
-    setId(id: number) {
-        this._id = id;
-    }
-    setIsCorrect(isCorrect: boolean) {
-        this.isCorrect = isCorrect;
-    }
-    setText(text: string) {
+    constructor(text: string, isCorrect: boolean) {
         this.text = text;
+        this.isCorrect = isCorrect;
+        this.justifications = [];
     }
-    setJustification(justification: Justification) {
-        this.justification = justification;
+
+    setId(id: number): Solution {
+        this._id = id;
+        return this;
+    }
+    setIsCorrect(isCorrect: boolean): Solution {
+        this.isCorrect = isCorrect;
+        return this;
+    }
+    setText(text: string): Solution {
+        this.text = text;
+        return this;
+    }
+    setJustifications(justifications: Justification[]): Solution {
+        this.justifications = justifications;
+        return this;
     }
     getId(): number {
         return this._id;
@@ -29,7 +37,7 @@ export class Solution {
     getText(): string {
         return this.text;
     }
-    getJustification(): Justification {
-        return this.justification;
+    getJustifications(): Justification[] {
+        return this.justifications;
     }
 }

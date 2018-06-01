@@ -1,22 +1,26 @@
-import { LessonsItinerary } from "./lessonsItinerary.model";
+import { Lesson } from "./lesson.model";
 
 export class Session {
     private _id: number;
     private name: string;
-    private lessonsItineraries: LessonsItinerary[];
+    private lessons: Lesson[];
 
     constructor(name: string) {
         this.name = name;
+        this.lessons = [];
     }
 
-    setId(id: number) {
+    setId(id: number): Session {
         this._id = id;
+        return this;
     }
-    setName(name: string) {
+    setName(name: string): Session {
         this.name = name;
+        return this;
     }
-    setLessonsItineraries(lessonsItinerary: LessonsItinerary[]) {
-        this.lessonsItineraries = lessonsItinerary;
+    setLessons(lessons: Lesson[]): Session {
+        this.lessons = lessons;
+        return this;
     }
     getId(): number {
         return this._id;
@@ -24,7 +28,7 @@ export class Session {
     getName(): string {
         return this.name;
     }
-    getLessonsItinerary(): LessonsItinerary[] {
-        return this.lessonsItineraries;
+    getLessons(): Lesson[] {
+        return this.lessons;
     }
 }
