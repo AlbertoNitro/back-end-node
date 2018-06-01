@@ -37,25 +37,25 @@ export class RelationBuilder {
         return this;
     }
     getId(): number {
-        return this.getId();
+        return this.relation.getId();
     }
     getType(): string {
-        return this.getType();
+        return this.relation.getType();
     }
     getTopUnit(): Unit {
-        return this.getTopUnit();
+        return this.relation.getTopUnit();
     }
     getLowerUnit(): Unit {
-        return this.getLowerUnit();
+        return this.relation.getLowerUnit();
     }
     getSemantics(): string {
-        return this.getSemantics();
+        return this.relation.getSemantics();
     }
     getCardinalTopUnit(): string {
-        return this.getCardinalTopUnit();
+        return this.relation.getCardinalTopUnit();
     }
     getCardinalLowerUnit(): string {
-        return this.getCardinalLowerUnit();
+        return this.relation.getCardinalLowerUnit();
     }
     public build() {
         return this.relation;

@@ -1,32 +1,26 @@
-import { Exercise } from "./exercise.model";
-import { Slider } from "./slider.model";
-import { Video } from "./video.model";
+import { Interaction } from "./interaction.model";
 
 export class Lesson {
     private _id: number;
     private name: string;
-    private sliders: Slider[];
-    private videos: Video[];
-    private exercises: Exercise[];
+    private interactions: Interaction[];
 
     constructor(name: string) {
         this.name = name;
+        this.interactions = [];
     }
 
-    setId(id: number) {
+    setId(id: number): Lesson {
         this._id = id;
+        return this;
     }
-    setName(name: string) {
+    setName(name: string): Lesson {
         this.name = name;
+        return this;
     }
-    setSliders(sliders: Slider[]) {
-        this.sliders = sliders;
-    }
-    setVideos(videos: Video[]) {
-        this.videos = videos;
-    }
-    setExercises(exercises: Exercise[]) {
-        this.exercises = exercises;
+    setInteractions(interactions: Interaction[]): Lesson {
+        this.interactions = interactions;
+        return this;
     }
     getId(): number {
         return this._id;
@@ -34,13 +28,7 @@ export class Lesson {
     getName(): string {
         return this.name;
     }
-    getSliders(): Slider[] {
-        return this.sliders;
-    }
-    getVideos(): Video[] {
-        return this.videos;
-    }
-    getExercises(): Exercise[] {
-        return this.exercises;
+    getInteractions(): Interaction[] {
+        return this.interactions;
     }
 }
