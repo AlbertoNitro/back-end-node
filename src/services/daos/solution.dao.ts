@@ -2,14 +2,16 @@ import { Document } from "mongoose";
 import logger from "../util/logger";
 import { Solution } from "../../models/solution.model";
 import SolutionSchema from "../../schemas/solution.schema";
+import { JustificationDao } from "./justification.dao";
+import { Justification } from "../../models/justification.model";
 
 export class SolutionDao {
     constructor() {
     }
-    private static toSolution(document: Document): Solution {
-        return new SolutionBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
+    public static toSolution(document: Document): Solution {
+        return new Solution(document.get("text"), document.get("isCorrect")).setId(document.get("_id").setJustifications(JustificationDao.toArrayJustifications(document.get("justifications"))));
     }
-    private static toArraySolutions(documents: Document[]): Solution[] {
+    public static toArraySolutions(documents: Document[]): Solution[] {
         const solutions: Solution[] = [];
         for (let i = 0; i < documents.length; i++) {
             solutions.push(SolutionDao.toSolution(documents[i]));
@@ -37,8 +39,8 @@ export class SolutionDao {
                 return undefined;
             });
     }
-    async create(isCorrect: boolean, text: string): Promise<Solution> {
-        const solution: Solution = new SolutionBuilder().setIsCorrect(isCorrect).setText(text).build();
+    async create(isCorrect: boolean, text: string, justifications: Justification[]): Promise<Solution> {
+        const solution: Solution = new Solution(text, isCorrect).setJustifications(justifications);
         const solutionSchema = new SolutionSchema(solution);
         return solutionSchema.save()
             .then( (solutionDocument: Document) => {

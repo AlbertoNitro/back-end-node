@@ -6,10 +6,10 @@ import { Justification } from "../../models/justification.model";
 export class JustificationDao {
     constructor() {
     }
-    private static toJustification(document: Document): Justification {
-        return new JustificationBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
+    public static toJustification(document: Document): Justification {
+        return new Justification(document.get("text"), document.get("isCorrect")).setId(document.get("_id"));
     }
-    private static toArrayJustifications(documents: Document[]): Justification[] {
+    public static toArrayJustifications(documents: Document[]): Justification[] {
         const justifications: Justification[] = [];
         for (let i = 0; i < documents.length; i++) {
             justifications.push(JustificationDao.toJustification(documents[i]));
@@ -38,7 +38,7 @@ export class JustificationDao {
             });
     }
     async create(isCorrect: boolean, text: string): Promise<Justification> {
-        const justification: Justification = new JustificationBuilder().setIsCorrect(isCorrect).setText(text).build();
+        const justification: Justification = new Justification(text, isCorrect);
         const justificationSchema = new JustificationSchema(justification);
         return justificationSchema.save()
             .then( (justificationDocument: Document) => {

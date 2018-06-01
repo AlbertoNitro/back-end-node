@@ -7,7 +7,7 @@ export class VideoDao {
     constructor() {
     }
     private static toVideo(document: Document): Video {
-        return new VideoBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
+        return new Video(document.get("url")).setId(document.get("_id"));
     }
     private static toArrayVideos(documents: Document[]): Video[] {
         const videos: Video[] = [];
@@ -37,8 +37,8 @@ export class VideoDao {
                 return undefined;
             });
     }
-    async create(isCorrect: boolean, text: string): Promise<Video> {
-        const video: Video = new VideoBuilder().setIsCorrect(isCorrect).setText(text).build();
+    async create(url: string): Promise<Video> {
+        const video: Video = new Video(url);
         const videoSchema = new VideoSchema(video);
         return videoSchema.save()
             .then( (videoDocument: Document) => {
