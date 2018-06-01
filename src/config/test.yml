@@ -1,3 +1,15 @@
+#Interaction
+interaction:
+    - &interaction1
+        _id: {$oid: "361d87b8b230cf35177998c0"}
+        formulation: "I1"
+        kind: "Exercise"
+        solution: [ ]
+    - &interaction2
+        _id: {$oid: "361d87b8b230cf35177998c1"}
+        url: "bleble"
+        kind: "Video"
+
 # Justifications
 justifications:
 - &justification0
