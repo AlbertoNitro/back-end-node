@@ -1,9 +1,9 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
 import { Session } from "../../models/session.model";
 import SessionSchema from "../../schemas/session.schema";
 import { LessonDao } from "./lesson.dao";
 import { Lesson } from "../../models/lesson.model";
+import logger from "../../util/logger";
 
 export class SessionDao {
     constructor() {

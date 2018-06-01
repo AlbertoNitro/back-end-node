@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
+import logger from "../../util/logger";
 import JustificationSchema from "../../schemas/justification.schema";
 import { Justification } from "../../models/justification.model";
 

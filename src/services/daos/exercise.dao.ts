@@ -1,21 +1,20 @@
 import { Document } from "mongoose";
 import logger from "../../util/logger";
 import SolutionSchema from "../../schemas/solution.schema";
-
 import JustificationSchema from "../../schemas/justification.schema";
 import { Exercise } from "../../models/exercise.model";
 import ExerciseSchema from "../../schemas/exercise.schema";
-import {SolutionDao} from "./solution.dao";
-import {Solution} from "../../models/solution.model";
+import { SolutionDao } from "./solution.dao";
+import { Solution } from "../../models/solution.model";
 
 export class ExerciseDao {
     constructor() {
     }
 
-    private static toExercise(document: Document): Exercise {
+    public static toExercise(document: Document): Exercise {
         return new Exercise(document.get("formulation")).setId(document.get("_id").setSolutions(SolutionDao.toArraySolutions(document.get("solutions"))));
     }
-    private static toArrayExercises(documents: Document[]): Exercise[] {
+    public static toArrayExercises(documents: Document[]): Exercise[] {
         const exercises: Exercise[] = [];
         for (let i = 0; i < documents.length; i++) {
             exercises.push(ExerciseDao.toExercise(documents[i]));

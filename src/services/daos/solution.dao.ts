@@ -1,9 +1,9 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
 import { Solution } from "../../models/solution.model";
 import SolutionSchema from "../../schemas/solution.schema";
 import { JustificationDao } from "./justification.dao";
 import { Justification } from "../../models/justification.model";
+import logger from "../../util/logger";
 
 export class SolutionDao {
     constructor() {

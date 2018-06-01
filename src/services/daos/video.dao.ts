@@ -1,15 +1,15 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
 import { Video } from "../../models/video.model";
 import VideoSchema from "../../schemas/video.schema";
+import logger from "../../util/logger";
 
 export class VideoDao {
     constructor() {
     }
-    private static toVideo(document: Document): Video {
+    public static toVideo(document: Document): Video {
         return new Video(document.get("url")).setId(document.get("_id"));
     }
-    private static toArrayVideos(documents: Document[]): Video[] {
+    public static toArrayVideos(documents: Document[]): Video[] {
         const videos: Video[] = [];
         for (let i = 0; i < documents.length; i++) {
             videos.push(VideoDao.toVideo(documents[i]));

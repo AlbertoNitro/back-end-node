@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
+import logger from "../../util/logger";
 import { Itinerary } from "../../models/itinerary.model";
 import { SessionDao } from "./session.dao";
 import { Session } from "../../models/session.model";
@@ -9,10 +9,10 @@ export class ItineraryDao {
     constructor() {
     }
 
-    private static toItinerary(document: Document): Itinerary {
+    public static toItinerary(document: Document): Itinerary {
         return new Itinerary(document.get("name")).setId(document.get("_id").setSessions(SessionDao.toArraySessions(document.get("sessions"))));
     }
-    private static toArrayItinerarys(documents: Document[]): Itinerary[] {
+    public static toArrayItinerarys(documents: Document[]): Itinerary[] {
         const itineraries: Itinerary[] = [];
         for (let i = 0; i < documents.length; i++) {
             itineraries.push(ItineraryDao.toItinerary(documents[i]));
