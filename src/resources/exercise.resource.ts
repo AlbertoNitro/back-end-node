@@ -11,8 +11,8 @@ export class   ExerciseResource {
     constructor() {
         this.exerciseDao = new ExerciseDao();
     }
-    async findWithSolution() {
+    /* async findWithSolution() {
         return await this.exerciseDao.findWithSolution();
-    }
+    } */
 
 }

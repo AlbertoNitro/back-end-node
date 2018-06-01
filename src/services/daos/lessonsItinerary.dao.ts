@@ -1,13 +1,13 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
-import { Lesson } from "../../models/lessonsItinerary.model";
+// import logger from "../util/logger";
+// import { Lesson } from "../../models/lessonsItinerary.model";
 import LessonsItinerarySchema from "../../schemas/lessonsItinerary.schema";
 
 export class LessonsItineraryDao {
     constructor() {
     }
 
-    private static toLessonsItinerary(document: Document): Lesson {
+    /* private static toLessonsItinerary(document: Document): Lesson {
         return new LessonsItineraryBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArrayLessonsItinerarys(documents: Document[]): Lesson[] {
@@ -50,6 +50,6 @@ export class LessonsItineraryDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 
 }

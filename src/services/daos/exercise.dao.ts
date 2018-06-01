@@ -7,7 +7,7 @@ import { Exercise } from "../../models/exercise.model";
 import ExerciseSchema from "../../schemas/exercise.schema";
 
 export class ExerciseDao {
-    constructor() {
+    /*constructor() {
     }
 
     private static toExercise(document: Document): Exercise {
@@ -57,6 +57,6 @@ export class ExerciseDao {
     async findWithSolution() {
         return await JustificationSchema.populate(await SolutionSchema.find({}), {path: "justifications"});
 
-    }
+    }*/
 
 }

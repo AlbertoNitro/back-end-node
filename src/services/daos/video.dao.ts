@@ -1,12 +1,12 @@
 import { Document } from "mongoose";
-import logger from "../util/logger";
+// import logger from "../util/logger";
 import { Video } from "../../models/video.model";
 import VideoSchema from "../../schemas/video.schema";
 
 export class VideoDao {
     constructor() {
     }
-    private static toVideo(document: Document): Video {
+    /*private static toVideo(document: Document): Video {
         return new VideoBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
     }
     private static toArrayVideos(documents: Document[]): Video[] {
@@ -49,5 +49,5 @@ export class VideoDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 }
