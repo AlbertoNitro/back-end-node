@@ -5,7 +5,7 @@ const exerciseRoutes = express.Router();
 const exerciseController: ExerciseController = new ExerciseController();
 
 exerciseRoutes.get("", (req, res) => {
-    exerciseController.findWithSolution(req, res);
+    // exerciseController.findWithSolution(req, res);
 });
 
 

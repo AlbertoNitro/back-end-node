@@ -52,6 +52,6 @@ export class SessionDao {
                 logger.error(err);
                 return undefined;
             });
-    }
+    }*/
 
 }

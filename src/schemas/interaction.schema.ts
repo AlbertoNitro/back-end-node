@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 
 const Interaction = new mongoose.Schema({
     name: String
-}, { discriminatorKey: "kind" });
+}, { discriminatorKey: "kind" , collection: "interactions"});
+
+
 
 const InteractionSchema = mongoose.model("Interaction", Interaction);
 export default InteractionSchema;

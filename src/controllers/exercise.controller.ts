@@ -11,8 +11,8 @@ export class ExerciseController {
     constructor() {
         this.exerciseResource = new ExerciseResource();
     }
-    async findWithSolution(req: Request, res: Response) {
+    /* async findWithSolution(req: Request, res: Response) {
         res.status(HttpStatusCode.OK).json(await this.exerciseResource.findWithSolution());
-    }
+    } */
 
 }

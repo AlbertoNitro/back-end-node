@@ -4,11 +4,9 @@ import InteractionSchema from "./interaction.schema";
 const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const Exercise = new mongoose.Schema({
-    _id: Number,
     formulation: { type: String, required: true },
-    solution: { type: [mongoose.Schema.Types.Number], ref: "Solution", required: true },
-}, { _id: false });
-Exercise.plugin(AutoIncrement);
+    solution: { type: [mongoose.Schema.Types.Number], ref: "Solution", required: false },
+});
 
 const ExerciseSchema = InteractionSchema.discriminator("Exercise", Exercise);
 export default ExerciseSchema;
