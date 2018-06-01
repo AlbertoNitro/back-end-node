@@ -11,6 +11,7 @@ import { VideoInteractionInput } from "../../dtos/videoInteractionInput.dto";
 import VideoSchema from "../../schemas/video.schema";
 import { ExerciseInteractionInput } from "../../dtos/exerciseInteractionInput.dto";
 import ExerciseSchema from "../../schemas/exercise.schema";
+import { InteractionInputDto } from "../../dtos/interactionInputDto";
 
 export class InteractionDao {
     constructor() {
@@ -33,8 +34,10 @@ export class InteractionDao {
     public static toInteraction(document: Document): Interaction {
         let interaction: Interaction;
         if (InteractionDao.isVideo(document)) {
+            logger.info("VIDEO");
             interaction = <Interaction> VideoDao.toVideo(document);
         } else {
+            logger.info("EXERCISE");
             interaction = <Interaction> ExerciseDao.toExercise(document);
         }
         return interaction;
@@ -47,6 +50,7 @@ export class InteractionDao {
         return interactions;
     }
     private static isVideo(document: Document): boolean {
+        logger.info(" document.get(\"url\") + " +  document.get("url"));
         return document.get("url");
     }
     async delete(id: number): Promise<boolean> {
@@ -70,13 +74,15 @@ export class InteractionDao {
                 return undefined;
             });
     }
-    async create(formulation?: string, solutions?: Solution[], url?: string): Promise<Interaction> {
+    async create(interactionDto: InteractionInputDto): Promise<Interaction> {
+        logger.info(JSON.stringify(interactionDto));
         let interaction: Interaction;
-        if (url) {
-            interaction = <Interaction> new Video(url);
+        if (interactionDto.url) {
+            interaction = <Interaction> new Video(interactionDto.url);
         } else {
-            interaction = <Interaction> new Exercise(formulation).setSolutions(solutions);
+            interaction = <Interaction> new Exercise(interactionDto.formulation).setSolutions(interactionDto.solutions);
         }
+        logger.info("interaction = <Interaction> " + JSON.stringify(interaction));
         const interactionSchema = new InteractionSchema(interaction);
         return interactionSchema.save()
             .then( (interactionDocument: Document) => {
