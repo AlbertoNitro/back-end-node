@@ -49,5 +49,5 @@ export class VideoDao {
                 logger.error(err);
                 return undefined;
             });
-    }*/
+    }
 }

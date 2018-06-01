@@ -49,5 +49,5 @@ export class JustificationDao {
                 logger.error(err);
                 return undefined;
             });
-    }*/
+    }
 }

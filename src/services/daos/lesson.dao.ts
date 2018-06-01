@@ -52,5 +52,5 @@ export class LessonDao {
                 logger.error(err);
                 return undefined;
             });
-    }*/
+    }
 }

@@ -3,7 +3,6 @@ import { InteractionDao } from "../services/daos/interaction.dao";
 import { ExerciseInteractionInput } from "../dtos/exerciseInteractionInput.dto";
 
 export class InteractionResource {
-
     interactionDao: InteractionDao = new InteractionDao();
     constructor() {
 
