@@ -1,11 +1,11 @@
 # Justifications
 justifications:
 - &justification0
-    _id: {$oid: "361d87b8b210cf35177998ca"}
+    _id: 1
     isCorrect: true
     text: 1999
 - &justification1
-    _id: {$oid: "361d87b8b220cf35177998ca"}
+    _id: 2
     isCorrect: false
     text: 1888
 
@@ -15,7 +15,7 @@ solutions:
     _id: {$oid: "361d87b8b230cf35177998ca"}
     isCorrect: false
     text: 1974
-    justifications: [{$oid: "361d87b8b210cf35177998ca"}, {$oid: "361d87b8b220cf35177998ca"}]
+    justifications: [1,2]
 
 # Units
 units:

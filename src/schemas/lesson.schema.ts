@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Lesson = new mongoose.Schema({
     name: { type: String, required: true },
-    lessonItinerary: { type: mongoose.Schema.Types.ObjectId, ref: "LessonItinerary", required: true },
+    interactions: { type: [mongoose.Schema.Types.Number], ref: "Video Exercise", required: true },
 });
 
 const LessonSchema = mongoose.model("Lesson", Lesson);
