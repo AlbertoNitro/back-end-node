@@ -5,7 +5,7 @@ const Justification = new mongoose.Schema({
     _id: Number,
     isCorrect: { type: Boolean, required: true },
     text: { type: String, required: true },
-});
+}, { _id: false });
 Justification.plugin(AutoIncrement);
 
 
