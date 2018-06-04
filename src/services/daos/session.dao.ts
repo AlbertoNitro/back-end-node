@@ -1,15 +1,18 @@
 import { Document } from "mongoose";
-// import logger from "../util/logger";
-// import {Session} from "../../models/session.model";
+import { Session } from "../../models/session.model";
+import SessionSchema from "../../schemas/session.schema";
+import { LessonDao } from "./lesson.dao";
+import { Lesson } from "../../models/lesson.model";
+import logger from "../../util/logger";
 
 export class SessionDao {
     constructor() {
     }
 
-    /* private static toSession(document: Document): Session {
-        return new SessionBuilder().setId(document.get("_id")).setText(document.get("text")).setIsCorrect(document.get("isCorrect")).build();
+    public static toSession(document: Document): Session {
+        return new Session(document.get("name")).setId(document.get("_id").setLessons(LessonDao.toArrayLessons(document.get("lessons"))));
     }
-    private static toArraySessions(documents: Document[]): Session[] {
+    public static toArraySessions(documents: Document[]): Session[] {
         const sessions: Session[] = [];
         for (let i = 0; i < documents.length; i++) {
             sessions.push(SessionDao.toSession(documents[i]));
@@ -37,8 +40,8 @@ export class SessionDao {
                 return undefined;
             });
     }
-    async create(isCorrect: boolean, text: string): Promise<Session> {
-        const session: Session = new SessionBuilder().setIsCorrect(isCorrect).setText(text).build();
+    async create(name: string, lessons: Lesson[]): Promise<Session> {
+        const session: Session = new Session(name).setLessons(lessons);
         const sessionSchema = new SessionSchema(session);
         return sessionSchema.save()
             .then( (sessionDocument: Document) => {
@@ -49,6 +52,6 @@ export class SessionDao {
                 logger.error(err);
                 return undefined;
             });
-    }*/
+    }
 
 }
