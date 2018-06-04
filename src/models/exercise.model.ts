@@ -6,8 +6,9 @@ export class Exercise extends Interaction {
     private formulation: string;
     private solutions: Solution[];
 
-    constructor() {
+    constructor(formulation: string) {
         super();
+        this.formulation = formulation;
         this.solutions = [];
     }
 

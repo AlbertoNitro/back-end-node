@@ -8,5 +8,7 @@ interactionRoutes.post("", (req, res) => {
     interactionController.create(req, res);
 });
 
-
+interactionRoutes.get("", (req, res) => {
+    interactionController.findAll(req, res);
+});
 export default interactionRoutes;

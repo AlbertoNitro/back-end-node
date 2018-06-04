@@ -1,5 +1,5 @@
 #Interaction
-interaction:
+interactions:
     - &interaction1
         _id: {$oid: "361d87b8b230cf35177998c0"}
         formulation: "I1"
