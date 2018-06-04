@@ -12,6 +12,10 @@ export class VideoBuilder {
         this.video.setUrl(url);
         return this;
     }
+    setId(id: number): VideoBuilder {
+        this.video.setId(id);
+        return this;
+    }
     build(): Video {
         return this.video;
     }
