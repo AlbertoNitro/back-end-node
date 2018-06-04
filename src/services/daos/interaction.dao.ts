@@ -1,23 +1,31 @@
 import { Document } from "mongoose";
-import logger from "../../util/logger";
-import InteractionSchema from "../../schemas/interaction.schema";
-import { Interaction } from "../../models/interaction.model";
-import { VideoDao } from "./video.dao";
-import { ExerciseDao } from "./exercise.dao";
 import { Video } from "../../models/video.model";
-import { Exercise } from "../../models/exercise.model";
-import { Solution } from "../../models/solution.model";
-import { VideoInteractionInput } from "../../dtos/videoInteractionInput.dto";
 import VideoSchema from "../../schemas/video.schema";
+<<<<<<< HEAD
+import logger from "../../util/logger";
+=======
 import { ExerciseInteractionInput } from "../../dtos/exerciseInteractionInput.dto";
 import ExerciseSchema from "../../schemas/exercise.schema";
 import { VideoBuilder } from "../../models/builders/video.builder";
 import { ExerciseBuilder } from "../../models/builders/exercise.builder";
+>>>>>>> develop
 
 export class InteractionDao {
 
     constructor() {
     }
+<<<<<<< HEAD
+    // public static toInteraction(document: Document): Video {
+    //     return new Video(document.get("url")).setId(document.get("_id"));
+    // }
+    // public static toArrayInteractions(documents: Document[]): Video[] {
+    //     const videos: Video[] = [];
+    //     for (let i = 0; i < documents.length; i++) {
+    //         videos.push(VideoDao.toVideo(documents[i]));
+    //     }
+    //     return videos;
+    // }
+=======
     private static toInteraction(document: Document): Interaction {
         if ( document.get("kind") == "Video") {
             return new VideoBuilder(document.get("url")).setId(document.get("_id")).build();
@@ -93,5 +101,5 @@ export class InteractionDao {
                 return undefined;
             });
     }
+>>>>>>> develop
 }
-

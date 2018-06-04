@@ -3,7 +3,7 @@ import InteractionSchema from "./interaction.schema";
 
 const Exercise = new mongoose.Schema({
     formulation: { type: String, required: true },
-    solution: { type: [mongoose.Schema.Types.Number], ref: "Solution", required: false },
+    solutions: { type: [mongoose.Schema.Types.Number], ref: "Solution", default: [] },
 });
 
 const ExerciseSchema = InteractionSchema.discriminator("Exercise", Exercise);

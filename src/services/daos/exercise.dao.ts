@@ -12,7 +12,14 @@ export class ExerciseDao {
     }
 
     public static toExercise(document: Document): Exercise {
-        return new Exercise(document.get("formulation")).setId(document.get("_id").setSolutions(SolutionDao.toArraySolutions(document.get("solutions"))));
+        const solutions: Solution[] = [];
+        const solutionsDocuments: Document[] = document.get("solutions");
+        for (let i = 0 ; i < solutionsDocuments.length ; i++) {
+            const solutionDocument: Document = solutionsDocuments[i];
+            solutions.push(SolutionDao.toSolution(solutionDocument));
+        }
+        // HAY QUE METER LAS SOLUTIONS
+        return new Exercise(document.get("formulation")).setId(document.get("_id"));
     }
     public static toArrayExercises(documents: Document[]): Exercise[] {
         const exercises: Exercise[] = [];
@@ -42,8 +49,8 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async create(formulation: string, solutions: Solution[]): Promise<Exercise> {
-        const exercise: Exercise =  new Exercise(formulation).setSolutions(solutions);
+    async create(formulation: string): Promise<Exercise> {
+        const exercise: Exercise =  new Exercise(formulation);
         const exerciseSchema = new ExerciseSchema(exercise);
         return exerciseSchema.save()
             .then( (exerciseDocument: Document) => {

@@ -3,14 +3,22 @@ import logger from "../../util/logger";
 import { Lesson } from "../../models/lesson.model";
 import LessonSchema from "../../schemas/lesson.schema";
 import { Interaction } from "../../models/interaction.model";
-import { InteractionDao } from "./interaction.dao";
+import { VideoDao } from "./video.dao";
+import { ExerciseDao } from "./exercise.dao";
 
 export class LessonDao {
     constructor() {
     }
 
     public static toLesson(document: Document): Lesson {
-        return new Lesson(document.get("name")).setId(document.get("_id").setInteractions(InteractionDao.toArrayInteractions(document.get("interactions"))));
+        const interactions: Interaction[] = [];
+        const interactionsDocuments: Document[] = document.get("interactions");
+        for (let i = 0 ; i < interactionsDocuments.length ; i++) {
+            const interactionDocument: Document = interactionsDocuments[i];
+            interactionDocument.get("kind") === "Video" ? interactions.push(<Interaction> VideoDao.toVideo(interactionDocument)) : interactions.push(<Interaction> ExerciseDao.toExercise(interactionDocument));
+        }
+        const lesson: Lesson = new Lesson(document.get("name")).setId(document.get("_id")).setInteractions(interactions);
+        return lesson;
     }
     public  static toArrayLessons(documents: Document[]): Lesson[] {
         const lessons: Lesson[] = [];
@@ -40,8 +48,8 @@ export class LessonDao {
                 return undefined;
             });
     }
-    async create(name: string, interactions: Interaction[]): Promise<Lesson> {
-        const lesson: Lesson = new Lesson(name).setInteractions(interactions);
+    async create(name: string): Promise<Lesson> {
+        const lesson: Lesson = new Lesson(name);
         const lessonSchema = new LessonSchema(lesson);
         return lessonSchema.save()
             .then( (lessonDocument: Document) => {
