@@ -11,8 +11,6 @@ import { VideoInteractionInput } from "../../dtos/videoInteractionInput.dto";
 import VideoSchema from "../../schemas/video.schema";
 import { ExerciseInteractionInput } from "../../dtos/exerciseInteractionInput.dto";
 import ExerciseSchema from "../../schemas/exercise.schema";
-<<<<<<< HEAD
-import { Interaction } from "../../models/interaction.model";
 import { VideoBuilder } from "../../models/builders/video.builder";
 import { ExerciseBuilder } from "../../models/builders/exercise.builder";
 
@@ -36,13 +34,7 @@ export class InteractionDao {
         console.log("interaction " + interaction);
         return interaction;
     }
-=======
-import { InteractionInputDto } from "../../dtos/interactionInputDto";
 
-export class InteractionDao {
-    constructor() {
-    }
->>>>>>> origin/develop
     async createVideo(videoII: VideoInteractionInput) {
         console.log("Creando " + JSON.stringify(videoII.kind));
         VideoSchema.create(videoII)
@@ -57,7 +49,6 @@ export class InteractionDao {
             });
     }
 
-<<<<<<< HEAD
     async findAll(): Promise<Interaction[]> {
         return await InteractionSchema.find({})
             .then( (interactionDocument: Document[]) => {
@@ -69,20 +60,7 @@ export class InteractionDao {
                 return undefined;
             });
     }
-}
-=======
-    public static toInteraction(document: Document): Interaction {
-        let interaction: Interaction;
-        logger.info("document.get(\"url\") " + JSON.stringify(document.get("url")));
-        if (document.get("url")) {
-            logger.info("VIDEO");
-            interaction = <Interaction> VideoDao.toVideo(document);
-        } else {
-            logger.info("EXERCISE");
-            interaction = <Interaction> ExerciseDao.toExercise(document);
-        }
-        return interaction;
-    }
+
     public static toArrayInteractions(documents: Document[]): Interaction[] {
         const interactions: Interaction[] = [];
         for (let i = 0; i < documents.length; i++) {
@@ -115,23 +93,5 @@ export class InteractionDao {
                 return undefined;
             });
     }
-    async create(interactionDto: InteractionInputDto): Promise<Interaction> {
-        // const interaction: Interaction;
-        // logger.info("(1) interactionDto.url " + interactionDto.url.toString());
-        // const interactionSchema = new InteractionSchema(interaction);
-        // logger.info("(2) interactionSchema " + JSON.stringify(interactionSchema));
-        // return interactionSchema.save()
-        //     .then( (interactionDocument: Document) => {
-        //         const interaction: Interaction = interactionDocument ? InteractionDao.toInteraction(interactionDocument) : undefined;
-        //         logger.info("(3) interactionDocument " + JSON.stringify(interactionDocument));
-        //         return interaction;
-        //     })
-        //     .catch ( err => {
-        //         logger.error(err);
-        //         return undefined;
-        //     });
-        return undefined;
-    }
 }
 
->>>>>>> origin/develop
