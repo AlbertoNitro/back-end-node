@@ -12,21 +12,21 @@ export class Justification {
         this._id = id;
         return this;
     }
-    public setIsCorrect(id: number): Justification {
-        this._id = id;
+    public setIsCorrect(isCorrect: boolean): Justification {
+        this.isCorrect = isCorrect;
         return this;
     }
-    public setText(id: number): Justification {
-        this._id = id;
+    public setText(text: string): Justification {
+        this.text = text;
         return this;
     }
     public getId(): number {
         return this._id;
     }
-    public getIsCorrect(): number {
-        return this._id;
+    public getIsCorrect(): boolean {
+        return this.isCorrect;
     }
-    public getText(): number {
-        return this._id;
+    public getText(): string {
+        return this.text;
     }
 }

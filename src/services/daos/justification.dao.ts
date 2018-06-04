@@ -37,7 +37,7 @@ export class JustificationDao {
                 return undefined;
             });
     }
-    async create(isCorrect: boolean, text: string): Promise<Justification> {
+    async create(text: string, isCorrect: boolean): Promise<Justification> {
         const justification: Justification = new Justification(text, isCorrect);
         const justificationSchema = new JustificationSchema(justification);
         return justificationSchema.save()
