@@ -20,10 +20,10 @@ export class InteractionDao {
     }
     private static toInteraction(document: Document): Interaction {
         if ( document.get("kind") == "Video") {
-            return new VideoBuilder(document.get("url")).build();
+            return new VideoBuilder(document.get("url")).setId(document.get("_id")).build();
         }
         else if ( document.get("kind") == "Exercise" ) {
-            return new ExerciseBuilder(document.get("formulation")).build();
+            return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).build();
         }
     }
     private static toArrayInteraction(documents: Document[]): Interaction[] {

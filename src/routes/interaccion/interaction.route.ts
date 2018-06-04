@@ -9,6 +9,7 @@ interactionRoutes.post("", (req, res) => {
 });
 
 interactionRoutes.get("", (req, res) => {
+    console.log("Holahola");
     interactionController.findAll(req, res);
 });
 export default interactionRoutes;
