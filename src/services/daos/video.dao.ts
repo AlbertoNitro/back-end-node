@@ -41,7 +41,7 @@ export class VideoDao {
         const video: Video = new Video(url);
         const videoSchema = new VideoSchema(video);
         return videoSchema.save()
-            .then( (videoDocument: Document) => {
+            .then((videoDocument: Document) => {
                 const video: Video = videoDocument ? VideoDao.toVideo(videoDocument) : undefined;
                 return video;
             })

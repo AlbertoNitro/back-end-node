@@ -20,16 +20,16 @@ export class InteractionController {
         interaction ? res.status(HttpStatusCode.CREATED).json(interaction) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
 
-    async create(req: Request, res: Response) {
-        if ( req.body.kind == "Video") {
-            const videoII: VideoInteractionInput = req.body;
-            this.interactionResource.createVideo(videoII);
-        }
-        else if ( req.body.kind == "Exercise") {
-            const exerciseII: ExerciseInteractionInput = req.body;
-            this.interactionResource.createExercise(exerciseII);
-        }
-
-    }
+    // async create(req: Request, res: Response) {
+    //     if ( req.body.kind == "Video") {
+    //         const videoII: VideoInteractionInput = req.body;
+    //         this.interactionResource.createVideo(videoII);
+    //     }
+    //     else if ( req.body.kind == "Exercise") {
+    //         const exerciseII: ExerciseInteractionInput = req.body;
+    //         this.interactionResource.createExercise(exerciseII);
+    //     }
+    //
+    // }
 
 }

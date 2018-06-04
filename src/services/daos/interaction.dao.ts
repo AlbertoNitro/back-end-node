@@ -33,7 +33,8 @@ export class InteractionDao {
 
     public static toInteraction(document: Document): Interaction {
         let interaction: Interaction;
-        if (InteractionDao.isVideo(document)) {
+        logger.info("document.get(\"url\") " + JSON.stringify(document.get("url")));
+        if (document.get("url")) {
             logger.info("VIDEO");
             interaction = <Interaction> VideoDao.toVideo(document);
         } else {
@@ -75,24 +76,21 @@ export class InteractionDao {
             });
     }
     async create(interactionDto: InteractionInputDto): Promise<Interaction> {
-        logger.info(JSON.stringify(interactionDto));
-        let interaction: Interaction;
-        if (interactionDto.url) {
-            interaction = <Interaction> new Video(interactionDto.url);
-        } else {
-            interaction = <Interaction> new Exercise(interactionDto.formulation).setSolutions(interactionDto.solutions);
-        }
-        logger.info("interaction = <Interaction> " + JSON.stringify(interaction));
-        const interactionSchema = new InteractionSchema(interaction);
-        return interactionSchema.save()
-            .then( (interactionDocument: Document) => {
-                const interaction: Interaction = interactionDocument ? InteractionDao.toInteraction(interactionDocument) : undefined;
-                return interaction;
-            })
-            .catch ( err => {
-                logger.error(err);
-                return undefined;
-            });
+        // const interaction: Interaction;
+        // logger.info("(1) interactionDto.url " + interactionDto.url.toString());
+        // const interactionSchema = new InteractionSchema(interaction);
+        // logger.info("(2) interactionSchema " + JSON.stringify(interactionSchema));
+        // return interactionSchema.save()
+        //     .then( (interactionDocument: Document) => {
+        //         const interaction: Interaction = interactionDocument ? InteractionDao.toInteraction(interactionDocument) : undefined;
+        //         logger.info("(3) interactionDocument " + JSON.stringify(interactionDocument));
+        //         return interaction;
+        //     })
+        //     .catch ( err => {
+        //         logger.error(err);
+        //         return undefined;
+        //     });
+        return undefined;
     }
 }
 
