@@ -3,6 +3,8 @@ import { Unit } from "../models/unit.model";
 import { RelationOutputDto } from "../dtos/relationOutput.dto";
 import { Relation } from "../models/relation.model";
 import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
+import { Video } from "../models/video.model";
+import { VideoOutputDto } from "../dtos/videoOutput.dto";
 
 export class DtoService {
     constructor() {
@@ -47,7 +49,6 @@ export class DtoService {
         }
         return relationOutputDtos;
     }
-
     public static toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
         let neighborsOutputDto: NeighborsOutputDto = undefined;
         if (unit) {
@@ -55,4 +56,21 @@ export class DtoService {
         }
         return neighborsOutputDto;
     }
+    public static toVideoOutputDto(video: Video): VideoOutputDto {
+        let videoOutputDto: VideoOutputDto = undefined;
+        if (video) {
+            videoOutputDto = {id: video.getId(), url: video.getUrl()};
+        }
+        return videoOutputDto;
+    }
+    public static toArrayVideoOutputDto(videos: Video[]): VideoOutputDto[] {
+        const videoOutputDtos: VideoOutputDto[] = [];
+        if (videos.length > 0) {
+            for (let i = 0 ; i < videos.length ; i++ ) {
+                videoOutputDtos.push(DtoService.toVideoOutputDto(videos[i]));
+            }
+        }
+        return videoOutputDtos;
+    }
+
 }
