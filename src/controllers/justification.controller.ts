@@ -16,6 +16,7 @@ export class JustificationController {
 
     async create(req: Request, res: Response): Promise<any> {
         const justificationInputDto: JustificationInputDto = req.body;
+        logger.info(JSON.stringify(justificationInputDto));
         const justification: Justification = await this.justificationResource.create(justificationInputDto.text, justificationInputDto.isCorrect);
         const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
         justification ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
@@ -24,7 +25,7 @@ export class JustificationController {
         const id: number = req.params.id;
         const justification: Justification = await this.justificationResource.findById(id);
         const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
-        justification ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+        justification ? res.status(HttpStatusCode.OK).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;

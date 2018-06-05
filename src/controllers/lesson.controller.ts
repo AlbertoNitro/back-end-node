@@ -23,7 +23,7 @@ export class LessonController {
         const id: number = req.params.id;
         const lesson: Lesson = await this.lessonResource.findById(id);
         const lessonOutputDto: LessonOutputDto = DtoService.toLessonOutputDto(lesson);
-        lesson ? res.status(HttpStatusCode.CREATED).json(lessonOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+        lesson ? res.status(HttpStatusCode.OK).json(lessonOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
