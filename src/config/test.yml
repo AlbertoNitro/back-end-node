@@ -36,6 +36,16 @@ solutions:
     isCorrect: false
     text: 1974
     justifications: [{$oid: "101d87b8b230cf35177998ca"}, {$oid: "111d87b8b230cf35177998ca"}, {$oid: "121d87b8b230cf35177998ca"}]
+- &solution1
+    _id: {$oid: "461d87b8b230cf35177998cb"}
+    isCorrect: true
+    text: La oveja Dolly
+    justifications: []
+- &solution2
+    _id: {$oid: "561d87b8b230cf35177998cc"}
+    isCorrect: true
+    text: La formula del agua H20
+    justifications: [{$oid: "131d87b8b230cf35177998ca"}]
 
 # Units
 units:

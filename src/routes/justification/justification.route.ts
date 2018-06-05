@@ -13,9 +13,6 @@ justificationRoutes.get("/", (req, res) => {
 justificationRoutes.get("/:id", (req, res) => {
     justificationController.findById(req, res);
 });
-justificationRoutes.get("/:id/search", (req, res) => {
-    justificationController.findByIdAndIsCorrect(req, res);
-});
 justificationRoutes.delete("/:id", (req, res) => {
     justificationController.delete(req, res);
 });

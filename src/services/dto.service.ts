@@ -23,13 +23,6 @@ export class DtoService {
         }
         return unitOutputDto;
     }
-    public static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
-        let solutionOutputDto: SolutionOutputDto = undefined;
-        if (solution) {
-            solutionOutputDto = {_id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
-        }
-        return solutionOutputDto;
-    }
     static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
         const unitOutputDtos: UnitOutputDto[] = [];
         if (units.length > 0) {
@@ -116,5 +109,21 @@ export class DtoService {
             }
         }
         return justificationOutputDtos;
+    }
+    static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
+        let solutionOutputDto: SolutionOutputDto = undefined;
+        if (solution) {
+            solutionOutputDto = {_id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
+        }
+        return solutionOutputDto;
+    }
+    static toArraySolutionOutputDto(solutions: Solution[]): SolutionOutputDto[] {
+        const solutionOutputDtos: SolutionOutputDto[] = [];
+        if (solutions.length > 0) {
+            for (let i = 0 ; i < solutions.length ; i++ ) {
+                solutionOutputDtos.push(DtoService.toSolutionOutputDto(solutions[i]));
+            }
+        }
+        return solutionOutputDtos;
     }
 }

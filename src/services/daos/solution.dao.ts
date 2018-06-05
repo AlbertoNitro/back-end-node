@@ -43,6 +43,17 @@ export class SolutionDao {
                 return undefined;
             });
     }
+    async findAll(): Promise<Solution[]> {
+        return await SolutionSchema.find({})
+            .then( (solutionsDocuments: Document[]) => {
+                const solutions: Solution[] = solutionsDocuments ? SolutionDao.toArraySolutions(solutionsDocuments) : undefined;
+                return solutions;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async create(solutionInputDto: SolutionInputDto): Promise<Solution> {
         const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).setJustification(solutionInputDto.justifications).build();
         const solutionSchema = new SolutionSchema(solution);
