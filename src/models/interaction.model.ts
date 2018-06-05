@@ -1,4 +1,2 @@
-export abstract class Interaction  {
-    constructor() {
-    }
+export class Interaction  {
 }

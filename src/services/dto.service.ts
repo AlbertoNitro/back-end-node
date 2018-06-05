@@ -7,12 +7,16 @@ import { Video } from "../models/video.model";
 import { VideoOutputDto } from "../dtos/videoOutput.dto";
 import { SolutionOutputDto } from "../dtos/solutionOutput.dto";
 import { Solution } from "../models/solution.model";
+import { LessonOutputDto } from "../dtos/lessonOutput.dto";
+import { Lesson } from "../models/lesson.model";
+import { Justification } from "../models/justification.model";
+import { JustificationOutputDto } from "../dtos/justificationOutput.dto";
 
 export class DtoService {
     constructor() {
     }
 
-    public static toUnitOutputDto(unit: Unit): UnitOutputDto {
+    static toUnitOutputDto(unit: Unit): UnitOutputDto {
         let unitOutputDto: UnitOutputDto = undefined;
         if (unit) {
             unitOutputDto = {name: unit.getName(), code: unit.getCode()};
@@ -26,7 +30,7 @@ export class DtoService {
         }
         return solutionOutputDto;
     }
-    public static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
+    static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
         const unitOutputDtos: UnitOutputDto[] = [];
         if (units.length > 0) {
             for (let i = 0 ; i < units.length ; i++ ) {
@@ -35,7 +39,7 @@ export class DtoService {
         }
         return unitOutputDtos;
     }
-    public static toRelationOutputDto(relation: Relation): RelationOutputDto {
+    static toRelationOutputDto(relation: Relation): RelationOutputDto {
         let relationOutputDto: RelationOutputDto = undefined;
         if (relation) {
             relationOutputDto = {
@@ -49,7 +53,7 @@ export class DtoService {
         }
         return relationOutputDto;
     }
-    public static toArrayRelationOutputDto(relations: Relation[]): RelationOutputDto[] {
+    static toArrayRelationOutputDto(relations: Relation[]): RelationOutputDto[] {
         const relationOutputDtos: RelationOutputDto[] = [];
         if (relations.length > 0) {
             for (let i = 0; i < relations.length; i++) {
@@ -58,21 +62,21 @@ export class DtoService {
         }
         return relationOutputDtos;
     }
-    public static toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
+    static toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
         let neighborsOutputDto: NeighborsOutputDto = undefined;
         if (unit) {
             neighborsOutputDto = {unit: DtoService.toUnitOutputDto(unit), topUnits: DtoService.toArrayUnitOutputDto(topUnits), lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits), relations: DtoService.toArrayRelationOutputDto(relations)};
         }
         return neighborsOutputDto;
     }
-    public static toVideoOutputDto(video: Video): VideoOutputDto {
+    static toVideoOutputDto(video: Video): VideoOutputDto {
         let videoOutputDto: VideoOutputDto = undefined;
         if (video) {
             videoOutputDto = {id: video.getId(), url: video.getUrl()};
         }
         return videoOutputDto;
     }
-    public static toArrayVideoOutputDto(videos: Video[]): VideoOutputDto[] {
+    static toArrayVideoOutputDto(videos: Video[]): VideoOutputDto[] {
         const videoOutputDtos: VideoOutputDto[] = [];
         if (videos.length > 0) {
             for (let i = 0 ; i < videos.length ; i++ ) {
@@ -81,5 +85,36 @@ export class DtoService {
         }
         return videoOutputDtos;
     }
-
+    static toLessonOutputDto(lesson: Lesson): LessonOutputDto {
+        let lessonOutputDto: LessonOutputDto = undefined;
+        if (lesson) {
+            lessonOutputDto = {id: lesson.getId(), name: lesson.getName(), interactions: lesson.getInteractions()};
+        }
+        return lessonOutputDto;
+    }
+    static toArrayLessonOutputDto(lessons: Lesson[]): LessonOutputDto[] {
+        const lessonOutputDtos: LessonOutputDto[] = [];
+        if (lessons.length > 0) {
+            for (let i = 0 ; i < lessons.length ; i++ ) {
+                lessonOutputDtos.push(DtoService.toLessonOutputDto(lessons[i]));
+            }
+        }
+        return lessonOutputDtos;
+    }
+    static toJustificationOutputDto(justification: Justification): JustificationOutputDto {
+        let justificationOutputDto: JustificationOutputDto = undefined;
+        if (justification) {
+            justificationOutputDto = {id: justification.getId(), text: justification.getText(), isCorrect: justification.getIsCorrect()};
+        }
+        return justificationOutputDto;
+    }
+    static toArrayJustificationOutputDto(justifications: Justification[]): JustificationOutputDto[] {
+        const justificationOutputDtos: JustificationOutputDto[] = [];
+        if (justifications.length > 0) {
+            for (let i = 0 ; i < justifications.length ; i++ ) {
+                justificationOutputDtos.push(DtoService.toJustificationOutputDto(justifications[i]));
+            }
+        }
+        return justificationOutputDtos;
+    }
 }

@@ -4,9 +4,14 @@ import { ExerciseController } from "../../controllers/exercise.controller";
 const exerciseRoutes = express.Router();
 const exerciseController: ExerciseController = new ExerciseController();
 
-exerciseRoutes.get("", (req, res) => {
-    // exerciseController.findWithSolution(req, res);
+exerciseRoutes.post("", (req, res) => {
+    exerciseController.create(req, res);
 });
-
+exerciseRoutes.get("/:id", (req, res) => {
+    exerciseController.findById(req, res);
+});
+exerciseRoutes.delete("/:id", (req, res) => {
+    exerciseController.delete(req, res);
+});
 
 export default exerciseRoutes;

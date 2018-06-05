@@ -2,22 +2,22 @@
 interactions:
     - &interaction1
         _id: {$oid: "361d87b8b230cf35177998c0"}
-        formulation: "I1"
-        kind: "Exercise"
+        formulation: I1
+        kind: Exercise
         solution: [ ]
     - &interaction2
         _id: {$oid: "361d87b8b230cf35177998c1"}
-        url: "bleble"
-        kind: "Video"
+        url: bleble
+        kind: Video
 
 # Justifications
 justifications:
 - &justification0
-    _id: 1
+    _id: {$oid: "101d87b8b230cf35177998ca"}
     isCorrect: true
     text: 1999
 - &justification1
-    _id: 2
+    _id: {$oid: "111d87b8b230cf35177998ca"}
     isCorrect: false
     text: 1888
 
@@ -27,7 +27,7 @@ solutions:
     _id: {$oid: "361d87b8b230cf35177998ca"}
     isCorrect: false
     text: 1974
-    justifications: [1,2]
+    justifications: [{$oid: "101d87b8b230cf35177998ca"}, {$oid: "111d87b8b230cf35177998ca"}]
 
 # Units
 units:

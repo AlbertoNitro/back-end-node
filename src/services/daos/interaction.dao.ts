@@ -1,16 +1,14 @@
-import { Document } from "mongoose";
+import { Unit } from "../../models/unit.model";
 import logger from "../../util/logger";
-import InteractionSchema from "../../schemas/interaction.schema";
-import { Interaction } from "../../models/interaction.model";
-import { VideoDao } from "./video.dao";
-import { ExerciseDao } from "./exercise.dao";
-import { Video } from "../../models/video.model";
-import { Exercise } from "../../models/exercise.model";
-import { Solution } from "../../models/solution.model";
+import UnitSchema from "../../schemas/unit.schema";
+import { UnitBuilder } from "../../models/builders/unit.builder";
+import { Document } from "mongoose";
 import { VideoInteractionInput } from "../../dtos/videoInteractionInput.dto";
+import InteractionSchema from "../../schemas/interaction.schema";
 import VideoSchema from "../../schemas/video.schema";
 import { ExerciseInteractionInput } from "../../dtos/exerciseInteractionInput.dto";
 import ExerciseSchema from "../../schemas/exercise.schema";
+import { Interaction } from "../../models/interaction.model";
 import { VideoBuilder } from "../../models/builders/video.builder";
 import { ExerciseBuilder } from "../../models/builders/exercise.builder";
 
@@ -34,18 +32,17 @@ export class InteractionDao {
         console.log("interaction " + interaction);
         return interaction;
     }
-
     async createVideo(videoII: VideoInteractionInput) {
         VideoSchema.create(videoII)
-            .then((interaction: Document) => {
-                console.log(interaction);
-            });
+        .then((interaction: Document) => {
+            console.log(interaction);
+        });
     }
     async createExercise(exerciseII: ExerciseInteractionInput) {
         ExerciseSchema.create(exerciseII)
-            .then((interaction: Document) => {
-                console.log(interaction);
-            });
+        .then((interaction: Document) => {
+            console.log(interaction);
+        });
     }
 
     async findAll(): Promise<Interaction[]> {
@@ -59,6 +56,7 @@ export class InteractionDao {
                 return undefined;
             });
     }
+<<<<<<< HEAD
 
     private static isVideo(document: Document): boolean {
         logger.info(" document.get(\"url\") + " +  document.get("url"));
@@ -85,5 +83,6 @@ export class InteractionDao {
                 return undefined;
             });
     }
+=======
+>>>>>>> develop
 }
-

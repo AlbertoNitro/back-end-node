@@ -12,7 +12,6 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
-
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + Unit", (done) => {
         return request(app).post("/unit")

@@ -24,9 +24,9 @@ beforeAll( async (done) => {
     successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
 });
 
-describe("GET /interaccion", () => {
-    it("should return 200 - OK and Interaccion[]", (done) => {
-        return request(app).get("/interaccion")
+describe("GET /interaction", () => {
+    it("should return 200 - OK and Interaction[]", (done) => {
+        return request(app).get("/interaction")
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 expect(Object.keys(res.body).length).to.equal(2);

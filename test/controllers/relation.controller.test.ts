@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
-import {DeleteRelationInputDto} from "../../src/dtos/deleteRelationInput.dto";
+import { DeleteRelationInputDto } from "../../src/dtos/deleteRelationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
