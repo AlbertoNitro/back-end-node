@@ -22,7 +22,7 @@ export class ExerciseController {
         const id: number = req.params.id;
         const exercise: Exercise = await this.exerciseResource.findById(id);
         // const exerciseOutputDto: ExerciseOutputDto = DtoService.toExerciseOutputDto(exercise);
-        exercise ? res.status(HttpStatusCode.CREATED).json(exercise) : res.status(HttpStatusCode.NOT_FOUND).end();
+        exercise ? res.status(HttpStatusCode.OK).json(exercise) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;

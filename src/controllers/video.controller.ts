@@ -23,7 +23,7 @@ export class VideoController {
         const id: number = req.params.id;
         const video: Video = await this.videoResource.findById(id);
         const videoOutputDto: VideoOutputDto = DtoService.toVideoOutputDto(video);
-        video ? res.status(HttpStatusCode.CREATED).json(videoOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+        video ? res.status(HttpStatusCode.OK).json(videoOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
