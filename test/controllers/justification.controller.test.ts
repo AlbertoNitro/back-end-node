@@ -22,7 +22,6 @@ describe("POST /justification", () => {
             });
     });
 });
-
 describe("DELETE /justification/99999", () => {
     it("should return 404 - NOT FOUND", (done) => {
         const justificationId = 99999;
@@ -33,7 +32,6 @@ describe("DELETE /justification/99999", () => {
             });
   });
 });
-
 describe("DELETE /justification/101d87b8b230cf35177998ca", () => {
     it("should return 204 - NO_CONTENT", (done) => {
         const justificationId = "101d87b8b230cf35177998ca";
@@ -44,7 +42,6 @@ describe("DELETE /justification/101d87b8b230cf35177998ca", () => {
             });
     });
 });
-
 describe("GET /justification/121d87b8b230cf35177998ca", () => {
     it("should return 200 - OK and Justification", (done) => {
         const justificationId = "121d87b8b230cf35177998ca";
