@@ -5,6 +5,8 @@ import { Relation } from "../models/relation.model";
 import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
 import { Video } from "../models/video.model";
 import { VideoOutputDto } from "../dtos/videoOutput.dto";
+import { SolutionOutputDto } from "../dtos/solutionOutput.dto";
+import { Solution } from "../models/solution.model";
 
 export class DtoService {
     constructor() {
@@ -16,6 +18,13 @@ export class DtoService {
             unitOutputDto = {name: unit.getName(), code: unit.getCode()};
         }
         return unitOutputDto;
+    }
+    public static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
+        let solutionOutputDto: SolutionOutputDto = undefined;
+        if (solution) {
+            solutionOutputDto = {_id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
+        }
+        return solutionOutputDto;
     }
     public static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
         const unitOutputDtos: UnitOutputDto[] = [];

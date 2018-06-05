@@ -4,7 +4,7 @@ import { Solution } from "../models/solution.model";
 
 export class SolutionResource {
 
-    private solutionDao: SolutionDao;
+    private solutionDao: SolutionDao = new SolutionDao();
 
     constructor() {
     }

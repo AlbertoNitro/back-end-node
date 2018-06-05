@@ -10,7 +10,7 @@ export class LessonDao {
     }
 
     public static toLesson(document: Document): Lesson {
-        return new Lesson(document.get("name")).setId(document.get("_id").setInteractions(InteractionDao.toArrayInteractions(document.get("interactions"))));
+        return new Lesson(document.get("name")).setId(document.get("_id").setInteractions(InteractionDao.toArrayInteraction(document.get("interactions"))));
     }
     public  static toArrayLessons(documents: Document[]): Lesson[] {
         const lessons: Lesson[] = [];

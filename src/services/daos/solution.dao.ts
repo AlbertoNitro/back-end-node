@@ -13,7 +13,7 @@ export class SolutionDao {
     public static toSolution(document: Document): Solution {
         return new SolutionBuilder(document.get("text"), document.get("isCorrect"))
             .setId(document.get("_id"))
-            .setJustification(JustificationDao.toArrayJustification(document.get("justifications"))).build();
+            .build();
     }
     public static toArraySolutions(documents: Document[]): Solution[] {
         const solutions: Solution[] = [];

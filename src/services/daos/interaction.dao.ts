@@ -18,7 +18,7 @@ export class InteractionDao {
 
     constructor() {
     }
-    private static toInteraction(document: Document): Interaction {
+    static toInteraction(document: Document): Interaction {
         if ( document.get("kind") == "Video") {
             return new VideoBuilder(document.get("url")).setId(document.get("_id")).build();
         }
@@ -26,7 +26,7 @@ export class InteractionDao {
             return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).build();
         }
     }
-    private static toArrayInteraction(documents: Document[]): Interaction[] {
+    static toArrayInteraction(documents: Document[]): Interaction[] {
         const interaction: Interaction[] = [];
         for (let i = 0; i < documents.length; i++) {
             interaction.push(InteractionDao.toInteraction(documents[i]));

@@ -5,10 +5,10 @@ const solutionRoutes = express.Router();
 const solutionController: SolutionController = new SolutionController();
 
 solutionRoutes.get("", (req, res) => {
-    this.solutionController.findall();
+    // solutionController.findall();
 });
 
 solutionRoutes.post("", (req, res) => {
-    this.solutionController.create(req, res);
+    solutionController.create(req, res);
 });
 export default solutionRoutes;

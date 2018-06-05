@@ -5,8 +5,7 @@ export class SolutionBuilder {
     private solution: Solution;
 
     constructor(text: string, isCorrect: boolean) {
-        this.solution.setText(text);
-        this.solution.setIsCorrect(isCorrect);
+        this. solution = new Solution(text, isCorrect);
     }
 
     setId(id: number): SolutionBuilder {
