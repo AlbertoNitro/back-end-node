@@ -20,6 +20,10 @@ export class ExerciseBuilder {
         this.exercise.setId(id);
         return this;
     }
+    setKind(kind: string): ExerciseBuilder {
+        this.exercise.setKind(kind);
+        return this;
+    }
     build(): Exercise {
         return this.exercise;
     }

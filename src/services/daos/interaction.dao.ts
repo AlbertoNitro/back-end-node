@@ -18,10 +18,10 @@ export class InteractionDao {
     }
     static toInteraction(document: Document): Interaction {
         if ( document.get("kind") == "Video") {
-            return new VideoBuilder(document.get("url")).setId(document.get("_id")).build();
+            return new VideoBuilder(document.get("url")).setId(document.get("_id")).setKind(document.get("kind")).build();
         }
         else if ( document.get("kind") == "Exercise" ) {
-            return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).build();
+            return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setKind(document.get("kind")).build();
         }
     }
     static toArrayInteraction(documents: Document[]): Interaction[] {

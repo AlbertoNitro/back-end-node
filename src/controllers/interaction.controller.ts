@@ -4,21 +4,29 @@ import { VideoInteractionInput } from "../dtos/videoInteractionInput.dto";
 import { ExerciseInteractionInput } from "../dtos/exerciseInteractionInput.dto";
 import { Interaction } from "../models/interaction.model";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { VideoResource } from "../resources/video.resource";
+import { ExerciseResource } from "../resources/exercise.resource";
 
 export class InteractionController {
 
     interactionResource: InteractionResource = new InteractionResource();
+    videoResource: VideoResource = new VideoResource();
+    exerciseResource: ExerciseResource = new ExerciseResource();
+
     constructor() {
     }
 
     async create(req: Request, res: Response) {
         if ( req.body.kind == "Video") {
             const videoII: VideoInteractionInput = req.body;
-            this.interactionResource.createVideo(videoII);
+            const video = await this.videoResource.create(videoII.url);
+            video ? res.status(HttpStatusCode.CREATED).json(video) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         }
         else if ( req.body.kind == "Exercise") {
             const exerciseII: ExerciseInteractionInput = req.body;
-            this.interactionResource.createExercise(exerciseII);
+            const exercise = await this.exerciseResource.create(exerciseII.formulation);
+            exercise ? res.status(HttpStatusCode.CREATED).json(exercise) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+
         }
 
     }
