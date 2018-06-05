@@ -56,7 +56,6 @@ export class InteractionDao {
                 return undefined;
             });
     }
-<<<<<<< HEAD
 
     private static isVideo(document: Document): boolean {
         logger.info(" document.get(\"url\") + " +  document.get("url"));
@@ -83,6 +82,4 @@ export class InteractionDao {
                 return undefined;
             });
     }
-=======
->>>>>>> develop
 }
