@@ -16,7 +16,7 @@ export class InteractionDao {
 
     constructor() {
     }
-    private static toInteraction(document: Document): Interaction {
+    static toInteraction(document: Document): Interaction {
         if ( document.get("kind") == "Video") {
             return new VideoBuilder(document.get("url")).setId(document.get("_id")).build();
         }
@@ -24,7 +24,7 @@ export class InteractionDao {
             return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).build();
         }
     }
-    private static toArrayInteraction(documents: Document[]): Interaction[] {
+    static toArrayInteraction(documents: Document[]): Interaction[] {
         const interaction: Interaction[] = [];
         for (let i = 0; i < documents.length; i++) {
             interaction.push(InteractionDao.toInteraction(documents[i]));
@@ -33,7 +33,6 @@ export class InteractionDao {
         return interaction;
     }
     async createVideo(videoII: VideoInteractionInput) {
-        console.log("Creando " + JSON.stringify(videoII.kind));
         VideoSchema.create(videoII)
         .then((interaction: Document) => {
             console.log(interaction);
@@ -54,6 +53,32 @@ export class InteractionDao {
             })
             .catch(err => {
                 console.log(err);
+                return undefined;
+            });
+    }
+
+    private static isVideo(document: Document): boolean {
+        logger.info(" document.get(\"url\") + " +  document.get("url"));
+        return document.get("url");
+    }
+    async delete(id: number): Promise<boolean> {
+        return await InteractionSchema.deleteOne({_id: id })
+            .then( () => {
+                return true;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return false;
+            });
+    }
+    async findById(id: number): Promise<Interaction> {
+        return await InteractionSchema.findById(id)
+            .then( (interactionDocument: Document) => {
+                const interaction: Interaction = interactionDocument ? InteractionDao.toInteraction(interactionDocument) : undefined;
+                return interaction;
+            })
+            .catch ( err => {
+                logger.error(err);
                 return undefined;
             });
     }
