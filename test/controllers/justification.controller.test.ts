@@ -17,7 +17,7 @@ describe("POST /justification", () => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const justificationOutputDto: JustificationOutputDto = res.body;
                 expect(justificationOutputDto.text).to.equal(text);
-                expect(justificationOutputDto.isCorrect).to.equal(false);
+                expect(justificationOutputDto.isCorrect).to.equal(isCorrect);
                 done();
             });
     });
