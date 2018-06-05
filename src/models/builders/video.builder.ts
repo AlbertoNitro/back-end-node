@@ -16,6 +16,10 @@ export class VideoBuilder {
         this.video.setId(id);
         return this;
     }
+    setKind(kind: string): VideoBuilder {
+        this.video.setKind(kind);
+        return this;
+    }
     build(): Video {
         return this.video;
     }

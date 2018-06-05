@@ -5,11 +5,10 @@ const interactionRoutes = express.Router();
 const interactionController: InteractionController = new InteractionController();
 
 interactionRoutes.post("", (req, res) => {
-    // interactionController.create2(req, res);
+    interactionController.create(req, res);
 });
 
 interactionRoutes.get("", (req, res) => {
-    console.log("Holahola");
     interactionController.findAll(req, res);
 });
 
