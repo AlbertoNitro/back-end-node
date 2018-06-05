@@ -4,12 +4,16 @@ import SolutionSchema from "../../schemas/solution.schema";
 import { JustificationDao } from "./justification.dao";
 import { Justification } from "../../models/justification.model";
 import logger from "../../util/logger";
+import { SolutionInputDto } from "../../dtos/solutionInput.dto";
+import { SolutionBuilder } from "../../models/builders/solution.builder";
 
 export class SolutionDao {
     constructor() {
     }
     public static toSolution(document: Document): Solution {
-        return new Solution(document.get("text"), document.get("isCorrect")).setId(document.get("_id").setJustifications(JustificationDao.toArrayJustifications(document.get("justifications"))));
+        return new SolutionBuilder(document.get("text"), document.get("isCorrect"))
+            .setId(document.get("_id"))
+            .setJustification(JustificationDao.toArrayJustification(document.get("justifications"))).build();
     }
     public static toArraySolutions(documents: Document[]): Solution[] {
         const solutions: Solution[] = [];
@@ -39,12 +43,12 @@ export class SolutionDao {
                 return undefined;
             });
     }
-    async create(isCorrect: boolean, text: string, justifications: Justification[]): Promise<Solution> {
-        const solution: Solution = new Solution(text, isCorrect).setJustifications(justifications);
+    async create(solutionInputDto: SolutionInputDto): Promise<Solution> {
+        const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).setJustification(solutionInputDto.justifications).build();
         const solutionSchema = new SolutionSchema(solution);
         return solutionSchema.save()
             .then( (solutionDocument: Document) => {
-                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
+                const solution: Solution = SolutionDao.toSolution(solutionDocument);
                 return solution;
             })
             .catch ( err => {
