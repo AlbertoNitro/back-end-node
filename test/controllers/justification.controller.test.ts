@@ -32,9 +32,9 @@ describe("DELETE /justification/99999", () => {
             });
   });
 });
-describe("DELETE /justification/101d87b8b230cf35177998ca", () => {
+describe("DELETE /justification/111d87b8b230cf35177998ca", () => {
     it("should return 204 - NO_CONTENT", (done) => {
-        const justificationId = "101d87b8b230cf35177998ca";
+        const justificationId = "111d87b8b230cf35177998ca";
         return request(app).delete("/justification/" + justificationId)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
