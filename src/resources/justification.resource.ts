@@ -14,6 +14,9 @@ export class JustificationResource {
     async findById(id: number): Promise<Justification> {
         return await this.justificationDao.findById(id);
     }
+    async findAll(): Promise<Justification[]> {
+        return await this.justificationDao.findAll();
+    }
     async delete(justification: Justification): Promise<boolean> {
         return await this.justificationDao.delete(justification.getId());
     }

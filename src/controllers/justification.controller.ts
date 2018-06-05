@@ -18,13 +18,13 @@ export class JustificationController {
         const justificationInputDto: JustificationInputDto = req.body;
         const justification: Justification = await this.justificationResource.create(justificationInputDto.text, justificationInputDto.isCorrect);
         const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
-        justification ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        justificationOutputDto ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
         const justification: Justification = await this.justificationResource.findById(id);
         const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
-        justification ? res.status(HttpStatusCode.OK).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+        justificationOutputDto ? res.status(HttpStatusCode.OK).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
@@ -35,6 +35,11 @@ export class JustificationController {
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
+    }
+    async findAll(req: Request, res: Response): Promise<any> {
+        const justifications: Justification[] = await this.justificationResource.findAll();
+        const justificationOutputDtos: JustificationOutputDto[] = DtoService.toArrayJustificationOutputDto(justifications);
+        justificationOutputDtos ? res.status(HttpStatusCode.OK).json(justificationOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
 }
 

@@ -7,8 +7,14 @@ const justificationController: JustificationController = new JustificationContro
 justificationRoutes.post("", (req, res) => {
     justificationController.create(req, res);
 });
+justificationRoutes.get("/", (req, res) => {
+    justificationController.findAll(req, res);
+});
 justificationRoutes.get("/:id", (req, res) => {
     justificationController.findById(req, res);
+});
+justificationRoutes.get("/:id/search", (req, res) => {
+    justificationController.findByIdAndIsCorrect(req, res);
 });
 justificationRoutes.delete("/:id", (req, res) => {
     justificationController.delete(req, res);
