@@ -4,6 +4,7 @@ import { DtoService } from "../services/dto.service";
 import logger from "../util/logger";
 import { ExerciseResource } from "../resources/exercise.resource";
 import { Exercise } from "../models/exercise.model";
+import { SolutionInputDto } from "../dtos/solutionInput.dto";
 
 export class ExerciseController {
     private exerciseResource: ExerciseResource;
@@ -14,6 +15,7 @@ export class ExerciseController {
 
     async create(req: Request, res: Response): Promise<any> {
         const formulation: string = req.body.formulation;
+        const solutionsInputDto: SolutionInputDto = req.body.solutions;
         const exercise: Exercise = await this.exerciseResource.create(formulation);
         // const exerciseOutputDto: ExerciseOutputDto = DtoService.toExerciseOutputDto(exercise);
         exercise ? res.status(HttpStatusCode.CREATED).json(exercise) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();

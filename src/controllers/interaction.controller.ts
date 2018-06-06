@@ -23,9 +23,7 @@ export class InteractionController {
             video ? res.status(HttpStatusCode.CREATED).json(video) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         }
         else if ( req.body.kind == "Exercise") {
-            const exerciseII: ExerciseInteractionInput = req.body;
-            const exercise = await this.exerciseResource.create(exerciseII.formulation);
-            exercise ? res.status(HttpStatusCode.CREATED).json(exercise) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+
 
         }
 

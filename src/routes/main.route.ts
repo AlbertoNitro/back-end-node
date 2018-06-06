@@ -22,5 +22,6 @@ api.use("/session", sessionRoutes);
 api.use("/solution", solutionRoutes);
 api.use("/unit", unitRoutes);
 api.use("/interaccion", interactionRoutes);
+api.use("/exercise", exerciseRoutes);
 
 export default api;
