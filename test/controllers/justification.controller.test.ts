@@ -8,7 +8,17 @@ import { DbService } from "../../src/services/db.service";
 const chai = require("chai");
 const expect = chai.expect;
 const dbService: DbService = new DbService();
-
+beforeAll( async (done) => {
+    const successDeleteDb: boolean = await dbService.delete();
+    if (!successDeleteDb) {
+        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
+    }
+    const successSeedDb: boolean = await dbService.seed();
+    if (!successSeedDb) {
+        logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
+    }
+    successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
+});
 describe("POST /justification", () => {
     it("should return: 201 - CREATED + Justification", (done) => {
         const text = "Existen extraterrestres en Jupiter";
@@ -32,8 +42,7 @@ describe("GET /justification/121d87b8b230cf35177998ca", () => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const justificationOutputDto: JustificationOutputDto = res.body;
                 expect(justificationOutputDto.id).to.equal(justificationId);
-                expect(justificationOutputDto.isCorrect).to.equal(true);
-                expect(justificationOutputDto.text).to.equal("El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno");
+                expect(justificationOutputDto.text).to.equal("El descubrimiento de la luna fue en 2005");
                 done();
             });
     });
@@ -49,16 +58,7 @@ describe("GET /justification", () => {
             });
     });
 });
-describe("DELETE /justification/99999", () => {
-    it("should return 404 - NOT FOUND", (done) => {
-        const justificationId = 99999;
-        return request(app).delete("/justification/" + justificationId)
-            .end( async (err, res) => {
-                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
-                done();
-            });
-  });
-});
+
 describe("DELETE /justification/111d87b8b230cf35177998ca", () => {
     it("should return 204 - NO_CONTENT", (done) => {
         const justificationId = "111d87b8b230cf35177998ca";
