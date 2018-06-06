@@ -40,8 +40,8 @@ export class SessionDao {
                 return undefined;
             });
     }
-    async create(name: string, lessons: Lesson[]): Promise<Session> {
-        const session: Session = new Session(name).setLessons(lessons);
+    async create(name: string): Promise<Session> {
+        const session: Session = new Session(name);
         const sessionSchema = new SessionSchema(session);
         return sessionSchema.save()
             .then( (sessionDocument: Document) => {
