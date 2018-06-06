@@ -19,4 +19,9 @@ export class ExerciseResource {
     async delete(exercise: Exercise): Promise<boolean> {
         return await this.exerciseDao.delete(exercise.getId());
     }
+    async update(id: number, solutions: Solution[]): Promise<Exercise> {
+        let exercise: Exercise = await this.findById(id);
+        exercise = exercise ? await this.exerciseDao.update(id, solutions) : undefined;
+        return exercise;
+    }
 }

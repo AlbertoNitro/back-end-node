@@ -60,5 +60,16 @@ export class ItineraryDao {
                 return undefined;
             });
     }
+    async update(id: number, formations: Formation[]): Promise<Itinerary> {
+        return await ItinerarySchema.updateOne({_id: id}, {$set: {formations: formations}}, {new: true})
+            .then( (itineraryDocument: Document) => {
+                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+                return itinerary;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
 }
 
