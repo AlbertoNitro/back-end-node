@@ -12,6 +12,7 @@ const chai = require("chai");
 const expect = chai.expect;
 
 const dbService: DbService = new DbService();
+
 beforeAll( async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
@@ -23,6 +24,7 @@ beforeAll( async (done) => {
     }
     successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
 });
+
 describe("POST /solution", () => {
     it("should return: 201 - CREATED + Solution", (done) => {
         return request(app).post("/solution")

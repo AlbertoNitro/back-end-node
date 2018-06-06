@@ -5,7 +5,7 @@ lessons:
         name: Variables en Java
         interactions: []
     - &lesson1
-        _id: {$oid: "251d87b1b236cf35177998c0"}
+        _id: {$oid: "5b17db3e06462b05583d672a"}
         name: Constantes en Java
         interactions: []
 

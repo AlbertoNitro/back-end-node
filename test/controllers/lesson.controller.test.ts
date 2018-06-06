@@ -10,7 +10,19 @@ import { LessonInputDto } from "../../src/dtos/input/lessonInput.dto";
 const chai = require("chai");
 const expect = chai.expect;
 
-const dbService: DbService = new DbService();
+// const dbService: DbService = new DbService();
+//
+// beforeAll( async (done) => {
+//     const successDeleteDb: boolean = await dbService.delete();
+//     if (!successDeleteDb) {
+//         logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
+//     }
+//     const successSeedDb: boolean = await dbService.seed();
+//     if (!successSeedDb) {
+//         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
+//     }
+//     successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
+// });
 
 describe("POST /lesson", () => {
     it("should return: 201 - CREATED + Lesson", (done) => {
@@ -41,7 +53,7 @@ describe("GET /lesson/:id", () => {
 });
 describe("DELETE /lesson/:id", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
-        const lessonId = "251d87b1b236cf35177998c0";
+        const lessonId = "5b17db3e06462b05583d672a";
         return request(app).delete("/lesson/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
