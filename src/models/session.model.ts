@@ -1,11 +1,13 @@
 import { Lesson } from "./lesson.model";
+import { Formation } from "./Formation.model";
 
-export class Session {
+export class Session extends Formation {
     private _id: number;
     private name: string;
     private lessons: Lesson[];
 
     constructor(name: string) {
+        super();
         this.name = name;
         this.lessons = [];
     }

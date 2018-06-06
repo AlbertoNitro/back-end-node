@@ -1,13 +1,14 @@
-import { Session } from "./session.model";
+import { Formation } from "./Formation.model";
 
-export class Itinerary {
+export class Itinerary extends Formation {
     private _id: number;
     private name: string;
-    private sessions: Session[];
+    private formations: Formation[];
 
     constructor(name: string) {
+        super();
         this.name = name;
-        this.sessions = [];
+        this.formations = [];
     }
 
     setId(id: number): Itinerary {
@@ -18,8 +19,8 @@ export class Itinerary {
         this.name = name;
         return this;
     }
-    setSessions(sessions: Session[]): Itinerary {
-        this.sessions = sessions;
+    setFormations(formations: Formation[]): Itinerary {
+        this.formations = formations;
         return this;
     }
     getId(): number {
@@ -28,7 +29,7 @@ export class Itinerary {
     getName(): string {
         return this.name;
     }
-    getSessions(): Session[] {
-        return this.sessions;
+    getFormations(): Formation[] {
+        return this.formations;
     }
 }
