@@ -6,6 +6,8 @@ import { Exercise } from "../../models/exercise.model";
 import ExerciseSchema from "../../schemas/exercise.schema";
 import { SolutionDao } from "./solution.dao";
 import { Solution } from "../../models/solution.model";
+import { ExerciseBuilder } from "../../models/builders/exercise.builder";
+import { SolutionInputDto } from "../../dtos/solutionInput.dto";
 
 export class ExerciseDao {
     constructor() {
@@ -18,8 +20,8 @@ export class ExerciseDao {
             const solutionDocument: Document = solutionsDocuments[i];
             solutions.push(SolutionDao.toSolution(solutionDocument));
         }
-        // HAY QUE METER LAS SOLUTIONS
-        return new Exercise(document.get("formulation")).setId(document.get("_id").setSolutions(document.get("solutions")));
+        return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(SolutionDao.toArraySolutions(document.get("solutions"))).build();
+
     }
     public static toArrayExercises(documents: Document[]): Exercise[] {
         const exercises: Exercise[] = [];

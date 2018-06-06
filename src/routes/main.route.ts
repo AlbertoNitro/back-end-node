@@ -20,5 +20,6 @@ api.use("/relation", relationRoutes);
 api.use("/session", sessionRoutes);
 api.use("/solution", solutionRoutes);
 api.use("/unit", unitRoutes);
+api.use("/exercise", exerciseRoutes);
 
 export default api;
