@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Solution = new mongoose.Schema({
     isCorrect: { type: Boolean, required: true },
-    justifications: { type: [mongoose.Schema.Types.Number], ref: "Justification", required: false },
+    justifications: { type: [mongoose.Schema.Types.Number], ref: "Justification", default: [] },
     text: { type: String, required: true },
 });
 

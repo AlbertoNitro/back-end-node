@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const Interaction = new mongoose.Schema({
-    name: String
 }, { discriminatorKey: "kind" , collection: "interactions"});
 
 

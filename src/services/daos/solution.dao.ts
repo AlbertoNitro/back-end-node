@@ -11,9 +11,7 @@ export class SolutionDao {
     constructor() {
     }
     public static toSolution(document: Document): Solution {
-        return new SolutionBuilder(document.get("text"), document.get("isCorrect"))
-            .setId(document.get("_id"))
-            .build();
+        return new SolutionBuilder(document.get("text"), document.get("isCorrect")).setJustification(JustificationDao.toArrayJustifications(document.get("justifications"))).setId(document.get("_id")).build();
     }
     public static toArraySolutions(documents: Document[]): Solution[] {
         const solutions: Solution[] = [];
