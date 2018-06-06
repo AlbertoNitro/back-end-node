@@ -21,5 +21,7 @@ api.use("/session", sessionRoutes);
 api.use("/solution", solutionRoutes);
 api.use("/unit", unitRoutes);
 api.use("/exercise", exerciseRoutes);
+api.use("/video", videoRoutes);
+
 
 export default api;
