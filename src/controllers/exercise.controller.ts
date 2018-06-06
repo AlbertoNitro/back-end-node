@@ -4,7 +4,7 @@ import { DtoService } from "../services/dto.service";
 import logger from "../util/logger";
 import { ExerciseResource } from "../resources/exercise.resource";
 import { Exercise } from "../models/exercise.model";
-import { SolutionInputDto } from "../dtos/solutionInput.dto";
+import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 
 export class ExerciseController {
     private exerciseResource: ExerciseResource;

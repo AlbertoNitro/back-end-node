@@ -3,9 +3,9 @@ import { HttpStatusCode } from "../util/http-status-codes.enum";
 import logger from "../util/logger";
 import { JustificationResource } from "../resources/justification.resource";
 import { Justification } from "../models/justification.model";
-import { JustificationOutputDto } from "../dtos/justificationOutput.dto";
+import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
 import { DtoService } from "../services/dto.service";
-import { JustificationInputDto } from "../dtos/justificationInput.dto";
+import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
 
 export class JustificationController {
     private justificationResource: JustificationResource;

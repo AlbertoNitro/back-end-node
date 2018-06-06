@@ -1,22 +1,22 @@
-import { UnitOutputDto } from "../dtos/unitOutput.dto";
+import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
 import { Unit } from "../models/unit.model";
-import { RelationOutputDto } from "../dtos/relationOutput.dto";
+import { RelationOutputDto } from "../dtos/output/relationOutput.dto";
 import { Relation } from "../models/relation.model";
-import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
+import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
 import { Video } from "../models/video.model";
-import { VideoOutputDto } from "../dtos/videoOutput.dto";
-import { SolutionOutputDto } from "../dtos/solutionOutput.dto";
+import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
+import { SolutionOutputDto } from "../dtos/output/solutionOutput.dto";
 import { Solution } from "../models/solution.model";
-import { LessonOutputDto } from "../dtos/lessonOutput.dto";
+import { LessonOutputDto } from "../dtos/output/lessonOutput.dto";
 import { Lesson } from "../models/lesson.model";
 import { Justification } from "../models/justification.model";
-import { JustificationOutputDto } from "../dtos/justificationOutput.dto";
+import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
 import { Session } from "../models/session.model";
-import { SessionOutputDto } from "../dtos/sessionOutput.dto";
-import { ItineraryOutputDto } from "../dtos/itineraryOutput.dto";
+import { SessionOutputDto } from "../dtos/output/sessionOutput.dto";
+import { ItineraryOutputDto } from "../dtos/output/itineraryOutput.dto";
 import { Itinerary } from "../models/itinerary.model";
 import { Exercise } from "../models/exercise.model";
-import { ExerciseOutputDto } from "../dtos/exerciseOutput.dto";
+import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
 
 export class DtoService {
     constructor() {

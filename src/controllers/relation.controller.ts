@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { Relation } from "../models/relation.model";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
-import { RelationInputDto } from "../dtos/relationInput.dto";
+import { RelationInputDto } from "../dtos/input/relationInput.dto";
 import { RelationResource } from "../resources/relation.resource";
 import logger from "../util/logger";
-import { RelationOutputDto } from "../dtos/relationOutput.dto";
+import { RelationOutputDto } from "../dtos/output/relationOutput.dto";
 import { DtoService } from "../services/dto.service";
-import { DeleteRelationInputDto } from "../dtos/deleteRelationInput.dto";
+import { DeleteRelationInputDto } from "../dtos/input/deleteRelationInput.dto";
 import { UnitResource } from "../resources/unit.resource";
 import { Unit } from "../models/unit.model";
 

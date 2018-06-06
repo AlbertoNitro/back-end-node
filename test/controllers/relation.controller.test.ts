@@ -1,10 +1,10 @@
 import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import { RelationInputDto } from "../../src/dtos/relationInput.dto";
-import { RelationOutputDto } from "../../src/dtos/relationOutput.dto";
-import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
-import { DeleteRelationInputDto } from "../../src/dtos/deleteRelationInput.dto";
+import { RelationInputDto } from "../../src/dtos/input/relationInput.dto";
+import { RelationOutputDto } from "../../src/dtos/output/relationOutput.dto";
+import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
+import { DeleteRelationInputDto } from "../../src/dtos/input/deleteRelationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
