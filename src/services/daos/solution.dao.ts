@@ -53,7 +53,7 @@ export class SolutionDao {
             });
     }
     async create(solutionInputDto: SolutionInputDto): Promise<Solution> {
-        const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).setJustification(solutionInputDto.justifications).build();
+        const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).build();
         const solutionSchema = new SolutionSchema(solution);
         return solutionSchema.save()
             .then( (solutionDocument: Document) => {
