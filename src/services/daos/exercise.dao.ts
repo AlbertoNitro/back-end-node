@@ -7,7 +7,7 @@ import ExerciseSchema from "../../schemas/exercise.schema";
 import { SolutionDao } from "./solution.dao";
 import { Solution } from "../../models/solution.model";
 import { ExerciseBuilder } from "../../models/builders/exercise.builder";
-import { SolutionInputDto } from "../../dtos/solutionInput.dto";
+import { SolutionInputDto } from "../../dtos/input/solutionInput.dto";
 
 export class ExerciseDao {
     constructor() {

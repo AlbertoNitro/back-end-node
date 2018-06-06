@@ -1,4 +1,4 @@
-import { Justification } from "../models/justification.model";
+import { Justification } from "../../models/justification.model";
 
 export interface SolutionOutputDto  {
     id: number;

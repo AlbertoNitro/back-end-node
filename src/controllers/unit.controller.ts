@@ -5,10 +5,10 @@ import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
 import logger from "../util/logger";
 import { Relation } from "../models/relation.model";
-import { UnitOutputDto } from "../dtos/unitOutput.dto";
+import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
 import { DtoService } from "../services/dto.service";
-import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
-import { RelatedUnitsOutputDto } from "../dtos/relatedUnitsOutput.dto";
+import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
+import { RelatedUnitsOutputDto } from "../dtos/output/relatedUnitsOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;

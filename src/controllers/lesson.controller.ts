@@ -4,7 +4,7 @@ import logger from "../util/logger";
 import { LessonResource } from "../resources/lesson.resource";
 import { Lesson } from "../models/lesson.model";
 import { DtoService } from "../services/dto.service";
-import { LessonOutputDto } from "../dtos/lessonOutput.dto";
+import { LessonOutputDto } from "../dtos/output/lessonOutput.dto";
 
 export class LessonController {
     private lessonResource: LessonResource;

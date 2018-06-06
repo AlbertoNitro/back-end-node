@@ -1,4 +1,4 @@
-import { Interaction } from "../models/interaction.model";
+import { Interaction } from "../../models/interaction.model";
 
 export interface LessonOutputDto  {
     id: number;

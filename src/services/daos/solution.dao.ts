@@ -4,7 +4,7 @@ import SolutionSchema from "../../schemas/solution.schema";
 import { JustificationDao } from "./justification.dao";
 import { Justification } from "../../models/justification.model";
 import logger from "../../util/logger";
-import { SolutionInputDto } from "../../dtos/solutionInput.dto";
+import { SolutionInputDto } from "../../dtos/input/solutionInput.dto";
 import { SolutionBuilder } from "../../models/builders/solution.builder";
 
 export class SolutionDao {

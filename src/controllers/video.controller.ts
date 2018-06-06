@@ -3,7 +3,7 @@ import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { Video } from "../models/video.model";
 import { VideoResource } from "../resources/video.resource";
 import { DtoService } from "../services/dto.service";
-import { VideoOutputDto } from "../dtos/videoOutput.dto";
+import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
 import logger from "../util/logger";
 
 export class VideoController {

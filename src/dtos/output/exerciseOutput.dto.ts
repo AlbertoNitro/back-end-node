@@ -1,4 +1,4 @@
-import { Solution } from "../models/solution.model";
+import { Solution } from "../../models/solution.model";
 
 export interface ExerciseOutputDto  {
     id: number;

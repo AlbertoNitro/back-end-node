@@ -1,7 +1,7 @@
 import { Exercise } from "../models/exercise.model";
 import { ExerciseDao } from "../services/daos/exercise.dao";
 import { Solution } from "../models/solution.model";
-import { SolutionInputDto } from "../dtos/solutionInput.dto";
+import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 
 export class ExerciseResource {
     private exerciseDao: ExerciseDao;

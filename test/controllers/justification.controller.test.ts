@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import logger from "../../src/util/logger";
-import { JustificationOutputDto } from "../../src/dtos/justificationOutput.dto";
+import { JustificationOutputDto } from "../../src/dtos/output/justificationOutput.dto";
 import { DbService } from "../../src/services/db.service";
 
 const chai = require("chai");
