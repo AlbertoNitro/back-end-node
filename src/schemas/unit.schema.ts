@@ -4,7 +4,7 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const Unit = new mongoose.Schema({
     name: { type: String, required: true },
     code: { type: Number, required: false, unique: true },
-    itinerary: { type: [mongoose.Schema.Types.ObjectId], ref: "Itinerary", required: false },
+    itineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itinerary", default: [] },
 
 });
 Unit.plugin(AutoIncrement, {

@@ -19,7 +19,7 @@ export class ExerciseDao {
             solutions.push(SolutionDao.toSolution(solutionDocument));
         }
         // HAY QUE METER LAS SOLUTIONS
-        return new Exercise(document.get("formulation")).setId(document.get("_id"));
+        return new Exercise(document.get("formulation")).setId(document.get("_id").setSolutions(document.get("solutions")));
     }
     public static toArrayExercises(documents: Document[]): Exercise[] {
         const exercises: Exercise[] = [];

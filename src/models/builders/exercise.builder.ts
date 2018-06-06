@@ -12,16 +12,12 @@ export class ExerciseBuilder {
         this.exercise.setFormulation(formulation);
         return this;
     }
-    setSolution(solutions: Solution[]) {
+    setSolutions(solutions: Solution[]): ExerciseBuilder {
         this.exercise.setSolutions(solutions);
         return this;
     }
-    setId(id: number) {
+    setId(id: number): ExerciseBuilder {
         this.exercise.setId(id);
-        return this;
-    }
-    setKind(kind: string): ExerciseBuilder {
-        this.exercise.setKind(kind);
         return this;
     }
     build(): Exercise {

@@ -3,7 +3,7 @@ import InteractionSchema from "./interaction.schema";
 
 const Itinerary = new mongoose.Schema({
     name: { type: String, required: true },
-    formation: { type: [mongoose.Schema.Types.ObjectId], ref: "Formation", required: true },
+    formations: { type: [mongoose.Schema.Types.ObjectId], ref: "Formation", default: [], required: true },
 });
 
 const ItinerarySchema = InteractionSchema.discriminator("Itinerary", Itinerary);

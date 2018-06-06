@@ -3,9 +3,11 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import logger from "../../src/util/logger";
 import { JustificationOutputDto } from "../../src/dtos/justificationOutput.dto";
+import {DbService} from "../../src/services/db.service";
 
 const chai = require("chai");
 const expect = chai.expect;
+const dbService: DbService = new DbService();
 
 describe("POST /justification", () => {
     it("should return: 201 - CREATED + Justification", (done) => {
@@ -18,6 +20,31 @@ describe("POST /justification", () => {
                 const justificationOutputDto: JustificationOutputDto = res.body;
                 expect(justificationOutputDto.text).to.equal(text);
                 expect(justificationOutputDto.isCorrect).to.equal(isCorrect);
+                done();
+            });
+    });
+});
+describe("GET /justification/121d87b8b230cf35177998ca", () => {
+    it("should return 200 - OK and Justification", (done) => {
+        const justificationId = "121d87b8b230cf35177998ca";
+        return request(app).get("/justification/" + justificationId)
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const justificationOutputDto: JustificationOutputDto = res.body;
+                expect(justificationOutputDto.id).to.equal(justificationId);
+                expect(justificationOutputDto.isCorrect).to.equal(true);
+                expect(justificationOutputDto.text).to.equal("El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno");
+                done();
+            });
+    });
+});
+describe("GET /justification", () => {
+    it("should return: 200 - OK + Justification[]", (done) => {
+        return request(app).get("/justification")
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const justificationsOutputDtos: JustificationOutputDto[] = res.body;
+                expect(justificationsOutputDtos.length).to.be.above(2);
                 done();
             });
     });
@@ -42,18 +69,5 @@ describe("DELETE /justification/111d87b8b230cf35177998ca", () => {
             });
     });
 });
-describe("GET /justification/121d87b8b230cf35177998ca", () => {
-    it("should return 200 - OK and Justification", (done) => {
-        const justificationId = "121d87b8b230cf35177998ca";
-        return request(app).get("/justification/" + justificationId)
-            .end( async (err, res) => {
-                expect(res.status).to.equal(HttpStatusCode.OK);
-                const justificationOutputDto: JustificationOutputDto = res.body;
-                expect(justificationOutputDto.id).to.equal(justificationId);
-                expect(justificationOutputDto.isCorrect).to.equal(true);
-                expect(justificationOutputDto.text).to.equal("El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno");
-                done();
-            });
-    });
-});
+
 
