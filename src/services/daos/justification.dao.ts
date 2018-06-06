@@ -38,6 +38,17 @@ export class JustificationDao {
                 return undefined;
             });
     }
+    async findAll(): Promise<Justification[]> {
+        return await JustificationSchema.find({})
+            .then( (justificationsDocuments: Document[]) => {
+                const justifications: Justification[] = justificationsDocuments ? JustificationDao.toArrayJustifications(justificationsDocuments) : undefined;
+                return justifications;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async create(text: string, isCorrect: boolean): Promise<Justification> {
         const justification: Justification = new Justification(text, isCorrect);
         const justificationSchema = new JustificationSchema(justification);
