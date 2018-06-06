@@ -1,6 +1,7 @@
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { SolutionDao } from "../services/daos/solution.dao";
 import { Solution } from "../models/solution.model";
+import { Justification } from "../models/justification.model";
 
 export class SolutionResource {
     private solutionDao: SolutionDao = new SolutionDao();
@@ -19,5 +20,10 @@ export class SolutionResource {
     }
     async delete(solution: Solution): Promise<boolean> {
         return await this.solutionDao.delete(solution.getId());
+    }
+    async update(id: number, justifications: Justification[]): Promise<Solution> {
+        let solution: Solution = await this.findById(id);
+        solution = solution ? await this.solutionDao.update(id, justifications) : undefined;
+        return solution;
     }
 }
