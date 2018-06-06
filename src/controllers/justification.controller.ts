@@ -24,7 +24,7 @@ export class JustificationController {
         const id: number = req.params.id;
         const justification: Justification = await this.justificationResource.findById(id);
         const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
-        justification ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+        justification ? res.status(HttpStatusCode.OK).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;

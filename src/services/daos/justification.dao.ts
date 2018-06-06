@@ -2,12 +2,13 @@ import { Document } from "mongoose";
 import logger from "../../util/logger";
 import JustificationSchema from "../../schemas/justification.schema";
 import { Justification } from "../../models/justification.model";
+import { JustificationBuilder } from "../../models/builders/justification.builder";
 
 export class JustificationDao {
     constructor() {
     }
     public static toJustification(document: Document): Justification {
-        return new Justification(document.get("text"), document.get("isCorrect")).setId(document.get("_id"));
+        return new JustificationBuilder(document.get("text"), document.get("isCorrect")).setId(document.get("_id")).build();
     }
     public static toArrayJustifications(documents: Document[]): Justification[] {
         const justifications: Justification[] = [];

@@ -14,12 +14,16 @@ interactions:
 justifications:
 - &justification0
     _id: {$oid: "101d87b8b230cf35177998ca"}
-    isCorrect: true
-    text: 1999
+    isCorrect: false
+    text: El descubrimiento de la luna fue en 1999
 - &justification1
     _id: {$oid: "111d87b8b230cf35177998ca"}
-    isCorrect: false
-    text: 1888
+    isCorrect: true
+    text: El descubrimiento de la luna fue en 1969
+- &justification2
+    _id: {$oid: "121d87b8b230cf35177998ca"}
+    isCorrect: true
+    text: El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno
 
 # Solutions
 solutions:
