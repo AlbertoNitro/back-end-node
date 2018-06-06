@@ -52,6 +52,17 @@ export class SolutionDao {
                 return undefined;
             });
     }
+    async update(id: number, justifications: Justification[]): Promise<Solution> {
+        return await SolutionSchema.updateOne({_id: id}, {$set: {justifications: justifications}}, {new: true})
+            .then( (solutionDocument: Document) => {
+                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
+                return solution;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async create(solutionInputDto: SolutionInputDto): Promise<Solution> {
         const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).build();
         const solutionSchema = new SolutionSchema(solution);

@@ -64,7 +64,15 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async findWithSolution() {
-        return await JustificationSchema.populate(await SolutionSchema.find({}), {path: "justifications"});
+    async update(id: number, solutions: Solution[]): Promise<Exercise> {
+        return await ExerciseSchema.updateOne({_id: id}, {$set: {solutions: solutions}}, {new: true})
+            .then((exerciseDocument: Document) => {
+                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                return exercise;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
     }
 }
