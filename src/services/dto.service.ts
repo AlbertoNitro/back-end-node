@@ -1,16 +1,22 @@
-import { UnitOutputDto } from "../dtos/unitOutput.dto";
+import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
 import { Unit } from "../models/unit.model";
-import { RelationOutputDto } from "../dtos/relationOutput.dto";
+import { RelationOutputDto } from "../dtos/output/relationOutput.dto";
 import { Relation } from "../models/relation.model";
-import { NeighborsOutputDto } from "../dtos/neighborsOutput.dto";
+import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
 import { Video } from "../models/video.model";
-import { VideoOutputDto } from "../dtos/videoOutput.dto";
-import { SolutionOutputDto } from "../dtos/solutionOutput.dto";
+import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
+import { SolutionOutputDto } from "../dtos/output/solutionOutput.dto";
 import { Solution } from "../models/solution.model";
-import { LessonOutputDto } from "../dtos/lessonOutput.dto";
+import { LessonOutputDto } from "../dtos/output/lessonOutput.dto";
 import { Lesson } from "../models/lesson.model";
 import { Justification } from "../models/justification.model";
-import { JustificationOutputDto } from "../dtos/justificationOutput.dto";
+import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
+import { Session } from "../models/session.model";
+import { SessionOutputDto } from "../dtos/output/sessionOutput.dto";
+import { ItineraryOutputDto } from "../dtos/output/itineraryOutput.dto";
+import { Itinerary } from "../models/itinerary.model";
+import { Exercise } from "../models/exercise.model";
+import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
 
 export class DtoService {
     constructor() {
@@ -113,7 +119,7 @@ export class DtoService {
     static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
         let solutionOutputDto: SolutionOutputDto = undefined;
         if (solution) {
-            solutionOutputDto = {_id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
+            solutionOutputDto = {id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
         }
         return solutionOutputDto;
     }
@@ -125,5 +131,53 @@ export class DtoService {
             }
         }
         return solutionOutputDtos;
+    }
+    static toSessionOutputDto(session: Session): SessionOutputDto {
+        let sessionOutputDto: SessionOutputDto = undefined;
+        if (session) {
+            sessionOutputDto = {id: session.getId(), name: session.getName(), lessons: session.getLessons()};
+        }
+        return sessionOutputDto;
+    }
+    static toArraySessionOutputDto(sessions: Session[]): SessionOutputDto[] {
+        const sessionsOutputDtos: SessionOutputDto[] = [];
+        if (sessions.length > 0) {
+            for (let i = 0 ; i < sessions.length ; i++ ) {
+                sessionsOutputDtos.push(DtoService.toSessionOutputDto(sessions[i]));
+            }
+        }
+        return sessionsOutputDtos;
+    }
+    static toItineraryOutputDto(itinerary: Itinerary): ItineraryOutputDto {
+        let itineraryOutputDto: ItineraryOutputDto = undefined;
+        if (itinerary) {
+            itineraryOutputDto = {id: itinerary.getId(), name: itinerary.getName(), formations: itinerary.getFormations()};
+        }
+        return itineraryOutputDto;
+    }
+    static toArrayItineraryOutputDto(itineraries: Itinerary[]): ItineraryOutputDto[] {
+        const itinerariesOutputDtos: ItineraryOutputDto[] = [];
+        if (itineraries.length > 0) {
+            for (let i = 0 ; i < itineraries.length ; i++ ) {
+                itinerariesOutputDtos.push(DtoService.toItineraryOutputDto(itineraries[i]));
+            }
+        }
+        return itinerariesOutputDtos;
+    }
+    static toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
+        let exercisesOutputDto: ExerciseOutputDto = undefined;
+        if (exercise) {
+            exercisesOutputDto = {id: exercise.getId(), formulation: exercise.getFormulation(), solutions: exercise.getSolutions()};
+        }
+        return exercisesOutputDto;
+    }
+    static toArrayExerciseOutputDto(exercises: Exercise[]): ExerciseOutputDto[] {
+        const exercisesOutputDtos: ExerciseOutputDto[] = [];
+        if (exercises.length > 0) {
+            for (let i = 0 ; i < exercises.length ; i++ ) {
+                exercisesOutputDtos.push(DtoService.toExerciseOutputDto(exercises[i]));
+            }
+        }
+        return exercisesOutputDtos;
     }
 }

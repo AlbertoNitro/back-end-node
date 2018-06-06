@@ -3,8 +3,8 @@ import { HttpStatusCode } from "../util/http-status-codes.enum";
 import logger from "../util/logger";
 import { Solution } from "../models/solution.model";
 import { SolutionResource } from "../resources/solution.resource";
-import { SolutionInputDto } from "../dtos/solutionInput.dto";
-import { SolutionOutputDto } from "../dtos/solutionOutput.dto";
+import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
+import { SolutionOutputDto } from "../dtos/output/solutionOutput.dto";
 import { DtoService } from "../services/dto.service";
 
 export class SolutionController {

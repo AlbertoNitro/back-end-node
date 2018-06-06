@@ -3,9 +3,9 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { UnitOutputDto } from "../../src/dtos/unitOutput.dto";
-import { NeighborsOutputDto } from "../../src/dtos/neighborsOutput.dto";
-import { RelatedUnitsOutputDto } from "../../src/dtos/relatedUnitsOutput.dto";
+import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
+import { NeighborsOutputDto } from "../../src/dtos/output/neighborsOutput.dto";
+import { RelatedUnitsOutputDto } from "../../src/dtos/output/relatedUnitsOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
