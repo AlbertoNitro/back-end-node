@@ -11,11 +11,12 @@ import { LessonOutputDto } from "../dtos/lessonOutput.dto";
 import { Lesson } from "../models/lesson.model";
 import { Justification } from "../models/justification.model";
 import { JustificationOutputDto } from "../dtos/justificationOutput.dto";
-import {Session} from "../models/session.model";
-import {SessionOutputDto} from "../dtos/sessionOutput.dto";
-import {ItineraryOutputDto} from "../dtos/itineraryOutput.dto";
-import {Itinerary} from "../models/itinerary.model";
-import {Exercise} from "../models/exercise.model";
+import { Session } from "../models/session.model";
+import { SessionOutputDto } from "../dtos/sessionOutput.dto";
+import { ItineraryOutputDto } from "../dtos/itineraryOutput.dto";
+import { Itinerary } from "../models/itinerary.model";
+import { Exercise } from "../models/exercise.model";
+import { ExerciseOutputDto } from "../dtos/exerciseOutput.dto";
 
 export class DtoService {
     constructor() {
@@ -164,11 +165,11 @@ export class DtoService {
         return itinerariesOutputDtos;
     }
     static toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
-        let itineraryOutputDto: ItineraryOutputDto = undefined;
+        let exercisesOutputDto: ExerciseOutputDto = undefined;
         if (exercise) {
-            itineraryOutputDto = {id: exercise.getId(), name: exercise.getName(), formations: exercise.getFormations()};
+            exercisesOutputDto = {id: exercise.getId(), formulation: exercise.getFormulation(), solutions: exercise.getSolutions()};
         }
-        return itineraryOutputDto;
+        return exercisesOutputDto;
     }
     static toArrayExerciseOutputDto(exercises: Exercise[]): ExerciseOutputDto[] {
         const exercisesOutputDtos: ExerciseOutputDto[] = [];
