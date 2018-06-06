@@ -9,7 +9,6 @@ import sessionRoutes from "./session/session.route";
 import solutionRoutes from "./solution/solution.route";
 import unitRoutes from "./unit/unit.route";
 import videoRoutes from "./video/video.route";
-import interactionRoutes from "./interaccion/interaction.route";
 
 const api = express.Router();
 
@@ -21,7 +20,6 @@ api.use("/relation", relationRoutes);
 api.use("/session", sessionRoutes);
 api.use("/solution", solutionRoutes);
 api.use("/unit", unitRoutes);
-api.use("/interaccion", interactionRoutes);
 api.use("/exercise", exerciseRoutes);
 
 export default api;
