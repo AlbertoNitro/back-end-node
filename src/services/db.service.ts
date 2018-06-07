@@ -80,9 +80,6 @@ export class DbService {
                 ItinerarySchema.remove({}, function(err) {
                     console.log('collection removed')
                 });
-                SessionSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
                 Justification.remove({}, function(err) {
                     console.log('collection removed')
                 });
