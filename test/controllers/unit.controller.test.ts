@@ -1,7 +1,6 @@
 import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
 import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
 import { NeighborsOutputDto } from "../../src/dtos/output/neighborsOutput.dto";
@@ -9,26 +8,6 @@ import { RelatedUnitsOutputDto } from "../../src/dtos/output/relatedUnitsOutput.
 
 const chai = require("chai");
 const expect = chai.expect;
-
-const dbService: DbService = new DbService();
-
-// beforeAll( async (done) => {
-//     const successSeedDb: boolean = await dbService.seed();
-//     if (!successSeedDb) {
-//         logger.error("Abortando lanzamiento de pruebas, fallo al POBLAR Db.");
-//         fail("Abortando lanzamiento de pruebas...");
-//     }
-//     done();
-// });
-//
-// afterAll( async (done) => {
-//     const successDeleteDb: boolean = await dbService.delete();
-//     if (!successDeleteDb) {
-//         logger.error("Abortando lanzamiento de pruebas, fallo al DESPOBLAR Db.");
-//         fail("Abortando lanzamiento de pruebas...");
-//     }
-//     done();
-// });
 
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + Unit", (done) => {
@@ -151,4 +130,3 @@ describe("GET /unit/friends/99999", () => {
             });
     });
 });
-

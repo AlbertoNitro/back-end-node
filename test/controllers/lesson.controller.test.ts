@@ -3,31 +3,11 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { SolutionOutputDto } from "../../src/dtos/output/solutionOutput.dto";
 import { LessonOutputDto } from "../../src/dtos/output/lessonOutput.dto";
 import { LessonInputDto } from "../../src/dtos/input/lessonInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
-const dbService: DbService = new DbService();
-
-// beforeAll( async (done) => {
-//     const successSeedDb: boolean = await dbService.seed();
-//     if (!successSeedDb) {
-//         logger.error("Abortando lanzamiento de pruebas, fallo al POBLAR Db.");
-//         fail("Abortando lanzamiento de pruebas...");
-//     }
-//     done();
-// });
-//
-// afterAll( async (done) => {
-//     const successDeleteDb: boolean = await dbService.delete();
-//     if (!successDeleteDb) {
-//         logger.error("Abortando lanzamiento de pruebas, fallo al DESPOBLAR Db.");
-//         fail("Abortando lanzamiento de pruebas...");
-//     }
-//     done();
-// });
 
 describe("POST /lesson", () => {
     it("should return: 201 - CREATED + Lesson", (done) => {
