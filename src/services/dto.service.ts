@@ -119,7 +119,7 @@ export class DtoService {
     static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
         let solutionOutputDto: SolutionOutputDto = undefined;
         if (solution) {
-            solutionOutputDto = {id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
+            solutionOutputDto = {id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText(), justifications: DtoService.toArrayJustificationOutputDto(solution.getJustifications())};
         }
         return solutionOutputDto;
     }
