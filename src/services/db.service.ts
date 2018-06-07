@@ -76,7 +76,7 @@ export class DbService {
     async delete2(): Promise<any> {
         const promise = await new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
+                this.mongoose.connect(MONGODB_URI, {useMongoClient: true});
                 this.mongoose.connection.on("open", () => {
                     this.mongoose.connection.db.dropDatabase();
                 });
