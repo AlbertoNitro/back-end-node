@@ -10,10 +10,10 @@ export class SessionDao {
     constructor() {
     }
 
-    public static toSession(document: Document): Session {
+    static toSession(document: Document): Session {
         return new SessionBuilder(document.get("name")).setId(document.get("_id")).setLessons(LessonDao.toArrayLessons(document.get("lessons"))).build();
     }
-    public static toArraySessions(documents: Document[]): Session[] {
+    static toArraySessions(documents: Document[]): Session[] {
         const sessions: Session[] = [];
         for (let i = 0; i < documents.length; i++) {
             sessions.push(SessionDao.toSession(documents[i]));

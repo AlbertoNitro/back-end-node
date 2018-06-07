@@ -16,10 +16,10 @@ export class RelationDao {
         this.unitDao = new UnitDao();
     }
 
-    private static toRelation(document: any): Relation {
+    static toRelation(document: any): Relation {
         return new RelationBuilder().setCardinalTopUnit(document.get("cardinalTopUnit")).setCardinalLowerUnit(document.get("cardinalLowerUnit")).setSemantics(document.get("semantics")).setId(document.get("_id")).setType(document.get("type")).setTopUnit(new UnitBuilder(document.get("topUnit").get("name")).setId(document.get("topUnit").get("_id")).setCode(document.get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document.get("lowerUnit").get("name")).setId(document.get("lowerUnit").get("_id")).setCode(document.get("lowerUnit").get("code")).build()).build();
     }
-    private static toArrayRelations(documents: Document[]): Relation[] {
+    static toArrayRelations(documents: Document[]): Relation[] {
         const relations: Relation[] = [];
         for ( let i = 0; i < documents.length; i++) {
             relations.push(RelationDao.toRelation(documents[i]));

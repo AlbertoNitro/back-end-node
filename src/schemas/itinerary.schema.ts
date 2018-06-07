@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import InteractionSchema from "./interaction.schema";
 import FormationSchema from "./formation.schema";
 
 const Itinerary = new mongoose.Schema({

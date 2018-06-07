@@ -10,7 +10,7 @@ export class ItineraryDao {
     constructor() {
     }
 
-    public static toItinerary(document: Document): Itinerary {
+    static toItinerary(document: Document): Itinerary {
         const formations: Formation[] = [];
         const formationsDocuments: Document[] = document.get("formations");
         for (let i = 0 ; i < formationsDocuments.length ; i++) {
@@ -20,7 +20,7 @@ export class ItineraryDao {
         const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
         return itinerary;
     }
-    public static toArrayItinerarys(documents: Document[]): Itinerary[] {
+    static toArrayItinerarys(documents: Document[]): Itinerary[] {
         const itineraries: Itinerary[] = [];
         for (let i = 0; i < documents.length; i++) {
             itineraries.push(ItineraryDao.toItinerary(documents[i]));
@@ -73,4 +73,3 @@ export class ItineraryDao {
             });
     }
 }
-
