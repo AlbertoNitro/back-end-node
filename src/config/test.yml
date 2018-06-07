@@ -10,18 +10,23 @@ lessons:
         interactions: []
 #Interactions
 interactions:
-    - &interaction1
+    - &interaction0
         _id: {$oid: "361d87b8b230cf35177998c0"}
-        formulation: I1
         kind: Exercise
-        solution: [ ]
-    - &interaction2
-        _id: {$oid: "361d87b8b230cf35177998c1"}
-        url: bleble
+        formulation: ¿En que año se descubrio la luna?
+        solution: []
+    - &interaction1
+        _id: {$oid: "461d87b8b130cf35177998c1"}
         kind: Video
+        url: www.marca.es
+    - &interaction2
+        _id: {$oid: "161d77b8b230cf35177998c1"}
+        kind: Video
+        url: www.mundodeportivo.es
+
 #Session
 formations:
-    - &session1
+    - &session0
         _id: {$oid: "501d87b8b230cf35177998c0"}
         kind: Session
         name: Session1
