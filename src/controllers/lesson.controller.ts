@@ -27,7 +27,9 @@ export class LessonController {
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: number = req.params.id;
+        logger.info(id + "");
         const lesson: Lesson = await this.lessonResource.findById(id);
+        logger.info(JSON.stringify(lesson));
         if (lesson) {
             const success: boolean = await this.lessonResource.delete(lesson);
             success ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
