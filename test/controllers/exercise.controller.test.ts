@@ -46,7 +46,7 @@ describe("GET /exercise/361d87b8b230cf35177998c0", () => {
         return request(app).get("/exercise/361d87b8b230cf35177998c0")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                expect(res.body.formulation).to.equal("I1");
+                expect(res.body.formulation).to.equal("¿En que año se descubrio la luna?");
                 done();
             });
     });
