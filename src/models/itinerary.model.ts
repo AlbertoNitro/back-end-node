@@ -1,4 +1,4 @@
-import { Formation } from "./Formation.model";
+import { Formation } from "./formation.model";
 
 export class Itinerary extends Formation {
     private _id: number;

@@ -5,7 +5,7 @@ const chai = require("chai");
 const expect = chai.expect;
 const dbService: DbService = new DbService();
 
-afterAll( async (done) => {
+beforeAll( async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
         logger.error("Abortando lanzamiento de pruebas, fallo al DESPOBLAR Db.");

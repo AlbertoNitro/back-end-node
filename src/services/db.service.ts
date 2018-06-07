@@ -6,10 +6,10 @@ import SolutionSchema from "../schemas/solution.schema";
 import RelationSchema from "../schemas/relation.schema";
 import ItinerarySchema from "../schemas/itinerary.schema";
 import SessionSchema from "../schemas/session.schema";
-import {Justification} from "../models/justification.model";
 import LessonSchema from "../schemas/lesson.schema";
 import UnitSchema from "../schemas/unit.schema";
 import VideoSchema from "../schemas/video.schema";
+import JustificationSchema from "../schemas/justification.schema";
 
 export class DbService {
     private mongoose: any;
@@ -56,16 +56,18 @@ export class DbService {
                 this.mongoose.Promise = Promise;
                 this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
                     .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
-                    .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
-                this.mongoose.connection.db.dropDatabase()
-                    .then(() => {
-                        logger.info("DB borrada con exito.");
-                        resolve(true);
-                    })
-                    .catch((err: any) => {
-                        logger.error("Error al borrar DB. " + err);
-                        resolve(false);
-                    });
+                    .catch( (err: any) => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
+                this.mongoose.connection.on("open", () => {
+                    this.mongoose.connection.db.dropDatabase()
+                        .then(() => {
+                            logger.info("DB borrada con exito.");
+                            resolve(true);
+                        })
+                        .catch((err: any) => {
+                            logger.error("Error al borrar DB. " + err);
+                            resolve(false);
+                        });
+                });
             }, 100);
         });
         return promise;
@@ -74,33 +76,11 @@ export class DbService {
     async delete2(): Promise<any> {
         const promise = await new Promise((resolve, reject) => {
             setTimeout(() => {
-                ExerciseSchema.remove({}, function(err) {
-                    console.log('collection removed')
+                this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
+                this.mongoose.connection.on("open", () => {
+                    this.mongoose.connection.db.dropDatabase();
                 });
-                ItinerarySchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                Justification.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                LessonSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                RelationSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                SessionSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                SolutionSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                UnitSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
-                VideoSchema.remove({}, function(err) {
-                    console.log('collection removed')
-                });
+                resolve(true);
             }, 100);
         });
         return promise;

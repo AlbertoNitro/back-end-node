@@ -2,7 +2,7 @@
 import { Session } from "../session.model";
 import { Lesson } from "../lesson.model";
 import { Itinerary } from "../itinerary.model";
-import { Formation } from "../Formation.model";
+import { Formation } from "../formation.model";
 
 export class ItineraryBuilder {
     private itinerary: Itinerary;
