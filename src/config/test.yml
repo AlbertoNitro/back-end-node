@@ -8,7 +8,6 @@ lessons:
         _id: {$oid: "5b17db3e06462b05583d672a"}
         name: Constantes en Java
         interactions: []
-
 #Interactions
 interactions:
     - &interaction1
@@ -26,6 +25,10 @@ formations:
         _id: {$oid: "501d87b8b230cf35177998c0"}
         kind: Session
         name: Session1
+    - &itinerary1
+        _id: {$oid: "511d87b8b230cf35177998c0"}
+        kind: Itinerary
+        name: Itinerary1
 # Justifications
 justifications:
 - &justification0
