@@ -4,13 +4,14 @@ import SessionSchema from "../../schemas/session.schema";
 import { LessonDao } from "./lesson.dao";
 import { Lesson } from "../../models/lesson.model";
 import logger from "../../util/logger";
+import { SessionBuilder } from "../../models/builders/session.builder";
 
 export class SessionDao {
     constructor() {
     }
 
     public static toSession(document: Document): Session {
-        return new Session(document.get("name")).setId(document.get("_id")).setLessons(LessonDao.toArrayLessons(document.get("lessons")));
+        return new SessionBuilder(document.get("name")).setId(document.get("_id")).setLessons(LessonDao.toArrayLessons(document.get("lessons"))).build();
     }
     public static toArraySessions(documents: Document[]): Session[] {
         const sessions: Session[] = [];
@@ -42,7 +43,7 @@ export class SessionDao {
             });
     }
     async create(name: string): Promise<Session> {
-        const session: Session = new Session(name);
+        const session: Session = new SessionBuilder(name).build();
         const sessionSchema = new SessionSchema(session);
         return sessionSchema.save()
             .then( (sessionDocument: Document) => {
