@@ -39,6 +39,10 @@ justifications:
     _id: {$oid: "131d87b8b230cf35177998ca"}
     isCorrect: true
     text: El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno
+- &justification4
+    _id: {$oid: "732d87b8b230cf35177998ca"}
+    isCorrect: true
+    text: Fue en 1794
 
 # Solutions
 solutions:
