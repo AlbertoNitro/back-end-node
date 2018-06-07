@@ -20,7 +20,12 @@ interactions:
         _id: {$oid: "361d87b8b230cf35177998c1"}
         url: bleble
         kind: Video
-
+#Session
+formations:
+    - &session1
+        _id: {$oid: "501d87b8b230cf35177998c0"}
+        kind: Session
+        name: Session1
 # Justifications
 justifications:
 - &justification0

@@ -10,7 +10,7 @@ export class SessionDao {
     }
 
     public static toSession(document: Document): Session {
-        return new Session(document.get("name")).setId(document.get("_id").setLessons(LessonDao.toArrayLessons(document.get("lessons"))));
+        return new Session(document.get("name")).setId(document.get("_id")).setLessons(LessonDao.toArrayLessons(document.get("lessons")));
     }
     public static toArraySessions(documents: Document[]): Session[] {
         const sessions: Session[] = [];
@@ -32,6 +32,7 @@ export class SessionDao {
     async findById(id: number): Promise<Session> {
         return await SessionSchema.findById(id)
             .then( (sessionDocument: Document) => {
+                console.log(sessionDocument);
                 const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
                 return session;
             })
