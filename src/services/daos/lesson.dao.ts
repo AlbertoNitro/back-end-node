@@ -5,6 +5,7 @@ import LessonSchema from "../../schemas/lesson.schema";
 import { Interaction } from "../../models/interaction.model";
 import { VideoDao } from "./video.dao";
 import { ExerciseDao } from "./exercise.dao";
+import { LessonBuilder } from "../../models/builders/lesson.builder";
 
 export class LessonDao {
     constructor() {
@@ -17,7 +18,7 @@ export class LessonDao {
             const interactionDocument: Document = interactionsDocuments[i];
             interactionDocument.get("kind") === "Video" ? interactions.push(<Interaction> VideoDao.toVideo(interactionDocument)) : interactions.push(<Interaction> ExerciseDao.toExercise(interactionDocument));
         }
-        const lesson: Lesson = new Lesson(document.get("name")).setId(document.get("_id")).setInteractions(interactions);
+        const lesson: Lesson = new LessonBuilder(document.get("name")).setId(document.get("_id")).setInteractions(interactions).build();
         return lesson;
     }
     public  static toArrayLessons(documents: Document[]): Lesson[] {
@@ -49,7 +50,7 @@ export class LessonDao {
             });
     }
     async create(name: string): Promise<Lesson> {
-        const lesson: Lesson = new Lesson(name);
+        const lesson: Lesson = new LessonBuilder(name).build();
         const lessonSchema = new LessonSchema(lesson);
         return lessonSchema.save()
             .then( (lessonDocument: Document) => {
