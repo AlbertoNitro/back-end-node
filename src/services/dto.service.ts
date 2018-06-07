@@ -119,7 +119,7 @@ export class DtoService {
     static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
         let solutionOutputDto: SolutionOutputDto = undefined;
         if (solution) {
-            solutionOutputDto = {id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText()};
+            solutionOutputDto = {id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText(), justifications: DtoService.toArrayJustificationOutputDto(solution.getJustifications())};
         }
         return solutionOutputDto;
     }
@@ -135,7 +135,7 @@ export class DtoService {
     static toSessionOutputDto(session: Session): SessionOutputDto {
         let sessionOutputDto: SessionOutputDto = undefined;
         if (session) {
-            sessionOutputDto = {id: session.getId(), name: session.getName(), lessons: session.getLessons()};
+            sessionOutputDto = {id: session.getId(), name: session.getName(), lessons: DtoService.toArrayLessonOutputDto(session.getLessons())};
         }
         return sessionOutputDto;
     }
@@ -167,7 +167,7 @@ export class DtoService {
     static toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
         let exercisesOutputDto: ExerciseOutputDto = undefined;
         if (exercise) {
-            exercisesOutputDto = {id: exercise.getId(), formulation: exercise.getFormulation(), solutions: exercise.getSolutions()};
+            exercisesOutputDto = {id: exercise.getId(), formulation: exercise.getFormulation(), solutions: DtoService.toArraySolutionOutputDto(exercise.getSolutions())};
         }
         return exercisesOutputDto;
     }

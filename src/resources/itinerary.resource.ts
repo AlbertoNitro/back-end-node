@@ -1,6 +1,6 @@
 import { Itinerary } from "../models/itinerary.model";
 import { ItineraryDao } from "../services/daos/itinerary.dao";
-import { Formation } from "formation.model.ts";
+import { Formation } from "../models/formation.model";
 
 export class ItineraryResource {
     private itineraryDao: ItineraryDao;

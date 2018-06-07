@@ -8,10 +8,10 @@ export class UnitDao {
     constructor() {
     }
 
-    private static toUnit(document: Document): Unit {
+    static toUnit(document: Document): Unit {
         return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).build();
     }
-    private static toArrayUnits(documents: Document[]): Unit[] {
+    static toArrayUnits(documents: Document[]): Unit[] {
         const units: Unit[] = [];
         for (let i = 0; i < documents.length; i++) {
             units.push(UnitDao.toUnit(documents[i]));

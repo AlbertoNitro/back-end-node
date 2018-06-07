@@ -7,10 +7,11 @@ import { JustificationBuilder } from "../../models/builders/justification.builde
 export class JustificationDao {
     constructor() {
     }
-    public static toJustification(document: Document): Justification {
+
+    static toJustification(document: Document): Justification {
         return new JustificationBuilder(document.get("text"), document.get("isCorrect")).setId(document.get("_id")).build();
     }
-    public static toArrayJustifications(documents: Document[]): Justification[] {
+    static toArrayJustifications(documents: Document[]): Justification[] {
         const justifications: Justification[] = [];
         for (let i = 0; i < documents.length; i++) {
             justifications.push(JustificationDao.toJustification(documents[i]));

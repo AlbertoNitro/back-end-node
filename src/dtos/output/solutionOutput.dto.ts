@@ -1,8 +1,8 @@
-import { Justification } from "../../models/justification.model";
+import { JustificationOutputDto } from "./justificationOutput.dto";
 
 export interface SolutionOutputDto  {
     id: number;
     isCorrect: boolean;
     text: string;
-    justification?: Justification;
+    justifications: JustificationOutputDto[];
 }
