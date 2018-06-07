@@ -1,4 +1,4 @@
-import { Formation } from "../../models/Formation.model";
+import { Formation } from "../../models/formation.model";
 
 export interface ItineraryOutputDto  {
     id: number;

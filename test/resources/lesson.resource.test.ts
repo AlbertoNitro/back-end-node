@@ -7,4 +7,10 @@ const expect = chai.expect;
 const dbService: DbService = new DbService();
 const lessonResource: LessonResource = new LessonResource();
 
+describe("true", () => {
+    it("true", async (done) => {
+        expect(0).to.equal(0);
+        done();
+    });
+});
 

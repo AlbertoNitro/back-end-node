@@ -12,6 +12,24 @@ const expect = chai.expect;
 
 const dbService: DbService = new DbService();
 
+// beforeAll( async (done) => {
+//     const successSeedDb: boolean = await dbService.seed();
+//     if (!successSeedDb) {
+//         logger.error("Abortando lanzamiento de pruebas, fallo al POBLAR Db.");
+//         fail("Abortando lanzamiento de pruebas...");
+//     }
+//     done();
+// });
+//
+// afterAll( async (done) => {
+//     const successDeleteDb: boolean = await dbService.delete();
+//     if (!successDeleteDb) {
+//         logger.error("Abortando lanzamiento de pruebas, fallo al DESPOBLAR Db.");
+//         fail("Abortando lanzamiento de pruebas...");
+//     }
+//     done();
+// });
+
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + Unit", (done) => {
         return request(app).post("/unit")

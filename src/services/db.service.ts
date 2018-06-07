@@ -1,15 +1,25 @@
 import fs from "fs";
 import { MONGODB_URI } from "../util/secrets";
 import logger from "../util/logger";
-import mongoose from "mongoose";
+import ExerciseSchema from "../schemas/exercise.schema";
+import SolutionSchema from "../schemas/solution.schema";
+import RelationSchema from "../schemas/relation.schema";
+import ItinerarySchema from "../schemas/itinerary.schema";
+import SessionSchema from "../schemas/session.schema";
+import LessonSchema from "../schemas/lesson.schema";
+import UnitSchema from "../schemas/unit.schema";
+import VideoSchema from "../schemas/video.schema";
+import JustificationSchema from "../schemas/justification.schema";
 
 export class DbService {
+    private mongoose: any;
     private yaml: any;
     private dookie: any;
 
     constructor() {
         this.yaml = require("js-yaml");
         this.dookie = require("dookie");
+        this.mongoose = require("mongoose");
     }
 
      async seed(): Promise<boolean> {
@@ -43,17 +53,38 @@ export class DbService {
     async delete(): Promise<any> {
          const promise = await new Promise((resolve, reject) => {
             setTimeout(() => {
-                mongoose.connection.db.dropDatabase()
-                    .then(() => {
-                        logger.info("DB borrada con exito.");
-                        resolve(true);
-                    })
-                    .catch((err: any) => {
-                        logger.error("Error al borrar DB. " + err);
-                        resolve(false);
-                    });
+                this.mongoose.Promise = Promise;
+                this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
+                    .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
+                    .catch( (err: any) => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
+                this.mongoose.connection.on("open", () => {
+                    this.mongoose.connection.db.dropDatabase()
+                        .then(() => {
+                            logger.info("DB borrada con exito.");
+                            resolve(true);
+                        })
+                        .catch((err: any) => {
+                            logger.error("Error al borrar DB. " + err);
+                            resolve(false);
+                        });
+                });
             }, 100);
         });
         return promise;
      }
+
+    async delete2(): Promise<any> {
+        const promise = await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
+                this.mongoose.connection.on("open", () => {
+                    this.mongoose.connection.db.dropDatabase();
+                });
+                resolve(true);
+            }, 100);
+        });
+        return promise;
+    }
+
+
 }
