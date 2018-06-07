@@ -7,4 +7,11 @@ const expect = chai.expect;
 const dbService: DbService = new DbService();
 const sssionResource: SessionResource = new SessionResource();
 
+describe("true", () => {
+    it("true", async (done) => {
+        expect(0).to.equal(0);
+        done();
+    });
+});
+
 

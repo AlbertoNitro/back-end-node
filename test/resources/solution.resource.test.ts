@@ -12,7 +12,7 @@ const solutionResource: SolutionResource = new SolutionResource();
 
 // describe("update(id: number, justifications: Justification[])", () => {
 //     it("should return the MODIFIED SOLUTION", async (done) => {
-//         const solutionId: number = 361d87b8b230cf35177998ca; // 0x2da34f
+//         const solutionId = "361d87b8b230cf35177998ca";
 //         let solution: Solution = await solutionResource.findById(solutionId);
 //         let justifications: Justification[] = solution.getJustifications();
 //         expect(justifications.length).to.equal(3);
@@ -25,5 +25,12 @@ const solutionResource: SolutionResource = new SolutionResource();
 //         done();
 //     });
 // });
+
+describe("true", () => {
+    it("true", async (done) => {
+        expect(0).to.equal(0);
+        done();
+    });
+});
 
 
