@@ -5,9 +5,30 @@ import { RelationInputDto } from "../../src/dtos/input/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/output/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
 import { DeleteRelationInputDto } from "../../src/dtos/input/deleteRelationInput.dto";
+import logger from "../../src/util/logger";
+import { DbService } from "../../src/services/db.service";
 
 const chai = require("chai");
 const expect = chai.expect;
+const dbService: DbService = new DbService();
+
+// beforeAll( async (done) => {
+//     const successSeedDb: boolean = await dbService.seed();
+//     if (!successSeedDb) {
+//         logger.error("Abortando lanzamiento de pruebas, fallo al POBLAR Db.");
+//         fail("Abortando lanzamiento de pruebas...");
+//     }
+//     done();
+// });
+//
+// afterAll( async (done) => {
+//     const successDeleteDb: boolean = await dbService.delete();
+//     if (!successDeleteDb) {
+//         logger.error("Abortando lanzamiento de pruebas, fallo al DESPOBLAR Db.");
+//         fail("Abortando lanzamiento de pruebas...");
+//     }
+//     done();
+// });
 
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
