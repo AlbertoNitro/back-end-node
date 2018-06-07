@@ -4,6 +4,7 @@ import ItinerarySchema from "../../schemas/itinerary.schema";
 import logger from "../../util/logger";
 import { Formation } from "../../models/Formation.model";
 import { SessionDao } from "./session.dao";
+import { ItineraryBuilder } from "../../models/builders/itinerary.builder";
 
 export class ItineraryDao {
     constructor() {
@@ -16,7 +17,7 @@ export class ItineraryDao {
             const formationDocument: Document = formationsDocuments[i];
             formationDocument.get("kind") === "Session" ? formations.push(<Formation> SessionDao.toSession(formationDocument)) : formations.push(<Formation> ItineraryDao.toItinerary(formationDocument));
         }
-        const itinerary: Itinerary = new Itinerary(document.get("name")).setId(document.get("_id")).setFormations(formations);
+        const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
         return itinerary;
     }
     public static toArrayItinerarys(documents: Document[]): Itinerary[] {
@@ -48,7 +49,7 @@ export class ItineraryDao {
             });
     }
     async create(name: string): Promise<Itinerary> {
-        const itinerary: Itinerary = new Itinerary(name);
+        const itinerary: Itinerary = new ItineraryBuilder(name).build();
         const itinerarySchema = new ItinerarySchema(itinerary);
         return itinerarySchema.save()
             .then( (itineraryDocument: Document) => {
