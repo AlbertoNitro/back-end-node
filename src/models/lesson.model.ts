@@ -10,17 +10,14 @@ export class Lesson {
         this.interactions = [];
     }
 
-    setId(id: number): Lesson {
+    setId(id: number) {
         this._id = id;
-        return this;
     }
-    setName(name: string): Lesson {
+    setName(name: string) {
         this.name = name;
-        return this;
     }
-    setInteractions(interactions: Interaction[]): Lesson {
+    setInteractions(interactions: Interaction[]) {
         this.interactions = interactions;
-        return this;
     }
     getId(): number {
         return this._id;
