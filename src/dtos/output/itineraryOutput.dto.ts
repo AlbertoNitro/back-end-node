@@ -1,7 +1,7 @@
-import { Formation } from "../../models/formation.model";
+import { FormationOutputDto } from "./formationOutput.dto";
 
 export interface ItineraryOutputDto  {
     id: number;
     name: string;
-    formations: Formation[];
+    formations: FormationOutputDto[];
 }

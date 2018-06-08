@@ -20,6 +20,8 @@ import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
 import { Interaction } from "../models/interaction.model";
 import { InteractionOutputDto } from "../dtos/output/interactionOutput.dto";
 import logger from "../util/logger";
+import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
+import { Formation } from "../models/formation.model";
 
 export class DtoService {
     constructor() {
@@ -28,7 +30,9 @@ export class DtoService {
     static toUnitOutputDto(unit: Unit): UnitOutputDto {
         let unitOutputDto: UnitOutputDto = undefined;
         if (unit) {
-            unitOutputDto = {name: unit.getName(), code: unit.getCode()};
+            unitOutputDto = {
+                name: unit.getName(),
+                code: unit.getCode()};
         }
         return unitOutputDto;
     }
@@ -67,14 +71,20 @@ export class DtoService {
     static toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
         let neighborsOutputDto: NeighborsOutputDto = undefined;
         if (unit) {
-            neighborsOutputDto = {unit: DtoService.toUnitOutputDto(unit), topUnits: DtoService.toArrayUnitOutputDto(topUnits), lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits), relations: DtoService.toArrayRelationOutputDto(relations)};
+            neighborsOutputDto = {
+                unit: DtoService.toUnitOutputDto(unit),
+                topUnits: DtoService.toArrayUnitOutputDto(topUnits),
+                lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits),
+                relations: DtoService.toArrayRelationOutputDto(relations)};
         }
         return neighborsOutputDto;
     }
     static toVideoOutputDto(video: Video): VideoOutputDto {
         let videoOutputDto: VideoOutputDto = undefined;
         if (video) {
-            videoOutputDto = {id: video.getId(), url: video.getUrl()};
+            videoOutputDto = {
+                id: video.getId(),
+                url: video.getUrl()};
         }
         return videoOutputDto;
     }
@@ -90,7 +100,10 @@ export class DtoService {
     static toLessonOutputDto(lesson: Lesson): LessonOutputDto {
         let lessonOutputDto: LessonOutputDto = undefined;
         if (lesson) {
-            lessonOutputDto = {id: lesson.getId(), name: lesson.getName(), interactions: DtoService.toArrayInteractionOutputDto(lesson.getInteractions())};
+            lessonOutputDto = {
+                id: lesson.getId(),
+                name: lesson.getName(),
+                interactions: DtoService.toArrayInteractionOutputDto(lesson.getInteractions())};
         }
         return lessonOutputDto;
     }
@@ -106,7 +119,10 @@ export class DtoService {
     static toJustificationOutputDto(justification: Justification): JustificationOutputDto {
         let justificationOutputDto: JustificationOutputDto = undefined;
         if (justification) {
-            justificationOutputDto = {id: justification.getId(), text: justification.getText(), isCorrect: justification.getIsCorrect()};
+            justificationOutputDto = {
+                id: justification.getId(),
+                text: justification.getText(),
+                isCorrect: justification.getIsCorrect()};
         }
         return justificationOutputDto;
     }
@@ -122,7 +138,11 @@ export class DtoService {
     static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
         let solutionOutputDto: SolutionOutputDto = undefined;
         if (solution) {
-            solutionOutputDto = {id: solution.getId(), isCorrect: solution.getIsCorrect(), text: solution.getText(), justifications: DtoService.toArrayJustificationOutputDto(solution.getJustifications())};
+            solutionOutputDto = {
+                id: solution.getId(),
+                isCorrect: solution.getIsCorrect(),
+                text: solution.getText(),
+                justifications: DtoService.toArrayJustificationOutputDto(solution.getJustifications())};
         }
         return solutionOutputDto;
     }
@@ -138,7 +158,10 @@ export class DtoService {
     static toSessionOutputDto(session: Session): SessionOutputDto {
         let sessionOutputDto: SessionOutputDto = undefined;
         if (session) {
-            sessionOutputDto = {id: session.getId(), name: session.getName(), lessons: DtoService.toArrayLessonOutputDto(session.getLessons())};
+            sessionOutputDto = {
+                id: session.getId(),
+                name: session.getName(),
+                lessons: DtoService.toArrayLessonOutputDto(session.getLessons())};
         }
         return sessionOutputDto;
     }
@@ -154,7 +177,10 @@ export class DtoService {
     static toItineraryOutputDto(itinerary: Itinerary): ItineraryOutputDto {
         let itineraryOutputDto: ItineraryOutputDto = undefined;
         if (itinerary) {
-            itineraryOutputDto = {id: itinerary.getId(), name: itinerary.getName(), formations: itinerary.getFormations()};
+            itineraryOutputDto = {
+                id: itinerary.getId(),
+                name: itinerary.getName(),
+                formations: DtoService.toArrayFormationOutputDto(itinerary.getFormations())};
         }
         return itineraryOutputDto;
     }
@@ -167,10 +193,35 @@ export class DtoService {
         }
         return itinerariesOutputDtos;
     }
+    static toFormationOutputDto(formation: Formation): FormationOutputDto {
+        let formationOutputDto: FormationOutputDto = undefined;
+        const itinerary: Itinerary = <Itinerary> formation;
+        const session: Session = <Session> formation;
+        if (itinerary) {
+            formationOutputDto = {itinerary: DtoService.toItineraryOutputDto(itinerary)};
+        } else if (session) {
+            formationOutputDto = {session: DtoService.toSessionOutputDto(session)};
+        } else {
+            logger.error("ERROR en toFormationOutputDto(). A la hora de castear una formacionDto a sesionDto o a itinerarioDto");
+        }
+        return formationOutputDto;
+    }
+    static toArrayFormationOutputDto(formations: Formation[]): FormationOutputDto[] {
+        const formationsOutputDtos: FormationOutputDto[] = [];
+        if (formations.length > 0) {
+            for (let i = 0 ; i < formations.length ; i++ ) {
+                formationsOutputDtos.push(DtoService.toFormationOutputDto(formations[i]));
+            }
+        }
+        return formationsOutputDtos;
+    }
     static toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
         let exercisesOutputDto: ExerciseOutputDto = undefined;
         if (exercise) {
-            exercisesOutputDto = {id: exercise.getId(), formulation: exercise.getFormulation(), solutions: DtoService.toArraySolutionOutputDto(exercise.getSolutions())};
+            exercisesOutputDto = {
+                id: exercise.getId(),
+                formulation: exercise.getFormulation(),
+                solutions: DtoService.toArraySolutionOutputDto(exercise.getSolutions())};
         }
         return exercisesOutputDto;
     }
@@ -192,7 +243,7 @@ export class DtoService {
         } else if (exercise) {
             interactionOutputDto = {exercise: DtoService.toExerciseOutputDto(exercise)};
         } else {
-            logger.error("Error a la hora de castear una interaccion a video o a ejercicio");
+            logger.error("ERROR en toInteractionOutputDto(). A la hora de castear una interaccionDto a videoDto o a ejercicioDto");
         }
         return interactionOutputDto;
     }

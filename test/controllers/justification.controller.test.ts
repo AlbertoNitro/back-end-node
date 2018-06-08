@@ -42,7 +42,7 @@ describe("GET /justification", () => {
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const justificationsOutputDtos: JustificationOutputDto[] = res.body;
-                expect(justificationsOutputDtos.length).to.be.above(2);
+                expect(justificationsOutputDtos.length).to.be.above(4);
                 done();
             });
     });
