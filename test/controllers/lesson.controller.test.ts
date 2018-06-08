@@ -25,7 +25,7 @@ describe("POST /lesson", () => {
 });
 describe("GET /lesson/:id", () => {
     it("should return: 200 - OK ", (done) => {
-        const lessonId = "551d87b1b236cf35177998c0";
+        const lessonId = "862d87b8b530cf35177998c1";
         return request(app).get("/lesson/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
@@ -38,7 +38,7 @@ describe("GET /lesson/:id", () => {
 });
 describe("DELETE /lesson/:id", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
-        const lessonId = "5b17db3e06462b05583d672a";
+        const lessonId = "863d87b8b130cf35177998c2";
         return request(app).delete("/lesson/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);

@@ -23,9 +23,9 @@ describe("POST /video", () => {
     });
 });
 
-describe("GET /video/461d87b8b130cf35177998c1", () => {
+describe("GET /video/261d87b8b130cf59170998c1", () => {
     it("should return: 200 - OK ", (done) => {
-        const videoId = "461d87b8b130cf35177998c1";
+        const videoId = "261d87b8b130cf59170998c1";
         return request(app).get("/video/" + videoId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
@@ -36,9 +36,9 @@ describe("GET /video/461d87b8b130cf35177998c1", () => {
     });
 });
 
-describe("DELETE /video/161d77b8b230cf35177998c1", () => {
+describe("DELETE /video/661d57b8b030cf35177998c1", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
-        const videoId = "161d77b8b230cf35177998c1";
+        const videoId = "661d57b8b030cf35177998c1";
         return request(app).delete("/video/" + videoId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
