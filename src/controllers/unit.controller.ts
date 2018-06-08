@@ -9,6 +9,7 @@ import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
 import { DtoService } from "../services/dto.service";
 import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
 import { RelatedUnitsOutputDto } from "../dtos/output/relatedUnitsOutput.dto";
+import { NotRelatedUnitsOutputDto } from "../dtos/output/notRelatedUnitOutput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -79,5 +80,11 @@ export class UnitController {
         const unit: Unit = await this.unitResource.findByCode(code);
         const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+    }
+    async findNotRelated(req: Request, res: Response): Promise<any> {
+        console.log("BYE");
+        const unit: UnitOutputDto[] = DtoService.toArrayUnitOutputDto(await this.unitResource.findNotRelated());
+        unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
+
     }
 }

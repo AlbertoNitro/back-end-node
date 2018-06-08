@@ -4,6 +4,9 @@ import express from "express";
 const unitRoutes = express.Router();
 const unitController: UnitController = new UnitController();
 
+unitRoutes.get("/notrelated", (req, res) => {
+    unitController.findNotRelated(req, res);
+});
 unitRoutes.post("", (req, res) => {
     unitController.create(req, res);
 });
@@ -22,5 +25,6 @@ unitRoutes.get("/friends/:code", (req, res) => {
 unitRoutes.get("/:code", (req, res) => {
     unitController.findByCode(req, res);
 });
+
 
 export default unitRoutes;
