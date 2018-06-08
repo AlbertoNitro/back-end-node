@@ -1,4 +1,3 @@
-import { Lesson } from "../../models/lesson.model";
 import { LessonOutputDto } from "./lessonOutput.dto";
 
 export interface SessionOutputDto  {

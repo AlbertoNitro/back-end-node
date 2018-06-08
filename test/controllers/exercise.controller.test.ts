@@ -2,19 +2,22 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import logger from "../../src/util/logger";
+import {ExerciseInputDto} from "../../src/dtos/input/exerciseInput.dto";
+import {ExerciseOutputDto} from "../../src/dtos/output/exerciseOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /exercise", () => {
     it("should return: 201 - CREATED + Exercise", (done) => {
+        const exerciseInputDto: ExerciseInputDto = {"formulation": "¿En que epoca goberno Julio Cesar?"};
         return request(app).post("/exercise")
-            .send({
-                "formulation": "Prueba"
-                })
+            .send(exerciseInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
-                expect(res.body.formulation).to.equal("Prueba");
+                const exerciseOutputDto: ExerciseOutputDto = res.body;
+                expect(exerciseOutputDto.formulation).to.equal(exerciseInputDto.formulation);
+                expect(exerciseOutputDto.solutions.length).to.equal(0);
                 done();
             });
     });
@@ -25,7 +28,9 @@ describe("GET /exercise/361d87b8b230cf35177998c0", () => {
         return request(app).get("/exercise/361d87b8b230cf35177998c0")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                expect(res.body.formulation).to.equal("¿En que año se descubrio la luna?");
+                const exerciseOutputDto: ExerciseOutputDto = res.body;
+                expect(exerciseOutputDto.formulation).to.equal("¿En que año se descubrio la luna?");
+                expect(exerciseOutputDto.solutions.length).to.equal(0);
                 done();
             });
     });

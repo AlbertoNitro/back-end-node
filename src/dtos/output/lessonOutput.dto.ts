@@ -1,7 +1,7 @@
-import { Interaction } from "../../models/interaction.model";
+import { InteractionOutputDto } from "./interactionOutput.dto";
 
 export interface LessonOutputDto  {
     id: number;
     name: string;
-    interactions: Interaction[];
+    interactions: InteractionOutputDto[];
 }

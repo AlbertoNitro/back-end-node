@@ -1,4 +1,3 @@
-import { Solution } from "../../models/solution.model";
 import { SolutionOutputDto } from "./solutionOutput.dto";
 
 export interface ExerciseOutputDto  {
