@@ -21,7 +21,7 @@ export class UnitController {
     }
 
     async getNeighbors(req: Request, res: Response): Promise<any> {
-        const LEVELS_TO_EXPLORER: number = 2;
+        const LEVELS_TO_EXPLORER: number = 3;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
             const topUnitsIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
@@ -82,7 +82,6 @@ export class UnitController {
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findNotRelated(req: Request, res: Response): Promise<any> {
-        console.log("BYE");
         const unit: UnitOutputDto[] = DtoService.toArrayUnitOutputDto(await this.unitResource.findNotRelated());
         unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
 
