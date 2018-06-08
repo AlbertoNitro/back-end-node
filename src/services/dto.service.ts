@@ -17,6 +17,9 @@ import { ItineraryOutputDto } from "../dtos/output/itineraryOutput.dto";
 import { Itinerary } from "../models/itinerary.model";
 import { Exercise } from "../models/exercise.model";
 import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
+import { Interaction } from "../models/interaction.model";
+import { InteractionOutputDto } from "../dtos/output/interactionOutput.dto";
+import logger from "../util/logger";
 
 export class DtoService {
     constructor() {
@@ -87,7 +90,7 @@ export class DtoService {
     static toLessonOutputDto(lesson: Lesson): LessonOutputDto {
         let lessonOutputDto: LessonOutputDto = undefined;
         if (lesson) {
-            lessonOutputDto = {id: lesson.getId(), name: lesson.getName(), interactions: lesson.getInteractions()};
+            lessonOutputDto = {id: lesson.getId(), name: lesson.getName(), interactions: DtoService.toArrayInteractionOutputDto(lesson.getInteractions())};
         }
         return lessonOutputDto;
     }
@@ -179,5 +182,27 @@ export class DtoService {
             }
         }
         return exercisesOutputDtos;
+    }
+    static toInteractionOutputDto(interaction: Interaction): InteractionOutputDto {
+        let interactionOutputDto: InteractionOutputDto = undefined;
+        const video: Video = <Video> interaction;
+        const exercise: Exercise = <Exercise> interaction;
+        if (video) {
+            interactionOutputDto = {video: DtoService.toVideoOutputDto(video)};
+        } else if (exercise) {
+            interactionOutputDto = {exercise: DtoService.toExerciseOutputDto(exercise)};
+        } else {
+            logger.error("Error a la hora de castear una interaccion a video o a ejercicio");
+        }
+        return interactionOutputDto;
+    }
+    static toArrayInteractionOutputDto(interactions: Interaction[]): InteractionOutputDto[] {
+        const interactionsOutputDtos: InteractionOutputDto[] = [];
+        if (interactions.length > 0) {
+            for (let i = 0 ; i < interactions.length ; i++ ) {
+                interactionsOutputDtos.push(DtoService.toInteractionOutputDto(interactions[i]));
+            }
+        }
+        return interactionsOutputDtos;
     }
 }

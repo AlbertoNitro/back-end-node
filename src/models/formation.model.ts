@@ -1,2 +1,2 @@
-export class Formation {
+export abstract class Formation {
 }
