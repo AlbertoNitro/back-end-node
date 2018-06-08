@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
 import { Unit } from "../models/unit.model";
 import { UnitResource } from "../resources/unit.resource";
 import { RelationResource } from "../resources/relation.resource";
-import logger from "../util/logger";
+import logger from "../utils/logger";
 import { Relation } from "../models/relation.model";
 import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
 import { DtoService } from "../services/dto.service";

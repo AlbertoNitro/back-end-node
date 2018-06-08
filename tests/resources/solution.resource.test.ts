@@ -1,4 +1,4 @@
-import logger from "../../src/util/logger";
+import logger from "../../src/utils/logger";
 import { SolutionResource } from "../../src/resources/solution.resource";
 import { Solution } from "../../src/models/solution.model";
 import { Justification } from "../../src/models/justification.model";

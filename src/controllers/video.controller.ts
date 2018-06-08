@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
 import { Video } from "../models/video.model";
 import { VideoResource } from "../resources/video.resource";
 import { DtoService } from "../services/dto.service";
 import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
-import logger from "../util/logger";
+import logger from "../utils/logger";
 
 export class VideoController {
     private videoResource: VideoResource;

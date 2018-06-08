@@ -1,6 +1,6 @@
 import fs from "fs";
-import { MONGODB_URI } from "../util/secrets";
-import logger from "../util/logger";
+import { MONGODB_URI } from "../utils/secrets";
+import logger from "../utils/logger";
 
 export class DbService {
     private mongoose: any;

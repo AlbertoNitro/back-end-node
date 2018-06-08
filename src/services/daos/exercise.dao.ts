@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import logger from "../../util/logger";
+import logger from "../../utils/logger";
 import { Exercise } from "../../models/exercise.model";
 import ExerciseSchema from "../../schemas/exercise.schema";
 import { SolutionDao } from "./solution.dao";

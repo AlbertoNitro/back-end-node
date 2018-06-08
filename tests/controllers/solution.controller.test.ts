@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../../src/app";
-import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import logger from "../../src/util/logger";
+import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
+import logger from "../../src/utils/logger";
 import { SolutionOutputDto } from "../../src/dtos/output/solutionOutput.dto";
 import { SolutionInputDto } from "../../src/dtos/input/solutionInput.dto";
 

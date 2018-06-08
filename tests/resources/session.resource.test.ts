@@ -1,4 +1,4 @@
-import logger from "../../src/util/logger";
+import logger from "../../src/utils/logger";
 import { SessionResource } from "../../src/resources/session.resource";
 
 const chai = require("chai");

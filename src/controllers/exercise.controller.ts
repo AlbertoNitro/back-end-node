@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
 import { DtoService } from "../services/dto.service";
-import logger from "../util/logger";
+import logger from "../utils/logger";
 import { ExerciseResource } from "../resources/exercise.resource";
 import { Exercise } from "../models/exercise.model";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
