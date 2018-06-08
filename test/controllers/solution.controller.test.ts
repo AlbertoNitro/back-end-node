@@ -1,37 +1,18 @@
 import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
-import { NeighborsOutputDto } from "../../src/dtos/output/neighborsOutput.dto";
-import { RelatedUnitsOutputDto } from "../../src/dtos/output/relatedUnitsOutput.dto";
 import { SolutionOutputDto } from "../../src/dtos/output/solutionOutput.dto";
+import { SolutionInputDto } from "../../src/dtos/input/solutionInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
-const dbService: DbService = new DbService();
-
-beforeAll( async (done) => {
-    const successDeleteDb: boolean = await dbService.delete();
-    if (!successDeleteDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-    }
-    const successSeedDb: boolean = await dbService.seed();
-    if (!successSeedDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-    }
-    successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
-});
-
 describe("POST /solution", () => {
     it("should return: 201 - CREATED + Solution", (done) => {
+        const solutionInputDto: SolutionInputDto = {"isCorrect": true, "text": "Prueba"};
         return request(app).post("/solution")
-            .send({
-                "isCorrect": "true",
-                "text": "Prueba"
-            })
+            .send(solutionInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const solutionOutputDto: SolutionOutputDto = res.body;
@@ -46,8 +27,8 @@ describe("GET /solution", () => {
         return request(app).get("/solution")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                const solutionOutputDto: SolutionOutputDto[] = res.body;
-                expect(solutionOutputDto.length).to.equal(4);
+                const solutionsOutputDto: SolutionOutputDto[] = res.body;
+                expect(solutionsOutputDto.length).to.be.above(3);
                 done();
             });
     });
@@ -59,6 +40,7 @@ describe("GET /solution/:id", () => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const solutionOutputDto: SolutionOutputDto = res.body;
                 expect(solutionOutputDto.text).to.equal("La formula del agua H20");
+                expect(solutionOutputDto.isCorrect).to.equal(true);
                 done();
             });
     });

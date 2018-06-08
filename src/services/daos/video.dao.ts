@@ -6,10 +6,11 @@ import logger from "../../util/logger";
 export class VideoDao {
     constructor() {
     }
-    public static toVideo(document: Document): Video {
+
+    static toVideo(document: Document): Video {
         return new Video(document.get("url")).setId(document.get("_id"));
     }
-    public static toArrayVideos(documents: Document[]): Video[] {
+    static toArrayVideos(documents: Document[]): Video[] {
         const videos: Video[] = [];
         for (let i = 0; i < documents.length; i++) {
             videos.push(VideoDao.toVideo(documents[i]));

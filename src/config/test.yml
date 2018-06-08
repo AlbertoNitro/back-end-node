@@ -1,34 +1,43 @@
 #Lessons
 lessons:
     - &lesson0
-        _id: {$oid: "551d87b1b236cf35177998c0"}
+        _id: {$oid: "862d87b8b530cf35177998c1"}
         name: Variables en Java
         interactions: []
     - &lesson1
-        _id: {$oid: "5b17db3e06462b05583d672a"}
+        _id: {$oid: "863d87b8b130cf35177998c2"}
         name: Constantes en Java
         interactions: []
+
 #Interactions
 interactions:
-    - &interaction1
+    - &interaction0
         _id: {$oid: "361d87b8b230cf35177998c0"}
-        formulation: I1
         kind: Exercise
-        solution: [ ]
-    - &interaction2
-        _id: {$oid: "361d87b8b230cf35177998c1"}
-        url: bleble
+        formulation: ¿En que año se descubrio la luna?
+        solutions: []
+    - &interaction1
+        _id: {$oid: "261d87b8b130cf59170998c1"}
         kind: Video
+        url: www.marca.es
+    - &interaction2
+        _id: {$oid: "661d57b8b030cf35177998c1"}
+        kind: Video
+        url: www.mundodeportivo.es
+
 #Session
 formations:
-    - &session1
+    - &session0
         _id: {$oid: "501d87b8b230cf35177998c0"}
         kind: Session
         name: Session1
+        lessons: []
     - &itinerary1
         _id: {$oid: "511d87b8b230cf35177998c0"}
         kind: Itinerary
         name: Itinerary1
+        formations: []
+        
 # Justifications
 justifications:
 - &justification0

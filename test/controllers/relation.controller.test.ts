@@ -5,6 +5,7 @@ import { RelationInputDto } from "../../src/dtos/input/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/output/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
 import { DeleteRelationInputDto } from "../../src/dtos/input/deleteRelationInput.dto";
+import logger from "../../src/util/logger";
 
 const chai = require("chai");
 const expect = chai.expect;

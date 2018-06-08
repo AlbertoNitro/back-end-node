@@ -5,6 +5,5 @@ const Justification = new mongoose.Schema({
     text: { type: String, required: true },
 });
 
-
 const JustificationSchema = mongoose.model("Justification", Justification);
 export default JustificationSchema;

@@ -3,33 +3,21 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import logger from "../../src/util/logger";
 import { JustificationOutputDto } from "../../src/dtos/output/justificationOutput.dto";
-import { DbService } from "../../src/services/db.service";
+import { JustificationInputDto } from "../../src/dtos/input/justificationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
-const dbService: DbService = new DbService();
-beforeAll( async (done) => {
-    const successDeleteDb: boolean = await dbService.delete();
-    if (!successDeleteDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-    }
-    const successSeedDb: boolean = await dbService.seed();
-    if (!successSeedDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-    }
-    successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
-});
+
 describe("POST /justification", () => {
     it("should return: 201 - CREATED + Justification", (done) => {
-        const text = "Existen extraterrestres en Jupiter";
-        const isCorrect = false;
+        const justificationInputDto: JustificationInputDto = {"text": "Existen extraterrestres en Jupiter", "isCorrect": false };
         return request(app).post("/justification")
-            .send({"text": text, "isCorrect": isCorrect })
+            .send(justificationInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const justificationOutputDto: JustificationOutputDto = res.body;
-                expect(justificationOutputDto.text).to.equal(text);
-                expect(justificationOutputDto.isCorrect).to.equal(isCorrect);
+                expect(justificationOutputDto.text).to.equal(justificationInputDto.text);
+                expect(justificationOutputDto.isCorrect).to.equal(justificationInputDto.isCorrect);
                 done();
             });
     });
@@ -53,7 +41,7 @@ describe("GET /justification", () => {
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const justificationsOutputDtos: JustificationOutputDto[] = res.body;
-                expect(justificationsOutputDtos.length).to.be.above(2);
+                expect(justificationsOutputDtos.length).to.be.above(4);
                 done();
             });
     });
@@ -69,5 +57,3 @@ describe("DELETE /justification/111d87b8b230cf35177998ca", () => {
             });
     });
 });
-
-

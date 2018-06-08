@@ -1,2 +1,2 @@
-export class Interaction  {
+export abstract class Interaction  {
 }

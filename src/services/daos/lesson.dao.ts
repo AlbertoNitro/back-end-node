@@ -11,7 +11,7 @@ export class LessonDao {
     constructor() {
     }
 
-    public static toLesson(document: Document): Lesson {
+    static toLesson(document: Document): Lesson {
         const interactions: Interaction[] = [];
         const interactionsDocuments: Document[] = document.get("interactions");
         for (let i = 0 ; i < interactionsDocuments.length ; i++) {
@@ -21,7 +21,7 @@ export class LessonDao {
         const lesson: Lesson = new LessonBuilder(document.get("name")).setId(document.get("_id")).setInteractions(interactions).build();
         return lesson;
     }
-    public  static toArrayLessons(documents: Document[]): Lesson[] {
+    static toArrayLessons(documents: Document[]): Lesson[] {
         const lessons: Lesson[] = [];
         for (let i = 0; i < documents.length; i++) {
             lessons.push(LessonDao.toLesson(documents[i]));

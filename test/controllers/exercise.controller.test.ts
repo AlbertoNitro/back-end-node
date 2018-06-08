@@ -1,35 +1,23 @@
 import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-
+import {ExerciseInputDto} from "../../src/dtos/input/exerciseInput.dto";
+import {ExerciseOutputDto} from "../../src/dtos/output/exerciseOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
-const dbService: DbService = new DbService();
-beforeAll( async (done) => {
-    const successDeleteDb: boolean = await dbService.delete();
-    if (!successDeleteDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-    }
-    const successSeedDb: boolean = await dbService.seed();
-    if (!successSeedDb) {
-        logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-    }
-    successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
-});
-
 describe("POST /exercise", () => {
     it("should return: 201 - CREATED + Exercise", (done) => {
+        const exerciseInputDto: ExerciseInputDto = {"formulation": "¿En que epoca goberno Julio Cesar?"};
         return request(app).post("/exercise")
-            .send({
-                "formulation": "Prueba"
-                })
+            .send(exerciseInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
-                expect(res.body.formulation).to.equal("Prueba");
+                const exerciseOutputDto: ExerciseOutputDto = res.body;
+                expect(exerciseOutputDto.formulation).to.equal(exerciseInputDto.formulation);
+                expect(exerciseOutputDto.solutions.length).to.equal(0);
                 done();
             });
     });
@@ -40,7 +28,9 @@ describe("GET /exercise/361d87b8b230cf35177998c0", () => {
         return request(app).get("/exercise/361d87b8b230cf35177998c0")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                expect(res.body.formulation).to.equal("I1");
+                const exerciseOutputDto: ExerciseOutputDto = res.body;
+                expect(exerciseOutputDto.formulation).to.equal("¿En que año se descubrio la luna?");
+                expect(exerciseOutputDto.solutions.length).to.equal(0);
                 done();
             });
     });

@@ -3,26 +3,11 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
 import logger from "../../src/util/logger";
-import { SolutionOutputDto } from "../../src/dtos/output/solutionOutput.dto";
 import { LessonOutputDto } from "../../src/dtos/output/lessonOutput.dto";
 import { LessonInputDto } from "../../src/dtos/input/lessonInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
-
-// const dbService: DbService = new DbService();
-//
-// beforeAll( async (done) => {
-//     const successDeleteDb: boolean = await dbService.delete();
-//     if (!successDeleteDb) {
-//         logger.error("Abortando lanzamiento de pruebas, fallo al resetear DB.");
-//     }
-//     const successSeedDb: boolean = await dbService.seed();
-//     if (!successSeedDb) {
-//         logger.error("Abortando lanzamiento de pruebas, fallo al poblar DB.");
-//     }
-//     successSeedDb && successDeleteDb ? done() : fail("Abortando lanzamiento de pruebas...");
-// });
 
 describe("POST /lesson", () => {
     it("should return: 201 - CREATED + Lesson", (done) => {
@@ -40,7 +25,7 @@ describe("POST /lesson", () => {
 });
 describe("GET /lesson/:id", () => {
     it("should return: 200 - OK ", (done) => {
-        const lessonId = "551d87b1b236cf35177998c0";
+        const lessonId = "862d87b8b530cf35177998c1";
         return request(app).get("/lesson/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
@@ -53,7 +38,7 @@ describe("GET /lesson/:id", () => {
 });
 describe("DELETE /lesson/:id", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
-        const lessonId = "5b17db3e06462b05583d672a";
+        const lessonId = "863d87b8b130cf35177998c2";
         return request(app).delete("/lesson/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);

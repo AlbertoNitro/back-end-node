@@ -1,5 +1,5 @@
 import { Lesson } from "./lesson.model";
-import { Formation } from "./Formation.model";
+import { Formation } from "./formation.model";
 
 export class Session extends Formation {
     private _id: number;
