@@ -20,7 +20,7 @@ export class UnitController {
     }
 
     async getNeighbors(req: Request, res: Response): Promise<any> {
-        const LEVELS_TO_EXPLORER: number = 5;
+        const LEVELS_TO_EXPLORER: number = 2;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
             const topUnitsIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
