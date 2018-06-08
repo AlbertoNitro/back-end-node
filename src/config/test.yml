@@ -8,13 +8,14 @@ lessons:
         _id: {$oid: "5b17db3e06462b05583d672a"}
         name: Constantes en Java
         interactions: []
+
 #Interactions
 interactions:
     - &interaction0
         _id: {$oid: "361d87b8b230cf35177998c0"}
         kind: Exercise
         formulation: ¿En que año se descubrio la luna?
-        solution: []
+        solutions: []
     - &interaction1
         _id: {$oid: "461d87b8b130cf35177998c1"}
         kind: Video
@@ -30,10 +31,13 @@ formations:
         _id: {$oid: "501d87b8b230cf35177998c0"}
         kind: Session
         name: Session1
+        lessons: []
     - &itinerary1
         _id: {$oid: "511d87b8b230cf35177998c0"}
         kind: Itinerary
         name: Itinerary1
+        formations: []
+        
 # Justifications
 justifications:
 - &justification0

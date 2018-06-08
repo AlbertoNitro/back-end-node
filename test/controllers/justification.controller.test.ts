@@ -3,22 +3,21 @@ import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import logger from "../../src/util/logger";
 import { JustificationOutputDto } from "../../src/dtos/output/justificationOutput.dto";
-import { DbService } from "../../src/services/db.service";
+import { JustificationInputDto } from "../../src/dtos/input/justificationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /justification", () => {
     it("should return: 201 - CREATED + Justification", (done) => {
-        const text = "Existen extraterrestres en Jupiter";
-        const isCorrect = false;
+        const justificationInputDto: JustificationInputDto = {"text": "Existen extraterrestres en Jupiter", "isCorrect": false };
         return request(app).post("/justification")
-            .send({"text": text, "isCorrect": isCorrect })
+            .send(justificationInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const justificationOutputDto: JustificationOutputDto = res.body;
-                expect(justificationOutputDto.text).to.equal(text);
-                expect(justificationOutputDto.isCorrect).to.equal(isCorrect);
+                expect(justificationOutputDto.text).to.equal(justificationInputDto.text);
+                expect(justificationOutputDto.isCorrect).to.equal(justificationInputDto.isCorrect);
                 done();
             });
     });

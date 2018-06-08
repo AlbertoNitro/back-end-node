@@ -2,19 +2,22 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
 import logger from "../../src/util/logger";
+import { ItineraryInputDto } from "../../src/dtos/input/itineraryInput.dto";
+import { ItineraryOutputDto } from "../../src/dtos/output/itineraryOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /itinerary", () => {
     it("should return: 201 - CREATED + Itinerary", (done) => {
+        const itineraryInputDto: ItineraryInputDto = {"name": "Prueba"};
         return request(app).post("/itinerary")
-            .send({
-                "name": "Prueba"
-                })
+            .send(itineraryInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
-                expect(res.body.name).to.equal("Prueba");
+                const itineraryOutputDto: ItineraryOutputDto = res.body;
+                expect(itineraryOutputDto.name).to.equal(itineraryInputDto.name);
+                expect(itineraryOutputDto.formations.length).to.equal(0);
                 done();
             });
     });
@@ -25,7 +28,9 @@ describe("GET /itinerary/511d87b8b230cf35177998c0", () => {
         return request(app).get("/itinerary/511d87b8b230cf35177998c0")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                expect(res.body.name).to.equal("Itinerary1");
+                const itineraryOutputDto: ItineraryOutputDto = res.body;
+                expect(itineraryOutputDto.name).to.equal("Itinerary1");
+                expect(itineraryOutputDto.formations.length).to.equal(0);
                 done();
             });
     });
