@@ -22,7 +22,9 @@ export class ExerciseController {
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
+        logger.info(id);
         const exercise: Exercise = await this.exerciseResource.findById(id);
+        logger.info(JSON.stringify(exercise));
         // const exerciseOutputDto: ExerciseOutputDto = DtoService.toExerciseOutputDto(exercise);
         exercise ? res.status(HttpStatusCode.OK).json(exercise) : res.status(HttpStatusCode.NOT_FOUND).end();
     }

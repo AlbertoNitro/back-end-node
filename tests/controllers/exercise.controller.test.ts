@@ -2,8 +2,8 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import logger from "../../src/utils/logger";
-import {ExerciseInputDto} from "../../src/dtos/input/exerciseInput.dto";
-import {ExerciseOutputDto} from "../../src/dtos/output/exerciseOutput.dto";
+import { ExerciseInputDto } from "../../src/dtos/input/exerciseInput.dto";
+import { ExerciseOutputDto } from "../../src/dtos/output/exerciseOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -23,22 +23,35 @@ describe("POST /exercise", () => {
     });
 });
 
-describe("GET /exercise/361d87b8b230cf35177998c0", () => {
+describe("GET /exercise/851d87b8b230cf25177998c0", () => {
     it("should return: 200", (done) => {
-        return request(app).get("/exercise/361d87b8b230cf35177998c0")
+        return request(app).get("/exercise/851d87b8b230cf25177998c0")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
                 expect(exerciseOutputDto.formulation).to.equal("¿En que año se descubrio la luna?");
+                expect(exerciseOutputDto.solutions.length).to.equal(2);
+                done();
+            });
+    });
+});
+
+describe("GET /exercise/321d87b8b230cf25177998c0", () => {
+    it("should return: 200", (done) => {
+        return request(app).get("/exercise/321d87b8b230cf25177998c0")
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const exerciseOutputDto: ExerciseOutputDto = res.body;
+                expect(exerciseOutputDto.formulation).to.equal("¿Quien invento la polvora?");
                 expect(exerciseOutputDto.solutions.length).to.equal(0);
                 done();
             });
     });
 });
 
-describe("DELETE /exercise/361d87b8b230cf35177998c0", () => {
+describe("DELETE /exercise/751d87b8b230cf25177998c0", () => {
     it("should return: 204", (done) => {
-        return request(app).delete("/exercise/361d87b8b230cf35177998c0")
+        return request(app).delete("/exercise/751d87b8b230cf25177998c0")
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
