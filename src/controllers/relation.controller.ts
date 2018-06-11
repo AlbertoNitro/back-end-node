@@ -20,8 +20,8 @@ export class RelationController {
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const relations: Relation[] = await this.relationResource.findAll();
-        const relationOutputDtos: RelationOutputDto[] = DtoService.toArrayRelationOutputDto(relations);
-        relations ? res.status(HttpStatusCode.OK).json(relationOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        const relationsOutputDtos: RelationOutputDto[] = DtoService.toArrayRelationOutputDto(relations);
+        relations ? res.status(HttpStatusCode.OK).json(relationsOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async create(req: Request, res: Response): Promise<any> {
         const relationInputDto: RelationInputDto = req.body;

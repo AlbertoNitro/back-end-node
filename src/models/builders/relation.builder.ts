@@ -8,7 +8,7 @@ export class RelationBuilder {
         this.relation = new Relation();
     }
 
-    setId(id: number): RelationBuilder {
+    setId(id: string): RelationBuilder {
         this.relation.setId(id);
         return this;
     }
@@ -35,27 +35,6 @@ export class RelationBuilder {
     setCardinalLowerUnit(cardinalLowerUnit: string): RelationBuilder {
         this.relation.setCardinalLowerUnit(cardinalLowerUnit);
         return this;
-    }
-    getId(): number {
-        return this.relation.getId();
-    }
-    getType(): string {
-        return this.relation.getType();
-    }
-    getTopUnit(): Unit {
-        return this.relation.getTopUnit();
-    }
-    getLowerUnit(): Unit {
-        return this.relation.getLowerUnit();
-    }
-    getSemantics(): string {
-        return this.relation.getSemantics();
-    }
-    getCardinalTopUnit(): string {
-        return this.relation.getCardinalTopUnit();
-    }
-    getCardinalLowerUnit(): string {
-        return this.relation.getCardinalLowerUnit();
     }
     public build() {
         return this.relation;

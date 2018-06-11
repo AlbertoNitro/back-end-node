@@ -17,7 +17,7 @@ export class VideoDao {
         }
         return videos;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await VideoSchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -27,7 +27,7 @@ export class VideoDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Video> {
+    async findById(id: string): Promise<Video> {
         return await VideoSchema.findById(id)
             .then( (videoDocument: Document) => {
                 const video: Video = videoDocument ? VideoDao.toVideo(videoDocument) : undefined;

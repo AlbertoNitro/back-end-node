@@ -37,7 +37,7 @@ export class ExerciseDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Exercise> {
+    async findById(id: string): Promise<Exercise> {
         return await ExerciseSchema.findById(id)
             .then( (exerciseDocument: Document) => {
                 const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;

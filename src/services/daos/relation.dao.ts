@@ -26,7 +26,7 @@ export class RelationDao {
         }
         return relations;
     }
-    async findByLowerUnit(unitId: number): Promise<Relation[]> {
+    async findByLowerUnit(unitId: string): Promise<Relation[]> {
         return await RelationSchema.find({lowerUnit: unitId})
             .then( async (relationsDocument: Document[]) => {
                 const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
@@ -38,7 +38,7 @@ export class RelationDao {
                     return undefined;
             });
     }
-    async findByTopUnit(unitId: number): Promise<Relation[]> {
+    async findByTopUnit(unitId: string): Promise<Relation[]> {
         return await RelationSchema.find({topUnit: unitId})
             .then( async (relationsDocument: Document[]) => {
                 const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
@@ -85,7 +85,7 @@ export class RelationDao {
             return undefined;
         }
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return RelationSchema.deleteOne({ _id: id })
             .then( () => {
                 return true;

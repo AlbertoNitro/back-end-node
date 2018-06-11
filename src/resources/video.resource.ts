@@ -11,7 +11,7 @@ export class VideoResource {
     async create(url: string): Promise<Video> {
         return await this.videoDao.create(url);
     }
-    async findById(id: number): Promise<Video> {
+    async findById(id: string): Promise<Video> {
         return await this.videoDao.findById(id);
     }
     async delete(video: Video): Promise<boolean> {

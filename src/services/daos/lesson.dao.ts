@@ -28,7 +28,7 @@ export class LessonDao {
         }
         return lessons;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await LessonSchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -38,7 +38,7 @@ export class LessonDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Lesson> {
+    async findById(id: string): Promise<Lesson> {
         return await LessonSchema.findById(id)
             .then( (lessonDocument: Document) => {
                 const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;

@@ -1,7 +1,7 @@
 import { Itinerary } from "./itinerary.model";
 
 export class Unit {
-    private _id: number;
+    private _id: string;
     private name: string;
     private code: number;
     private content: string;
@@ -12,7 +12,7 @@ export class Unit {
         this.itineraries = [];
     }
 
-    setId(id: number) {
+    setId(id: string) {
         this._id = id;
     }
     setName(name: string) {
@@ -27,7 +27,7 @@ export class Unit {
     setItineraries(itineraries: Itinerary[]) {
         this.itineraries = itineraries;
     }
-    getId(): number {
+    getId(): string {
         return this._id;
     }
     getName(): string {

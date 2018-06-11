@@ -12,7 +12,7 @@ export class ItineraryResource {
     async create(name: string): Promise<Itinerary> {
         return await this.itineraryDao.create(name);
     }
-    async findById(id: number): Promise<Itinerary> {
+    async findById(id: string): Promise<Itinerary> {
         return await this.itineraryDao.findById(id);
     }
     async delete(itinerary: Itinerary): Promise<boolean> {

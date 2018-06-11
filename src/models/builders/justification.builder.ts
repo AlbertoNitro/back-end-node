@@ -7,7 +7,7 @@ export class JustificationBuilder {
         this.justification = new Justification(text, isCorrect);
     }
 
-    setId(id: number): JustificationBuilder {
+    setId(id: string): JustificationBuilder {
         this.justification.setId(id);
         return this;
     }
@@ -18,15 +18,6 @@ export class JustificationBuilder {
     setText(text: string): JustificationBuilder {
         this.justification.setText(text);
         return this;
-    }
-    getId(id: number): number {
-        return this.justification.getId();
-    }
-    getIsCorrect(): boolean {
-        return this.justification.getIsCorrect();
-    }
-    getText(): string {
-        return this.justification.getText();
     }
     build(): Justification {
         return this.justification;

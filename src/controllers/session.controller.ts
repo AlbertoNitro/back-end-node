@@ -18,13 +18,13 @@ export class SessionController {
         session ? res.status(HttpStatusCode.CREATED).json(session) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const session: Session = await this.sessionResource.findById(id);
         // const sessionOutputDto: SessionOutputDto = DtoService.toSessionOutputDto(session);
         session ? res.status(HttpStatusCode.OK).json(session) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const session: Session = await this.sessionResource.findById(id);
         if (session) {
             const success: boolean = await this.sessionResource.delete(session);

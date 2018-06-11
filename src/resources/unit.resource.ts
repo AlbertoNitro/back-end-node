@@ -30,7 +30,7 @@ export class UnitResource {
         const statusDeleteUnit: boolean = await this.unitDao.delete(unit.getId());
         return statusDeleteRelations && statusDeleteUnit;
     }
-    async findById(id: number): Promise<Unit> {
+    async findById(id: string): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
     async getFriends(id: number, iteration: number): Promise<Set<number>> {
@@ -82,7 +82,6 @@ export class UnitResource {
         const unit: Unit[] = await this.unitDao.findAll();
         const notRelatedUnits: Unit[] = [];
         for (let i = 0; i < unit.length ; i++ ) {
-            console.log(await this.relationResource.findByLowerUnit(unit[i].getId()));
             if ((await this.relationResource.findByLowerUnit(unit[i].getId())).length == 0 && (await this.relationResource.findByTopUnit(unit[i].getId())).length == 0) {
                 notRelatedUnits.push(unit[i]);
             }

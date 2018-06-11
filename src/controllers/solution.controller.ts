@@ -13,13 +13,13 @@ export class SolutionController {
     constructor() {
     }
     async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const solution: Solution = await this.solutionResource.findById(id);
         const solutionOutputDto: SolutionOutputDto = DtoService.toSolutionOutputDto(solution);
         solutionOutputDto ? res.status(HttpStatusCode.OK).json(solutionOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const solution: Solution = await this.solutionResource.findById(id);
         if (solution) {
             const success: boolean = await this.solutionResource.delete(solution);

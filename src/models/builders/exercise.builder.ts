@@ -16,7 +16,7 @@ export class ExerciseBuilder {
         this.exercise.setSolutions(solutions);
         return this;
     }
-    setId(id: number): ExerciseBuilder {
+    setId(id: string): ExerciseBuilder {
         this.exercise.setId(id);
         return this;
     }

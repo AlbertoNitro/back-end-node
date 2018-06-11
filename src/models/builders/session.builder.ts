@@ -9,11 +9,10 @@ export class SessionBuilder {
         this.session = new Session(name);
     }
 
-    setId(id: number): SessionBuilder {
+    setId(id: string): SessionBuilder {
         this.session.setId(id);
         return this;
     }
-
     setName(name: string): SessionBuilder {
         this.session.setName(name);
         return this;

@@ -11,7 +11,7 @@ export class ItineraryBuilder {
         this.itinerary = new Itinerary(name);
     }
 
-    setId(id: number): ItineraryBuilder {
+    setId(id: string): ItineraryBuilder {
         this.itinerary.setId(id);
         return this;
     }
