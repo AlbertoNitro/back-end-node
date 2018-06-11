@@ -18,7 +18,7 @@ export class ItineraryResource {
     async delete(itinerary: Itinerary): Promise<boolean> {
         return await this.itineraryDao.delete(itinerary.getId());
     }
-    async update(id: number, formations: Formation[]): Promise<Itinerary> {
+    async update(id: string, formations: Formation[]): Promise<Itinerary> {
         let itinerary: Itinerary = await this.findById(id);
         itinerary = itinerary ? await this.itineraryDao.update(id, formations) : undefined;
         return itinerary;

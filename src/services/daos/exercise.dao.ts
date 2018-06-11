@@ -27,7 +27,7 @@ export class ExerciseDao {
         }
         return exercises;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await ExerciseSchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -61,7 +61,7 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async update(id: number, solutions: Solution[]): Promise<Exercise> {
+    async update(id: string, solutions: Solution[]): Promise<Exercise> {
         return await ExerciseSchema.updateOne({_id: id}, {$set: {solutions: solutions}}, {new: true})
             .then((exerciseDocument: Document) => {
                 const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;

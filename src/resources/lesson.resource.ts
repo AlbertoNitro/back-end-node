@@ -18,7 +18,7 @@ export class LessonResource {
     async delete(lesson: Lesson): Promise<boolean> {
         return await this.lessonDao.delete(lesson.getId());
     }
-    async update(id: number, interactions: Interaction[]): Promise<Lesson> {
+    async update(id: string, interactions: Interaction[]): Promise<Lesson> {
         let lesson: Lesson = await this.findById(id);
         lesson = lesson ? await this.lessonDao.update(id, interactions) : undefined;
         return lesson;

@@ -1,7 +1,7 @@
 import { InteractionOutputDto } from "./interactionOutput.dto";
 
 export interface LessonOutputDto  {
-    id: number;
+    id: string;
     name: string;
     interactions: InteractionOutputDto[];
 }

@@ -1,7 +1,7 @@
 import { LessonOutputDto } from "./lessonOutput.dto";
 
 export interface SessionOutputDto  {
-    id: number;
+    id: string;
     name: string;
     lessons: LessonOutputDto[];
 }

@@ -18,7 +18,7 @@ export class SessionResource {
     async delete(session: Session): Promise<boolean> {
         return await this.sessionDao.delete(session.getId());
     }
-    async update(id: number, lessons: Lesson[]): Promise<Session> {
+    async update(id: string, lessons: Lesson[]): Promise<Session> {
         let session: Session = await this.findById(id);
         session = session ? await this.sessionDao.update(id, lessons) : undefined;
         return session;

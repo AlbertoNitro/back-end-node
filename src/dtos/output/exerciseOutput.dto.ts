@@ -1,7 +1,7 @@
 import { SolutionOutputDto } from "./solutionOutput.dto";
 
 export interface ExerciseOutputDto  {
-    id: number;
+    id: string;
     formulation: string;
     solutions: SolutionOutputDto[];
 }

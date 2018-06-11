@@ -55,7 +55,7 @@ export class SessionDao {
                 return undefined;
             });
     }
-    async update(id: number, lessons: Lesson[]): Promise<Session> {
+    async update(id: string, lessons: Lesson[]): Promise<Session> {
         return await SessionSchema.updateOne({_id: id}, {$set: {lessons: lessons}}, {new: true})
             .then( (sessionDocument: Document) => {
                 const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
