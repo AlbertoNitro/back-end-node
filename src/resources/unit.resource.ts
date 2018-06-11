@@ -78,4 +78,15 @@ export class UnitResource {
         }
         return set;
     }
+    async findNotRelated(): Promise<Unit[]> {
+        const unit: Unit[] = await this.unitDao.findAll();
+        const notRelatedUnits: Unit[] = [];
+        for (let i = 0; i < unit.length ; i++ ) {
+            console.log(await this.relationResource.findByLowerUnit(unit[i].getId()));
+            if ((await this.relationResource.findByLowerUnit(unit[i].getId())).length == 0 && (await this.relationResource.findByTopUnit(unit[i].getId())).length == 0) {
+                notRelatedUnits.push(unit[i]);
+            }
+        }
+        return notRelatedUnits;
+    }
 }
