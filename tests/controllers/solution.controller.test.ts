@@ -17,6 +17,7 @@ describe("POST /solution", () => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const solutionOutputDto: SolutionOutputDto = res.body;
                 expect(solutionOutputDto.text).to.equal("Prueba");
+                expect(solutionOutputDto.justifications.length).to.equal(0);
                 done();
             });
     });
@@ -43,6 +44,20 @@ describe("GET /solution/:id", () => {
                 expect(solutionOutputDto.text).to.equal("1974");
                 expect(solutionOutputDto.isCorrect).to.equal(false);
                 expect(solutionOutputDto.justifications.length).to.equal(3);
+                done();
+            });
+    });
+});
+describe("GET /solution/:id", () => {
+    it("should return: 200", (done) => {
+        const solutionId = "461d87b8b230cf35177998cb";
+        return request(app).get("/solution/" + solutionId)
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const solutionOutputDto: SolutionOutputDto = res.body;
+                expect(solutionOutputDto.text).to.equal("La oveja Dolly");
+                expect(solutionOutputDto.isCorrect).to.equal(true);
+                expect(solutionOutputDto.justifications.length).to.equal(0);
                 done();
             });
     });

@@ -12,10 +12,10 @@ lessons:
 #Interactions
 interactions:
     - &interaction0
-        _id: {$oid: "361d87b8b230cf35177998c0"}
+        _id: {$oid: "851d87b8b230cf25177998c0"}
         kind: Exercise
         formulation: ¿En que año se descubrio la luna?
-        solutions: []
+        solutions: [{$oid: "361d87b8b230cf35177998ca"}, {$oid: "461d87b8b230cf35177998cb"}]
     - &interaction1
         _id: {$oid: "261d87b8b130cf59170998c1"}
         kind: Video
@@ -24,7 +24,16 @@ interactions:
         _id: {$oid: "661d57b8b030cf35177998c1"}
         kind: Video
         url: www.mundodeportivo.es
-
+    - &interaction3
+        _id: {$oid: "321d87b8b230cf25177998c0"}
+        kind: Exercise
+        formulation: ¿Quien invento la polvora?
+        solutions: []
+    - &interaction4
+        _id: {$oid: "751d87b8b230cf25177998c0"} #DELETE
+        kind: Exercise
+        formulation: ¿En que año murio Cristobal Colon?
+        solutions: []
 #Session
 formations:
     - &session0
@@ -74,7 +83,7 @@ solutions:
     text: La oveja Dolly
     justifications: []
 - &solution2
-    _id: {$oid: "561d87b8b230cf35177998cc"}
+    _id: {$oid: "561d87b8b230cf35177998cc"} #DELETE
     isCorrect: true
     text: La formula del agua H20
     justifications: [{$oid: "131d87b8b230cf35177998ca"}]
