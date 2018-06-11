@@ -35,7 +35,8 @@ describe("GET /solution", () => {
 });
 describe("GET /solution/:id", () => {
     it("should return: 200", (done) => {
-        return request(app).get("/solution/561d87b8b230cf35177998cc")
+        const solutionId = "561d87b8b230cf35177998cc";
+        return request(app).get("/solution/" + solutionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const solutionOutputDto: SolutionOutputDto = res.body;
@@ -47,7 +48,8 @@ describe("GET /solution/:id", () => {
 });
 describe("DELETE /solution/:id", () => {
     it("should return: 204", (done) => {
-        return request(app).delete("/solution/561d87b8b230cf35177998cc")
+        const solutionId = "561d87b8b230cf35177998cc";
+        return request(app).delete("/solution/" + solutionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
