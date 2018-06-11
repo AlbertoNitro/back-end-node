@@ -1,4 +1,4 @@
-import logger from "../../src/util/logger";
+import logger from "../../src/utils/logger";
 import { ItineraryResource } from "../../src/resources/itinerary.resource";
 
 const chai = require("chai");

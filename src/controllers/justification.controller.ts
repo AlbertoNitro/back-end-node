@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
-import logger from "../util/logger";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
+import logger from "../utils/logger";
 import { JustificationResource } from "../resources/justification.resource";
 import { Justification } from "../models/justification.model";
 import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";

@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 import { Video } from "../../models/video.model";
 import VideoSchema from "../../schemas/video.schema";
-import logger from "../../util/logger";
+import logger from "../../utils/logger";
 
 export class VideoDao {
     constructor() {

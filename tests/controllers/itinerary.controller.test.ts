@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../../src/app";
-import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
-import logger from "../../src/util/logger";
+import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
+import logger from "../../src/utils/logger";
 import { ItineraryInputDto } from "../../src/dtos/input/itineraryInput.dto";
 import { ItineraryOutputDto } from "../../src/dtos/output/itineraryOutput.dto";
 

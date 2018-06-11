@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import logger from "../../util/logger";
+import logger from "../../utils/logger";
 import { Lesson } from "../../models/lesson.model";
 import LessonSchema from "../../schemas/lesson.schema";
 import { Interaction } from "../../models/interaction.model";

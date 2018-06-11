@@ -19,7 +19,7 @@ import { Exercise } from "../models/exercise.model";
 import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
 import { Interaction } from "../models/interaction.model";
 import { InteractionOutputDto } from "../dtos/output/interactionOutput.dto";
-import logger from "../util/logger";
+import logger from "../utils/logger";
 import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
 import { Formation } from "../models/formation.model";
 

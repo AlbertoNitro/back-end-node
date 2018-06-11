@@ -3,7 +3,7 @@ import { Session } from "../../models/session.model";
 import SessionSchema from "../../schemas/session.schema";
 import { LessonDao } from "./lesson.dao";
 import { Lesson } from "../../models/lesson.model";
-import logger from "../../util/logger";
+import logger from "../../utils/logger";
 import { SessionBuilder } from "../../models/builders/session.builder";
 
 export class SessionDao {
