@@ -130,3 +130,14 @@ describe("GET /unit/friends/99999", () => {
             });
     });
 });
+describe("GET /unit/notrelated", () => {
+    it("should return 200 - OK and Unit[]", (done) => {
+        return request(app).get("/unit/notrelated")
+            .end( async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const unitOutputDtos: UnitOutputDto[] = res.body;
+                expect(unitOutputDtos.length).to.be.above(1);
+                done();
+            });
+    });
+});
