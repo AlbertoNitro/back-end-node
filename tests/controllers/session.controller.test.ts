@@ -25,7 +25,8 @@ describe("POST /session", () => {
 
 describe("GET /session/501d87b8b230cf35177998c0", () => {
     it("should return: 200", (done) => {
-        return request(app).get("/session/501d87b8b230cf35177998c0")
+        const sessionId = "501d87b8b230cf35177998c0";
+        return request(app).get("/session/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const sessionOutputDto: SessionOutputDto = res.body;
@@ -38,7 +39,8 @@ describe("GET /session/501d87b8b230cf35177998c0", () => {
 
 describe("DELETE /session/501d87b8b230cf35177998c0", () => {
     it("should return: 204", (done) => {
-        return request(app).delete("/session/501d87b8b230cf35177998c0")
+        const sessionId = "501d87b8b230cf35177998c0";
+        return request(app).delete("/session/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();

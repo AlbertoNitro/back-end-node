@@ -25,7 +25,8 @@ describe("POST /itinerary", () => {
 
 describe("GET /itinerary/511d87b8b230cf35177998c0", () => {
     it("should return: 200", (done) => {
-        return request(app).get("/itinerary/511d87b8b230cf35177998c0")
+        const itineraryId = "511d87b8b230cf35177998c0";
+        return request(app).get("/itinerary/" + itineraryId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const itineraryOutputDto: ItineraryOutputDto = res.body;
@@ -38,7 +39,8 @@ describe("GET /itinerary/511d87b8b230cf35177998c0", () => {
 
 describe("DELETE /itinerary/511d87b8b230cf35177998c0", () => {
     it("should return: 204", (done) => {
-        return request(app).delete("/itinerary/511d87b8b230cf35177998c0")
+        const itineraryId = "511d87b8b230cf35177998c0";
+        return request(app).delete("/itinerary/" + itineraryId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
