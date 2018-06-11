@@ -2,8 +2,8 @@ import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import logger from "../../src/utils/logger";
-import {ExerciseInputDto} from "../../src/dtos/input/exerciseInput.dto";
-import {ExerciseOutputDto} from "../../src/dtos/output/exerciseOutput.dto";
+import { ExerciseInputDto } from "../../src/dtos/input/exerciseInput.dto";
+import { ExerciseOutputDto } from "../../src/dtos/output/exerciseOutput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;

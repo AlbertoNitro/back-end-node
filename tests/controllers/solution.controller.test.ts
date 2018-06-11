@@ -35,13 +35,14 @@ describe("GET /solution", () => {
 });
 describe("GET /solution/:id", () => {
     it("should return: 200", (done) => {
-        const solutionId = "561d87b8b230cf35177998cc";
+        const solutionId = "361d87b8b230cf35177998ca";
         return request(app).get("/solution/" + solutionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const solutionOutputDto: SolutionOutputDto = res.body;
-                expect(solutionOutputDto.text).to.equal("La formula del agua H20");
-                expect(solutionOutputDto.isCorrect).to.equal(true);
+                expect(solutionOutputDto.text).to.equal("1974");
+                expect(solutionOutputDto.isCorrect).to.equal(false);
+                expect(solutionOutputDto.justifications.length).to.equal(3);
                 done();
             });
     });

@@ -12,7 +12,9 @@ export class SolutionDao {
     }
 
     static toSolution(document: Document): Solution {
-        return new SolutionBuilder(document.get("text"), document.get("isCorrect")).setJustification(JustificationDao.toArrayJustifications(document.get("justifications"))).setId(document.get("_id")).build();
+        logger.info("toSolution " + JSON.stringify(document.get("justifications")));
+        const justifications: Justification[] = JustificationDao.toArrayJustifications(document.get("justifications"));
+        return new SolutionBuilder(document.get("text"), document.get("isCorrect")).setJustifications(justifications).setId(document.get("_id")).build();
     }
     static toArraySolutions(documents: Document[]): Solution[] {
         const solutions: Solution[] = [];
@@ -34,6 +36,8 @@ export class SolutionDao {
     async findById(id: string): Promise<Solution> {
         return await SolutionSchema.findById(id)
             .then( (solutionDocument: Document) => {
+                logger.info("findById " + JSON.stringify(solutionDocument.get("justifications")));
+                // populate para tranformar las justifications a objetos
                 const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
                 return solution;
             })
