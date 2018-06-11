@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { Relation } from "../models/relation.model";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
 import { RelationInputDto } from "../dtos/input/relationInput.dto";
 import { RelationResource } from "../resources/relation.resource";
-import logger from "../util/logger";
+import logger from "../utils/logger";
 import { RelationOutputDto } from "../dtos/output/relationOutput.dto";
 import { DtoService } from "../services/dto.service";
 import { DeleteRelationInputDto } from "../dtos/input/deleteRelationInput.dto";

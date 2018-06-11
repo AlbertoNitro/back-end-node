@@ -1,7 +1,7 @@
 import { DbService } from "../services/db.service";
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
-import logger from "../util/logger";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
+import logger from "../utils/logger";
 
 export class DbController {
     private dbService: DbService;

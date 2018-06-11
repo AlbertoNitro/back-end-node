@@ -7,7 +7,7 @@ import { RelationBuilder } from "../../models/builders/relation.builder";
 import { Document } from "mongoose";
 import UnitSchema from "../../schemas/unit.schema";
 import { UnitBuilder } from "../../models/builders/unit.builder";
-import logger from "../../util/logger";
+import logger from "../../utils/logger";
 
 export class RelationDao {
     private unitDao: UnitDao;

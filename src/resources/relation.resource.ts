@@ -2,7 +2,7 @@ import { RelationDao } from "../services/daos/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/input/relationInput.dto";
 import { Unit } from "../models/unit.model";
-import logger from "../util/logger";
+import logger from "../utils/logger";
 
 export class   RelationResource {
     private relationDao: RelationDao;

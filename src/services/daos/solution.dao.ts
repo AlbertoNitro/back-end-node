@@ -3,7 +3,7 @@ import { Solution } from "../../models/solution.model";
 import SolutionSchema from "../../schemas/solution.schema";
 import { JustificationDao } from "./justification.dao";
 import { Justification } from "../../models/justification.model";
-import logger from "../../util/logger";
+import logger from "../../utils/logger";
 import { SolutionInputDto } from "../../dtos/input/solutionInput.dto";
 import { SolutionBuilder } from "../../models/builders/solution.builder";
 

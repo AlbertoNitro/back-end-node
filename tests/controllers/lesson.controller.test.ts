@@ -1,8 +1,8 @@
 import request from "supertest";
 import app from "../../src/app";
-import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
+import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import { DbService } from "../../src/services/db.service";
-import logger from "../../src/util/logger";
+import logger from "../../src/utils/logger";
 import { LessonOutputDto } from "../../src/dtos/output/lessonOutput.dto";
 import { LessonInputDto } from "../../src/dtos/input/lessonInput.dto";
 

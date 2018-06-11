@@ -1,11 +1,11 @@
 import request from "supertest";
 import app from "../../src/app";
-import { HttpStatusCode } from "../../src/util/http-status-codes.enum";
+import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import { RelationInputDto } from "../../src/dtos/input/relationInput.dto";
 import { RelationOutputDto } from "../../src/dtos/output/relationOutput.dto";
 import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
 import { DeleteRelationInputDto } from "../../src/dtos/input/deleteRelationInput.dto";
-import logger from "../../src/util/logger";
+import logger from "../../src/utils/logger";
 
 const chai = require("chai");
 const expect = chai.expect;

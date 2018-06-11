@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../util/http-status-codes.enum";
-import logger from "../util/logger";
+import { HttpStatusCode } from "../utils/http-status-codes.enum";
+import logger from "../utils/logger";
 import { Session } from "../models/session.model";
 import { SessionResource } from "../resources/session.resource";
 
