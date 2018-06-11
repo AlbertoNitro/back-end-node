@@ -8,7 +8,7 @@ export class SolutionBuilder {
         this. solution = new Solution(text, isCorrect);
     }
 
-    setId(id: number): SolutionBuilder {
+    setId(id: string): SolutionBuilder {
         this.solution.setId(id);
         return this;
     }

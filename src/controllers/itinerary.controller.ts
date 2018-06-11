@@ -18,13 +18,13 @@ export class ItineraryController {
         itinerary ? res.status(HttpStatusCode.CREATED).json(itinerary) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const itinerary: Itinerary = await this.itineraryResource.findById(id);
         // const itineraryOutputDto: ItineraryOutputDto = DtoService.toItineraryOutputDto(itinerary);
         itinerary ? res.status(HttpStatusCode.OK).json(itinerary) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const itinerary: Itinerary = await this.itineraryResource.findById(id);
         if (itinerary) {
             const success: boolean = await this.itineraryResource.delete(itinerary);

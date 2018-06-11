@@ -12,7 +12,7 @@ export class SessionResource {
     async create(name: string): Promise<Session> {
         return await this.sessionDao.create(name);
     }
-    async findById(id: number): Promise<Session> {
+    async findById(id: string): Promise<Session> {
         return await this.sessionDao.findById(id);
     }
     async delete(session: Session): Promise<boolean> {

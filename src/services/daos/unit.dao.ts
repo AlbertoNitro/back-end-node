@@ -31,7 +31,7 @@ export class UnitDao {
                 return undefined;
             });
     }
-    async findById(id: number): Promise<Unit> {
+    async findById(id: string): Promise<Unit> {
         return await UnitSchema.findById(id)
             .then( (unitDocument: Document) => {
                 const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
@@ -75,7 +75,7 @@ export class UnitDao {
                 return undefined;
             });
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await UnitSchema.deleteOne({_id: id })
             .then( () => {
                 return true;

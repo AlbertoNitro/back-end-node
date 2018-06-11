@@ -20,16 +20,14 @@ export class LessonController {
         lesson ? res.status(HttpStatusCode.CREATED).json(lessonOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const lesson: Lesson = await this.lessonResource.findById(id);
         const lessonOutputDto: LessonOutputDto = DtoService.toLessonOutputDto(lesson);
         lesson ? res.status(HttpStatusCode.OK).json(lessonOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
-        logger.info(id + "");
+        const id: string = req.params.id;
         const lesson: Lesson = await this.lessonResource.findById(id);
-        logger.info(JSON.stringify(lesson));
         if (lesson) {
             const success: boolean = await this.lessonResource.delete(lesson);
             success ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();

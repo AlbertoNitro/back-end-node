@@ -20,7 +20,7 @@ export class SessionDao {
         }
         return sessions;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await SessionSchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -30,7 +30,7 @@ export class SessionDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Session> {
+    async findById(id: string): Promise<Session> {
         return await SessionSchema.findById(id)
             .then( (sessionDocument: Document) => {
                 console.log(sessionDocument);

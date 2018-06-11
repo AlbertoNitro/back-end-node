@@ -18,7 +18,7 @@ export class JustificationDao {
         }
         return justifications;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await JustificationSchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -28,7 +28,7 @@ export class JustificationDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Justification> {
+    async findById(id: string): Promise<Justification> {
         return await JustificationSchema.findById(id)
             .then( (justificationDocument: Document) => {
                 const justification: Justification = justificationDocument ? JustificationDao.toJustification(justificationDocument) : undefined;
