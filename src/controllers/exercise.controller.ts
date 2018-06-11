@@ -21,13 +21,13 @@ export class ExerciseController {
         exercise ? res.status(HttpStatusCode.CREATED).json(exercise) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const exercise: Exercise = await this.exerciseResource.findById(id);
         // const exerciseOutputDto: ExerciseOutputDto = DtoService.toExerciseOutputDto(exercise);
         exercise ? res.status(HttpStatusCode.OK).json(exercise) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const exercise: Exercise = await this.exerciseResource.findById(id);
         if (exercise) {
             const success: boolean = await this.exerciseResource.delete(exercise);

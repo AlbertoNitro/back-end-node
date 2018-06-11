@@ -8,11 +8,10 @@ export class LessonBuilder {
         this.lesson = new Lesson(name);
     }
 
-    setId(id: number): LessonBuilder {
+    setId(id: string): LessonBuilder {
         this.lesson.setId(id);
         return this;
     }
-
     setName(name: string): LessonBuilder {
         this.lesson.setName(name);
         return this;

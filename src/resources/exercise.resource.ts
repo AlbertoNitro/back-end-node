@@ -12,7 +12,7 @@ export class ExerciseResource {
     async create(formulation: string): Promise<Exercise> {
         return await this.exerciseDao.create(formulation);
     }
-    async findById(id: number): Promise<Exercise> {
+    async findById(id: string): Promise<Exercise> {
         return await this.exerciseDao.findById(id);
     }
     async delete(exercise: Exercise): Promise<boolean> {

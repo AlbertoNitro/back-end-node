@@ -1,4 +1,3 @@
-import { Unit } from "../unit.model";
 import { Video } from "../video.model";
 
 export class VideoBuilder {
@@ -12,7 +11,7 @@ export class VideoBuilder {
         this.video.setUrl(url);
         return this;
     }
-    setId(id: number): VideoBuilder {
+    setId(id: string): VideoBuilder {
         this.video.setId(id);
         return this;
     }

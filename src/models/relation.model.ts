@@ -1,7 +1,7 @@
 import { Unit } from "./unit.model";
 
 export class Relation {
-    private _id: number;
+    private _id: string;
     private type: string;
     private topUnit: Unit;
     private lowerUnit: Unit;
@@ -12,7 +12,7 @@ export class Relation {
     constructor() {
     }
 
-    getId(): number {
+    getId(): string {
         return this._id;
     }
     getType(): string {
@@ -33,7 +33,7 @@ export class Relation {
     getCardinalLowerUnit(): string {
         return this.cardinalLowerUnit;
     }
-    setId(id: number) {
+    setId(id: string) {
         this._id = id;
     }
     setType(type: string) {

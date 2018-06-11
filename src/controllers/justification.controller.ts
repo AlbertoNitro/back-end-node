@@ -21,13 +21,13 @@ export class JustificationController {
         justificationOutputDto ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const justification: Justification = await this.justificationResource.findById(id);
         const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
         justificationOutputDto ? res.status(HttpStatusCode.OK).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
-        const id: number = req.params.id;
+        const id: string = req.params.id;
         const justification: Justification = await this.justificationResource.findById(id);
         if (justification) {
             const success: boolean = await this.justificationResource.delete(justification);

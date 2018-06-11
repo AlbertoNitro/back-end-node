@@ -21,7 +21,7 @@ export class SolutionDao {
         }
         return solutions;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await SolutionSchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -31,7 +31,7 @@ export class SolutionDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Solution> {
+    async findById(id: string): Promise<Solution> {
         return await SolutionSchema.findById(id)
             .then( (solutionDocument: Document) => {
                 const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;

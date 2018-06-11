@@ -11,7 +11,7 @@ export class JustificationResource {
     async create(text: string, isCorrect: boolean): Promise<Justification> {
         return await this.justificationDao.create(text, isCorrect);
     }
-    async findById(id: number): Promise<Justification> {
+    async findById(id: string): Promise<Justification> {
         return await this.justificationDao.findById(id);
     }
     async findAll(): Promise<Justification[]> {

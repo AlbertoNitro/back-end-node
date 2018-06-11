@@ -12,7 +12,7 @@ export class LessonResource {
     async create(name: string): Promise<Lesson> {
         return await this.lessonDao.create(name);
     }
-    async findById(id: number): Promise<Lesson> {
+    async findById(id: string): Promise<Lesson> {
         return await this.lessonDao.findById(id);
     }
     async delete(lesson: Lesson): Promise<boolean> {

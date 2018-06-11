@@ -1,5 +1,5 @@
 export class Justification {
-    private _id: number;
+    private _id: string;
     private isCorrect: boolean;
     private text: string;
 
@@ -8,7 +8,7 @@ export class Justification {
         this.isCorrect = isCorrect;
     }
 
-    public setId(id: number): Justification {
+    public setId(id: string): Justification {
         this._id = id;
         return this;
     }
@@ -20,7 +20,7 @@ export class Justification {
         this.text = text;
         return this;
     }
-    public getId(): number {
+    public getId(): string {
         return this._id;
     }
     public getIsCorrect(): boolean {

@@ -27,7 +27,7 @@ export class ItineraryDao {
         }
         return itineraries;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await ItinerarySchema.deleteOne({_id: id })
             .then( () => {
                 return true;
@@ -37,7 +37,7 @@ export class ItineraryDao {
                 return false;
             });
     }
-    async findById(id: number): Promise<Itinerary> {
+    async findById(id: string): Promise<Itinerary> {
         return await ItinerarySchema.findById(id)
             .then( (itineraryDocument: Document) => {
                 const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
