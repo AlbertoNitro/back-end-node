@@ -25,7 +25,8 @@ describe("POST /exercise", () => {
 
 describe("GET /exercise/851d87b8b230cf25177998c0", () => {
     it("should return: 200", (done) => {
-        return request(app).get("/exercise/851d87b8b230cf25177998c0")
+        const exerciseId = "851d87b8b230cf25177998c0";
+        return request(app).get("/exercise/" + exerciseId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
@@ -38,7 +39,8 @@ describe("GET /exercise/851d87b8b230cf25177998c0", () => {
 
 describe("GET /exercise/321d87b8b230cf25177998c0", () => {
     it("should return: 200", (done) => {
-        return request(app).get("/exercise/321d87b8b230cf25177998c0")
+        const exerciseId = "321d87b8b230cf25177998c0";
+        return request(app).get("/exercise/" + exerciseId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
@@ -51,7 +53,8 @@ describe("GET /exercise/321d87b8b230cf25177998c0", () => {
 
 describe("DELETE /exercise/751d87b8b230cf25177998c0", () => {
     it("should return: 204", (done) => {
-        return request(app).delete("/exercise/751d87b8b230cf25177998c0")
+        const exerciseId = "751d87b8b230cf25177998c0";
+        return request(app).delete("/exercise/" + exerciseId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
