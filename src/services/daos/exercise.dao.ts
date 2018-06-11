@@ -12,7 +12,7 @@ export class ExerciseDao {
     }
 
     static toExercise(document: Document): Exercise {
-        const solutionsDocuments: Solution[] = SolutionDao.toArraySolutions(document.get("solutions") || undefined);
+        const solutionsDocuments: Solution[] = SolutionDao.toArraySolutions(document.get("solutions"));
         return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(solutionsDocuments).build();
 
     }
