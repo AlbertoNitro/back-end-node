@@ -14,10 +14,10 @@ export class   RelationResource {
     async findAll(): Promise<Relation[]> {
         return await this.relationDao.findAll();
     }
-    async findByLowerUnit(unitId: number): Promise<Relation[]> {
+    async findByLowerUnit(unitId: string): Promise<Relation[]> {
         return await this.relationDao.findByLowerUnit(unitId);
     }
-    async findByTopUnit(unitId: number): Promise<Relation[]> {
+    async findByTopUnit(unitId: string): Promise<Relation[]> {
         return await this.relationDao.findByTopUnit(unitId);
     }
     async create(relationDto: RelationInputDto): Promise<Relation> {
@@ -42,20 +42,20 @@ export class   RelationResource {
         }
         return sucessDeleteLowers && sucessDeleteTops;
     }
-    async delete(id: number): Promise<boolean> {
+    async delete(id: string): Promise<boolean> {
         return await this.relationDao.delete(id);
     }
-    async findIdByTopUnit(unitId: number): Promise<number[]> {
+    async findIdByTopUnit(unitId: string): Promise<string[]> {
         const relations: Relation[] = await this.findByTopUnit(unitId);
-        const topUnits: number[] = [];
+        const topUnits: string[] = [];
         for ( let i = 0; i < relations.length ; i++) {
             topUnits.push(relations[i].getLowerUnit().getId());
         }
         return topUnits;
     }
-    async findIdByLowerUnit(unitId: number): Promise<number[]> {
+    async findIdByLowerUnit(unitId: string): Promise<string[]> {
         const relations: Relation[] = await this.findByLowerUnit(unitId);
-        const topUnits: number[] = [];
+        const topUnits: string[] = [];
         if (relations.length) {
             for ( let i = 0; i < relations.length ; i++) {
                 topUnits.push(relations[i].getTopUnit().getId());

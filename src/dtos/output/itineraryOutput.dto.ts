@@ -1,7 +1,7 @@
 import { FormationOutputDto } from "./formationOutput.dto";
 
 export interface ItineraryOutputDto  {
-    id: number;
+    id: string;
     name: string;
     formations: FormationOutputDto[];
 }

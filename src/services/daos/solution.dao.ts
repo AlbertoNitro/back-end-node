@@ -53,7 +53,7 @@ export class SolutionDao {
                 return undefined;
             });
     }
-    async update(id: number, justifications: Justification[]): Promise<Solution> {
+    async update(id: string, justifications: Justification[]): Promise<Solution> {
         return await SolutionSchema.updateOne({_id: id}, {$set: {justifications: justifications}}, {new: true})
             .then( (solutionDocument: Document) => {
                 const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;

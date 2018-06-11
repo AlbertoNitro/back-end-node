@@ -24,9 +24,9 @@ export class UnitController {
         const LEVELS_TO_EXPLORER: number = 3;
         const unit: Unit = await this.unitResource.findByCode(req.params.code);
         if (unit) {
-            const topUnitsIds: number[] = await this.relationResource.findIdByLowerUnit(unit.getId());
+            const topUnitsIds: string[] = await this.relationResource.findIdByLowerUnit(unit.getId());
             const topUnits: Unit[] = await this.unitResource.getUnits(topUnitsIds);
-            const lowerUnitsIds: number[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
+            const lowerUnitsIds: string[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
             const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsIds);
             const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
             const neighborsOutputDto: NeighborsOutputDto = DtoService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);

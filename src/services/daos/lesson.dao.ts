@@ -62,7 +62,7 @@ export class LessonDao {
                 return undefined;
             });
     }
-    async update(id: number, interactions: Interaction[]): Promise<Lesson> {
+    async update(id: string, interactions: Interaction[]): Promise<Lesson> {
         return await LessonSchema.updateOne({_id: id}, {$set: {interactions: interactions}}, {new: true})
             .then( (lessonDocument: Document) => {
                 const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;

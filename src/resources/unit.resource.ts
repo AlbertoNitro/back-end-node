@@ -33,12 +33,12 @@ export class UnitResource {
     async findById(id: string): Promise<Unit> {
         return await this.unitDao.findById(id);
     }
-    async getFriends(id: number, iteration: number): Promise<Set<number>> {
+    async getFriends(id: string, iteration: number): Promise<Set<string>> {
         return this.getFriendsAux(id, iteration, id);
     }
-    async getTopUnits(code: number): Promise<Unit[]> {
+    async getTopUnits(id: string): Promise<Unit[]> {
         let topUnits: Unit[] = undefined;
-        const relations: Relation[] = await this.relationResource.findByLowerUnit(code);
+        const relations: Relation[] = await this.relationResource.findByLowerUnit(id);
         if (relations && relations.length > 0 ) {
             topUnits = [];
             for (let i = 0 ; i < relations.length; i++) {
@@ -50,16 +50,16 @@ export class UnitResource {
         }
         return topUnits;
     }
-    async getUnits(unitsCodes: number[]): Promise<Unit[]> {
+    async getUnits(ids: string[]): Promise<Unit[]> {
         const units: Unit[] = [];
-        for (let i = 0; i < unitsCodes.length ; i++) {
-            units.push(await this.unitDao.findById(unitsCodes[i]));
+        for (let i = 0; i < ids.length ; i++) {
+            units.push(await this.unitDao.findById(ids[i]));
         }
         return units;
     }
-    private async getFriendsAux(id: number, iteration: number, shaftUnitId: number): Promise<Set<number>> {
-        const lowerUnitsIds: number[] = await this.relationResource.findIdByTopUnit(id);
-        const set =  new Set<number>();
+    private async getFriendsAux(id: string, iteration: number, shaftUnitId: string): Promise<Set<string>> {
+        const lowerUnitsIds: string[] = await this.relationResource.findIdByTopUnit(id);
+        const set =  new Set<string>();
         if ( lowerUnitsIds && lowerUnitsIds.length === 0) {
             if (id !== shaftUnitId) {
                 set.add(id);

@@ -61,7 +61,7 @@ export class ItineraryDao {
                 return undefined;
             });
     }
-    async update(id: number, formations: Formation[]): Promise<Itinerary> {
+    async update(id: string, formations: Formation[]): Promise<Itinerary> {
         return await ItinerarySchema.updateOne({_id: id}, {$set: {formations: formations}}, {new: true})
             .then( (itineraryDocument: Document) => {
                 const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
