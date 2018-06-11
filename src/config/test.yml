@@ -54,7 +54,7 @@ justifications:
     isCorrect: false
     text: El descubrimiento de la luna fue en 1999
 - &justification1
-    _id: {$oid: "111d87b8b230cf35177998ca"}
+    _id: {$oid: "111d87b8b230cf35177998ca"} #DELETE
     isCorrect: true
     text: El descubrimiento de la luna fue en 1969
 - &justification2
