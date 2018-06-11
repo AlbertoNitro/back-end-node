@@ -129,6 +129,10 @@ units:
     _id: {$oid: "441d87b8b260cf35147998ca"}
     code: 61
     name: Unidad61 #INHERIT
+- &unit12
+    _id: {$oid: "541d87b8b260cf35147998ca"}
+    code: 62
+    name: Unidad61 #NOTRELATED
 
 # Relations
 relations:
