@@ -1,7 +1,7 @@
 import { JustificationOutputDto } from "./justificationOutput.dto";
 
 export interface SolutionOutputDto  {
-    id: number;
+    id: string;
     isCorrect: boolean;
     text: string;
     justifications: JustificationOutputDto[];

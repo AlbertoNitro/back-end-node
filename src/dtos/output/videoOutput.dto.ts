@@ -1,4 +1,4 @@
 export interface VideoOutputDto  {
-    id: number;
+    id: string;
     url: string;
 }
