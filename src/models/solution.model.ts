@@ -1,7 +1,7 @@
 import { Justification } from "./justification.model";
 
 export class Solution {
-    private _id: number;
+    private _id: string;
     private isCorrect: boolean;
     private text: string;
     private justifications: Justification[];
@@ -12,7 +12,7 @@ export class Solution {
         this.justifications = [];
     }
 
-    setId(id: number) {
+    setId(id: string) {
         this._id = id;
     }
     setIsCorrect(isCorrect: boolean) {
@@ -24,7 +24,7 @@ export class Solution {
     setJustifications(justifications: Justification[]) {
         this.justifications = justifications;
     }
-    getId(): number {
+    getId(): string {
         return this._id;
     }
     getIsCorrect(): boolean {
