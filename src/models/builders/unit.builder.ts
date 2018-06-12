@@ -19,6 +19,10 @@ export class UnitBuilder {
         this.unit.setCode(code);
         return this;
     }
+    setContent(content: string): UnitBuilder {
+        this.unit.setContent(content);
+        return this;
+    }
     build(): Unit {
         return this.unit;
     }
