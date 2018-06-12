@@ -22,6 +22,10 @@ export class LessonController {
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const lesson: Lesson = await this.lessonResource.findById(id);
+        logger.info("---------------LessonController-------------------");
+        for (let i = 0 ; i < lesson.getInteractions().length ; i++) {
+            logger.info(JSON.stringify(lesson.getInteractions()[i]));
+        }
         const lessonOutputDto: LessonOutputDto = DtoService.toLessonOutputDto(lesson);
         lesson ? res.status(HttpStatusCode.OK).json(lessonOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }

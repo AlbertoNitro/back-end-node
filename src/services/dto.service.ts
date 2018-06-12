@@ -84,7 +84,8 @@ export class DtoService {
         if (video) {
             videoOutputDto = {
                 id: video.getId(),
-                url: video.getUrl()};
+                url: video.getUrl(),
+            };
         }
         return videoOutputDto;
     }
@@ -235,9 +236,16 @@ export class DtoService {
         return exercisesOutputDtos;
     }
     static toInteractionOutputDto(interaction: Interaction): InteractionOutputDto {
+        logger.info("---------------DtoService > toInteractionOutputDto() -------------------");
         let interactionOutputDto: InteractionOutputDto = undefined;
         const video: Video = <Video> interaction;
         const exercise: Exercise = <Exercise> interaction;
+        logger.info("---------------DtoService > toInteractionOutputDto() > Video -------------------");
+        logger.info(typeof video);
+        logger.info(JSON.stringify(video));
+        logger.info("---------------DtoService > toInteractionOutputDto() > Exercise -------------------");
+        logger.info(typeof exercise);
+        logger.info(JSON.stringify(exercise));
         if (video) {
             interactionOutputDto = {video: DtoService.toVideoOutputDto(video)};
         } else if (exercise) {

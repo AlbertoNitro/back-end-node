@@ -4,7 +4,6 @@ import { Interaction } from "./interaction.model";
 export class Exercise extends Interaction {
     private _id: string;
     private formulation: string;
-    private kind: string;
     private solutions: Solution[];
 
     constructor(formulation: string) {
@@ -23,10 +22,6 @@ export class Exercise extends Interaction {
     }
     setSolutions(solutions: Solution[]): Exercise {
         this.solutions = solutions;
-        return this;
-    }
-    setKind(kind: string) {
-        this.kind = kind;
         return this;
     }
     getId(): string {

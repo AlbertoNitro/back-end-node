@@ -6,6 +6,7 @@ import { Interaction } from "../../models/interaction.model";
 import { VideoDao } from "./video.dao";
 import { ExerciseDao } from "./exercise.dao";
 import { LessonBuilder } from "../../models/builders/lesson.builder";
+import InteractionSchema from "../../schemas/interaction.schema";
 
 export class LessonDao {
     constructor() {
@@ -16,7 +17,7 @@ export class LessonDao {
         const interactionsDocuments: Document[] = document.get("interactions");
         for (let i = 0 ; i < interactionsDocuments.length ; i++) {
             const interactionDocument: Document = interactionsDocuments[i];
-            interactionDocument.get("kind") === "Video" ? interactions.push(<Interaction> VideoDao.toVideo(interactionDocument)) : interactions.push(<Interaction> ExerciseDao.toExercise(interactionDocument));
+            interactionDocument.get("kind") === "Video" ? interactions.push(VideoDao.toVideo(interactionDocument)) : interactions.push(ExerciseDao.toExercise(interactionDocument));
         }
         const lesson: Lesson = new LessonBuilder(document.get("name")).setId(document.get("_id")).setInteractions(interactions).build();
         return lesson;
@@ -40,8 +41,9 @@ export class LessonDao {
     }
     async findById(id: string): Promise<Lesson> {
         return await LessonSchema.findById(id)
-            .then( (lessonDocument: Document) => {
-                const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;
+            .then(async(lessonDocument: Document) => {
+                const lessonPopulate: any = await InteractionSchema.populate(lessonDocument, {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}});
+                const lesson: Lesson = lessonPopulate ? LessonDao.toLesson(lessonDocument) : undefined;
                 return lesson;
             })
             .catch ( err => {
@@ -53,8 +55,9 @@ export class LessonDao {
         const lesson: Lesson = new LessonBuilder(name).build();
         const lessonSchema = new LessonSchema(lesson);
         return lessonSchema.save()
-            .then( (lessonDocument: Document) => {
-                const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;
+            .then(async(lessonDocument: Document) => {
+                const lessonPopulate: any = await InteractionSchema.populate(lessonDocument, {path: "interactions", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}});
+                const lesson: Lesson = lessonPopulate ? LessonDao.toLesson(lessonDocument) : undefined;
                 return lesson;
             })
             .catch ( err => {
@@ -64,8 +67,9 @@ export class LessonDao {
     }
     async update(id: string, interactions: Interaction[]): Promise<Lesson> {
         return await LessonSchema.updateOne({_id: id}, {$set: {interactions: interactions}}, {new: true})
-            .then( (lessonDocument: Document) => {
-                const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;
+            .then(async(lessonDocument: Document) => {
+                const lessonPopulate: any = await InteractionSchema.populate(lessonDocument, {path: "interactions", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}});
+                const lesson: Lesson = lessonPopulate ? LessonDao.toLesson(lessonDocument) : undefined;
                 return lesson;
             })
             .catch ( err => {

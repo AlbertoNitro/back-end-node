@@ -8,6 +8,11 @@ lessons:
         _id: {$oid: "863d87b8b130cf35177998c2"}
         name: Constantes en Java
         interactions: []
+    - &lesson2
+        _id: {$oid: "165d87b4b130cf35177198c2"}
+        name: Datos cientificos
+        interactions: [{$oid: "851d87b8b230cf25177998c0"}, {$oid: "261d87b8b130cf59170998c1"}]
+
 
 #Interactions
 interactions:
