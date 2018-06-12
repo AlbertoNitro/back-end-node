@@ -5,7 +5,7 @@ export class SolutionBuilder {
     private solution: Solution;
 
     constructor(text: string, isCorrect: boolean) {
-        this. solution = new Solution(text, isCorrect);
+        this.solution = new Solution(text, isCorrect);
     }
 
     setId(id: string): SolutionBuilder {
@@ -16,11 +16,11 @@ export class SolutionBuilder {
         this.solution.setText(text);
         return this;
     }
-    setICorrect(isCorrect: boolean): SolutionBuilder {
+    setIsCorrect(isCorrect: boolean): SolutionBuilder {
         this.solution.setIsCorrect(isCorrect);
         return this;
     }
-    setJustification(justifications: Justification[]): SolutionBuilder {
+    setJustifications(justifications: Justification[]): SolutionBuilder {
         this.solution.setJustifications(justifications);
         return this;
     }

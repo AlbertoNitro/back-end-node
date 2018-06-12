@@ -1,7 +1,6 @@
 import request from "supertest";
 import app from "../../src/app";
 import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
-import { DbService } from "../../src/services/db.service";
 import logger from "../../src/utils/logger";
 import { VideoOutputDto } from "../../src/dtos/output/videoOutput.dto";
 import { VideoInputDto } from "../../src/dtos/input/videoInput.dto";

@@ -6,13 +6,16 @@ import { Justification } from "../../models/justification.model";
 import logger from "../../utils/logger";
 import { SolutionInputDto } from "../../dtos/input/solutionInput.dto";
 import { SolutionBuilder } from "../../models/builders/solution.builder";
+import JustificationSchema from "../../schemas/justification.schema";
+import justificationRoutes from "../../routes/justification/justification.route";
 
 export class SolutionDao {
     constructor() {
     }
 
     static toSolution(document: Document): Solution {
-        return new SolutionBuilder(document.get("text"), document.get("isCorrect")).setJustification(JustificationDao.toArrayJustifications(document.get("justifications"))).setId(document.get("_id")).build();
+        const justifications: Justification[] = JustificationDao.toArrayJustifications(document.get("justifications"));
+        return new SolutionBuilder(document.get("text"), document.get("isCorrect")).setJustifications(justifications).setId(document.get("_id")).build();
     }
     static toArraySolutions(documents: Document[]): Solution[] {
         const solutions: Solution[] = [];
@@ -33,8 +36,9 @@ export class SolutionDao {
     }
     async findById(id: string): Promise<Solution> {
         return await SolutionSchema.findById(id)
-            .then( (solutionDocument: Document) => {
-                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
+            .then( async (solutionDocument: Document) => {
+                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications"});
+                const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
                 return solution;
             })
             .catch ( err => {
@@ -44,9 +48,10 @@ export class SolutionDao {
     }
     async findAll(): Promise<Solution[]> {
         return await SolutionSchema.find({})
-            .then( (solutionsDocuments: Document[]) => {
-                const solutions: Solution[] = solutionsDocuments ? SolutionDao.toArraySolutions(solutionsDocuments) : undefined;
-                return solutions;
+            .then(async(solutionsDocuments: Document[]) => {
+                const solutionsPopulate: any = await JustificationSchema.populate(solutionsDocuments, {path: "justifications"});
+                const solution: Solution[] = solutionsPopulate ? SolutionDao.toArraySolutions(solutionsPopulate) : undefined;
+                return solution;
             })
             .catch ( err => {
                 logger.error(err);
@@ -54,9 +59,10 @@ export class SolutionDao {
             });
     }
     async update(id: string, justifications: Justification[]): Promise<Solution> {
-        return await SolutionSchema.updateOne({_id: id}, {$set: {justifications: justifications}}, {new: true})
-            .then( (solutionDocument: Document) => {
-                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
+        return await SolutionSchema.updateOne({ _id: id }, { $set: {justifications: justifications }}, { new: true })
+            .then(async (solutionDocument: Document) => {
+                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications"});
+                const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
                 return solution;
             })
             .catch ( err => {
@@ -68,8 +74,9 @@ export class SolutionDao {
         const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).build();
         const solutionSchema = new SolutionSchema(solution);
         return solutionSchema.save()
-            .then( (solutionDocument: Document) => {
-                const solution: Solution = SolutionDao.toSolution(solutionDocument);
+            .then(async (solutionDocument: Document) => {
+                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications"});
+                const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
                 return solution;
             })
             .catch ( err => {

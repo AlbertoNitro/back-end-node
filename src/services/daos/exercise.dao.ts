@@ -5,19 +5,15 @@ import ExerciseSchema from "../../schemas/exercise.schema";
 import { SolutionDao } from "./solution.dao";
 import { Solution } from "../../models/solution.model";
 import { ExerciseBuilder } from "../../models/builders/exercise.builder";
+import SolutionSchema from "../../schemas/solution.schema";
 
 export class ExerciseDao {
     constructor() {
     }
 
     static toExercise(document: Document): Exercise {
-        const solutions: Solution[] = [];
-        const solutionsDocuments: Document[] = document.get("solutions");
-        for (let i = 0 ; i < solutionsDocuments.length ; i++) {
-            const solutionDocument: Document = solutionsDocuments[i];
-            solutions.push(SolutionDao.toSolution(solutionDocument));
-        }
-        return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(SolutionDao.toArraySolutions(document.get("solutions"))).build();
+        const solutionsDocuments: Solution[] = SolutionDao.toArraySolutions(document.get("solutions"));
+        return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(solutionsDocuments).build();
 
     }
     static toArrayExercises(documents: Document[]): Exercise[] {
@@ -39,8 +35,9 @@ export class ExerciseDao {
     }
     async findById(id: string): Promise<Exercise> {
         return await ExerciseSchema.findById(id)
-            .then( (exerciseDocument: Document) => {
-                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+            .then(async(exerciseDocument: Document) => {
+                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", populate: {path: "justifications", model: "Justification"}});
+                const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {
@@ -52,8 +49,9 @@ export class ExerciseDao {
         const exercise: Exercise =  new Exercise(formulation);
         const exerciseSchema = new ExerciseSchema(exercise);
         return exerciseSchema.save()
-            .then( (exerciseDocument: Document) => {
-                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+            .then(async(exerciseDocument: Document) => {
+                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", populate: {path: "justifications", model: "Justification"}});
+                const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {
@@ -63,8 +61,9 @@ export class ExerciseDao {
     }
     async update(id: string, solutions: Solution[]): Promise<Exercise> {
         return await ExerciseSchema.updateOne({_id: id}, {$set: {solutions: solutions}}, {new: true})
-            .then((exerciseDocument: Document) => {
-                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+            .then(async(exerciseDocument: Document) => {
+                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", populate: {path: "justifications", model: "Justification"}});
+                const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {
