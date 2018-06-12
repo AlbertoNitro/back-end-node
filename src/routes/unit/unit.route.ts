@@ -25,6 +25,8 @@ unitRoutes.get("/friends/:code", (req, res) => {
 unitRoutes.get("/:code", (req, res) => {
     unitController.findByCode(req, res);
 });
-
+unitRoutes.put("/:code", (req, res) => {
+    unitController.update(req, res);
+});
 
 export default unitRoutes;
