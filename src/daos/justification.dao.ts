@@ -1,8 +1,8 @@
 import { Document } from "mongoose";
-import logger from "../../utils/logger";
-import JustificationSchema from "../../schemas/justification.schema";
-import { Justification } from "../../models/justification.model";
-import { JustificationBuilder } from "../../models/builders/justification.builder";
+import logger from "../utils/logger";
+import JustificationSchema from "../schemas/justification.schema";
+import { Justification } from "../models/justification.model";
+import { JustificationBuilder } from "../models/builders/justification.builder";
 
 export class JustificationDao {
     constructor() {

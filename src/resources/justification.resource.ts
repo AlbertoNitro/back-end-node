@@ -1,4 +1,4 @@
-import { JustificationDao } from "../services/daos/justification.dao";
+import { JustificationDao } from "../daos/justification.dao";
 import { Justification } from "../models/justification.model";
 
 export class JustificationResource {

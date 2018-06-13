@@ -1,4 +1,4 @@
-import { LessonDao } from "../services/daos/lesson.dao";
+import { LessonDao } from "../daos/lesson.dao";
 import { Lesson } from "../models/lesson.model";
 import { Interaction } from "../models/interaction.model";
 

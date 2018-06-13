@@ -35,6 +35,19 @@ describe("GET /lesson/:id", () => {
             });
     });
 });
+describe("GET /lesson/:id", () => {
+    it("should return: 200 - OK ", (done) => {
+        const lessonId = "165d87b4b130cf35177198c2";
+        return request(app).get("/lesson/" + lessonId)
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const lessonOutputDto: LessonOutputDto = res.body;
+                expect(lessonOutputDto.name).to.equal("Datos cientificos");
+                expect(lessonOutputDto.interactions.length).to.equal(2);
+                done();
+            });
+    });
+});
 describe("DELETE /lesson/:id", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
         const lessonId = "863d87b8b130cf35177998c2";

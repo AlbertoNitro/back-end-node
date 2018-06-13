@@ -1,13 +1,13 @@
-import { Relation } from "../../models/relation.model";
+import { Relation } from "../models/relation.model";
 import { UnitDao } from "./unit.dao";
-import { Unit } from "../../models/unit.model";
-import { RelationInputDto } from "../../dtos/input/relationInput.dto";
-import RelationSchema from "../../schemas/relation.schema";
-import { RelationBuilder } from "../../models/builders/relation.builder";
+import { Unit } from "../models/unit.model";
+import { RelationInputDto } from "../dtos/input/relationInput.dto";
+import RelationSchema from "../schemas/relation.schema";
+import { RelationBuilder } from "../models/builders/relation.builder";
 import { Document } from "mongoose";
-import UnitSchema from "../../schemas/unit.schema";
-import { UnitBuilder } from "../../models/builders/unit.builder";
-import logger from "../../utils/logger";
+import UnitSchema from "../schemas/unit.schema";
+import { UnitBuilder } from "../models/builders/unit.builder";
+import logger from "../utils/logger";
 
 export class RelationDao {
     private unitDao: UnitDao;

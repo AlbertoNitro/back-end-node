@@ -1,10 +1,11 @@
 import { Document } from "mongoose";
-import { Session } from "../../models/session.model";
-import SessionSchema from "../../schemas/session.schema";
+import { Session } from "../models/session.model";
+import SessionSchema from "../schemas/session.schema";
 import { LessonDao } from "./lesson.dao";
-import { Lesson } from "../../models/lesson.model";
-import logger from "../../utils/logger";
-import { SessionBuilder } from "../../models/builders/session.builder";
+import { Lesson } from "../models/lesson.model";
+import logger from "../utils/logger";
+import { SessionBuilder } from "../models/builders/session.builder";
+import LessonSchema from "../schemas/lesson.schema";
 
 export class SessionDao {
     constructor() {
@@ -32,9 +33,9 @@ export class SessionDao {
     }
     async findById(id: string): Promise<Session> {
         return await SessionSchema.findById(id)
-            .then( (sessionDocument: Document) => {
-                console.log(sessionDocument);
-                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
+            .then(async(sessionDocument: Document) => {
+                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
+                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
                 return session;
             })
             .catch ( err => {
@@ -46,8 +47,9 @@ export class SessionDao {
         const session: Session = new SessionBuilder(name).build();
         const sessionSchema = new SessionSchema(session);
         return sessionSchema.save()
-            .then( (sessionDocument: Document) => {
-                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
+            .then(async(sessionDocument: Document) => {
+                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
+                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
                 return session;
             })
             .catch ( err => {
@@ -57,8 +59,9 @@ export class SessionDao {
     }
     async update(id: string, lessons: Lesson[]): Promise<Session> {
         return await SessionSchema.updateOne({_id: id}, {$set: {lessons: lessons}}, {new: true})
-            .then( (sessionDocument: Document) => {
-                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
+            .then(async(sessionDocument: Document) => {
+                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
+                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
                 return session;
             })
             .catch ( err => {

@@ -5,6 +5,7 @@ import logger from "../utils/logger";
 import { ExerciseResource } from "../resources/exercise.resource";
 import { Exercise } from "../models/exercise.model";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
+import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
 
 export class ExerciseController {
     private exerciseResource: ExerciseResource;
@@ -17,18 +18,15 @@ export class ExerciseController {
 
     async create(req: Request, res: Response): Promise<any> {
         const formulation: string = req.body.formulation;
-        const solutionsInputDto: SolutionInputDto = req.body.solutions;
         const exercise: Exercise = await this.exerciseResource.create(formulation);
-        // const exerciseOutputDto: ExerciseOutputDto = DtoService.toExerciseOutputDto(exercise);
-        exercise ? res.status(HttpStatusCode.CREATED).json(exercise) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
+        exercise ? res.status(HttpStatusCode.CREATED).json(exerciseOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
-        logger.info(id);
         const exercise: Exercise = await this.exerciseResource.findById(id);
-        logger.info(JSON.stringify(exercise));
-        // const exerciseOutputDto: ExerciseOutputDto = DtoService.toExerciseOutputDto(exercise);
-        exercise ? res.status(HttpStatusCode.OK).json(exercise) : res.status(HttpStatusCode.NOT_FOUND).end();
+        const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
+        exercise ? res.status(HttpStatusCode.OK).json(exerciseOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;

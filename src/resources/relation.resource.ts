@@ -1,4 +1,4 @@
-import { RelationDao } from "../services/daos/relation.dao";
+import { RelationDao } from "../daos/relation.dao";
 import { Relation } from "../models/relation.model";
 import { RelationInputDto } from "../dtos/input/relationInput.dto";
 import { Unit } from "../models/unit.model";

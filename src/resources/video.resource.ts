@@ -1,5 +1,5 @@
 import { Video } from "../models/video.model";
-import { VideoDao } from "../services/daos/video.dao";
+import { VideoDao } from "../daos/video.dao";
 
 export class VideoResource {
     private videoDao: VideoDao;
