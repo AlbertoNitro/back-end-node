@@ -43,8 +43,8 @@ export class ItineraryDao {
     async findById(id: string): Promise<Itinerary> {
         return await ItinerarySchema.findById(id)
             .then( async (itineraryDocument: Document) => {
-                const itineraryPopulate: any = await ItinerarySchema.populate(itineraryDocument, {path: "formations", model: "Formation", populate: {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}}});
-                const itinerary: Itinerary = itineraryPopulate ? ItineraryDao.toItinerary(itineraryPopulate) : undefined;
+                logger.info(JSON.stringify(itineraryDocument));
+                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
             .catch ( err => {

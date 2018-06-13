@@ -35,8 +35,8 @@ export class SessionDao {
     async findById(id: string): Promise<Session> {
         return await SessionSchema.findById(id)
             .then(async(sessionDocument: Document) => {
-                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
-                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
+                // const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
+                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
                 return session;
             })
             .catch ( err => {

@@ -36,8 +36,8 @@ export class ExerciseDao {
     async findById(id: string): Promise<Exercise> {
         return await ExerciseSchema.findById(id)
             .then(async(exerciseDocument: Document) => {
-                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}});
-                const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                // const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}});
+                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {

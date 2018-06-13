@@ -37,8 +37,8 @@ export class SolutionDao {
     async findById(id: string): Promise<Solution> {
         return await SolutionSchema.findById(id)
             .then( async (solutionDocument: Document) => {
-                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications", model: "Justification"});
-                const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
+                // const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications", model: "Justification"});
+                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
                 return solution;
             })
             .catch ( err => {

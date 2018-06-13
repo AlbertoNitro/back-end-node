@@ -42,8 +42,9 @@ export class LessonDao {
     async findById(id: string): Promise<Lesson> {
         return await LessonSchema.findById(id)
             .then(async(lessonDocument: Document) => {
-                const lessonPopulate: any = await InteractionSchema.populate(lessonDocument, {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}});
-                const lesson: Lesson = lessonPopulate ? LessonDao.toLesson(lessonDocument) : undefined;
+                logger.info(JSON.stringify(lessonDocument));
+                // const lessonPopulate: any = await InteractionSchema.populate(lessonDocument, {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}});
+                const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;
                 return lesson;
             })
             .catch ( err => {
