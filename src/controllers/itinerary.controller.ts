@@ -3,12 +3,15 @@ import { HttpStatusCode } from "../utils/http-status-codes.enum";
 import logger from "../utils/logger";
 import { Itinerary } from "../models/itinerary.model";
 import { ItineraryResource } from "../resources/itinerary.resource";
+import { DtoService } from "../services/dto.service";
 
 export class ItineraryController {
     private itineraryResource: ItineraryResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.itineraryResource = new ItineraryResource();
+        this.dtoService = new DtoService();
     }
 
     async create(req: Request, res: Response): Promise<any> {

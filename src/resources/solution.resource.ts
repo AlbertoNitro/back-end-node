@@ -1,5 +1,5 @@
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
-import { SolutionDao } from "../services/daos/solution.dao";
+import { SolutionDao } from "../daos/solution.dao";
 import { Solution } from "../models/solution.model";
 import { Justification } from "../models/justification.model";
 

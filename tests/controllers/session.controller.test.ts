@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 describe("POST /session", () => {
     it("should return: 201 - CREATED + Session", (done) => {
-        const sessionInputDto: SessionInputDto = {"name": "Prueba"};
+        const sessionInputDto: SessionInputDto = {"name": "Sesion4"};
         return request(app).post("/session")
             .send(sessionInputDto)
             .end(  async (err, res) => {
@@ -23,23 +23,35 @@ describe("POST /session", () => {
     });
 });
 
-describe("GET /session/501d87b8b230cf35177998c0", () => {
+describe("GET /session/862d87b8b522cf35117998c1", () => {
     it("should return: 200", (done) => {
-        const sessionId = "501d87b8b230cf35177998c0";
+        const sessionId = "862d87b8b522cf35117998c1";
         return request(app).get("/session/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const sessionOutputDto: SessionOutputDto = res.body;
-                expect(sessionOutputDto.name).to.equal("Session1");
+                expect(sessionOutputDto.name).to.equal("Sesion0");
                 expect(sessionOutputDto.lessons.length).to.equal(0);
                 done();
             });
     });
 });
-
-describe("DELETE /session/501d87b8b230cf35177998c0", () => {
+describe("GET /session/665d87b4b122cf35117198c2", () => {
+    it("should return: 200", (done) => {
+        const sessionId = "665d87b4b122cf35117198c2";
+        return request(app).get("/session/" + sessionId)
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const sessionOutputDto: SessionOutputDto = res.body;
+                expect(sessionOutputDto.name).to.equal("Sesion2");
+                expect(sessionOutputDto.lessons.length).to.equal(2);
+                done();
+            });
+    });
+});
+describe("DELETE /session/763d87b8b122cf35117998c2", () => {
     it("should return: 204", (done) => {
-        const sessionId = "501d87b8b230cf35177998c0";
+        const sessionId = "763d87b8b122cf35117998c2";
         return request(app).delete("/session/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);

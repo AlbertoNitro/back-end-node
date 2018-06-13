@@ -1,10 +1,10 @@
 import { Solution } from "./solution.model";
 import { Interaction } from "./interaction.model";
+import { InteractionVisitor } from "./interaction.visitor";
 
 export class Exercise extends Interaction {
     private _id: string;
     private formulation: string;
-    private kind: string;
     private solutions: Solution[];
 
     constructor(formulation: string) {
@@ -25,10 +25,6 @@ export class Exercise extends Interaction {
         this.solutions = solutions;
         return this;
     }
-    setKind(kind: string) {
-        this.kind = kind;
-        return this;
-    }
     getId(): string {
         return this._id;
     }
@@ -37,5 +33,8 @@ export class Exercise extends Interaction {
     }
     getSolutions(): Solution[] {
         return this.solutions;
+    }
+    accept(interactionVisitor: InteractionVisitor): void {
+        interactionVisitor.visitExercise(this);
     }
 }

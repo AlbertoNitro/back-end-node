@@ -1,5 +1,5 @@
 import { Session } from "../models/session.model";
-import { SessionDao } from "../services/daos/session.dao";
+import { SessionDao } from "../daos/session.dao";
 import { Lesson } from "../models/lesson.model";
 
 export class SessionResource {

@@ -1,11 +1,11 @@
 import { Document } from "mongoose";
-import logger from "../../utils/logger";
-import { Exercise } from "../../models/exercise.model";
-import ExerciseSchema from "../../schemas/exercise.schema";
+import logger from "../utils/logger";
+import { Exercise } from "../models/exercise.model";
+import ExerciseSchema from "../schemas/exercise.schema";
 import { SolutionDao } from "./solution.dao";
-import { Solution } from "../../models/solution.model";
-import { ExerciseBuilder } from "../../models/builders/exercise.builder";
-import SolutionSchema from "../../schemas/solution.schema";
+import { Solution } from "../models/solution.model";
+import { ExerciseBuilder } from "../models/builders/exercise.builder";
+import SolutionSchema from "../schemas/solution.schema";
 
 export class ExerciseDao {
     constructor() {
@@ -36,7 +36,7 @@ export class ExerciseDao {
     async findById(id: string): Promise<Exercise> {
         return await ExerciseSchema.findById(id)
             .then(async(exerciseDocument: Document) => {
-                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", populate: {path: "justifications", model: "Justification"}});
+                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}});
                 const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
@@ -50,7 +50,7 @@ export class ExerciseDao {
         const exerciseSchema = new ExerciseSchema(exercise);
         return exerciseSchema.save()
             .then(async(exerciseDocument: Document) => {
-                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", populate: {path: "justifications", model: "Justification"}});
+                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}});
                 const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })

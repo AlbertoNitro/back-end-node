@@ -1,8 +1,8 @@
-import { Unit } from "../../models/unit.model";
-import UnitSchema from "../../schemas/unit.schema";
-import { UnitBuilder } from "../../models/builders/unit.builder";
+import { Unit } from "../models/unit.model";
+import UnitSchema from "../schemas/unit.schema";
+import { UnitBuilder } from "../models/builders/unit.builder";
 import { Document } from "mongoose";
-import logger from "../../utils/logger";
+import logger from "../utils/logger";
 
 export class UnitDao {
     constructor() {

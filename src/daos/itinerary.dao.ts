@@ -1,10 +1,10 @@
 import { Document } from "mongoose";
-import { Itinerary } from "../../models/itinerary.model";
-import ItinerarySchema from "../../schemas/itinerary.schema";
-import logger from "../../utils/logger";
-import { Formation } from "../../models/formation.model";
+import { Itinerary } from "../models/itinerary.model";
+import ItinerarySchema from "../schemas/itinerary.schema";
+import logger from "../utils/logger";
+import { Formation } from "../models/formation.model";
 import { SessionDao } from "./session.dao";
-import { ItineraryBuilder } from "../../models/builders/itinerary.builder";
+import { ItineraryBuilder } from "../models/builders/itinerary.builder";
 
 export class ItineraryDao {
     constructor() {

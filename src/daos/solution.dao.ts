@@ -1,13 +1,13 @@
 import { Document } from "mongoose";
-import { Solution } from "../../models/solution.model";
-import SolutionSchema from "../../schemas/solution.schema";
+import { Solution } from "../models/solution.model";
+import SolutionSchema from "../schemas/solution.schema";
 import { JustificationDao } from "./justification.dao";
-import { Justification } from "../../models/justification.model";
-import logger from "../../utils/logger";
-import { SolutionInputDto } from "../../dtos/input/solutionInput.dto";
-import { SolutionBuilder } from "../../models/builders/solution.builder";
-import JustificationSchema from "../../schemas/justification.schema";
-import justificationRoutes from "../../routes/justification/justification.route";
+import { Justification } from "../models/justification.model";
+import logger from "../utils/logger";
+import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
+import { SolutionBuilder } from "../models/builders/solution.builder";
+import JustificationSchema from "../schemas/justification.schema";
+import justificationRoutes from "../routes/justification/justification.route";
 
 export class SolutionDao {
     constructor() {
@@ -37,7 +37,7 @@ export class SolutionDao {
     async findById(id: string): Promise<Solution> {
         return await SolutionSchema.findById(id)
             .then( async (solutionDocument: Document) => {
-                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications"});
+                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications", model: "Justification"});
                 const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
                 return solution;
             })
@@ -49,7 +49,7 @@ export class SolutionDao {
     async findAll(): Promise<Solution[]> {
         return await SolutionSchema.find({})
             .then(async(solutionsDocuments: Document[]) => {
-                const solutionsPopulate: any = await JustificationSchema.populate(solutionsDocuments, {path: "justifications"});
+                const solutionsPopulate: any = await JustificationSchema.populate(solutionsDocuments, {path: "justifications", model: "Justification"});
                 const solution: Solution[] = solutionsPopulate ? SolutionDao.toArraySolutions(solutionsPopulate) : undefined;
                 return solution;
             })
@@ -61,7 +61,7 @@ export class SolutionDao {
     async update(id: string, justifications: Justification[]): Promise<Solution> {
         return await SolutionSchema.updateOne({ _id: id }, { $set: {justifications: justifications }}, { new: true })
             .then(async (solutionDocument: Document) => {
-                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications"});
+                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications", model: "Justification"});
                 const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
                 return solution;
             })

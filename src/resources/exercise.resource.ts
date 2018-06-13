@@ -1,5 +1,5 @@
 import { Exercise } from "../models/exercise.model";
-import { ExerciseDao } from "../services/daos/exercise.dao";
+import { ExerciseDao } from "../daos/exercise.dao";
 import { Solution } from "../models/solution.model";
 
 export class ExerciseResource {
