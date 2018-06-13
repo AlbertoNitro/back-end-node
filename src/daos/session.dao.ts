@@ -12,6 +12,7 @@ export class SessionDao {
     }
 
     static toSession(document: Document): Session {
+        logger.info("SOY SESSION XAVAL");
         return new SessionBuilder(document.get("name")).setId(document.get("_id")).setLessons(LessonDao.toArrayLessons(document.get("lessons"))).build();
     }
     static toArraySessions(documents: Document[]): Session[] {

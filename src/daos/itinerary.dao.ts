@@ -11,11 +11,14 @@ export class ItineraryDao {
     }
 
     static toItinerary(document: Document): Itinerary {
+        logger.info("toItinerary()");
         const formations: Formation[] = [];
         const formationsDocuments: Document[] = document.get("formations");
+        logger.info("formationsDocuments = " + formationsDocuments.length);
         for (let i = 0 ; i < formationsDocuments.length ; i++) {
             const formationDocument: Document = formationsDocuments[i];
-            formationDocument.get("kind") === "Session" ? formations.push(<Formation> SessionDao.toSession(formationDocument)) : formations.push(<Formation> ItineraryDao.toItinerary(formationDocument));
+            logger.info("formationsDocuments[i] = " + JSON.stringify(formationsDocuments[i]));
+            formationDocument.get("kind") === "Session" ? formations.push(SessionDao.toSession(formationDocument)) : formations.push(ItineraryDao.toItinerary(formationDocument));
         }
         const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
         return itinerary;
@@ -39,8 +42,9 @@ export class ItineraryDao {
     }
     async findById(id: string): Promise<Itinerary> {
         return await ItinerarySchema.findById(id)
-            .then( (itineraryDocument: Document) => {
-                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+            .then( async (itineraryDocument: Document) => {
+                const itineraryPopulate: any = await ItinerarySchema.populate(itineraryDocument, {path: "formations", model: "Formation", populate: {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}}});
+                const itinerary: Itinerary = itineraryPopulate ? ItineraryDao.toItinerary(itineraryPopulate) : undefined;
                 return itinerary;
             })
             .catch ( err => {
@@ -52,8 +56,9 @@ export class ItineraryDao {
         const itinerary: Itinerary = new ItineraryBuilder(name).build();
         const itinerarySchema = new ItinerarySchema(itinerary);
         return itinerarySchema.save()
-            .then( (itineraryDocument: Document) => {
-                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+            .then( async(itineraryDocument: Document) => {
+                const itineraryPopulate: any = await ItinerarySchema.populate(itineraryDocument, {path: "formations", model: "Formation", populate: {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}}});
+                const itinerary: Itinerary = itineraryPopulate ? ItineraryDao.toItinerary(itineraryPopulate) : undefined;
                 return itinerary;
             })
             .catch ( err => {
@@ -63,8 +68,9 @@ export class ItineraryDao {
     }
     async update(id: string, formations: Formation[]): Promise<Itinerary> {
         return await ItinerarySchema.updateOne({_id: id}, {$set: {formations: formations}}, {new: true})
-            .then( (itineraryDocument: Document) => {
-                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+            .then( async (itineraryDocument: Document) => {
+                const itineraryPopulate: any = await ItinerarySchema.populate(itineraryDocument, {path: "formations", model: "Formation", populate: {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}}});
+                const itinerary: Itinerary = itineraryPopulate ? ItineraryDao.toItinerary(itineraryPopulate) : undefined;
                 return itinerary;
             })
             .catch ( err => {

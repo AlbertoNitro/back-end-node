@@ -50,7 +50,11 @@ formations:
         kind: Itinerary
         name: Itinerario6
         formations: [{$oid: "315d87b4b122cf35117198c4"}, {$oid: "215d87b4b122cf35117198c5"}]
-
+    - &formation10
+        _id: {$oid: "821d87b5b122cf35117198c4"} #Itinerario que contiene un itinerario que contiene una sesion
+        kind: Itinerary
+        name: Itinerario9
+        formations: [{$oid: "315d87b4b122cf35117198c4"}]
 
 #Lessons
 lessons:
