@@ -13,20 +13,22 @@ import { Unit } from "../models/unit.model";
 export class RelationController {
     private relationResource: RelationResource;
     private unitResource: UnitResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.relationResource = new RelationResource();
         this.unitResource = new UnitResource();
+        this.dtoService = new DtoService();
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const relations: Relation[] = await this.relationResource.findAll();
-        const relationsOutputDtos: RelationOutputDto[] = DtoService.toArrayRelationOutputDto(relations);
+        const relationsOutputDtos: RelationOutputDto[] = this.dtoService.toArrayRelationOutputDto(relations);
         relations ? res.status(HttpStatusCode.OK).json(relationsOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async create(req: Request, res: Response): Promise<any> {
         const relationInputDto: RelationInputDto = req.body;
         const relation: Relation = await this.relationResource.create(relationInputDto);
-        const relationOutputDto: RelationOutputDto = DtoService.toRelationOutputDto(relation);
+        const relationOutputDto: RelationOutputDto = this.dtoService.toRelationOutputDto(relation);
         relation ? res.status(HttpStatusCode.CREATED).json(relationOutputDto) : res.status(HttpStatusCode.BAD_REQUEST).end();
     }
     async delete(req: Request, res: Response): Promise<any> {

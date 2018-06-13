@@ -9,21 +9,23 @@ import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
 
 export class JustificationController {
     private justificationResource: JustificationResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.justificationResource = new JustificationResource();
+        this.dtoService = new DtoService();
     }
 
     async create(req: Request, res: Response): Promise<any> {
         const justificationInputDto: JustificationInputDto = req.body;
         const justification: Justification = await this.justificationResource.create(justificationInputDto.text, justificationInputDto.isCorrect);
-        const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
+        const justificationOutputDto: JustificationOutputDto = this.dtoService.toJustificationOutputDto(justification);
         justificationOutputDto ? res.status(HttpStatusCode.CREATED).json(justificationOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const justification: Justification = await this.justificationResource.findById(id);
-        const justificationOutputDto: JustificationOutputDto = DtoService.toJustificationOutputDto(justification);
+        const justificationOutputDto: JustificationOutputDto = this.dtoService.toJustificationOutputDto(justification);
         justificationOutputDto ? res.status(HttpStatusCode.OK).json(justificationOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
@@ -38,7 +40,7 @@ export class JustificationController {
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const justifications: Justification[] = await this.justificationResource.findAll();
-        const justificationOutputDtos: JustificationOutputDto[] = DtoService.toArrayJustificationOutputDto(justifications);
+        const justificationOutputDtos: JustificationOutputDto[] = this.dtoService.toArrayJustificationOutputDto(justifications);
         justificationOutputDtos ? res.status(HttpStatusCode.OK).json(justificationOutputDtos) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
 }

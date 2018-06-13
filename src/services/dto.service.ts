@@ -27,7 +27,7 @@ export class DtoService {
     constructor() {
     }
 
-    static toUnitOutputDto(unit: Unit): UnitOutputDto {
+    toUnitOutputDto(unit: Unit): UnitOutputDto {
         let unitOutputDto: UnitOutputDto = undefined;
         if (unit) {
             unitOutputDto = {
@@ -37,16 +37,16 @@ export class DtoService {
         }
         return unitOutputDto;
     }
-    static toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
+    toArrayUnitOutputDto(units: Unit[]): UnitOutputDto[] {
         const unitOutputDtos: UnitOutputDto[] = [];
         if (units.length > 0) {
             for (let i = 0 ; i < units.length ; i++ ) {
-                unitOutputDtos.push(DtoService.toUnitOutputDto(units[i]));
+                unitOutputDtos.push(this.toUnitOutputDto(units[i]));
             }
         }
         return unitOutputDtos;
     }
-    static toRelationOutputDto(relation: Relation): RelationOutputDto {
+    toRelationOutputDto(relation: Relation): RelationOutputDto {
         let relationOutputDto: RelationOutputDto = undefined;
         if (relation) {
             relationOutputDto = {
@@ -60,27 +60,27 @@ export class DtoService {
         }
         return relationOutputDto;
     }
-    static toArrayRelationOutputDto(relations: Relation[]): RelationOutputDto[] {
+    toArrayRelationOutputDto(relations: Relation[]): RelationOutputDto[] {
         const relationOutputDtos: RelationOutputDto[] = [];
         if (relations.length > 0) {
             for (let i = 0; i < relations.length; i++) {
-                relationOutputDtos.push(DtoService.toRelationOutputDto(relations[i]));
+                relationOutputDtos.push(this.toRelationOutputDto(relations[i]));
             }
         }
         return relationOutputDtos;
     }
-    static toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
+    toNeighborsOutputDto(unit: Unit, topUnits: Unit[], lowerUnits: Unit[], relations: Relation[]): NeighborsOutputDto {
         let neighborsOutputDto: NeighborsOutputDto = undefined;
         if (unit) {
             neighborsOutputDto = {
-                unit: DtoService.toUnitOutputDto(unit),
-                topUnits: DtoService.toArrayUnitOutputDto(topUnits),
-                lowerUnits: DtoService.toArrayUnitOutputDto(lowerUnits),
-                relations: DtoService.toArrayRelationOutputDto(relations)};
+                unit: this.toUnitOutputDto(unit),
+                topUnits: this.toArrayUnitOutputDto(topUnits),
+                lowerUnits: this.toArrayUnitOutputDto(lowerUnits),
+                relations: this.toArrayRelationOutputDto(relations)};
         }
         return neighborsOutputDto;
     }
-    static toVideoOutputDto(video: Video): VideoOutputDto {
+    toVideoOutputDto(video: Video): VideoOutputDto {
         let videoOutputDto: VideoOutputDto = undefined;
         if (video) {
             videoOutputDto = {
@@ -90,35 +90,35 @@ export class DtoService {
         }
         return videoOutputDto;
     }
-    static toArrayVideoOutputDto(videos: Video[]): VideoOutputDto[] {
+    toArrayVideoOutputDto(videos: Video[]): VideoOutputDto[] {
         const videoOutputDtos: VideoOutputDto[] = [];
         if (videos.length > 0) {
             for (let i = 0 ; i < videos.length ; i++ ) {
-                videoOutputDtos.push(DtoService.toVideoOutputDto(videos[i]));
+                videoOutputDtos.push(this.toVideoOutputDto(videos[i]));
             }
         }
         return videoOutputDtos;
     }
-    static toLessonOutputDto(lesson: Lesson): LessonOutputDto {
+    toLessonOutputDto(lesson: Lesson): LessonOutputDto {
         let lessonOutputDto: LessonOutputDto = undefined;
         if (lesson) {
             lessonOutputDto = {
                 id: lesson.getId(),
                 name: lesson.getName(),
-                interactions: DtoService.toArrayInteractionOutputDto(lesson.getInteractions())};
+                interactions: this.toArrayInteractionOutputDto(lesson.getInteractions())};
         }
         return lessonOutputDto;
     }
-    static toArrayLessonOutputDto(lessons: Lesson[]): LessonOutputDto[] {
+    toArrayLessonOutputDto(lessons: Lesson[]): LessonOutputDto[] {
         const lessonOutputDtos: LessonOutputDto[] = [];
         if (lessons.length > 0) {
             for (let i = 0 ; i < lessons.length ; i++ ) {
-                lessonOutputDtos.push(DtoService.toLessonOutputDto(lessons[i]));
+                lessonOutputDtos.push(this.toLessonOutputDto(lessons[i]));
             }
         }
         return lessonOutputDtos;
     }
-    static toJustificationOutputDto(justification: Justification): JustificationOutputDto {
+    toJustificationOutputDto(justification: Justification): JustificationOutputDto {
         let justificationOutputDto: JustificationOutputDto = undefined;
         if (justification) {
             justificationOutputDto = {
@@ -128,139 +128,139 @@ export class DtoService {
         }
         return justificationOutputDto;
     }
-    static toArrayJustificationOutputDto(justifications: Justification[]): JustificationOutputDto[] {
+    toArrayJustificationOutputDto(justifications: Justification[]): JustificationOutputDto[] {
         const justificationOutputDtos: JustificationOutputDto[] = [];
         if (justifications.length > 0) {
             for (let i = 0 ; i < justifications.length ; i++ ) {
-                justificationOutputDtos.push(DtoService.toJustificationOutputDto(justifications[i]));
+                justificationOutputDtos.push(this.toJustificationOutputDto(justifications[i]));
             }
         }
         return justificationOutputDtos;
     }
-    static toSolutionOutputDto(solution: Solution): SolutionOutputDto {
+    toSolutionOutputDto(solution: Solution): SolutionOutputDto {
         let solutionOutputDto: SolutionOutputDto = undefined;
         if (solution) {
             solutionOutputDto = {
                 id: solution.getId(),
                 isCorrect: solution.getIsCorrect(),
                 text: solution.getText(),
-                justifications: DtoService.toArrayJustificationOutputDto(solution.getJustifications())};
+                justifications: this.toArrayJustificationOutputDto(solution.getJustifications())};
         }
         return solutionOutputDto;
     }
-    static toArraySolutionOutputDto(solutions: Solution[]): SolutionOutputDto[] {
+    toArraySolutionOutputDto(solutions: Solution[]): SolutionOutputDto[] {
         const solutionOutputDtos: SolutionOutputDto[] = [];
         if (solutions.length > 0) {
             for (let i = 0 ; i < solutions.length ; i++ ) {
-                solutionOutputDtos.push(DtoService.toSolutionOutputDto(solutions[i]));
+                solutionOutputDtos.push(this.toSolutionOutputDto(solutions[i]));
             }
         }
         return solutionOutputDtos;
     }
-    static toSessionOutputDto(session: Session): SessionOutputDto {
+    toSessionOutputDto(session: Session): SessionOutputDto {
         let sessionOutputDto: SessionOutputDto = undefined;
         if (session) {
             sessionOutputDto = {
                 id: session.getId(),
                 name: session.getName(),
-                lessons: DtoService.toArrayLessonOutputDto(session.getLessons())};
+                lessons: this.toArrayLessonOutputDto(session.getLessons())};
         }
         return sessionOutputDto;
     }
-    static toArraySessionOutputDto(sessions: Session[]): SessionOutputDto[] {
+    toArraySessionOutputDto(sessions: Session[]): SessionOutputDto[] {
         const sessionsOutputDtos: SessionOutputDto[] = [];
         if (sessions.length > 0) {
             for (let i = 0 ; i < sessions.length ; i++ ) {
-                sessionsOutputDtos.push(DtoService.toSessionOutputDto(sessions[i]));
+                sessionsOutputDtos.push(this.toSessionOutputDto(sessions[i]));
             }
         }
         return sessionsOutputDtos;
     }
-    static toItineraryOutputDto(itinerary: Itinerary): ItineraryOutputDto {
+    toItineraryOutputDto(itinerary: Itinerary): ItineraryOutputDto {
         let itineraryOutputDto: ItineraryOutputDto = undefined;
         if (itinerary) {
             itineraryOutputDto = {
                 id: itinerary.getId(),
                 name: itinerary.getName(),
-                formations: DtoService.toArrayFormationOutputDto(itinerary.getFormations())};
+                formations: this.toArrayFormationOutputDto(itinerary.getFormations())};
         }
         return itineraryOutputDto;
     }
-    static toArrayItineraryOutputDto(itineraries: Itinerary[]): ItineraryOutputDto[] {
+    toArrayItineraryOutputDto(itineraries: Itinerary[]): ItineraryOutputDto[] {
         const itinerariesOutputDtos: ItineraryOutputDto[] = [];
         if (itineraries.length > 0) {
             for (let i = 0 ; i < itineraries.length ; i++ ) {
-                itinerariesOutputDtos.push(DtoService.toItineraryOutputDto(itineraries[i]));
+                itinerariesOutputDtos.push(this.toItineraryOutputDto(itineraries[i]));
             }
         }
         return itinerariesOutputDtos;
     }
-    static toFormationOutputDto(formation: Formation): FormationOutputDto {
+    toFormationOutputDto(formation: Formation): FormationOutputDto {
         let formationOutputDto: FormationOutputDto = undefined;
         const itinerary: Itinerary = <Itinerary> formation;
         const session: Session = <Session> formation;
         if (itinerary) {
-            formationOutputDto = {itinerary: DtoService.toItineraryOutputDto(itinerary)};
+            formationOutputDto = {itinerary: this.toItineraryOutputDto(itinerary)};
         } else if (session) {
-            formationOutputDto = {session: DtoService.toSessionOutputDto(session)};
+            formationOutputDto = {session: this.toSessionOutputDto(session)};
         } else {
             logger.error("ERROR en toFormationOutputDto(). A la hora de castear una formacionDto a sesionDto o a itinerarioDto");
         }
         return formationOutputDto;
     }
-    static toArrayFormationOutputDto(formations: Formation[]): FormationOutputDto[] {
+    toArrayFormationOutputDto(formations: Formation[]): FormationOutputDto[] {
         const formationsOutputDtos: FormationOutputDto[] = [];
         if (formations.length > 0) {
             for (let i = 0 ; i < formations.length ; i++ ) {
-                formationsOutputDtos.push(DtoService.toFormationOutputDto(formations[i]));
+                formationsOutputDtos.push(this.toFormationOutputDto(formations[i]));
             }
         }
         return formationsOutputDtos;
     }
-    static toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
+    toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
         let exercisesOutputDto: ExerciseOutputDto = undefined;
         if (exercise) {
             exercisesOutputDto = {
                 id: exercise.getId(),
                 formulation: exercise.getFormulation(),
-                solutions: DtoService.toArraySolutionOutputDto(exercise.getSolutions())};
+                solutions: this.toArraySolutionOutputDto(exercise.getSolutions())};
         }
         return exercisesOutputDto;
     }
-    static toArrayExerciseOutputDto(exercises: Exercise[]): ExerciseOutputDto[] {
+    toArrayExerciseOutputDto(exercises: Exercise[]): ExerciseOutputDto[] {
         const exercisesOutputDtos: ExerciseOutputDto[] = [];
         if (exercises.length > 0) {
             for (let i = 0 ; i < exercises.length ; i++ ) {
-                exercisesOutputDtos.push(DtoService.toExerciseOutputDto(exercises[i]));
+                exercisesOutputDtos.push(this.toExerciseOutputDto(exercises[i]));
             }
         }
         return exercisesOutputDtos;
     }
-    static toInteractionOutputDto(interaction: Interaction): InteractionOutputDto {
-        logger.info("---------------DtoService > toInteractionOutputDto() -------------------");
+    toInteractionOutputDto(interaction: Interaction): InteractionOutputDto {
+        logger.info("---------------this> toInteractionOutputDto() -------------------");
         let interactionOutputDto: InteractionOutputDto = undefined;
         const video: Video = <Video> interaction;
         const exercise: Exercise = <Exercise> interaction;
-        logger.info("---------------DtoService > toInteractionOutputDto() > Video -------------------");
+        logger.info("---------------this> toInteractionOutputDto() > Video -------------------");
         logger.info(typeof video);
         logger.info(JSON.stringify(video));
-        logger.info("---------------DtoService > toInteractionOutputDto() > Exercise -------------------");
+        logger.info("---------------this> toInteractionOutputDto() > Exercise -------------------");
         logger.info(typeof exercise);
         logger.info(JSON.stringify(exercise));
         if (video) {
-            interactionOutputDto = {video: DtoService.toVideoOutputDto(video)};
+            interactionOutputDto = {video: this.toVideoOutputDto(video)};
         } else if (exercise) {
-            interactionOutputDto = {exercise: DtoService.toExerciseOutputDto(exercise)};
+            interactionOutputDto = {exercise: this.toExerciseOutputDto(exercise)};
         } else {
             logger.error("ERROR en toInteractionOutputDto(). A la hora de castear una interaccionDto a videoDto o a ejercicioDto");
         }
         return interactionOutputDto;
     }
-    static toArrayInteractionOutputDto(interactions: Interaction[]): InteractionOutputDto[] {
+    toArrayInteractionOutputDto(interactions: Interaction[]): InteractionOutputDto[] {
         const interactionsOutputDtos: InteractionOutputDto[] = [];
         if (interactions.length > 0) {
             for (let i = 0 ; i < interactions.length ; i++ ) {
-                interactionsOutputDtos.push(DtoService.toInteractionOutputDto(interactions[i]));
+                interactionsOutputDtos.push(this.toInteractionOutputDto(interactions[i]));
             }
         }
         return interactionsOutputDtos;

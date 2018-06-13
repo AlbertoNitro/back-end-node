@@ -8,9 +8,11 @@ import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 
 export class ExerciseController {
     private exerciseResource: ExerciseResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.exerciseResource = new ExerciseResource();
+        this.dtoService = new DtoService();
     }
 
     async create(req: Request, res: Response): Promise<any> {

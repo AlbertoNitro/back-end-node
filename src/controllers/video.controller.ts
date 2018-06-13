@@ -8,21 +8,23 @@ import logger from "../utils/logger";
 
 export class VideoController {
     private videoResource: VideoResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.videoResource = new VideoResource();
+        this.dtoService = new DtoService();
     }
 
     async create(req: Request, res: Response): Promise<any> {
         const url: string = req.body.url;
         const video: Video = await this.videoResource.create(url);
-        const videoOutputDto: VideoOutputDto = DtoService.toVideoOutputDto(video);
+        const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
         video ? res.status(HttpStatusCode.CREATED).json(videoOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const video: Video = await this.videoResource.findById(id);
-        const videoOutputDto: VideoOutputDto = DtoService.toVideoOutputDto(video);
+        const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
         video ? res.status(HttpStatusCode.OK).json(videoOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {

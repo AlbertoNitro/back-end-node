@@ -8,15 +8,17 @@ import { LessonOutputDto } from "../dtos/output/lessonOutput.dto";
 
 export class LessonController {
     private lessonResource: LessonResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.lessonResource = new LessonResource();
+        this.dtoService = new DtoService();
     }
 
     async create(req: Request, res: Response): Promise<any> {
         const name: string = req.body.name;
         const lesson: Lesson = await this.lessonResource.create(name);
-        const lessonOutputDto: LessonOutputDto = DtoService.toLessonOutputDto(lesson);
+        const lessonOutputDto: LessonOutputDto = this.dtoService.toLessonOutputDto(lesson);
         lesson ? res.status(HttpStatusCode.CREATED).json(lessonOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
@@ -26,7 +28,7 @@ export class LessonController {
         for (let i = 0 ; i < lesson.getInteractions().length ; i++) {
             logger.info(JSON.stringify(lesson.getInteractions()[i]));
         }
-        const lessonOutputDto: LessonOutputDto = DtoService.toLessonOutputDto(lesson);
+        const lessonOutputDto: LessonOutputDto = this.dtoService.toLessonOutputDto(lesson);
         lesson ? res.status(HttpStatusCode.OK).json(lessonOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {

@@ -3,12 +3,15 @@ import { HttpStatusCode } from "../utils/http-status-codes.enum";
 import logger from "../utils/logger";
 import { Session } from "../models/session.model";
 import { SessionResource } from "../resources/session.resource";
+import { DtoService } from "../services/dto.service";
 
 export class SessionController {
     private sessionResource: SessionResource;
+    private dtoService: DtoService;
 
     constructor() {
         this.sessionResource = new SessionResource();
+        this.dtoService = new DtoService();
     }
 
     async create(req: Request, res: Response): Promise<any> {
