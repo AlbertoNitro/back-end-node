@@ -22,8 +22,11 @@ import { InteractionOutputDto } from "../dtos/output/interactionOutput.dto";
 import logger from "../utils/logger";
 import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
 import { Formation } from "../models/formation.model";
+import { InteractionVisitor } from "../models/interaction.visitor";
 
-export class DtoService {
+export class DtoService implements InteractionVisitor {
+    interactionOutputDto: InteractionOutputDto;
+
     constructor() {
     }
 
@@ -237,24 +240,8 @@ export class DtoService {
         return exercisesOutputDtos;
     }
     toInteractionOutputDto(interaction: Interaction): InteractionOutputDto {
-        logger.info("---------------this> toInteractionOutputDto() -------------------");
-        let interactionOutputDto: InteractionOutputDto = undefined;
-        const video: Video = <Video> interaction;
-        const exercise: Exercise = <Exercise> interaction;
-        logger.info("---------------this> toInteractionOutputDto() > Video -------------------");
-        logger.info(typeof video);
-        logger.info(JSON.stringify(video));
-        logger.info("---------------this> toInteractionOutputDto() > Exercise -------------------");
-        logger.info(typeof exercise);
-        logger.info(JSON.stringify(exercise));
-        if (video) {
-            interactionOutputDto = {video: this.toVideoOutputDto(video)};
-        } else if (exercise) {
-            interactionOutputDto = {exercise: this.toExerciseOutputDto(exercise)};
-        } else {
-            logger.error("ERROR en toInteractionOutputDto(). A la hora de castear una interaccionDto a videoDto o a ejercicioDto");
-        }
-        return interactionOutputDto;
+        interaction.accept(this);
+        return this.interactionOutputDto;
     }
     toArrayInteractionOutputDto(interactions: Interaction[]): InteractionOutputDto[] {
         const interactionsOutputDtos: InteractionOutputDto[] = [];
@@ -264,5 +251,11 @@ export class DtoService {
             }
         }
         return interactionsOutputDtos;
+    }
+    visitVideo(video: Video): void {
+        this.interactionOutputDto = {video: this.toVideoOutputDto(video)};
+    }
+    visitExercise(exercise: Exercise): void {
+        this.interactionOutputDto = {exercise: this.toExerciseOutputDto(exercise)};
     }
 }

@@ -1,4 +1,5 @@
 import { Interaction } from "./interaction.model";
+import { InteractionVisitor } from "./interaction.visitor";
 
 export class Video extends Interaction  {
     private _id: string;
@@ -21,5 +22,8 @@ export class Video extends Interaction  {
     }
     getUrl(): string {
         return this.url;
+    }
+    accept(interactionVisitor: InteractionVisitor): void {
+        interactionVisitor.visitVideo(this);
     }
 }

@@ -1,5 +1,6 @@
 import { Solution } from "./solution.model";
 import { Interaction } from "./interaction.model";
+import { InteractionVisitor } from "./interaction.visitor";
 
 export class Exercise extends Interaction {
     private _id: string;
@@ -32,5 +33,8 @@ export class Exercise extends Interaction {
     }
     getSolutions(): Solution[] {
         return this.solutions;
+    }
+    accept(interactionVisitor: InteractionVisitor): void {
+        interactionVisitor.visitExercise(this);
     }
 }
