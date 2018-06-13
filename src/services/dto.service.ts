@@ -32,7 +32,8 @@ export class DtoService {
         if (unit) {
             unitOutputDto = {
                 name: unit.getName(),
-                code: unit.getCode()};
+                code: unit.getCode(),
+                content: unit.getContent()};
         }
         return unitOutputDto;
     }
@@ -50,8 +51,8 @@ export class DtoService {
         if (relation) {
             relationOutputDto = {
                 type: relation.getType(),
-                topUnit: {name: relation.getTopUnit().getName(), code: relation.getTopUnit().getCode()},
-                lowerUnit: {name: relation.getLowerUnit().getName(), code: relation.getLowerUnit().getCode()},
+                topUnit: {name: relation.getTopUnit().getName(), code: relation.getTopUnit().getCode(), content: relation.getTopUnit().getContent()},
+                lowerUnit: {name: relation.getLowerUnit().getName(), code: relation.getLowerUnit().getCode(), content: relation.getTopUnit().getContent()},
                 semantics: relation.getSemantics(),
                 cardinalTopUnit: relation.getCardinalTopUnit(),
                 cardinalLowerUnit: relation.getCardinalLowerUnit()

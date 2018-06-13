@@ -9,7 +9,7 @@ export class UnitDao {
     }
 
     static toUnit(document: Document): Unit {
-        return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).build();
+        return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).setContent(document.get("content")).build();
     }
     static toArrayUnits(documents: Document[]): Unit[] {
         const units: Unit[] = [];
@@ -68,6 +68,7 @@ export class UnitDao {
         return await UnitSchema.find({})
             .then( (unitsDocument: Document[]) => {
                 const units: Unit[] = unitsDocument ? UnitDao.toArrayUnits(unitsDocument) : undefined;
+                console.log(unitsDocument);
                 return units;
             })
             .catch ( err => {
@@ -83,6 +84,22 @@ export class UnitDao {
             .catch ( err => {
                 logger.error(err);
                 return false;
+            });
+    }
+    async update(code: String, content: string): Promise<Unit> {
+        const unit: Unit =  await this.findByCode(Number(code));
+        return await UnitSchema.findById(unit.getId())
+            .then(async (unit: Document) => {
+                unit.set({content});
+                return await unit.save()
+                .then( (unitDocument: Document) => {
+                    const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                    return unit;
+                })
+                .catch ( err => {
+                    logger.error(err);
+                    return undefined;
+                });
             });
     }
 }

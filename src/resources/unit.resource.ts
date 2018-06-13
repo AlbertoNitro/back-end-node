@@ -88,4 +88,7 @@ export class UnitResource {
         }
         return notRelatedUnits;
     }
+    async update(code: string, content: string): Promise<Unit> {
+        return await this.unitDao.update(code, content);
+    }
 }

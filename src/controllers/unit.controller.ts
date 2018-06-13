@@ -49,11 +49,11 @@ export class UnitController {
                 const topUnits: Unit[] = await this.unitResource.getTopUnits(units[i].getId());
                 if (topUnits) {
                     for (let j = 0 ; j < topUnits.length ; j++) {
-                        const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode()}};
+                        const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode(), content: units[i].getContent()}, topUnit: {name: topUnits[j].getName(), code: topUnits[j].getCode(), content: units[i].getContent()}};
                         relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                     }
                 } else {
-                    const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode()}, topUnit: undefined};
+                    const relationsUnitsOutputDto: RelatedUnitsOutputDto = { unit: {name: units[i].getName(), code: units[i].getCode(), content: units[i].getContent()}, topUnit: undefined};
                     relatedUnitsOutputDtos.push(relationsUnitsOutputDto);
                 }
             }
@@ -85,5 +85,10 @@ export class UnitController {
         const unit: UnitOutputDto[] = DtoService.toArrayUnitOutputDto(await this.unitResource.findNotRelated());
         unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
 
+    }
+    async update(req: Request, res: Response) {
+        const unit: Unit = await this.unitResource.update(req.params.code, req.body.content);
+        const unitOutputDto: UnitOutputDto = DtoService.toUnitOutputDto(unit);
+        unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
 }

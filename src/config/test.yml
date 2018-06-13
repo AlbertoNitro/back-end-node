@@ -99,6 +99,7 @@ units:
     _id: {$oid: "161d87b8b260cf35147998ca"}
     code: 50
     name: Unidad50 # ROOT
+    content: "PRUEBA"
 - &unit1
     _id: {$oid: "261d87b8b260cf35147998ca"}
     code: 51
