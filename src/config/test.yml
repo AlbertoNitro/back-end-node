@@ -138,6 +138,11 @@ solutions:
     isCorrect: true
     text: La formula del agua H20
     justifications: [{$oid: "131d87b8b230cf35177998ca"}]
+- &solution3
+    _id: {$oid: "666d87b8b230cf35177997ca"} #PUT
+    isCorrect: false
+    text: 6666
+    justifications: [{$oid: "101d87b8b230cf35177998ca"}, {$oid: "111d87b8b230cf35177998ca"}, {$oid: "121d87b8b230cf35177998ca"}]
 
 # Units
 units:

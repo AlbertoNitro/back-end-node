@@ -3,6 +3,8 @@ import { SolutionDao } from "../daos/solution.dao";
 import { Solution } from "../models/solution.model";
 import { Justification } from "../models/justification.model";
 import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
+import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
+import logger from "../utils/logger";
 
 export class SolutionResource {
     private solutionDao: SolutionDao = new SolutionDao();
@@ -22,9 +24,13 @@ export class SolutionResource {
     async delete(solution: Solution): Promise<boolean> {
         return await this.solutionDao.delete(solution.getId());
     }
-    async update(id: string, justificationsInputDtos: JustificationInputDto[]): Promise<Solution> {
+    async update(id: string, justifications: Justification[]): Promise<Solution> {
         let solution: Solution = await this.findById(id);
-        solution = solution ? await this.solutionDao.update(id, justificationsInputDtos) : undefined;
+        const justificationIds: string[] = [];
+        for (let i = 0 ; i < justifications.length ; i++) {
+            justificationIds[i] = justifications[i].getId();
+        }
+        solution = solution ? await this.solutionDao.update(id, justificationIds) : undefined;
         return solution;
     }
 }

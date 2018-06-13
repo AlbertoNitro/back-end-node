@@ -6,7 +6,9 @@ import { SolutionResource } from "../resources/solution.resource";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { SolutionOutputDto } from "../dtos/output/solutionOutput.dto";
 import { DtoService } from "../services/dto.service";
-import {JustificationInputDto} from "../dtos/input/justificationInput.dto";
+import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
+import { Justification } from "../models/justification.model";
+import { JustificationBuilder } from "../models/builders/justification.builder";
 
 export class SolutionController {
     private solutionResource: SolutionResource;
@@ -45,10 +47,12 @@ export class SolutionController {
     }
     async update(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
-        const justificationsInputDtos: JustificationInputDto[] = req.body;
-        logger.info(id);
-        logger.info(JSON.stringify(justificationsInputDtos));
-        const solution: Solution = await this.solutionResource.update(id, justificationsInputDtos);
+        const justificationOutputDtos: JustificationOutputDto[] = req.body;
+        const justifications: Justification[] = [];
+        for (let i = 0; i < justificationOutputDtos.length; i++) {
+            justifications.push(new JustificationBuilder(justificationOutputDtos[i].text, justificationOutputDtos[i].isCorrect).setId(justificationOutputDtos[i].id).build());
+        }
+        const solution: Solution = await this.solutionResource.update(id, justifications);
         const solutionOutputDto: SolutionOutputDto = this.dtoService.toSolutionOutputDto(solution);
         solutionOutputDto ? res.status(HttpStatusCode.OK).json(solutionOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }

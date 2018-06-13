@@ -6,9 +6,7 @@ import { Justification } from "../models/justification.model";
 import logger from "../utils/logger";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { SolutionBuilder } from "../models/builders/solution.builder";
-import JustificationSchema from "../schemas/justification.schema";
-import justificationRoutes from "../routes/justification/justification.route";
-import {JustificationInputDto} from "../dtos/input/justificationInput.dto";
+import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
 
 export class SolutionDao {
     constructor() {
@@ -57,9 +55,11 @@ export class SolutionDao {
                 return undefined;
             });
     }
-    async update(id: string, justificationsInputDtos: JustificationInputDto[]): Promise<Solution> {
-        return await SolutionSchema.updateOne({ _id: id }, { $set: {justifications: justificationsInputDtos }}, { new: true })
+    async update(id: string, justificationIds: string[]): Promise<Solution> {
+        logger.info(JSON.stringify(justificationIds));
+        return await SolutionSchema.findOneAndUpdate({ _id: id }, { $set: {justifications: justificationIds }}, { new: true })
             .then(async (solutionDocument: Document) => {
+                logger.info(JSON.stringify(solutionDocument));
                 const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
                 return solution;
             })
