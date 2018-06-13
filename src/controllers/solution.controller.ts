@@ -6,6 +6,7 @@ import { SolutionResource } from "../resources/solution.resource";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { SolutionOutputDto } from "../dtos/output/solutionOutput.dto";
 import { DtoService } from "../services/dto.service";
+import {JustificationInputDto} from "../dtos/input/justificationInput.dto";
 
 export class SolutionController {
     private solutionResource: SolutionResource;
@@ -41,5 +42,14 @@ export class SolutionController {
         const solution: Solution = await this.solutionResource.create(solutionInputDto);
         const solutionOutputDto: SolutionOutputDto = this.dtoService.toSolutionOutputDto(solution);
         solutionOutputDto ? res.status(HttpStatusCode.CREATED).json(solutionOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+    }
+    async update(req: Request, res: Response): Promise<any> {
+        const id: string = req.params.id;
+        const justificationsInputDtos: JustificationInputDto[] = req.body;
+        logger.info(id);
+        logger.info(JSON.stringify(justificationsInputDtos));
+        const solution: Solution = await this.solutionResource.update(id, justificationsInputDtos);
+        const solutionOutputDto: SolutionOutputDto = this.dtoService.toSolutionOutputDto(solution);
+        solutionOutputDto ? res.status(HttpStatusCode.OK).json(solutionOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
 }

@@ -36,7 +36,6 @@ export class ExerciseDao {
     async findById(id: string): Promise<Exercise> {
         return await ExerciseSchema.findById(id)
             .then(async(exerciseDocument: Document) => {
-                // const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}});
                 const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
@@ -50,8 +49,7 @@ export class ExerciseDao {
         const exerciseSchema = new ExerciseSchema(exercise);
         return exerciseSchema.save()
             .then(async(exerciseDocument: Document) => {
-                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}});
-                const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {
@@ -62,8 +60,7 @@ export class ExerciseDao {
     async update(id: string, solutions: Solution[]): Promise<Exercise> {
         return await ExerciseSchema.updateOne({_id: id}, {$set: {solutions: solutions}}, {new: true})
             .then(async(exerciseDocument: Document) => {
-                const exercisePopulate: any = await SolutionSchema.populate(exerciseDocument, {path: "solutions", populate: {path: "justifications", model: "Justification"}});
-                const exercise: Exercise = exercisePopulate ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {

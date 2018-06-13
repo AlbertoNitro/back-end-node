@@ -1,4 +1,5 @@
 import { Formation } from "./formation.model";
+import { FormationVisitor } from "./formation.visitor";
 
 export class Itinerary extends Formation {
     private _id: string;
@@ -31,5 +32,8 @@ export class Itinerary extends Formation {
     }
     getFormations(): Formation[] {
         return this.formations;
+    }
+    accept(formationVisitor: FormationVisitor): void {
+        formationVisitor.visitItinerary(this);
     }
 }

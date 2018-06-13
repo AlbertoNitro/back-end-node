@@ -4,6 +4,7 @@ import logger from "../utils/logger";
 import { Itinerary } from "../models/itinerary.model";
 import { ItineraryResource } from "../resources/itinerary.resource";
 import { DtoService } from "../services/dto.service";
+import { ItineraryOutputDto } from "../dtos/output/itineraryOutput.dto";
 
 export class ItineraryController {
     private itineraryResource: ItineraryResource;
@@ -17,14 +18,14 @@ export class ItineraryController {
     async create(req: Request, res: Response): Promise<any> {
         const name: string = req.body.name;
         const itinerary: Itinerary = await this.itineraryResource.create(name);
-        // const itineraryOutputDto: ItineraryOutputDto = DtoService.toItineraryOutputDto(itinerary);
-        itinerary ? res.status(HttpStatusCode.CREATED).json(itinerary) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        const itineraryOutputDto: ItineraryOutputDto = this.dtoService.toItineraryOutputDto(itinerary);
+        itinerary ? res.status(HttpStatusCode.CREATED).json(itineraryOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const itinerary: Itinerary = await this.itineraryResource.findById(id);
-        // const itineraryOutputDto: ItineraryOutputDto = DtoService.toItineraryOutputDto(itinerary);
-        itinerary ? res.status(HttpStatusCode.OK).json(itinerary) : res.status(HttpStatusCode.NOT_FOUND).end();
+        const itineraryOutputDto: ItineraryOutputDto = this.dtoService.toItineraryOutputDto(itinerary);
+        itinerary ? res.status(HttpStatusCode.OK).json(itineraryOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;

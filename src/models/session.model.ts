@@ -1,5 +1,6 @@
 import { Lesson } from "./lesson.model";
 import { Formation } from "./formation.model";
+import { FormationVisitor } from "./formation.visitor";
 
 export class Session extends Formation {
     private _id: string;
@@ -32,5 +33,8 @@ export class Session extends Formation {
     }
     getLessons(): Lesson[] {
         return this.lessons;
+    }
+    accept(formationVisitor: FormationVisitor): void {
+        formationVisitor.visitSession(this);
     }
 }

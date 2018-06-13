@@ -11,13 +11,10 @@ export class ItineraryDao {
     }
 
     static toItinerary(document: Document): Itinerary {
-        logger.info("toItinerary()");
         const formations: Formation[] = [];
         const formationsDocuments: Document[] = document.get("formations");
-        logger.info("formationsDocuments = " + formationsDocuments.length);
         for (let i = 0 ; i < formationsDocuments.length ; i++) {
             const formationDocument: Document = formationsDocuments[i];
-            logger.info("formationsDocuments[i] = " + JSON.stringify(formationsDocuments[i]));
             formationDocument.get("kind") === "Session" ? formations.push(SessionDao.toSession(formationDocument)) : formations.push(ItineraryDao.toItinerary(formationDocument));
         }
         const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
@@ -43,7 +40,6 @@ export class ItineraryDao {
     async findById(id: string): Promise<Itinerary> {
         return await ItinerarySchema.findById(id)
             .then( async (itineraryDocument: Document) => {
-                logger.info(JSON.stringify(itineraryDocument));
                 const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
@@ -57,8 +53,7 @@ export class ItineraryDao {
         const itinerarySchema = new ItinerarySchema(itinerary);
         return itinerarySchema.save()
             .then( async(itineraryDocument: Document) => {
-                const itineraryPopulate: any = await ItinerarySchema.populate(itineraryDocument, {path: "formations", model: "Formation", populate: {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}}});
-                const itinerary: Itinerary = itineraryPopulate ? ItineraryDao.toItinerary(itineraryPopulate) : undefined;
+                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
             .catch ( err => {
@@ -69,8 +64,7 @@ export class ItineraryDao {
     async update(id: string, formations: Formation[]): Promise<Itinerary> {
         return await ItinerarySchema.updateOne({_id: id}, {$set: {formations: formations}}, {new: true})
             .then( async (itineraryDocument: Document) => {
-                const itineraryPopulate: any = await ItinerarySchema.populate(itineraryDocument, {path: "formations", model: "Formation", populate: {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}}});
-                const itinerary: Itinerary = itineraryPopulate ? ItineraryDao.toItinerary(itineraryPopulate) : undefined;
+                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
             .catch ( err => {

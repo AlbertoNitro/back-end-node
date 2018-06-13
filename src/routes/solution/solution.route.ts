@@ -16,4 +16,7 @@ solutionRoutes.delete("/:id", (req, res) => {
 solutionRoutes.post("", (req, res) => {
     solutionController.create(req, res);
 });
+solutionRoutes.put("/:id", (req, res) => {
+    solutionController.update(req, res);
+});
 export default solutionRoutes;

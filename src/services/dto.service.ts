@@ -23,9 +23,11 @@ import logger from "../utils/logger";
 import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
 import { Formation } from "../models/formation.model";
 import { InteractionVisitor } from "../models/interaction.visitor";
+import { FormationVisitor } from "../models/formation.visitor";
 
-export class DtoService implements InteractionVisitor {
+export class DtoService implements InteractionVisitor, FormationVisitor {
     interactionOutputDto: InteractionOutputDto;
+    formationOutputDto: FormationOutputDto;
 
     constructor() {
     }
@@ -198,28 +200,6 @@ export class DtoService implements InteractionVisitor {
         }
         return itinerariesOutputDtos;
     }
-    toFormationOutputDto(formation: Formation): FormationOutputDto {
-        let formationOutputDto: FormationOutputDto = undefined;
-        const itinerary: Itinerary = <Itinerary> formation;
-        const session: Session = <Session> formation;
-        if (itinerary) {
-            formationOutputDto = {itinerary: this.toItineraryOutputDto(itinerary)};
-        } else if (session) {
-            formationOutputDto = {session: this.toSessionOutputDto(session)};
-        } else {
-            logger.error("ERROR en toFormationOutputDto(). A la hora de castear una formacionDto a sesionDto o a itinerarioDto");
-        }
-        return formationOutputDto;
-    }
-    toArrayFormationOutputDto(formations: Formation[]): FormationOutputDto[] {
-        const formationsOutputDtos: FormationOutputDto[] = [];
-        if (formations.length > 0) {
-            for (let i = 0 ; i < formations.length ; i++ ) {
-                formationsOutputDtos.push(this.toFormationOutputDto(formations[i]));
-            }
-        }
-        return formationsOutputDtos;
-    }
     toExerciseOutputDto(exercise: Exercise): ExerciseOutputDto {
         let exercisesOutputDto: ExerciseOutputDto = undefined;
         if (exercise) {
@@ -252,10 +232,29 @@ export class DtoService implements InteractionVisitor {
         }
         return interactionsOutputDtos;
     }
+    toFormationOutputDto(formation: Formation): FormationOutputDto {
+       formation.accept(this);
+       return this.formationOutputDto;
+    }
+    toArrayFormationOutputDto(formations: Formation[]): FormationOutputDto[] {
+        const formationsOutputDtos: FormationOutputDto[] = [];
+        if (formations.length > 0) {
+            for (let i = 0 ; i < formations.length ; i++ ) {
+                formationsOutputDtos.push(this.toFormationOutputDto(formations[i]));
+            }
+        }
+        return formationsOutputDtos;
+    }
     visitVideo(video: Video): void {
         this.interactionOutputDto = {video: this.toVideoOutputDto(video)};
     }
     visitExercise(exercise: Exercise): void {
         this.interactionOutputDto = {exercise: this.toExerciseOutputDto(exercise)};
+    }
+    visitSession(session: Session): void {
+        this.formationOutputDto = {session: this.toSessionOutputDto(session)};
+    }
+    visitItinerary(itinerary: Itinerary): void {
+        this.formationOutputDto = {itinerary: this.toItineraryOutputDto(itinerary)};
     }
 }

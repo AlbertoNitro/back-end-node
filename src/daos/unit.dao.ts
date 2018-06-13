@@ -68,7 +68,6 @@ export class UnitDao {
         return await UnitSchema.find({})
             .then( (unitsDocument: Document[]) => {
                 const units: Unit[] = unitsDocument ? UnitDao.toArrayUnits(unitsDocument) : undefined;
-                console.log(unitsDocument);
                 return units;
             })
             .catch ( err => {

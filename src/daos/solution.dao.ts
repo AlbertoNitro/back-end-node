@@ -8,6 +8,7 @@ import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { SolutionBuilder } from "../models/builders/solution.builder";
 import JustificationSchema from "../schemas/justification.schema";
 import justificationRoutes from "../routes/justification/justification.route";
+import {JustificationInputDto} from "../dtos/input/justificationInput.dto";
 
 export class SolutionDao {
     constructor() {
@@ -37,7 +38,6 @@ export class SolutionDao {
     async findById(id: string): Promise<Solution> {
         return await SolutionSchema.findById(id)
             .then( async (solutionDocument: Document) => {
-                // const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications", model: "Justification"});
                 const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
                 return solution;
             })
@@ -49,20 +49,18 @@ export class SolutionDao {
     async findAll(): Promise<Solution[]> {
         return await SolutionSchema.find({})
             .then(async(solutionsDocuments: Document[]) => {
-                const solutionsPopulate: any = await JustificationSchema.populate(solutionsDocuments, {path: "justifications", model: "Justification"});
-                const solution: Solution[] = solutionsPopulate ? SolutionDao.toArraySolutions(solutionsPopulate) : undefined;
-                return solution;
+                const solutions: Solution[] = solutionsDocuments ? SolutionDao.toArraySolutions(solutionsDocuments) : undefined;
+                return solutions;
             })
             .catch ( err => {
                 logger.error(err);
                 return undefined;
             });
     }
-    async update(id: string, justifications: Justification[]): Promise<Solution> {
-        return await SolutionSchema.updateOne({ _id: id }, { $set: {justifications: justifications }}, { new: true })
+    async update(id: string, justificationsInputDtos: JustificationInputDto[]): Promise<Solution> {
+        return await SolutionSchema.updateOne({ _id: id }, { $set: {justifications: justificationsInputDtos }}, { new: true })
             .then(async (solutionDocument: Document) => {
-                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications", model: "Justification"});
-                const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
+                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
                 return solution;
             })
             .catch ( err => {
@@ -75,8 +73,7 @@ export class SolutionDao {
         const solutionSchema = new SolutionSchema(solution);
         return solutionSchema.save()
             .then(async (solutionDocument: Document) => {
-                const solutionPopulate: any = await JustificationSchema.populate(solutionDocument, {path: "justifications"});
-                const solution: Solution = solutionPopulate ? SolutionDao.toSolution(solutionPopulate) : undefined;
+                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
                 return solution;
             })
             .catch ( err => {
