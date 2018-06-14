@@ -82,8 +82,8 @@ describe("PUT /solution/:id", () => {
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const solutionOutputDto: SolutionOutputDto = res.body;
-                expect(solutionOutputDto.text).to.equal("abc");
-                expect(solutionOutputDto.isCorrect).to.equal(true);
+                expect(solutionOutputDto.text).to.equal(solutionInputDto.text);
+                expect(solutionOutputDto.isCorrect).to.equal(solutionInputDto.isCorrect);
                 expect(solutionOutputDto.justifications.length).to.equal(0);
                 done();
             });

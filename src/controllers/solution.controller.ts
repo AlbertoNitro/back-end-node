@@ -45,8 +45,7 @@ export class SolutionController {
     async update(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const solutionInputDto: SolutionInputDto = req.body;
-        logger.info(JSON.stringify(solutionInputDto));
-        const solution = await this.solutionResource.update(id, solutionInputDto);
+        const solution: Solution = await this.solutionResource.update(id, solutionInputDto);
         const solutionOutputDto: SolutionOutputDto = this.dtoService.toSolutionOutputDto(solution);
         solutionOutputDto ? res.status(HttpStatusCode.OK).json(solutionOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
