@@ -15,7 +15,7 @@ export class ItineraryDao {
         const formationsDocuments: Document[] = document.get("formations");
         for (let i = 0 ; i < formationsDocuments.length ; i++) {
             const formationDocument: Document = formationsDocuments[i];
-            formationDocument.get("kind") === "Session" ? formations.push(<Formation> SessionDao.toSession(formationDocument)) : formations.push(<Formation> ItineraryDao.toItinerary(formationDocument));
+            formationDocument.get("kind") === "Session" ? formations.push(SessionDao.toSession(formationDocument)) : formations.push(ItineraryDao.toItinerary(formationDocument));
         }
         const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
         return itinerary;
@@ -39,7 +39,7 @@ export class ItineraryDao {
     }
     async findById(id: string): Promise<Itinerary> {
         return await ItinerarySchema.findById(id)
-            .then( (itineraryDocument: Document) => {
+            .then( async (itineraryDocument: Document) => {
                 const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
@@ -52,7 +52,7 @@ export class ItineraryDao {
         const itinerary: Itinerary = new ItineraryBuilder(name).build();
         const itinerarySchema = new ItinerarySchema(itinerary);
         return itinerarySchema.save()
-            .then( (itineraryDocument: Document) => {
+            .then( async(itineraryDocument: Document) => {
                 const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
@@ -63,7 +63,7 @@ export class ItineraryDao {
     }
     async update(id: string, formations: Formation[]): Promise<Itinerary> {
         return await ItinerarySchema.updateOne({_id: id}, {$set: {formations: formations}}, {new: true})
-            .then( (itineraryDocument: Document) => {
+            .then( async (itineraryDocument: Document) => {
                 const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })

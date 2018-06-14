@@ -34,8 +34,7 @@ export class SessionDao {
     async findById(id: string): Promise<Session> {
         return await SessionSchema.findById(id)
             .then(async(sessionDocument: Document) => {
-                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
-                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
+                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
                 return session;
             })
             .catch ( err => {
@@ -48,8 +47,7 @@ export class SessionDao {
         const sessionSchema = new SessionSchema(session);
         return sessionSchema.save()
             .then(async(sessionDocument: Document) => {
-                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", model: "Interaction", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
-                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
+                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
                 return session;
             })
             .catch ( err => {
@@ -60,8 +58,7 @@ export class SessionDao {
     async update(id: string, lessons: Lesson[]): Promise<Session> {
         return await SessionSchema.updateOne({_id: id}, {$set: {lessons: lessons}}, {new: true})
             .then(async(sessionDocument: Document) => {
-                const sessionPopulate: any = await LessonSchema.populate(sessionDocument, {path: "lessons", model: "Lesson", populate: {path: "interactions", populate: {path: "solutions", model: "Solution", populate: {path: "justifications", model: "Justification"}}}});
-                const session: Session = sessionPopulate ? SessionDao.toSession(sessionPopulate) : undefined;
+                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
                 return session;
             })
             .catch ( err => {

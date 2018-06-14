@@ -50,7 +50,11 @@ formations:
         kind: Itinerary
         name: Itinerario6
         formations: [{$oid: "315d87b4b122cf35117198c4"}, {$oid: "215d87b4b122cf35117198c5"}]
-
+    - &formation10
+        _id: {$oid: "821d87b5b122cf35117198c4"} #Itinerario que contiene un itinerario que contiene una sesion
+        kind: Itinerary
+        name: Itinerario9
+        formations: [{$oid: "315d87b4b122cf35117198c4"}]
 
 #Lessons
 lessons:
@@ -134,6 +138,11 @@ solutions:
     isCorrect: true
     text: La formula del agua H20
     justifications: [{$oid: "131d87b8b230cf35177998ca"}]
+- &solution3
+    _id: {$oid: "666d87b8b230cf35177997ca"} #PUT
+    isCorrect: false
+    text: 6666
+    justifications: [{$oid: "101d87b8b230cf35177998ca"}, {$oid: "111d87b8b230cf35177998ca"}, {$oid: "121d87b8b230cf35177998ca"}]
 
 # Units
 units:
