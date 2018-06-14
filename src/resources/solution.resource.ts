@@ -1,13 +1,13 @@
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { SolutionDao } from "../daos/solution.dao";
 import { Solution } from "../models/solution.model";
-import { Justification } from "../models/justification.model";
-import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
-import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
 import logger from "../utils/logger";
+import { JustificationResource } from "./justification.resource";
+import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
 
 export class SolutionResource {
     private solutionDao: SolutionDao = new SolutionDao();
+    private justificationResource: JustificationResource = new JustificationResource();
 
     constructor() {
     }
@@ -24,13 +24,17 @@ export class SolutionResource {
     async delete(solution: Solution): Promise<boolean> {
         return await this.solutionDao.delete(solution.getId());
     }
-    async update(id: string, justifications: Justification[]): Promise<Solution> {
-        let solution: Solution = await this.findById(id);
-        const justificationIds: string[] = [];
-        for (let i = 0 ; i < justifications.length ; i++) {
-            justificationIds[i] = justifications[i].getId();
+    async update(id: string, solutionInputDto: SolutionInputDto): Promise<Solution> {
+        let solutionToUpdate: Solution = await this.findById(id);
+        if (solutionToUpdate) {
+            const justificationInputDtos: JustificationInputDto[] = solutionInputDto.justifications;
+            for (let i = 0 ; i < justificationInputDtos.length ; i++) {
+                await this.justificationResource.update(justificationInputDtos[i].id, justificationInputDtos[i]);
+            }
+            solutionToUpdate = await this.solutionDao.update(id, solutionInputDto);
+        } else {
+            solutionToUpdate = undefined;
         }
-        solution = solution ? await this.solutionDao.update(id, justificationIds) : undefined;
-        return solution;
+        return solutionToUpdate;
     }
 }

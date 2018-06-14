@@ -75,27 +75,17 @@ describe("DELETE /solution/:id", () => {
 
 describe("PUT /solution/:id", () => {
     it("should return: 200", (done) => {
-        const agent = request(app);
-        let solutionOutputDto: SolutionOutputDto;
-        const solutionId = "666d87b8b230cf35177997ca";
-        return agent.get("/solution/" + solutionId)
-            .end(  async (err, res) => {
+        const solutionId = "361d87b8b230cf35177998ca";
+        const solutionInputDto: SolutionInputDto = {id: solutionId, text: "abc", isCorrect: true, justifications: []};
+        return request(app).put("/solution/" + solutionId)
+            .send(solutionInputDto)
+            .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
-                solutionOutputDto = res.body;
-                expect(solutionOutputDto.text).to.equal("6666");
-                expect(solutionOutputDto.isCorrect).to.equal(false);
-                expect(solutionOutputDto.justifications.length).to.equal(3);
-                solutionOutputDto.justifications.pop();
-                agent.put("/solution/" + solutionId)
-                    .send(solutionOutputDto.justifications)
-                    .end(  async (err, res) => {
-                        expect(res.status).to.equal(HttpStatusCode.OK);
-                        solutionOutputDto = res.body;
-                        expect(solutionOutputDto.text).to.equal("6666");
-                        expect(solutionOutputDto.isCorrect).to.equal(false);
-                        expect(solutionOutputDto.justifications.length).to.equal(2);
-                         done();
-                     });
+                const solutionOutputDto: SolutionOutputDto = res.body;
+                expect(solutionOutputDto.text).to.equal("abc");
+                expect(solutionOutputDto.isCorrect).to.equal(true);
+                expect(solutionOutputDto.justifications.length).to.equal(0);
+                done();
             });
     });
 });

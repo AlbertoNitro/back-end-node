@@ -55,18 +55,24 @@ export class SolutionDao {
                 return undefined;
             });
     }
-    async update(id: string, justificationIds: string[]): Promise<Solution> {
-        logger.info(JSON.stringify(justificationIds));
-        return await SolutionSchema.findOneAndUpdate({ _id: id }, { $set: {justifications: justificationIds }}, { new: true })
-            .then(async (solutionDocument: Document) => {
-                logger.info(JSON.stringify(solutionDocument));
-                const solution: Solution = solutionDocument ? SolutionDao.toSolution(solutionDocument) : undefined;
+    async update(id: string, solutionInputDto: SolutionInputDto): Promise<Solution> {
+        const justificationIds: string[] = this.getIdsJustifications(solutionInputDto.justifications);
+        return await SolutionSchema.findOneAndUpdate({ _id: id }, { $set: {text: solutionInputDto.text, isCorrect: solutionInputDto.isCorrect, justifications: justificationIds }}, { new: true })
+            .then(async () => {
+                const solution: Solution = await this.findById(id);
                 return solution;
             })
             .catch ( err => {
                 logger.error(err);
                 return undefined;
             });
+    }
+    private getIdsJustifications(justificationInputDtos: JustificationInputDto[]): string[] {
+        const justificationIds: string[] = [];
+        for (let i = 0 ; i < justificationInputDtos.length ; i++) {
+            justificationIds[i] = justificationInputDtos[i].id;
+        }
+        return justificationIds;
     }
     async create(solutionInputDto: SolutionInputDto): Promise<Solution> {
         const solution: Solution = new SolutionBuilder(solutionInputDto.text, solutionInputDto.isCorrect).build();
