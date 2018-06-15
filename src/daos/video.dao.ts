@@ -51,4 +51,15 @@ export class VideoDao {
                 return undefined;
             });
     }
+    async update(id: string, url: string): Promise<Video> {
+        return await VideoSchema.findOneAndUpdate({ _id: id }, { $set: {url: url} }, { new: true })
+            .then(async (videoDocument: Document) => {
+                const updatedVideo: Video = videoDocument ? VideoDao.toVideo(videoDocument) : undefined;
+                return updatedVideo;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
 }

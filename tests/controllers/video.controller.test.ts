@@ -4,6 +4,7 @@ import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import logger from "../../src/utils/logger";
 import { VideoOutputDto } from "../../src/dtos/output/videoOutput.dto";
 import { VideoInputDto } from "../../src/dtos/input/videoInput.dto";
+import {VideoUpdationInputDto} from "../../src/dtos/input/videoUpdationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -45,3 +46,19 @@ describe("DELETE /video/:id", () => {
             });
     });
 });
+
+describe("PUT /video/:id", () => {
+    it("should return: 200", (done) => {
+        const videoId = "991d57b8b030cf35177998c1";
+        const videoUpdationInputDto: VideoUpdationInputDto = {url: "www.hotmail.es", lessonId: "1234"};
+        return request(app).put("/video/" + videoId)
+            .send(videoUpdationInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const videoOutputDto: VideoOutputDto = res.body;
+                expect(videoOutputDto.url).to.equal(videoUpdationInputDto.url);
+                done();
+            });
+    });
+});
+

@@ -97,6 +97,10 @@ interactions:
         kind: Exercise
         formulation: ¿En que año murio Cristobal Colon?
         solutions: []
+    - &interaction5
+        _id: {$oid: "991d57b8b030cf35177998c1"}
+        kind: Video
+        url: www.yahoo.es
         
 # Justifications
 justifications:

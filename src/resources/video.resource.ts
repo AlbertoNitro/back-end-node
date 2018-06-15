@@ -8,7 +8,7 @@ export class VideoResource {
         this.videoDao = new VideoDao();
     }
 
-    async create(url: string): Promise<Video> {
+    async create(lessonId: string, url: string): Promise<Video> {
         return await this.videoDao.create(url);
     }
     async findById(id: string): Promise<Video> {
@@ -16,5 +16,8 @@ export class VideoResource {
     }
     async delete(video: Video): Promise<boolean> {
         return await this.videoDao.delete(video.getId());
+    }
+    async update(id: string, lessonId: string, url: string): Promise<Video> {
+        return await this.videoDao.update(id, url);
     }
 }

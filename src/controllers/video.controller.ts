@@ -5,6 +5,7 @@ import { VideoResource } from "../resources/video.resource";
 import { DtoService } from "../services/dto.service";
 import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
 import logger from "../utils/logger";
+import { VideoUpdationInputDto } from "../dtos/input/videoUpdationInput.dto";
 
 export class VideoController {
     private videoResource: VideoResource;
@@ -16,8 +17,8 @@ export class VideoController {
     }
 
     async create(req: Request, res: Response): Promise<any> {
-        const url: string = req.body.url;
-        const video: Video = await this.videoResource.create(url);
+        const videoUpdationInputDto: VideoUpdationInputDto = req.body;
+        const video: Video = await this.videoResource.create(videoUpdationInputDto.lessonId, videoUpdationInputDto.url);
         const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
         video ? res.status(HttpStatusCode.CREATED).json(videoOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
@@ -33,6 +34,18 @@ export class VideoController {
         if (video) {
             const success: boolean = await this.videoResource.delete(video);
             success ? res.status(HttpStatusCode.NO_CONTENT).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        } else {
+            res.status(HttpStatusCode.NOT_FOUND).end();
+        }
+    }
+    async update(req: Request, res: Response): Promise<any> {
+        const id: string = req.params.id;
+        const videoUpdationInputDto: VideoUpdationInputDto = req.body;
+        const video: Video = await this.videoResource.findById(id);
+        if (video) {
+            const video: Video = await this.videoResource.update(id, videoUpdationInputDto.lessonId, videoUpdationInputDto.url);
+            const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
+            video ? res.status(HttpStatusCode.OK).json(videoOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
