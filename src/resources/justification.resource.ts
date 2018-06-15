@@ -1,5 +1,6 @@
 import { JustificationDao } from "../daos/justification.dao";
 import { Justification } from "../models/justification.model";
+import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
 
 export class JustificationResource {
     private justificationDao: JustificationDao;
@@ -19,5 +20,8 @@ export class JustificationResource {
     }
     async delete(justification: Justification): Promise<boolean> {
         return await this.justificationDao.delete(justification.getId());
+    }
+    async update(id: string, justificationInputDto: JustificationInputDto): Promise<Justification> {
+        return await this.justificationDao.update(id, justificationInputDto);
     }
 }

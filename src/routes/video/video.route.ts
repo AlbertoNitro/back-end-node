@@ -13,5 +13,7 @@ videoRoutes.get("/:id", (req, res) => {
 videoRoutes.delete("/:id", (req, res) => {
     videoController.delete(req, res);
 });
-
+videoRoutes.put("/:id", (req, res) => {
+    // videoController.update(req, res);
+});
 export default videoRoutes;

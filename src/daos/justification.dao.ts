@@ -3,6 +3,7 @@ import logger from "../utils/logger";
 import JustificationSchema from "../schemas/justification.schema";
 import { Justification } from "../models/justification.model";
 import { JustificationBuilder } from "../models/builders/justification.builder";
+import { JustificationInputDto } from "../dtos/input/justificationInput.dto";
 
 export class JustificationDao {
     constructor() {
@@ -57,6 +58,17 @@ export class JustificationDao {
             .then( (justificationDocument: Document) => {
                 const justification: Justification = justificationDocument ? JustificationDao.toJustification(justificationDocument) : undefined;
                 return justification;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async update(id: string, justificationInputDto: JustificationInputDto): Promise<Justification> {
+        return await JustificationSchema.findOneAndUpdate({ _id: id }, { $set: {text: justificationInputDto.text, isCorrect: justificationInputDto.isCorrect }}, { new: true })
+            .then(async (justificationDocument: Document) => {
+                const updatedJustification: Justification = justificationDocument ? JustificationDao.toJustification(justificationDocument) : undefined;
+                return updatedJustification;
             })
             .catch ( err => {
                 logger.error(err);

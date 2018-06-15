@@ -4,8 +4,8 @@ import { DtoService } from "../services/dto.service";
 import logger from "../utils/logger";
 import { ExerciseResource } from "../resources/exercise.resource";
 import { Exercise } from "../models/exercise.model";
-import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 import { ExerciseOutputDto } from "../dtos/output/exerciseOutput.dto";
+import { ExerciseInputDto } from "../dtos/input/exerciseInput.dto";
 
 export class ExerciseController {
     private exerciseResource: ExerciseResource;
@@ -37,5 +37,13 @@ export class ExerciseController {
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
+    }
+    async update(req: Request, res: Response): Promise<any> {
+        const id: string = req.params.id;
+        const exerciseInputDto: ExerciseInputDto = req.body;
+        logger.info(JSON.stringify(exerciseInputDto));
+        const exercise: Exercise = await this.exerciseResource.update(id, exerciseInputDto);
+        const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
+        exerciseOutputDto ? res.status(HttpStatusCode.OK).json(exerciseOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
 }

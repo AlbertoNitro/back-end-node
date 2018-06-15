@@ -5,7 +5,8 @@ import ExerciseSchema from "../schemas/exercise.schema";
 import { SolutionDao } from "./solution.dao";
 import { Solution } from "../models/solution.model";
 import { ExerciseBuilder } from "../models/builders/exercise.builder";
-import SolutionSchema from "../schemas/solution.schema";
+import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
+import { ExerciseInputDto } from "../dtos/input/exerciseInput.dto";
 
 export class ExerciseDao {
     constructor() {
@@ -57,15 +58,23 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async update(id: string, solutions: Solution[]): Promise<Exercise> {
-        return await ExerciseSchema.updateOne({_id: id}, {$set: {solutions: solutions}}, {new: true})
-            .then(async(exerciseDocument: Document) => {
-                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+    async update(id: string, exerciseInputDto: ExerciseInputDto): Promise<Exercise> {
+        const solutionsIds: string[] = this.getIdsSolutions(exerciseInputDto.solutions);
+        return await ExerciseSchema.findOneAndUpdate({ _id: id }, { $set: {formulation: exerciseInputDto.formulation, solutions: solutionsIds }}, { new: true })
+            .then(async () => {
+                const exercise: Exercise = await this.findById(id);
                 return exercise;
             })
             .catch ( err => {
                 logger.error(err);
                 return undefined;
             });
+    }
+    private getIdsSolutions(solutionInputDtos: SolutionInputDto[]): string[] {
+        const solutionIds: string[] = [];
+        for (let i = 0 ; i < solutionInputDtos.length ; i++) {
+            solutionIds[i] = solutionInputDtos[i].id;
+        }
+        return solutionIds;
     }
 }

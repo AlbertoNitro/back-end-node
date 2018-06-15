@@ -13,5 +13,8 @@ exerciseRoutes.get("/:id", (req, res) => {
 exerciseRoutes.delete("/:id", (req, res) => {
     exerciseController.delete(req, res);
 });
+exerciseRoutes.put("/:id", (req, res) => {
+    exerciseController.update(req, res);
+});
 
 export default exerciseRoutes;
