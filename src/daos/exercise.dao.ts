@@ -1,20 +1,15 @@
-import { Document } from "mongoose";
+import { Document, default as mongoose } from "mongoose";
 import logger from "../utils/logger";
 import { Exercise } from "../models/exercise.model";
 import ExerciseSchema from "../schemas/exercise.schema";
-import { SolutionDao } from "./solution.dao";
-import { Solution } from "../models/solution.model";
 import { ExerciseBuilder } from "../models/builders/exercise.builder";
-import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
-import { ExerciseInputDto } from "../dtos/input/exerciseInput.dto";
 
 export class ExerciseDao {
     constructor() {
     }
 
     static toExercise(document: Document): Exercise {
-        const solutionsDocuments: Solution[] = SolutionDao.toArraySolutions(document.get("solutions"));
-        return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(solutionsDocuments).build();
+        return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(document.get("solutions")).build();
 
     }
     static toArrayExercises(documents: Document[]): Exercise[] {
@@ -35,8 +30,10 @@ export class ExerciseDao {
             });
     }
     async findById(id: string): Promise<Exercise> {
+        logger.info("DAO: " + id);
         return await ExerciseSchema.findById(id)
             .then(async(exerciseDocument: Document) => {
+                logger.info("exerciseDocument" + JSON.stringify(exerciseDocument));
                 const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
@@ -45,8 +42,8 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async create(formulation: string): Promise<Exercise> {
-        const exercise: Exercise =  new Exercise(formulation);
+    async create(formulation: string, solutions: string): Promise<Exercise> {
+        const exercise: Exercise =  new ExerciseBuilder(formulation).setSolutions(solutions).build();
         const exerciseSchema = new ExerciseSchema(exercise);
         return exerciseSchema.save()
             .then(async(exerciseDocument: Document) => {
@@ -58,9 +55,8 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async update(id: string, exerciseInputDto: ExerciseInputDto): Promise<Exercise> {
-        const solutionsIds: string[] = this.getIdsSolutions(exerciseInputDto.solutions);
-        return await ExerciseSchema.findOneAndUpdate({ _id: id }, { $set: {formulation: exerciseInputDto.formulation, solutions: solutionsIds }}, { new: true })
+    async update(id: string, formulation: string, solutions: string): Promise<Exercise> {
+        return await ExerciseSchema.findOneAndUpdate({ _id: id }, { $set: {formulation: formulation, solutions: solutions }}, { new: true })
             .then(async () => {
                 const exercise: Exercise = await this.findById(id);
                 return exercise;
@@ -69,12 +65,5 @@ export class ExerciseDao {
                 logger.error(err);
                 return undefined;
             });
-    }
-    private getIdsSolutions(solutionInputDtos: SolutionInputDto[]): string[] {
-        const solutionIds: string[] = [];
-        for (let i = 0 ; i < solutionInputDtos.length ; i++) {
-            solutionIds[i] = solutionInputDtos[i].id;
-        }
-        return solutionIds;
     }
 }

@@ -1,5 +1,4 @@
 import { Exercise } from "../exercise.model";
-import { Solution } from "../solution.model";
 
 export class ExerciseBuilder {
     private exercise: Exercise;
@@ -12,7 +11,7 @@ export class ExerciseBuilder {
         this.exercise.setFormulation(formulation);
         return this;
     }
-    setSolutions(solutions: Solution[]): ExerciseBuilder {
+    setSolutions(solutions: string): ExerciseBuilder {
         this.exercise.setSolutions(solutions);
         return this;
     }

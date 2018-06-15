@@ -1,12 +1,22 @@
 import mongoose from "mongoose";
 import InteractionSchema from "./interaction.schema";
 
+const Justification = new mongoose.Schema({
+    isCorrect: { type: Boolean, required: true },
+    text: { type: String, required: true },
+});
+const JustificationSchema = mongoose.model("Justification", Justification);
+
+const Solution = new mongoose.Schema({
+    isCorrect: { type: Boolean, required: true },
+    text: { type: String, required: true },
+    justifications: { type: [Justification], default: []},
+});
+const SolutionSchema = mongoose.model("Solution", Solution);
+
 const Exercise = new mongoose.Schema({
     formulation: { type: String, required: true },
-    solutions: { type: [mongoose.Schema.Types.ObjectId], ref: "Solution", default: [], autopopulate: { maxDepth: 10 } },
+    solutions: { type: [Solution], default: [] },
 });
-
-Exercise.plugin(require(`mongoose-autopopulate`));
-
 const ExerciseSchema = InteractionSchema.discriminator("Exercise", Exercise);
 export default ExerciseSchema;

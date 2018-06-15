@@ -22,7 +22,7 @@ const app = express();
 
 // Connect to MongoDB
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, {useMongoClient: true})
+mongoose.connect(MONGODB_URI)
     .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
     .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
 

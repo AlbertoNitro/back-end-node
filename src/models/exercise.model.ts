@@ -1,16 +1,15 @@
-import { Solution } from "./solution.model";
 import { Interaction } from "./interaction.model";
 import { InteractionVisitor } from "./interaction.visitor";
 
 export class Exercise extends Interaction {
     private _id: string;
     private formulation: string;
-    private solutions: Solution[];
+    private solutions: string;
 
     constructor(formulation: string) {
         super();
         this.formulation = formulation;
-        this.solutions = [];
+        this.solutions = "[]";
     }
 
     setId(id: string): Exercise {
@@ -21,7 +20,7 @@ export class Exercise extends Interaction {
         this.formulation = formulation;
         return this;
     }
-    setSolutions(solutions: Solution[]): Exercise {
+    setSolutions(solutions: string): Exercise {
         this.solutions = solutions;
         return this;
     }
@@ -31,7 +30,7 @@ export class Exercise extends Interaction {
     getFormulation(): string {
         return this.formulation;
     }
-    getSolutions(): Solution[] {
+    getSolutions(): string {
         return this.solutions;
     }
     accept(interactionVisitor: InteractionVisitor): void {

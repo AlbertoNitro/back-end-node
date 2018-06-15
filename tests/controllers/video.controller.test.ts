@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import logger from "../../src/utils/logger";
 import { VideoOutputDto } from "../../src/dtos/output/videoOutput.dto";
 import { VideoInputDto } from "../../src/dtos/input/videoInput.dto";
-import {VideoUpdationInputDto} from "../../src/dtos/input/videoUpdationInput.dto";
+import {VideoUpdationInputDto} from "videoInput.dto.ts";
 
 const chai = require("chai");
 const expect = chai.expect;

@@ -15,7 +15,7 @@ export class DbService {
 
     async seed(): Promise<boolean> {
         let success = false;
-        const contents = fs.readFileSync("./src/config/test.yml", "utf8");
+        const contents = fs.readFileSync("./src/config/testX.yml", "utf8");
         const parsed = this.yaml.safeLoad(contents);
         // const backupDb = JSON.parse(fs.readFileSync("../config/backupDb.json", "utf8"));
         await this.dookie.push(MONGODB_URI, parsed)
@@ -32,7 +32,7 @@ export class DbService {
          const promise = await new Promise((resolve, reject) => {
             setTimeout(() => {
                 this.mongoose.Promise = Promise;
-                this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
+                this.mongoose.connect(MONGODB_URI)
                     .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
                     .catch( (err: any) => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); });
                 this.mongoose.connection.on("open", () => {

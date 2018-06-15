@@ -17,8 +17,8 @@ export class ExerciseController {
     }
 
     async create(req: Request, res: Response): Promise<any> {
-        const formulation: string = req.body.formulation;
-        const exercise: Exercise = await this.exerciseResource.create(formulation);
+        const exerciseInputDto: ExerciseInputDto = req.body;
+        const exercise: Exercise = await this.exerciseResource.create(exerciseInputDto.lessonId, exerciseInputDto.formulation, JSON.stringify(exerciseInputDto.solutions));
         const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
         exercise ? res.status(HttpStatusCode.CREATED).json(exerciseOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
@@ -41,8 +41,7 @@ export class ExerciseController {
     async update(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const exerciseInputDto: ExerciseInputDto = req.body;
-        logger.info(JSON.stringify(exerciseInputDto));
-        const exercise: Exercise = await this.exerciseResource.update(id, exerciseInputDto);
+        const exercise: Exercise = await this.exerciseResource.update(id, exerciseInputDto.formulation, JSON.stringify(exerciseInputDto.solutions));
         const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
         exerciseOutputDto ? res.status(HttpStatusCode.OK).json(exerciseOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
