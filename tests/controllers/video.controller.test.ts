@@ -22,22 +22,22 @@ describe("POST /video", () => {
     });
 });
 
-describe("GET /video/261d87b8b130cf59170998c1", () => {
+describe("GET /video/:id", () => {
     it("should return: 200 - OK ", (done) => {
-        const videoId = "261d87b8b130cf59170998c1";
+        const videoId = "661d57b8b030cf35177998c1";
         return request(app).get("/video/" + videoId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const videoOutputDto: VideoOutputDto = res.body;
-                expect(videoOutputDto.url).to.equal("www.marca.es");
+                expect(videoOutputDto.url).to.equal("www.mundodeportivo.es");
                 done();
             });
     });
 });
 
-describe("DELETE /video/661d57b8b030cf35177998c1", () => {
+describe("DELETE /video/:id", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
-        const videoId = "661d57b8b030cf35177998c1";
+        const videoId = "261d87b8b130cf59170998c1";
         return request(app).delete("/video/" + videoId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);

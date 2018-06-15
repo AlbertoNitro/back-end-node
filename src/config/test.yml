@@ -80,7 +80,7 @@ interactions:
         formulation: ¿En que año se descubrio la luna?
         solutions: [{$oid: "361d87b8b230cf35177998ca"}, {$oid: "461d87b8b230cf35177998cb"}]
     - &interaction1
-        _id: {$oid: "261d87b8b130cf59170998c1"}
+        _id: {$oid: "261d87b8b130cf59170998c1"} #DELETE
         kind: Video
         url: www.marca.es
     - &interaction2
