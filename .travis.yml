@@ -6,6 +6,6 @@ services:
 before_script:
     - npm install
 script:
-    - npm run all-test
+    - npm run all-test-travis
 
 
