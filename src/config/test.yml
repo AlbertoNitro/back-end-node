@@ -127,7 +127,7 @@ solutions:
     _id: {$oid: "361d87b8b230cf35177998ca"}
     isCorrect: false
     text: 1974
-    justifications: [{$oid: "101d87b8b230cf35177998ca"}, {$oid: "111d87b8b230cf35177998ca"}, {$oid: "121d87b8b230cf35177998ca"}]
+    justifications: [{$oid: "101d87b8b230cf35177998ca"}, {$oid: "732d87b8b230cf35177998ca"}, {$oid: "121d87b8b230cf35177998ca"}]
 - &solution1
     _id: {$oid: "461d87b8b230cf35177998cb"}
     isCorrect: true
