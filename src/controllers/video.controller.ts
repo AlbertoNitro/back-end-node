@@ -5,7 +5,7 @@ import { VideoResource } from "../resources/video.resource";
 import { DtoService } from "../services/dto.service";
 import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
 import logger from "../utils/logger";
-import { VideoUpdationInputDto } from "../dtos/input/videoUpdationInput.dto";
+import { VideoInputDto } from "../dtos/input/videoInput.dto";
 
 export class VideoController {
     private videoResource: VideoResource;
@@ -17,8 +17,8 @@ export class VideoController {
     }
 
     async create(req: Request, res: Response): Promise<any> {
-        const videoUpdationInputDto: VideoUpdationInputDto = req.body;
-        const video: Video = await this.videoResource.create(videoUpdationInputDto.lessonId, videoUpdationInputDto.url);
+        const videoInputDto: VideoInputDto = req.body;
+        const video: Video = await this.videoResource.create(videoInputDto.lessonId, videoInputDto.url);
         const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
         video ? res.status(HttpStatusCode.CREATED).json(videoOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
@@ -40,10 +40,10 @@ export class VideoController {
     }
     async update(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
-        const videoUpdationInputDto: VideoUpdationInputDto = req.body;
+        const videoInputDto: VideoInputDto = req.body;
         const video: Video = await this.videoResource.findById(id);
         if (video) {
-            const video: Video = await this.videoResource.update(id, videoUpdationInputDto.lessonId, videoUpdationInputDto.url);
+            const video: Video = await this.videoResource.update(id, videoInputDto.lessonId, videoInputDto.url);
             const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
             video ? res.status(HttpStatusCode.OK).json(videoOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {

@@ -4,25 +4,30 @@ import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import logger from "../../src/utils/logger";
 import { ExerciseInputDto } from "../../src/dtos/input/exerciseInput.dto";
 import { ExerciseOutputDto } from "../../src/dtos/output/exerciseOutput.dto";
+import { SolutionInputDto } from "../../src/dtos/input/solutionInput.dto";
+import { JustificationInputDto } from "../../src/dtos/input/justificationInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /exercise", () => {
     it("should return: 201 - CREATED + Exercise", (done) => {
-        const exerciseInputDto: ExerciseInputDto = {"formulation": "¿En que epoca goberno Julio Cesar?"};
+        const justificationInputDtos1: JustificationInputDto[] = [];
+        const justificationInputDtos2: JustificationInputDto[] = [{"isCorrect" : false, "text" : "No murio en 1917"}, {"isCorrect" : false, "text" : "No murio en 1917"}];
+        const solutionInputDtos: SolutionInputDto[] = [{"isCorrect": true, "text": "1791", "justifications": justificationInputDtos1}];
+        const exerciseInputDto: ExerciseInputDto = {"lessonId": "1234", "formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
         return request(app).post("/exercise")
             .send(exerciseInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
                 expect(exerciseOutputDto.formulation).to.equal(exerciseInputDto.formulation);
-                expect(exerciseOutputDto.solutions.length).to.equal(0);
+                expect(exerciseOutputDto.solutions.length).to.equal(1);
                 done();
             });
     });
 });
-describe("GET /exercise/851d87b8b230cf25177998c0", () => {
+describe("GET /exercise/:id", () => {
     it("should return: 200", (done) => {
         const exerciseId = "851d87b8b230cf25177998c0";
         return request(app).get("/exercise/" + exerciseId)
@@ -35,7 +40,7 @@ describe("GET /exercise/851d87b8b230cf25177998c0", () => {
             });
     });
 });
-describe("GET /exercise/321d87b8b230cf25177998c0", () => {
+describe("GET /exercise/:id", () => {
     it("should return: 200", (done) => {
         const exerciseId = "321d87b8b230cf25177998c0";
         return request(app).get("/exercise/" + exerciseId)
@@ -48,7 +53,7 @@ describe("GET /exercise/321d87b8b230cf25177998c0", () => {
             });
     });
 });
-describe("DELETE /exercise/751d87b8b230cf25177998c0", () => {
+describe("DELETE /exercise/:id", () => {
     it("should return: 204", (done) => {
         const exerciseId = "751d87b8b230cf25177998c0";
         return request(app).delete("/exercise/" + exerciseId)
@@ -61,14 +66,14 @@ describe("DELETE /exercise/751d87b8b230cf25177998c0", () => {
 describe("PUT /exercise/:id", () => {
     it("should return: 200", (done) => {
         const exerciseId = "851d87b8b230cf25177998c0";
-        const exerciseInputDto: ExerciseInputDto = {"id": exerciseId, "formulation": "¿En que año se descubrio pluton?", "solutions": []};
+        const exerciseInputDto: ExerciseInputDto = {"formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
         return request(app).put("/exercise/" + exerciseId)
             .send(exerciseInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
                 expect(exerciseOutputDto.formulation).to.equal(exerciseInputDto.formulation);
-                expect(exerciseOutputDto.solutions.length).to.equal(0);
+                expect(exerciseOutputDto.solutions.length).to.equal(1);
                 done();
             });
     });

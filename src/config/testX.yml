@@ -1,0 +1,254 @@
+#Formations
+formations:
+    - &formation0
+        _id: {$oid: "862d87b8b522cf35117998c1"}
+        kind: Session
+        name: Sesion0
+        lessons: []
+    - &formation1
+        _id: {$oid: "763d87b8b122cf35117998c2"} # DELETE
+        kind: Session
+        name: Sesion1
+        lessons: []
+    - &formation2
+        _id: {$oid: "665d87b4b122cf35117198c2"}
+        kind: Session
+        name: Sesion2
+        lessons: [{$oid: "165d87b4b130cf35177198c2"}, {$oid: "862d87b8b530cf35177998c1"}]
+    - &formation3
+        _id: {$oid: "515d87b4b122cf35117198c2"} #Itinerario vacio
+        kind: Itinerary
+        name: Itinerario0
+        formations: []
+    - &formation4
+        _id: {$oid: "415d87b4b122cf35117198c3"} #Itinerario que contiene un itinerario
+        kind: Itinerary
+        name: Itinerario1
+        formations: [{$oid: "515d87b4b122cf35117198c2"}]
+    - &formation5
+        _id: {$oid: "315d87b4b122cf35117198c4"} #Itinerario que contiene una sesion
+        kind: Itinerary
+        name: Itinerario2
+        formations: [{$oid: "665d87b4b122cf35117198c2"}]
+    - &formation6
+        _id: {$oid: "215d87b4b122cf35117198c5"} #Itinerario que contiene una sesion y un itinerario
+        kind: Itinerary
+        name: Itinerario3
+        formations: [{$oid: "665d87b4b122cf35117198c2"}, {$oid: "315d87b4b122cf35117198c4"}]
+    - &formation7
+        _id: {$oid: "115d87b4b122cf35117198c5"} #Itinerario que contiene dos itinerarios
+        kind: Itinerary
+        name: Itinerario4
+        formations: [{$oid: "515d87b4b122cf35117198c2"}, {$oid: "315d87b4b122cf35117198c4"}]
+    - &formation8
+        _id: {$oid: "426d87b4b122cf35117198c6"} #Itinerario que contiene una sesion #DELETE
+        kind: Itinerary
+        name: Itinerario5
+        formations: [{$oid: "665d87b4b122cf35117198c2"}]
+    - &formation9
+        _id: {$oid: "326d87b4b122cf35117198c7"} #Itinerario que contiene dos itinerarios #DELETE
+        kind: Itinerary
+        name: Itinerario6
+        formations: [{$oid: "315d87b4b122cf35117198c4"}, {$oid: "215d87b4b122cf35117198c5"}]
+    - &formation10
+        _id: {$oid: "821d87b5b122cf35117198c4"} #Itinerario que contiene un itinerario que contiene una sesion
+        kind: Itinerary
+        name: Itinerario9
+        formations: [{$oid: "315d87b4b122cf35117198c4"}]
+
+#Lessons
+lessons:
+    - &lesson0
+        _id: {$oid: "862d87b8b530cf35177998c1"}
+        name: Variables en Java
+        interactions: []
+    - &lesson1
+        _id: {$oid: "863d87b8b130cf35177998c2"} #DELETE
+        name: Constantes en Java
+        interactions: []
+    - &lesson2
+        _id: {$oid: "165d87b4b130cf35177198c2"}
+        name: Datos cientificos
+        interactions: [{$oid: "851d87b8b230cf25177998c0"}, {$oid: "261d87b8b130cf59170998c1"}]
+        
+# Justifications
+justifications:
+- &justification0
+    isCorrect: false
+    text: El descubrimiento de la luna fue en 1999
+- &justification1 #DELETE
+    isCorrect: true
+    text: El descubrimiento de la luna fue en 1969
+- &justification2
+    isCorrect: false
+    text: El descubrimiento de la luna fue en 2005
+- &justification3
+    isCorrect: true
+    text: El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno
+- &justification4
+    isCorrect: true
+    text: Fue en 1794
+
+# Solutions
+solutions:
+- &solution0
+    isCorrect: false
+    text: 1974
+    justifications: [*justification0, *justification4, *justification2]
+- &solution1
+    isCorrect: true
+    text: La oveja Dolly
+    justifications: []
+- &solution2 #DELETE
+    isCorrect: true
+    text: La formula del agua H20
+    justifications: [*justification3]
+- &solution3 #PUT
+    isCorrect: false
+    text: 6666
+    justifications: [*justification0, *justification1, *justification2]
+
+#Interactions
+interactions:
+    - &interaction0
+        _id: {$oid: "851d87b8b230cf25177998c0"}
+        kind: Exercise
+        formulation: ¿En que año se descubrio la luna?
+        solutions: [*solution0, *solution1]
+    - &interaction1
+        _id: {$oid: "261d87b8b130cf59170998c1"} #DELETE
+        kind: Video
+        url: www.marca.es
+    - &interaction2
+        _id: {$oid: "661d57b8b030cf35177998c1"}
+        kind: Video
+        url: www.mundodeportivo.es
+    - &interaction3
+        _id: {$oid: "321d87b8b230cf25177998c0"}
+        kind: Exercise
+        formulation: ¿Quien invento la polvora?
+        solutions: []
+    - &interaction4
+        _id: {$oid: "751d87b8b230cf25177998c0"} #DELETE
+        kind: Exercise
+        formulation: ¿En que año murio Cristobal Colon?
+        solutions: []
+    - &interaction5
+        _id: {$oid: "991d57b8b030cf35177998c1"}
+        kind: Video
+        url: www.yahoo.es
+
+# Units
+units:
+- &unit0 #ROOT
+    _id: {$oid: "161d87b8b260cf35147998ca"}
+    code: 50
+    name: Unidad50 # ROOT
+    content: "PRUEBA"
+- &unit1
+    _id: {$oid: "261d87b8b260cf35147998ca"}
+    code: 51
+    name: Unidad51 #INHERIT
+- &unit2
+    _id: {$oid: "361d87b8b260cf35147998ca"}
+    code: 52
+    name: Unidad52 #INHERIT
+- &unit3
+    _id: {$oid: "461d87b8b260cf35147998ca"}
+    code: 53
+    name: Unidad53 #COMPOSE
+- &unit4
+    _id: {$oid: "561d87b8b260cf35147998ca"}
+    code: 54
+    name: Unidad54 #COMPOSE
+- &unit5
+    _id: {$oid: "661d87b8b260cf35147998ca"}
+    code: 55
+    name: Unidad55 #USE
+- &unit6
+    _id: {$oid: "761d87b8b260cf35147998ca"}
+    code: 56
+    name: Unidad56 #USE
+- &unit7
+    _id: {$oid: "861d87b8b260cf35147998ca"}
+    code: 57
+    name: Unidad57 #ASSOCIATION
+- &unit8
+    _id: {$oid: "961d87b8b260cf35147998ca"}
+    code: 58
+    name: Unidad58 #ASSOCIATION
+- &unit9
+    _id: {$oid: "221d87b8b260cf35147998ca"}
+    code: 59
+    name: Unidad59 #NO_RELATIONED
+- &unit10
+    _id: {$oid: "331d87b8b260cf35147998ca"}
+    code: 60
+    name: Unidad60 #NO_RELATIONED
+- &unit11
+    _id: {$oid: "441d87b8b260cf35147998ca"}
+    code: 61
+    name: Unidad61 #INHERIT
+- &unit12
+    _id: {$oid: "541d87b8b260cf35147998ca"}
+    code: 62
+    name: Unidad61 #NOTRELATED
+
+# Relations
+relations:
+- &relation0
+    type: INHERIT
+    topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit50
+    lowerUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
+    semantics: Nada
+- &relation1
+    type: INHERIT
+    topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit50
+    lowerUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
+    semantics: Nada
+- &relation2
+    type: COMPOSE
+    topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
+    lowerUnit: {$oid: "461d87b8b260cf35147998ca"} #unit53
+    semantics: Nada
+    cardinalTopUnit: 1
+- &relation3
+    type: COMPOSE
+    topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
+    lowerUnit: {$oid: "561d87b8b260cf35147998ca"} #unit54
+    semantics: Nada
+    cardinalTopUnit: 1
+- &relation4
+    type: USE
+    topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
+    lowerUnit: {$oid: "661d87b8b260cf35147998ca"} #unit55
+    semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
+- &relation5
+    type: USE
+    topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
+    lowerUnit: {$oid: "761d87b8b260cf35147998ca"} #unit56
+    semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
+- &relation6
+    type: ASSOCIATION
+    topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
+    lowerUnit: {$oid: "861d87b8b260cf35147998ca"} #unit57
+    semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
+- &relation7
+    type: ASSOCIATION
+    topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
+    lowerUnit: {$oid: "961d87b8b260cf35147998ca"} #unit58
+    semantics: Nada
+    cardinalTopUnit: 1
+    cardinalLowerUnit: n
+- &relation8
+    type: INHERIT
+    topUnit: {$oid: "161d87b8b260cf35147998ca"} #unit50
+    lowerUnit: {$oid: "441d87b8b260cf35147998ca"} #unit61
+    semantics: Pelidiosa
+

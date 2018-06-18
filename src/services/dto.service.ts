@@ -5,12 +5,8 @@ import { Relation } from "../models/relation.model";
 import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
 import { Video } from "../models/video.model";
 import { VideoOutputDto } from "../dtos/output/videoOutput.dto";
-import { SolutionOutputDto } from "../dtos/output/solutionOutput.dto";
-import { Solution } from "../models/solution.model";
 import { LessonOutputDto } from "../dtos/output/lessonOutput.dto";
 import { Lesson } from "../models/lesson.model";
-import { Justification } from "../models/justification.model";
-import { JustificationOutputDto } from "../dtos/output/justificationOutput.dto";
 import { Session } from "../models/session.model";
 import { SessionOutputDto } from "../dtos/output/sessionOutput.dto";
 import { ItineraryOutputDto } from "../dtos/output/itineraryOutput.dto";
@@ -123,45 +119,6 @@ export class DtoService implements InteractionVisitor, FormationVisitor {
         }
         return lessonOutputDtos;
     }
-    toJustificationOutputDto(justification: Justification): JustificationOutputDto {
-        let justificationOutputDto: JustificationOutputDto = undefined;
-        if (justification) {
-            justificationOutputDto = {
-                id: justification.getId(),
-                text: justification.getText(),
-                isCorrect: justification.getIsCorrect()};
-        }
-        return justificationOutputDto;
-    }
-    toArrayJustificationOutputDto(justifications: Justification[]): JustificationOutputDto[] {
-        const justificationOutputDtos: JustificationOutputDto[] = [];
-        if (justifications.length > 0) {
-            for (let i = 0 ; i < justifications.length ; i++ ) {
-                justificationOutputDtos.push(this.toJustificationOutputDto(justifications[i]));
-            }
-        }
-        return justificationOutputDtos;
-    }
-    toSolutionOutputDto(solution: Solution): SolutionOutputDto {
-        let solutionOutputDto: SolutionOutputDto = undefined;
-        if (solution) {
-            solutionOutputDto = {
-                id: solution.getId(),
-                isCorrect: solution.getIsCorrect(),
-                text: solution.getText(),
-                justifications: this.toArrayJustificationOutputDto(solution.getJustifications())};
-        }
-        return solutionOutputDto;
-    }
-    toArraySolutionOutputDto(solutions: Solution[]): SolutionOutputDto[] {
-        const solutionOutputDtos: SolutionOutputDto[] = [];
-        if (solutions.length > 0) {
-            for (let i = 0 ; i < solutions.length ; i++ ) {
-                solutionOutputDtos.push(this.toSolutionOutputDto(solutions[i]));
-            }
-        }
-        return solutionOutputDtos;
-    }
     toSessionOutputDto(session: Session): SessionOutputDto {
         let sessionOutputDto: SessionOutputDto = undefined;
         if (session) {
@@ -206,7 +163,7 @@ export class DtoService implements InteractionVisitor, FormationVisitor {
             exercisesOutputDto = {
                 id: exercise.getId(),
                 formulation: exercise.getFormulation(),
-                solutions: this.toArraySolutionOutputDto(exercise.getSolutions())};
+                solutions: exercise.getSolutions()};
         }
         return exercisesOutputDto;
     }
