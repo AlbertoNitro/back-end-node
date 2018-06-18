@@ -17,7 +17,7 @@ export class VideoResource {
     async delete(video: Video): Promise<boolean> {
         return await this.videoDao.delete(video.getId());
     }
-    async update(id: string, lessonId: string, url: string): Promise<Video> {
+    async update(id: string, url: string): Promise<Video> {
         return await this.videoDao.update(id, url);
     }
 }

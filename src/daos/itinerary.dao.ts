@@ -61,10 +61,10 @@ export class ItineraryDao {
                 return undefined;
             });
     }
-    async update(id: string, formations: Formation[]): Promise<Itinerary> {
-        return await ItinerarySchema.updateOne({_id: id}, {$set: {formations: formations}}, {new: true})
-            .then( async (itineraryDocument: Document) => {
-                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+    async update(id: string, name: string): Promise<Itinerary> {
+        return await ItinerarySchema.findOneAndUpdate({ _id: id }, { $set: {name: name }}, { new: true })
+            .then(async () => {
+                const itinerary: Itinerary = await this.findById(id);
                 return itinerary;
             })
             .catch ( err => {

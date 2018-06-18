@@ -13,5 +13,8 @@ sessionRoutes.get("/:id", (req, res) => {
 sessionRoutes.delete("/:id", (req, res) => {
     sessionController.delete(req, res);
 });
+sessionRoutes.put("/:id", (req, res) => {
+    sessionController.update(req, res);
+});
 
 export default sessionRoutes;

@@ -1,4 +1,4 @@
 export interface VideoInputDto  {
     url: string;
-    lessonId: string;
+    lessonId?: string;
 }

@@ -63,10 +63,10 @@ export class LessonDao {
                 return undefined;
             });
     }
-    async update(id: string, interactions: Interaction[]): Promise<Lesson> {
-        return await LessonSchema.updateOne({_id: id}, {$set: {interactions: interactions}}, {new: true})
-            .then(async(lessonDocument: Document) => {
-                const lesson: Lesson = lessonDocument ? LessonDao.toLesson(lessonDocument) : undefined;
+    async update(id: string, name: string): Promise<Lesson> {
+        return await LessonSchema.findOneAndUpdate({ _id: id }, { $set: {name: name }}, { new: true })
+            .then(async () => {
+                const lesson: Lesson = await this.findById(id);
                 return lesson;
             })
             .catch ( err => {

@@ -5,6 +5,7 @@ import { LessonResource } from "../resources/lesson.resource";
 import { Lesson } from "../models/lesson.model";
 import { DtoService } from "../services/dto.service";
 import { LessonOutputDto } from "../dtos/output/lessonOutput.dto";
+import { LessonInputDto } from "../dtos/input/lessonInput.dto";
 
 export class LessonController {
     private lessonResource: LessonResource;
@@ -16,8 +17,8 @@ export class LessonController {
     }
 
     async create(req: Request, res: Response): Promise<any> {
-        const name: string = req.body.name;
-        const lesson: Lesson = await this.lessonResource.create(name);
+        const lessonInputDto: LessonInputDto = req.body;
+        const lesson: Lesson = await this.lessonResource.create(lessonInputDto.sessionId, lessonInputDto.name);
         const lessonOutputDto: LessonOutputDto = this.dtoService.toLessonOutputDto(lesson);
         lesson ? res.status(HttpStatusCode.CREATED).json(lessonOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
@@ -37,5 +38,18 @@ export class LessonController {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
     }
-
+    async update(req: Request, res: Response): Promise<any> {
+        const id: string = req.params.id;
+        let lesson: Lesson = await this.lessonResource.findById(id);
+        logger.info(JSON.stringify(lesson));
+        if (lesson) {
+            const lessonInputDto: LessonInputDto = req.body;
+            lesson = await this.lessonResource.update(id, lessonInputDto.name);
+            logger.info(JSON.stringify(lesson));
+            const lessonOutputDto: LessonOutputDto = this.dtoService.toLessonOutputDto(lesson);
+            lesson ? res.status(HttpStatusCode.OK).json(lessonOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        } else {
+            res.status(HttpStatusCode.NOT_FOUND).end();
+        }
+    }
 }
