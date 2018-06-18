@@ -25,6 +25,7 @@ export class LessonResource {
     }
     async updateInteractions(id: string, interactionId: string): Promise<Lesson> {
         let lesson: Lesson = await this.findById(id);
+        // Haz esto ALBERTO para el borrar (que se puede quedar mal y comentar a luis) esta ya pensado bien
         // Obtener todos los id's de las interactions
         // Si el interactionId no existe, entonces lo añadimos al array
         // SINO lo eliminamos del array
