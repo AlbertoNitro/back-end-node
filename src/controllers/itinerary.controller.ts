@@ -43,7 +43,7 @@ export class ItineraryController {
         let itinerary: Itinerary = await this.itineraryResource.findById(id);
         if (itinerary) {
             const itineraryInputDto: ItineraryInputDto = req.body;
-            itinerary = await this.itineraryResource.update(id, itineraryInputDto.unitId);
+            itinerary = await this.itineraryResource.update(id, itineraryInputDto.name);
             const itineraryOutputDto: ItineraryOutputDto = this.dtoService.toItineraryOutputDto(itinerary);
             itinerary ? res.status(HttpStatusCode.OK).json(itineraryOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {

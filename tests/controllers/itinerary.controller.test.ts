@@ -109,7 +109,7 @@ describe("DELETE /itinerary/:id", () => {
 });
 describe("PUT /itinerary/:id", () => {
     it("should return: 200", (done) => {
-        const itineraryId = "444d87b4b122cf34417194c4";
+        const itineraryId = "699d87b4b192cf35667198c4";
         const itineraryInputDto: ItineraryInputDto = {"name": "Itinerario99"};
         return request(app).put("/itinerary/" + itineraryId)
             .send(itineraryInputDto)

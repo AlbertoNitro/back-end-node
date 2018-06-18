@@ -60,8 +60,8 @@ formations:
         kind: Session
         name: Sesion89
         lessons: []
-    - &formation3
-        _id: {$oid: "444d87b4b122cf34417194c4"} #UPDATE
+    - &formation12
+        _id: {$oid: "699d87b4b192cf35667198c4"} #UPDATE
         kind: Itinerary
         name: Itinerario89
         formations: []
