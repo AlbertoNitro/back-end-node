@@ -2,9 +2,8 @@ import { Document } from "mongoose";
 import logger from "../utils/logger";
 import { Exercise } from "../models/exercise.model";
 import ExerciseSchema from "../schemas/exercise.schema";
-import SolutionSchema from "../schemas/exercise.schema";
-import JustificationSchema from "../schemas/exercise.schema";
 import { ExerciseBuilder } from "../models/builders/exercise.builder";
+import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
 
 export class ExerciseDao {
     constructor() {
@@ -32,10 +31,8 @@ export class ExerciseDao {
             });
     }
     async findById(id: string): Promise<Exercise> {
-        logger.info("DAO: " + id);
         return await ExerciseSchema.findById(id)
             .then(async(exerciseDocument: Document) => {
-                logger.info("exerciseDocument" + JSON.stringify(exerciseDocument));
                 const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
@@ -57,7 +54,7 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async update(id: string, formulation: string, solutions: string): Promise<Exercise> {
+    async update(id: string, formulation: string, solutions: SolutionInputDto[]): Promise<Exercise> {
         return await ExerciseSchema.findOneAndUpdate({ _id: id }, { $set: {formulation: formulation, solutions: solutions }}, { new: true })
             .then(async () => {
                 const exercise: Exercise = await this.findById(id);

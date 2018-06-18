@@ -41,7 +41,7 @@ export class ExerciseController {
     async update(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
         const exerciseInputDto: ExerciseInputDto = req.body;
-        const exercise: Exercise = await this.exerciseResource.update(id, exerciseInputDto.formulation, JSON.stringify(exerciseInputDto.solutions));
+        const exercise: Exercise = await this.exerciseResource.update(id, exerciseInputDto.formulation, exerciseInputDto.solutions);
         const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
         exerciseOutputDto ? res.status(HttpStatusCode.OK).json(exerciseOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }

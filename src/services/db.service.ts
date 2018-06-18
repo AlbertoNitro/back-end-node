@@ -32,7 +32,7 @@ export class DbService {
          const promise = await new Promise((resolve, reject) => {
             setTimeout(() => {
                 this.mongoose.Promise = Promise;
-                this.mongoose.connect(MONGODB_URI)
+                this.mongoose.connect(MONGODB_URI, {useMongoClient: true})
                     .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
                     .catch( (err: any) => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); });
                 this.mongoose.connection.on("open", () => {
