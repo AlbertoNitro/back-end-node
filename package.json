@@ -15,7 +15,7 @@
     "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "all-test": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts && npm run test",
-    "all-test-travis": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts && npm run test exercise.controller.test.ts && npm run test itinerary.controller.test.ts && npm run test justification.controller.test.ts && npm run test lesson.controller.test.ts&& npm run test relation.controller.test.ts && npm run test session.controller.test.ts && npm run test solution.controller.test.ts && npm run test unit.controller.test.ts && npm run test video.controller.test.ts",
+    "all-test-travis": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts && npm run test exercise.controller.test.ts && npm run test itinerary.controller.test.ts && npm run test lesson.controller.test.ts&& npm run test relation.controller.test.ts && npm run test session.controller.test.ts && npm run test unit.controller.test.ts && npm run test video.controller.test.ts",
     "test": "jest --forceExit --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
