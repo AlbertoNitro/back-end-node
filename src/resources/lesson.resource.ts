@@ -23,4 +23,12 @@ export class LessonResource {
         lesson = lesson ? await this.lessonDao.update(id, name) : undefined;
         return lesson;
     }
+    async updateInteractions(id: string, interactionId: string): Promise<Lesson> {
+        let lesson: Lesson = await this.findById(id);
+        // Obtener todos los id's de las interactions
+        // Si el interactionId no existe, entonces lo añadimos al array
+        // SINO lo eliminamos del array
+        lesson = lesson ? await this.lessonDao.updateInteractions(id, interactionId) : undefined;
+        return lesson;
+    }
 }
