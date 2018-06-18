@@ -1,7 +1,9 @@
-import { Document, default as mongoose } from "mongoose";
+import { Document } from "mongoose";
 import logger from "../utils/logger";
 import { Exercise } from "../models/exercise.model";
 import ExerciseSchema from "../schemas/exercise.schema";
+import SolutionSchema from "../schemas/exercise.schema";
+import JustificationSchema from "../schemas/exercise.schema";
 import { ExerciseBuilder } from "../models/builders/exercise.builder";
 
 export class ExerciseDao {
