@@ -18,7 +18,7 @@ export class ExerciseController {
 
     async create(req: Request, res: Response): Promise<any> {
         const exerciseInputDto: ExerciseInputDto = req.body;
-        const exercise: Exercise = await this.exerciseResource.create(exerciseInputDto.lessonId, exerciseInputDto.formulation, JSON.stringify(exerciseInputDto.solutions));
+        const exercise: Exercise = await this.exerciseResource.create(exerciseInputDto.lessonId, exerciseInputDto.formulation, exerciseInputDto.solutions);
         const exerciseOutputDto: ExerciseOutputDto = this.dtoService.toExerciseOutputDto(exercise);
         exercise ? res.status(HttpStatusCode.CREATED).json(exerciseOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }

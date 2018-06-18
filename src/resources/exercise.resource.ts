@@ -9,7 +9,7 @@ export class ExerciseResource {
         this.exerciseDao = new ExerciseDao();
     }
 
-    async create(lessonId: string, formulation: string, solutions: string): Promise<Exercise> {
+    async create(lessonId: string, formulation: string, solutions: SolutionInputDto[]): Promise<Exercise> {
         return await this.exerciseDao.create(formulation, solutions);
     }
     async findById(id: string): Promise<Exercise> {

@@ -41,12 +41,12 @@ export class ExerciseDao {
                 return undefined;
             });
     }
-    async create(formulation: string, solutions: string): Promise<Exercise> {
-        const exercise: Exercise =  new ExerciseBuilder(formulation).setSolutions(solutions).build();
-        const exerciseSchema = new ExerciseSchema(exercise);
+    async create(formulation: string, solutions: SolutionInputDto[]): Promise<Exercise> {
+        const exerciseSchema = new ExerciseSchema({ formulation: formulation});
         return exerciseSchema.save()
             .then(async(exerciseDocument: Document) => {
-                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                let exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                exercise = await this.update(exercise.getId(), exercise.getFormulation(), solutions);
                 return exercise;
             })
             .catch ( err => {

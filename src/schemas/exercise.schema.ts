@@ -15,7 +15,7 @@ const Solution = new mongoose.Schema({
 const SolutionSchema = mongoose.model("Solution", Solution);
 
 const Exercise = new mongoose.Schema({
-    formulation: { type: String, required: true },
+    formulation: { type: String },
     solutions: { type: [Solution] },
 });
 const ExerciseSchema = InteractionSchema.discriminator("Exercise", Exercise);
