@@ -55,6 +55,16 @@ formations:
         kind: Itinerary
         name: Itinerario9
         formations: [{$oid: "315d87b4b122cf35117198c4"}]
+    - &formation11
+        _id: {$oid: "991d87b2b122cf35117993c2"} #UPDATE
+        kind: Session
+        name: Sesion89
+        lessons: []
+    - &formation3
+        _id: {$oid: "444d87b4b122cf34417194c4"} #UPDATE
+        kind: Itinerary
+        name: Itinerario89
+        formations: []
 
 #Lessons
 lessons:
@@ -70,6 +80,10 @@ lessons:
         _id: {$oid: "165d87b4b130cf35177198c2"}
         name: Datos cientificos
         interactions: [{$oid: "851d87b8b230cf25177998c0"}, {$oid: "261d87b8b130cf59170998c1"}]
+    - &lesson3
+        _id: {$oid: "213d87b4b130cf35177191c5"} #UPDATE
+        name: Leccion de Javascript
+        interactions: []
         
 # Justifications
 justifications:

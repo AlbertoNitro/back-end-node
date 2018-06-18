@@ -55,10 +55,10 @@ export class SessionDao {
                 return undefined;
             });
     }
-    async update(id: string, lessons: Lesson[]): Promise<Session> {
-        return await SessionSchema.updateOne({_id: id}, {$set: {lessons: lessons}}, {new: true})
-            .then(async(sessionDocument: Document) => {
-                const session: Session = sessionDocument ? SessionDao.toSession(sessionDocument) : undefined;
+    async update(id: string, name: string): Promise<Session> {
+        return await SessionSchema.findOneAndUpdate({ _id: id }, { $set: {name: name }}, { new: true })
+            .then(async () => {
+                const session: Session = await this.findById(id);
                 return session;
             })
             .catch ( err => {

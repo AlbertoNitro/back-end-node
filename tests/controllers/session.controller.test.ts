@@ -59,3 +59,17 @@ describe("DELETE /session/763d87b8b122cf35117998c2", () => {
             });
     });
 });
+describe("PUT /session/:id", () => {
+    it("should return: 200", (done) => {
+        const sessionId = "991d87b2b122cf35117993c2";
+        const sessionInputDto: SessionInputDto = {"name": "Sesion99"};
+        return request(app).put("/session/" + sessionId)
+            .send(sessionInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const sessionOutputDto: SessionOutputDto = res.body;
+                expect(sessionOutputDto.name).to.equal(sessionInputDto.name);
+                done();
+            });
+    });
+});

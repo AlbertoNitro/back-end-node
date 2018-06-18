@@ -13,5 +13,8 @@ lessonRoutes.get("/:id", (req, res) => {
 lessonRoutes.delete("/:id", (req, res) => {
     lessonController.delete(req, res);
 });
+lessonRoutes.put("/:id", (req, res) => {
+    lessonController.update(req, res);
+});
 
 export default lessonRoutes;

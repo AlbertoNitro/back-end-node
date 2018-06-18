@@ -43,7 +43,7 @@ export class VideoController {
         const videoInputDto: VideoInputDto = req.body;
         const video: Video = await this.videoResource.findById(id);
         if (video) {
-            const video: Video = await this.videoResource.update(id, videoInputDto.lessonId, videoInputDto.url);
+            const video: Video = await this.videoResource.update(id, videoInputDto.url);
             const videoOutputDto: VideoOutputDto = this.dtoService.toVideoOutputDto(video);
             video ? res.status(HttpStatusCode.OK).json(videoOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {

@@ -58,3 +58,17 @@ describe("DELETE /lesson/:id", () => {
             });
     });
 });
+describe("PUT /lesson/:id", () => {
+    it("should return: 200", (done) => {
+        const lessonId = "213d87b4b130cf35177191c5";
+        const lessonInputDto: LessonInputDto = {name: "Lecciones de la vida"};
+        return request(app).put("/lesson/" + lessonId)
+            .send(lessonInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const lessonOutputDto: LessonOutputDto = res.body;
+                expect(lessonOutputDto.name).to.equal(lessonInputDto.name);
+                done();
+            });
+    });
+});

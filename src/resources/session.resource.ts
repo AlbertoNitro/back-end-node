@@ -9,7 +9,7 @@ export class SessionResource {
         this.sessionDao = new SessionDao();
     }
 
-    async create(name: string): Promise<Session> {
+    async create(name: string, itineraryId: string): Promise<Session> {
         return await this.sessionDao.create(name);
     }
     async findById(id: string): Promise<Session> {
@@ -18,9 +18,9 @@ export class SessionResource {
     async delete(session: Session): Promise<boolean> {
         return await this.sessionDao.delete(session.getId());
     }
-    async update(id: string, lessons: Lesson[]): Promise<Session> {
+    async update(id: string, name: string): Promise<Session> {
         let session: Session = await this.findById(id);
-        session = session ? await this.sessionDao.update(id, lessons) : undefined;
+        session = session ? await this.sessionDao.update(id, name) : undefined;
         return session;
     }
 }

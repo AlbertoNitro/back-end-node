@@ -107,3 +107,17 @@ describe("DELETE /itinerary/:id", () => {
             });
     });
 });
+describe("PUT /itinerary/:id", () => {
+    it("should return: 200", (done) => {
+        const itineraryId = "444d87b4b122cf34417194c4";
+        const itineraryInputDto: ItineraryInputDto = {"name": "Itinerario99"};
+        return request(app).put("/itinerary/" + itineraryId)
+            .send(itineraryInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const itineraryOutputDto: ItineraryOutputDto = res.body;
+                expect(itineraryOutputDto.name).to.equal(itineraryInputDto.name);
+                done();
+            });
+    });
+});

@@ -9,7 +9,7 @@ export class LessonResource {
         this.lessonDao = new LessonDao();
     }
 
-    async create(name: string): Promise<Lesson> {
+    async create(sessionId: string, name: string): Promise<Lesson> {
         return await this.lessonDao.create(name);
     }
     async findById(id: string): Promise<Lesson> {
@@ -18,9 +18,9 @@ export class LessonResource {
     async delete(lesson: Lesson): Promise<boolean> {
         return await this.lessonDao.delete(lesson.getId());
     }
-    async update(id: string, interactions: Interaction[]): Promise<Lesson> {
+    async update(id: string, name: string): Promise<Lesson> {
         let lesson: Lesson = await this.findById(id);
-        lesson = lesson ? await this.lessonDao.update(id, interactions) : undefined;
+        lesson = lesson ? await this.lessonDao.update(id, name) : undefined;
         return lesson;
     }
 }
