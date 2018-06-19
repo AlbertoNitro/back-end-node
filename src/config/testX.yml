@@ -66,7 +66,7 @@ formations:
         name: Itinerario89
         formations: []
     - &formation11
-         _id: {$oid: "881d87b5b122cf34127993c2"}
+        _id: {$oid: "881d87b5b122cf34127993c2"}
         kind: Session
         name: Sesion200
         lessons: []
@@ -94,13 +94,13 @@ lessons:
         name: Leccion 77
         interactions: []
     - &lesson5
-            _id: {$oid: "555d87b4b130cf35177177c7"}
-            name: Leccion 66
-            interactions: []
+        _id: {$oid: "555d87b4b130cf35177177c7"}
+        name: Leccion 66
+        interactions: []
     - &lesson6
-            _id: {$oid: "444d87b4b130cf35177177c7"}
-            name: Leccion 55
-            interactions: []
+        _id: {$oid: "444d87b4b130cf35177177c7"}
+        name: Leccion 55
+        interactions: []
         
 # Justifications
 justifications:
