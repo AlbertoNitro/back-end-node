@@ -1,9 +1,12 @@
 import { Itinerary } from "../models/itinerary.model";
 import { ItineraryDao } from "../daos/itinerary.dao";
 import { Formation } from "../models/formation.model";
+import { FormationVisitor } from "../models/formation.visitor";
+import { Session } from "../models/session.model";
 
-export class ItineraryResource {
+export class ItineraryResource implements FormationVisitor {
     private itineraryDao: ItineraryDao;
+    private formationId: string;
 
     constructor() {
         this.itineraryDao = new ItineraryDao();
@@ -25,5 +28,38 @@ export class ItineraryResource {
     }
     async findAll(): Promise<Itinerary[]> {
         return await this.itineraryDao.findAll();
+    }
+    async updateFormations(id: string, formationId: string): Promise<Formation> {
+        let itinerary: Itinerary = await this.findById(id);
+        let formationsIds: string[];
+        if (itinerary) {
+            formationsIds = this.getFormationsIds(itinerary);
+            const idToSearch: string = formationsIds.find(element => {
+                return formationId === element;
+            });
+            if (idToSearch) {
+                const index = formationsIds.indexOf(formationId);
+                formationsIds.splice(index, 1);
+            } else {
+                formationsIds.push(formationId);
+            }
+        }
+        itinerary = itinerary ? await this.itineraryDao.updateFormations(id, formationsIds) : undefined;
+        return itinerary;
+    }
+    private getFormationsIds(itinerary: Itinerary) {
+        const ids: string[] = [];
+        const formations: Formation[] = itinerary.getFormations();
+        for (let i = 0; i < formations.length; i++) {
+            formations[i].accept(this);
+            ids.push(this.formationId);
+        }
+        return ids;
+    }
+    visitSession(session: Session): void {
+        this.formationId = session.getId();
+    }
+    visitItinerary(itinerary: Itinerary): void {
+        this.formationId = itinerary.getId();
     }
 }

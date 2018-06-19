@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 describe("POST /session", () => {
     it("should return: 201 - CREATED + Session", (done) => {
-        const sessionInputDto: SessionInputDto = {"name": "Sesion4"};
+        const sessionInputDto: SessionInputDto = {itineraryId: "666d66b4b122cf35117155c5", "name": "Sesion4"};
         return request(app).post("/session")
             .send(sessionInputDto)
             .end(  async (err, res) => {

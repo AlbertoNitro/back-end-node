@@ -83,4 +83,15 @@ export class ItineraryDao {
                 return undefined;
             });
     }
+    async updateFormations(id: string, formationsIds: string[]): Promise<Itinerary> {
+        return await ItinerarySchema.findOneAndUpdate({ _id: id }, { $set: {formations: formationsIds }}, { new: true })
+            .then(async () => {
+                const itinerary: Itinerary = await this.findById(id);
+                return itinerary;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
 }

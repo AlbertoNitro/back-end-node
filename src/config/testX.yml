@@ -65,11 +65,16 @@ formations:
         kind: Itinerary
         name: Itinerario89
         formations: []
-    - &formation11
+    - &formation13
         _id: {$oid: "881d87b5b122cf34127993c2"}
         kind: Session
         name: Sesion200
         lessons: []
+    - &formation14
+        _id: {$oid: "666d66b4b122cf35117155c5"}
+        kind: Itinerary
+        name: Itinerario200
+        formations: []
 
 #Lessons
 lessons:
