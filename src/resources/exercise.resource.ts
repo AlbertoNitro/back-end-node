@@ -1,16 +1,21 @@
 import { Exercise } from "../models/exercise.model";
 import { ExerciseDao } from "../daos/exercise.dao";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
+import { LessonResource } from "./lesson.resource";
 
 export class ExerciseResource {
     private exerciseDao: ExerciseDao;
+    private lessonResource: LessonResource;
 
     constructor() {
         this.exerciseDao = new ExerciseDao();
+        this.lessonResource = new LessonResource();
     }
 
     async create(lessonId: string, formulation: string, solutions: SolutionInputDto[]): Promise<Exercise> {
-        return await this.exerciseDao.create(formulation, solutions);
+        const exercise: Exercise = await this.exerciseDao.create(formulation, solutions);
+        await this.lessonResource.updateInteractions(lessonId, exercise.getId());
+        return exercise;
     }
     async findById(id: string): Promise<Exercise> {
         return await this.exerciseDao.findById(id);

@@ -1,9 +1,13 @@
 import { LessonDao } from "../daos/lesson.dao";
 import { Lesson } from "../models/lesson.model";
 import { Interaction } from "../models/interaction.model";
+import { InteractionVisitor } from "../models/interaction.visitor";
+import { Video } from "../models/video.model";
+import { Exercise } from "../models/exercise.model";
 
-export class LessonResource {
+export class LessonResource implements InteractionVisitor {
     private lessonDao: LessonDao;
+    private interactionId: string;
 
     constructor() {
         this.lessonDao = new LessonDao();
@@ -25,10 +29,34 @@ export class LessonResource {
     }
     async updateInteractions(id: string, interactionId: string): Promise<Lesson> {
         let lesson: Lesson = await this.findById(id);
-        // Obtener todos los id's de las interactions
-        // Si el interactionId no existe, entonces lo añadimos al array
-        // SINO lo eliminamos del array
-        lesson = lesson ? await this.lessonDao.updateInteractions(id, interactionId) : undefined;
+        let interactionsIds: string[];
+        if (lesson) {
+            interactionsIds = this.getInteractionsIds(lesson);
+            const idToSearch: string = interactionsIds.find(element => {
+                return interactionId === element;
+            });
+            if (idToSearch) {
+                const index = interactionsIds.indexOf(interactionId);
+                interactionsIds.splice(index, 1);
+            } else {
+                interactionsIds.push(interactionId);
+            }
+        }
+        lesson = lesson ? await this.lessonDao.updateInteractions(id, interactionsIds) : undefined;
         return lesson;
+    }
+    private getInteractionsIds(lesson: Lesson) {
+        const ids: string[] = [];
+        const interactions: Interaction[] = lesson.getInteractions();
+        for (let i = 0; i < interactions.length; i++) {
+            ids.push(this.interactionId);
+        }
+        return ids;
+    }
+    visitVideo(video: Video): void {
+        this.interactionId = video.getId();
+    }
+    visitExercise(exercise: Exercise): void {
+        this.interactionId = exercise.getId();
     }
 }
