@@ -19,9 +19,13 @@ export class ItineraryController {
 
     async create(req: Request, res: Response): Promise<any> {
         const itineraryInputDto: ItineraryInputDto = req.body;
-        const itinerary: Itinerary = await this.itineraryResource.create(itineraryInputDto.name, itineraryInputDto.unitId);
-        const itineraryOutputDto: ItineraryOutputDto = this.dtoService.toItineraryOutputDto(itinerary);
-        itinerary ? res.status(HttpStatusCode.CREATED).json(itineraryOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        if (itineraryInputDto.itineraryId || itineraryInputDto.unitCode) {
+            const itinerary: Itinerary = await this.itineraryResource.create(itineraryInputDto.name, itineraryInputDto.itineraryId, itineraryInputDto.unitCode);
+            const itineraryOutputDto: ItineraryOutputDto = this.dtoService.toItineraryOutputDto(itinerary);
+            itinerary ? res.status(HttpStatusCode.CREATED).json(itineraryOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        } else {
+            res.status(HttpStatusCode.BAD_REQUEST).end();
+        }
     }
     async findById(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;

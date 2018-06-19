@@ -10,7 +10,21 @@ const expect = chai.expect;
 
 describe("POST /itinerary", () => {
     it("should return: 201 - CREATED + Itinerary", (done) => {
-        const itineraryInputDto: ItineraryInputDto = {"name": "Itinerario10"};
+        const itineraryInputDto: ItineraryInputDto = {itineraryId: "999d66b4b122cf35117999c5", name: "Itinerario10"};
+        return request(app).post("/itinerary")
+            .send(itineraryInputDto)
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.CREATED);
+                const itineraryOutputDto: ItineraryOutputDto = res.body;
+                expect(itineraryOutputDto.name).to.equal(itineraryInputDto.name);
+                expect(itineraryOutputDto.formations.length).to.equal(0);
+                done();
+            });
+    });
+});
+describe("POST /itinerary", () => {
+    it("should return: 201 - CREATED + Itinerary", (done) => {
+        const itineraryInputDto: ItineraryInputDto = {unitCode: 63, name: "Itinerario300"};
         return request(app).post("/itinerary")
             .send(itineraryInputDto)
             .end(  async (err, res) => {

@@ -75,6 +75,11 @@ formations:
         kind: Itinerary
         name: Itinerario200
         formations: []
+    - &formation15
+            _id: {$oid: "999d66b4b122cf35117999c5"}
+            kind: Itinerary
+            name: Itinerario201
+            formations: []
 
 #Lessons
 lessons:
@@ -230,6 +235,10 @@ units:
     _id: {$oid: "541d87b8b260cf35147998ca"}
     code: 62
     name: Unidad61 #NOTRELATED
+- &unit13
+    _id: {$oid: "666d66b6b260cf35147998ca"}
+    code: 63
+    name: Unidad200
 
 # Relations
 relations:
