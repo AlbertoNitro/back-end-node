@@ -3,13 +3,14 @@ import UnitSchema from "../schemas/unit.schema";
 import { UnitBuilder } from "../models/builders/unit.builder";
 import { Document } from "mongoose";
 import logger from "../utils/logger";
+import { ItineraryDao } from "./itinerary.dao";
 
 export class UnitDao {
     constructor() {
     }
 
     static toUnit(document: Document): Unit {
-        return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).setContent(document.get("content")).build();
+        return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).setContent(document.get("content")).setItineraries(ItineraryDao.toArrayItineraries(document.get("itineraries"))).build();
     }
     static toArrayUnits(documents: Document[]): Unit[] {
         const units: Unit[] = [];

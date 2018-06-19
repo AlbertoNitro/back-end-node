@@ -1,4 +1,5 @@
 import { Unit } from "../unit.model";
+import { Itinerary } from "../itinerary.model";
 
 export class UnitBuilder {
     private unit: Unit;
@@ -21,6 +22,10 @@ export class UnitBuilder {
     }
     setContent(content: string): UnitBuilder {
         this.unit.setContent(content);
+        return this;
+    }
+    setItineraries(itineraries: Itinerary[]): UnitBuilder {
+        this.unit.setItineraries(itineraries);
         return this;
     }
     build(): Unit {

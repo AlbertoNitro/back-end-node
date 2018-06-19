@@ -34,7 +34,8 @@ export class DtoService implements InteractionVisitor, FormationVisitor {
             unitOutputDto = {
                 name: unit.getName(),
                 code: unit.getCode(),
-                content: unit.getContent()};
+                content: unit.getContent(),
+                itineraries: this.toArrayFormationOutputDto(unit.getItineraries())};
         }
         return unitOutputDto;
     }

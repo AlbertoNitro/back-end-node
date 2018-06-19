@@ -163,6 +163,7 @@ units:
     code: 50
     name: Unidad50 # ROOT
     content: "PRUEBA"
+    itineraries: [{$oid: "115d87b4b122cf35117198c5"}]
 - &unit1
     _id: {$oid: "261d87b8b260cf35147998ca"}
     code: 51
