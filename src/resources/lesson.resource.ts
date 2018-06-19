@@ -61,11 +61,9 @@ export class LessonResource implements InteractionVisitor {
         return ids;
     }
     visitVideo(video: Video): void {
-        logger.info(JSON.stringify(video));
         this.interactionId = video.getId();
     }
     visitExercise(exercise: Exercise): void {
-        logger.info(JSON.stringify(exercise));
         this.interactionId = exercise.getId();
     }
 }

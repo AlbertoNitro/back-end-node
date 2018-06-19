@@ -1,16 +1,21 @@
 import { Session } from "../models/session.model";
 import { SessionDao } from "../daos/session.dao";
 import { Lesson } from "../models/lesson.model";
+import { ItineraryResource } from "./itinerary.resource";
 
 export class SessionResource {
     private sessionDao: SessionDao;
+    private itineraryResource: ItineraryResource;
 
     constructor() {
         this.sessionDao = new SessionDao();
+        this.itineraryResource = new ItineraryResource();
     }
 
     async create(name: string, itineraryId: string): Promise<Session> {
-        return await this.sessionDao.create(name);
+        const session: Session = await this.sessionDao.create(name);
+        await this.itineraryResource.updateFormations(itineraryId, session.getId());
+        return session;
     }
     async findById(id: string): Promise<Session> {
         return await this.sessionDao.findById(id);
