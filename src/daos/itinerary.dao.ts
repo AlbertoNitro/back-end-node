@@ -20,7 +20,7 @@ export class ItineraryDao {
         const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
         return itinerary;
     }
-    static toArrayItinerarys(documents: Document[]): Itinerary[] {
+    static toArrayItineraries(documents: Document[]): Itinerary[] {
         const itineraries: Itinerary[] = [];
         for (let i = 0; i < documents.length; i++) {
             itineraries.push(ItineraryDao.toItinerary(documents[i]));

@@ -4,14 +4,13 @@ import { HttpStatusCode } from "../../src/utils/http-status-codes.enum";
 import logger from "../../src/utils/logger";
 import { VideoOutputDto } from "../../src/dtos/output/videoOutput.dto";
 import { VideoInputDto } from "../../src/dtos/input/videoInput.dto";
-import {VideoUpdationInputDto} from "videoInput.dto.ts";
 
 const chai = require("chai");
 const expect = chai.expect;
 
 describe("POST /video", () => {
     it("should return: 201 - CREATED + Video", (done) => {
-        const videoInputDto: VideoInputDto = {"url": "www.elpais.es"};
+        const videoInputDto: VideoInputDto = {"lessonId": "773d87b4b130cf35177177c7", "url": "www.elpais.es"};
         return request(app).post("/video")
             .send(videoInputDto)
             .end(  async (err, res) => {

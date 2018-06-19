@@ -1,15 +1,21 @@
 import { Video } from "../models/video.model";
 import { VideoDao } from "../daos/video.dao";
+import { LessonResource } from "./lesson.resource";
+import logger from "../utils/logger";
 
 export class VideoResource {
     private videoDao: VideoDao;
+    private lessonResource: LessonResource;
 
     constructor() {
         this.videoDao = new VideoDao();
+        this.lessonResource = new LessonResource();
     }
 
     async create(lessonId: string, url: string): Promise<Video> {
-        return await this.videoDao.create(url);
+        const video: Video = await this.videoDao.create(url);
+        await this.lessonResource.updateInteractions(lessonId, video.getId());
+        return video;
     }
     async findById(id: string): Promise<Video> {
         return await this.videoDao.findById(id);
