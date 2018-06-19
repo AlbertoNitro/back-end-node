@@ -3,17 +3,26 @@ import { ItineraryDao } from "../daos/itinerary.dao";
 import { Formation } from "../models/formation.model";
 import { FormationVisitor } from "../models/formation.visitor";
 import { Session } from "../models/session.model";
+import { UnitResource } from "./unit.resource";
 
 export class ItineraryResource implements FormationVisitor {
     private itineraryDao: ItineraryDao;
     private formationId: string;
+    private unitResource: UnitResource;
 
     constructor() {
         this.itineraryDao = new ItineraryDao();
+        this.unitResource = new UnitResource();
     }
 
-    async create(name: string, unitId: string): Promise<Itinerary> {
-        return await this.itineraryDao.create(name);
+    async create(name: string, itineraryId: string, unitCode: number): Promise<Itinerary> {
+        const itinerary: Itinerary = await this.itineraryDao.create(name);
+        if (itineraryId) {
+            this.updateFormations(itineraryId, itinerary.getId());
+        } else if (unitCode) {
+            this.unitResource.updateItineraries(unitCode, itinerary.getId());
+        }
+        return itinerary;
     }
     async findById(id: string): Promise<Itinerary> {
         return await this.itineraryDao.findById(id);

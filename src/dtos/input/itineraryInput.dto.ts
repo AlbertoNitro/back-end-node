@@ -1,4 +1,5 @@
 export interface ItineraryInputDto  {
     name: string;
-    unitId?: string;
+    unitCode?: number;
+    itineraryId?: string;
 }

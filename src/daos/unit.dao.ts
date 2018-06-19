@@ -102,4 +102,15 @@ export class UnitDao {
                 });
             });
     }
+    async updateItineraries(id: string, itinerariesIds: string[]): Promise<Unit> {
+        return await UnitSchema.findOneAndUpdate({ _id: id }, { $set: {itineraries: itinerariesIds }}, { new: true })
+            .then(async () => {
+                const unit: Unit = await this.findById(id);
+                return unit;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
 }

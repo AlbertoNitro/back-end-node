@@ -3,6 +3,7 @@ import { Unit } from "../models/unit.model";
 import { RelationResource } from "./relation.resource";
 import { Relation } from "../models/relation.model";
 import logger from "../utils/logger";
+import { Itinerary } from "../models/itinerary.model";
 
 export class UnitResource {
     private unitDao: UnitDao;
@@ -90,5 +91,31 @@ export class UnitResource {
     }
     async update(code: string, content: string): Promise<Unit> {
         return await this.unitDao.update(code, content);
+    }
+    async updateItineraries(code: number, itineraryId: string): Promise<Unit> {
+        let unit: Unit = await this.findByCode(code);
+        let itinerariesIds: string[];
+        if (unit) {
+            itinerariesIds = this.getItinerariesIds(unit);
+            const idToSearch: string = itinerariesIds.find(element => {
+                return itineraryId === element;
+            });
+            if (idToSearch) {
+                const index = itinerariesIds.indexOf(itineraryId);
+                itinerariesIds.splice(index, 1);
+            } else {
+                itinerariesIds.push(itineraryId);
+            }
+        }
+        unit = unit ? await this.unitDao.updateItineraries(unit.getId(), itinerariesIds) : undefined;
+        return unit;
+    }
+    private getItinerariesIds(unit: Unit) {
+        const ids: string[] = [];
+        const itineraries: Itinerary[] = unit.getItineraries();
+        for (let i = 0; i < itineraries.length; i++) {
+            ids.push(itineraries[i].getId());
+        }
+        return ids;
     }
 }
