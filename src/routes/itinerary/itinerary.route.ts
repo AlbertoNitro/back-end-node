@@ -16,5 +16,8 @@ itineraryRoutes.delete("/:id", (req, res) => {
 itineraryRoutes.put("/:id", (req, res) => {
     itineraryController.update(req, res);
 });
+itineraryRoutes.get("", (req, res) => {
+    itineraryController.findAll(req, res);
+});
 
 export default itineraryRoutes;

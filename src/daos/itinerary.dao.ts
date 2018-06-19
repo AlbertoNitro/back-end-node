@@ -72,4 +72,15 @@ export class ItineraryDao {
                 return undefined;
             });
     }
+    async findAll(): Promise<Itinerary[]> {
+        return await ItinerarySchema.find({})
+            .then( (itinerariesDocument: Document[]) => {
+                const itineraries: Itinerary[] = itinerariesDocument ? ItineraryDao.toArrayItineraries(itinerariesDocument) : undefined;
+                return itineraries;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
 }

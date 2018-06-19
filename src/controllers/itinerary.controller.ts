@@ -6,6 +6,7 @@ import { ItineraryResource } from "../resources/itinerary.resource";
 import { DtoService } from "../services/dto.service";
 import { ItineraryOutputDto } from "../dtos/output/itineraryOutput.dto";
 import { ItineraryInputDto } from "../dtos/input/itineraryInput.dto";
+import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
 
 export class ItineraryController {
     private itineraryResource: ItineraryResource;
@@ -49,6 +50,11 @@ export class ItineraryController {
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }
+    }
+    async findAll(req: Request, res: Response): Promise<any> {
+        const itineraries: Itinerary[] = await this.itineraryResource.findAll();
+        const formationOutputDtos: FormationOutputDto[] = this.dtoService.toArrayFormationOutputDto(itineraries);
+        itineraries ? res.status(HttpStatusCode.OK).json(formationOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
 }
 
