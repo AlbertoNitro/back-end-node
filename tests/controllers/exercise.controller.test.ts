@@ -15,7 +15,7 @@ describe("POST /exercise", () => {
         const justificationInputDtos1: JustificationInputDto[] = [];
         const justificationInputDtos2: JustificationInputDto[] = [{"isCorrect" : false, "text" : "No murio en 1917"}, {"isCorrect" : false, "text" : "No murio en 1917"}];
         const solutionInputDtos: SolutionInputDto[] = [{"isCorrect": true, "text": "1791", "justifications": justificationInputDtos1}];
-        const exerciseInputDto: ExerciseInputDto = {"lessonId": "1234", "formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
+        const exerciseInputDto: ExerciseInputDto = {"lessonId": "773d87b4b130cf35177177c7", "formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
         return request(app).post("/exercise")
             .send(exerciseInputDto)
             .end(  async (err, res) => {

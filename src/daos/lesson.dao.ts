@@ -74,8 +74,8 @@ export class LessonDao {
                 return undefined;
             });
     }
-    async updateInteractions(id: string, interactionId: string): Promise<Lesson> {
-        return await LessonSchema.findOneAndUpdate({ _id: id }, { $set: {name: name }}, { new: true })
+    async updateInteractions(id: string, interactionsIds: string[]): Promise<Lesson> {
+        return await LessonSchema.findOneAndUpdate({ _id: id }, { $set: {interactions: interactionsIds }}, { new: true })
             .then(async () => {
                 const lesson: Lesson = await this.findById(id);
                 return lesson;

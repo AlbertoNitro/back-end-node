@@ -84,6 +84,10 @@ lessons:
         _id: {$oid: "213d87b4b130cf35177191c5"} #UPDATE
         name: Leccion de Javascript
         interactions: []
+    - &lesson3
+        _id: {$oid: "773d87b4b130cf35177177c7"} #Leccion a la que se le añaden ejercicios en el test POST Exercise
+        name: Leccion 77
+        interactions: []
         
 # Justifications
 justifications:
