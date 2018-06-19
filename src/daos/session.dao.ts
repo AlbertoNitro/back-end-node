@@ -66,4 +66,15 @@ export class SessionDao {
                 return undefined;
             });
     }
+    async updateLessons(id: string, lessonsIds: string[]): Promise<Session> {
+        return await SessionSchema.findOneAndUpdate({ _id: id }, { $set: {lessons: lessonsIds }}, { new: true })
+            .then(async () => {
+                const session: Session = await this.findById(id);
+                return session;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
 }
