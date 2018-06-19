@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 describe("POST /lesson", () => {
     it("should return: 201 - CREATED + Lesson", (done) => {
-        const lessonInputDto: LessonInputDto = {name: "Herencia en Java"};
+        const lessonInputDto: LessonInputDto = {sessionId: "881d87b5b122cf34127993c2", name: "Herencia en Java"};
         return request(app).post("/lesson")
             .send(lessonInputDto)
             .end(  async (err, res) => {

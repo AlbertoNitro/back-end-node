@@ -5,17 +5,22 @@ import { InteractionVisitor } from "../models/interaction.visitor";
 import { Video } from "../models/video.model";
 import { Exercise } from "../models/exercise.model";
 import logger from "../utils/logger";
+import { SessionResource } from "./session.resource";
 
 export class LessonResource implements InteractionVisitor {
     private lessonDao: LessonDao;
     private interactionId: string;
+    private sessionResource: SessionResource;
 
     constructor() {
         this.lessonDao = new LessonDao();
+        this.sessionResource = new SessionResource();
     }
 
     async create(sessionId: string, name: string): Promise<Lesson> {
-        return await this.lessonDao.create(name);
+        const lesson: Lesson = await this.lessonDao.create(name);
+        await this.sessionResource.updateLessons(sessionId, lesson.getId());
+        return lesson;
     }
     async findById(id: string): Promise<Lesson> {
         return await this.lessonDao.findById(id);
@@ -30,26 +35,19 @@ export class LessonResource implements InteractionVisitor {
     }
     async updateInteractions(id: string, interactionId: string): Promise<Lesson> {
         let lesson: Lesson = await this.findById(id);
-        logger.info(JSON.stringify(lesson));
         let interactionsIds: string[];
         if (lesson) {
-            logger.info("Existe lesson");
-            logger.info("soy video/exercise y mi id es: " + interactionId);
             interactionsIds = this.getInteractionsIds(lesson);
-            logger.info("ids de la lesson " + JSON.stringify(interactionsIds));
             const idToSearch: string = interactionsIds.find(element => {
                 return interactionId === element;
             });
             if (idToSearch) {
-                logger.info("Ya tenia yo ese id");
                 const index = interactionsIds.indexOf(interactionId);
                 interactionsIds.splice(index, 1);
             } else {
-                logger.info("Insertando id nuevo en el array polimorfico");
                 interactionsIds.push(interactionId);
             }
         }
-        logger.info("array con ids a actualizar " + JSON.stringify(interactionsIds));
         lesson = lesson ? await this.lessonDao.updateInteractions(id, interactionsIds) : undefined;
         return lesson;
     }
