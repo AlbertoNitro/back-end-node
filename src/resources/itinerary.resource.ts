@@ -23,4 +23,7 @@ export class ItineraryResource {
         itinerary = itinerary ? await this.itineraryDao.update(id, name) : undefined;
         return itinerary;
     }
+    async findAll(): Promise<Itinerary[]> {
+        return await this.itineraryDao.findAll();
+    }
 }
