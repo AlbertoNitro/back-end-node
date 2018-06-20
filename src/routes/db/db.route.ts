@@ -4,13 +4,15 @@ import { DbController } from "../../controllers/db.controller";
 const dbRoutes = express.Router();
 const dbController: DbController = new DbController();
 
-dbRoutes.post("/seed", (req, res) => {
+const PASSWORD = "/:password";
+
+dbRoutes.post("/seed" + PASSWORD, (req, res) => {
     dbController.seed(req, res);
 });
-dbRoutes.get("/saveInBackup", (req, res) => {
-    dbController.saveInBackup(req, res);
+dbRoutes.get("/doBackup" + PASSWORD, (req, res) => {
+    dbController.doBackup(req, res);
 });
-dbRoutes.delete("/delete", (req, res) => {
+dbRoutes.delete("/delete" + PASSWORD, (req, res) => {
     dbController.delete(req, res);
 });
 
