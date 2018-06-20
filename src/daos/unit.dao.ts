@@ -86,10 +86,10 @@ export class UnitDao {
                 return false;
             });
     }
-    async update(code: number, name: string, content: string): Promise<Unit> {
+    async update(id: string, name: string, content: string): Promise<Unit> {
         return await UnitSchema.findOneAndUpdate({ _id: id }, { $set: {name: name, content: content }}, { new: true })
             .then(async () => {
-                const unit: Unit = await this.findByCode(code);
+                const unit: Unit = await this.findById(id);
                 return unit;
             })
             .catch ( err => {
