@@ -20,12 +20,18 @@ import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
 import { Formation } from "../models/formation.model";
 import { InteractionVisitor } from "../models/interaction.visitor";
 import { FormationVisitor } from "../models/formation.visitor";
+import { FormationMinimunOutputDto } from "../dtos/output/formationMinimunOutput.dto";
+import { ItineraryMinimunOutputDto } from "../dtos/output/itineraryMinimunOutput.dto";
+import { SessionMinimunOutputDto } from "../dtos/output/sessionMinimunOutput.dto";
 
 export class DtoService implements InteractionVisitor, FormationVisitor {
     interactionOutputDto: InteractionOutputDto;
     formationOutputDto: FormationOutputDto;
+    formationMinimunOutputDto: FormationMinimunOutputDto;
+    wantMinimunDto: boolean;
 
     constructor() {
+        this.wantMinimunDto = false;
     }
 
     toUnitOutputDto(unit: Unit): UnitOutputDto {
@@ -35,7 +41,7 @@ export class DtoService implements InteractionVisitor, FormationVisitor {
                 name: unit.getName(),
                 code: unit.getCode(),
                 content: unit.getContent(),
-                itineraries: this.toArrayFormationOutputDto(unit.getItineraries())};
+                itineraries: this.toArrayFormationMinimunOutputDto(unit.getItineraries())};
         }
         return unitOutputDto;
     }
@@ -53,8 +59,8 @@ export class DtoService implements InteractionVisitor, FormationVisitor {
         if (relation) {
             relationOutputDto = {
                 type: relation.getType(),
-                topUnit: {name: relation.getTopUnit().getName(), code: relation.getTopUnit().getCode(), content: relation.getTopUnit().getContent()},
-                lowerUnit: {name: relation.getLowerUnit().getName(), code: relation.getLowerUnit().getCode(), content: relation.getTopUnit().getContent()},
+                topUnit: this.toUnitOutputDto(relation.getTopUnit()),
+                lowerUnit: this.toUnitOutputDto(relation.getLowerUnit()),
                 semantics: relation.getSemantics(),
                 cardinalTopUnit: relation.getCardinalTopUnit(),
                 cardinalLowerUnit: relation.getCardinalLowerUnit()
@@ -203,16 +209,49 @@ export class DtoService implements InteractionVisitor, FormationVisitor {
         }
         return formationsOutputDtos;
     }
+    toFormationMinimunOutputDto(formation: Formation): FormationMinimunOutputDto {
+        this.wantMinimunDto = true;
+        formation.accept(this);
+        this.wantMinimunDto = false;
+        return this.formationMinimunOutputDto;
+    }
+    toArrayFormationMinimunOutputDto(formations: Formation[]): FormationMinimunOutputDto[] {
+        const formationMinimunOutputDtos: FormationMinimunOutputDto[] = [];
+        if (formations.length > 0) {
+            for (let i = 0 ; i < formations.length ; i++ ) {
+                formationMinimunOutputDtos.push(this.toFormationMinimunOutputDto(formations[i]));
+            }
+        }
+        return formationMinimunOutputDtos;
+    }
+    toItineraryMinimunOutputDto(itinerary: Itinerary): ItineraryMinimunOutputDto {
+        let itineraryMinimunOutputDto: ItineraryMinimunOutputDto = undefined;
+        if (itinerary) {
+            itineraryMinimunOutputDto = {
+                id: itinerary.getId(),
+                name: itinerary.getName()};
+        }
+        return itineraryMinimunOutputDto;
+    }
+    toSessionMinimunOutputDto(session: Session): SessionMinimunOutputDto {
+        let sessionMinimunOutputDto: SessionMinimunOutputDto = undefined;
+        if (session) {
+            sessionMinimunOutputDto = {
+                id: session.getId(),
+                name: session.getName()};
+        }
+        return sessionMinimunOutputDto;
+    }
     visitVideo(video: Video): void {
-        this.interactionOutputDto = {video: this.toVideoOutputDto(video)};
+        this.interactionOutputDto = {video: {id: video.getId()}};
     }
     visitExercise(exercise: Exercise): void {
-        this.interactionOutputDto = {exercise: this.toExerciseOutputDto(exercise)};
+        this.interactionOutputDto = {exercise: {id: exercise.getId()}};
     }
     visitSession(session: Session): void {
-        this.formationOutputDto = {session: this.toSessionOutputDto(session)};
+        this.wantMinimunDto ? this.formationMinimunOutputDto = {session: this.toSessionMinimunOutputDto(session)} : this.formationOutputDto = {session: this.toSessionOutputDto(session)};
     }
     visitItinerary(itinerary: Itinerary): void {
-        this.formationOutputDto = {itinerary: this.toItineraryOutputDto(itinerary)};
+        this.wantMinimunDto ? this.formationMinimunOutputDto = {itinerary: this.toItineraryMinimunOutputDto(itinerary)} : this.formationOutputDto = {itinerary: this.toItineraryOutputDto(itinerary)};
     }
 }
