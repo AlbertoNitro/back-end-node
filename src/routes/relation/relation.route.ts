@@ -4,6 +4,8 @@ import { RelationController } from "../../controllers/relation.controller";
 const relationRoutes = express.Router();
 const relationController: RelationController = new RelationController();
 
+const END_POINT = "/relation";
+
 relationRoutes.post("", (req, res) => {
     relationController.create(req, res);
 });

@@ -4,16 +4,19 @@ import { ItineraryController } from "../../controllers/itinerary.controller";
 const itineraryRoutes = express.Router();
 const itineraryController: ItineraryController = new ItineraryController();
 
+const END_POINT = "/itinerary";
+const ID = "/:id";
+
 itineraryRoutes.post("", (req, res) => {
     itineraryController.create(req, res);
 });
-itineraryRoutes.get("/:id", (req, res) => {
+itineraryRoutes.get(ID, (req, res) => {
     itineraryController.findById(req, res);
 });
-itineraryRoutes.delete("/:id", (req, res) => {
+itineraryRoutes.delete(ID, (req, res) => {
     itineraryController.delete(req, res);
 });
-itineraryRoutes.put("/:id", (req, res) => {
+itineraryRoutes.put(ID, (req, res) => {
     itineraryController.update(req, res);
 });
 itineraryRoutes.get("", (req, res) => {

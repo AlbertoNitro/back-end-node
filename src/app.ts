@@ -10,7 +10,7 @@ import mongo from "connect-mongo";
 import mongoose from "mongoose";
 import expressValidator from "express-validator";
 import { MONGODB_URI, SESSION_SECRET } from "./utils/secrets";
-import api from "./routes/main.route";
+import api from "./routes/main.routes";
 const cors = require("cors");
 const MongoStore = mongo(session);
 

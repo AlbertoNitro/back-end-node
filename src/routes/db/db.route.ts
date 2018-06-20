@@ -4,6 +4,8 @@ import { DbController } from "../../controllers/db.controller";
 const dbRoutes = express.Router();
 const dbController: DbController = new DbController();
 
+const END_POINT = "/db";
+
 dbRoutes.post("/seed", (req, res) => {
     dbController.seed(req, res);
 });
