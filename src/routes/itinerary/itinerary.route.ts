@@ -4,7 +4,6 @@ import { ItineraryController } from "../../controllers/itinerary.controller";
 const itineraryRoutes = express.Router();
 const itineraryController: ItineraryController = new ItineraryController();
 
-const END_POINT = "/itinerary";
 const ID = "/:id";
 
 itineraryRoutes.post("", (req, res) => {
