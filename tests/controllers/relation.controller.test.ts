@@ -10,6 +10,9 @@ import logger from "../../src/utils/logger";
 const chai = require("chai");
 const expect = chai.expect;
 
+const END_POINT = "/relation";
+const ID = "/:id";
+
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
         const relationInputDto: RelationInputDto = {"type": "COMPOSE", "topUnitCode": 88888, "lowerUnitCode": 9999};

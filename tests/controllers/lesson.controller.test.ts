@@ -8,6 +8,9 @@ import { LessonInputDto } from "../../src/dtos/input/lessonInput.dto";
 const chai = require("chai");
 const expect = chai.expect;
 
+const END_POINT = "/lesson";
+const ID = "/:id";
+
 describe("POST /lesson", () => {
     it("should return: 201 - CREATED + Lesson", (done) => {
         const lessonInputDto: LessonInputDto = {sessionId: "881d87b5b122cf34127993c2", name: "Herencia en Java"};
