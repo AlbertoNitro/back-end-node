@@ -4,16 +4,19 @@ import { ExerciseController } from "../../controllers/exercise.controller";
 const exerciseRoutes = express.Router();
 const exerciseController: ExerciseController = new ExerciseController();
 
+const END_POINT = "/exercise";
+const ID = "/:id";
+
 exerciseRoutes.post("", (req, res) => {
     exerciseController.create(req, res);
 });
-exerciseRoutes.get("/:id", (req, res) => {
+exerciseRoutes.get(ID, (req, res) => {
     exerciseController.findById(req, res);
 });
-exerciseRoutes.delete("/:id", (req, res) => {
+exerciseRoutes.delete(ID, (req, res) => {
     exerciseController.delete(req, res);
 });
-exerciseRoutes.put("/:id", (req, res) => {
+exerciseRoutes.put(ID, (req, res) => {
     exerciseController.update(req, res);
 });
 
