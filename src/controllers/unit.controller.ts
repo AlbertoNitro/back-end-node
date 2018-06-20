@@ -9,7 +9,7 @@ import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
 import { DtoService } from "../services/dto.service";
 import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
 import { RelatedUnitsOutputDto } from "../dtos/output/relatedUnitsOutput.dto";
-import { NotRelatedUnitsOutputDto } from "../dtos/output/notRelatedUnitOutput.dto";
+import { UnitInputDto } from "../dtos/input/unitInput.dto";
 
 export class UnitController {
     private unitResource: UnitResource;
@@ -90,7 +90,8 @@ export class UnitController {
     }
     async update(req: Request, res: Response) {
         const code: number = req.params.code;
-        const unit: Unit = await this.unitResource.update(code, req.body.content);
+        const unitInputDto: UnitInputDto = req.body;
+        const unit: Unit = await this.unitResource.update(code, unitInputDto.name, unitInputDto.content);
         const unitOutputDto: UnitOutputDto = this.dtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
