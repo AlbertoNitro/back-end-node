@@ -89,8 +89,10 @@ export class UnitResource {
         }
         return notRelatedUnits;
     }
-    async update(code: string, content: string): Promise<Unit> {
-        return await this.unitDao.update(code, content);
+    async update(code: number, content: string): Promise<Unit> {
+        let unit: Unit = await this.findByCode(code);
+        unit = unit ? await this.unitDao.update(unit.getId(), name, content) : undefined;
+        return unit;
     }
     async updateItineraries(code: number, itineraryId: string): Promise<Unit> {
         let unit: Unit = await this.findByCode(code);

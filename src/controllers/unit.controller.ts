@@ -89,7 +89,8 @@ export class UnitController {
 
     }
     async update(req: Request, res: Response) {
-        const unit: Unit = await this.unitResource.update(req.params.code, req.body.content);
+        const code: number = req.params.code;
+        const unit: Unit = await this.unitResource.update(code, req.body.content);
         const unitOutputDto: UnitOutputDto = this.dtoService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }

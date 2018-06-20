@@ -86,20 +86,15 @@ export class UnitDao {
                 return false;
             });
     }
-    async update(code: String, content: string): Promise<Unit> {
-        const unit: Unit =  await this.findByCode(Number(code));
-        return await UnitSchema.findById(unit.getId())
-            .then(async (unit: Document) => {
-                unit.set({content});
-                return await unit.save()
-                .then( (unitDocument: Document) => {
-                    const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
-                    return unit;
-                })
-                .catch ( err => {
-                    logger.error(err);
-                    return undefined;
-                });
+    async update(code: number, name: string, content: string): Promise<Unit> {
+        return await UnitSchema.findOneAndUpdate({ _id: id }, { $set: {name: name, content: content }}, { new: true })
+            .then(async () => {
+                const unit: Unit = await this.findByCode(code);
+                return unit;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
             });
     }
     async updateItineraries(id: string, itinerariesIds: string[]): Promise<Unit> {
