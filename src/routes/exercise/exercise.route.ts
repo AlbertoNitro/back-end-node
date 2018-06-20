@@ -4,7 +4,6 @@ import { ExerciseController } from "../../controllers/exercise.controller";
 const exerciseRoutes = express.Router();
 const exerciseController: ExerciseController = new ExerciseController();
 
-const END_POINT = "/exercise";
 const ID = "/:id";
 
 exerciseRoutes.post("", (req, res) => {

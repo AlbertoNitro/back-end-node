@@ -4,7 +4,6 @@ import express from "express";
 const unitRoutes = express.Router();
 const unitController: UnitController = new UnitController();
 
-const END_POINT = "/unit";
 const CODE = "/:code";
 
 unitRoutes.get("/notrelated", (req, res) => {

@@ -4,7 +4,6 @@ import { LessonController } from "../../controllers/lesson.controller";
 const lessonRoutes = express.Router();
 const lessonController: LessonController = new LessonController();
 
-const END_POINT = "/lesson";
 const ID = "/:id";
 
 lessonRoutes.post("", (req, res) => {

@@ -4,7 +4,6 @@ import { VideoController } from "../../controllers/video.controller";
 const videoRoutes = express.Router();
 const videoController: VideoController = new VideoController();
 
-const END_POINT = "/video";
 const ID = "/:id";
 
 videoRoutes.post("", (req, res) => {

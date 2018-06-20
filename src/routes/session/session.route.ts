@@ -4,7 +4,6 @@ import { SessionController } from "../../controllers/session.controller";
 const sessionRoutes = express.Router();
 const sessionController: SessionController = new SessionController();
 
-const END_POINT = "/session";
 const ID = "/:id";
 
 sessionRoutes.post("", (req, res) => {
