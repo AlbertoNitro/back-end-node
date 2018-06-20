@@ -9,6 +9,10 @@ import { RelatedUnitsOutputDto } from "../../src/dtos/output/relatedUnitsOutput.
 const chai = require("chai");
 const expect = chai.expect;
 
+
+const END_POINT = "/unit";
+const ID = "/:id";
+
 describe("POST /unit", () => {
     it("should return: 201 - CREATED + Unit", (done) => {
         return request(app).post("/unit")

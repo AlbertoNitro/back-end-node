@@ -10,8 +10,11 @@ import { JustificationInputDto } from "../../src/dtos/input/justificationInput.d
 const chai = require("chai");
 const expect = chai.expect;
 
-describe("POST /exercise", () => {
-    it("should return: 201 - CREATED + Exercise", (done) => {
+const END_POINT = "/exercise";
+const ID = "/:id";
+
+describe("POST " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.CREATED} + ExerciseOutputDto`, (done) => {
         const justificationInputDtos1: JustificationInputDto[] = [];
         const justificationInputDtos2: JustificationInputDto[] = [{"isCorrect" : false, "text" : "No murio en 1917"}, {"isCorrect" : false, "text" : "No murio en 1917"}];
         const solutionInputDtos: SolutionInputDto[] = [{"isCorrect": true, "text": "1791", "justifications": justificationInputDtos1}];
@@ -27,8 +30,8 @@ describe("POST /exercise", () => {
             });
     });
 });
-describe("GET /exercise/:id", () => {
-    it("should return: 200", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + ExerciseOutputDto`, (done) => {
         const exerciseId = "851d87b8b230cf25177998c0";
         return request(app).get("/exercise/" + exerciseId)
             .end(  async (err, res) => {
@@ -40,8 +43,8 @@ describe("GET /exercise/:id", () => {
             });
     });
 });
-describe("GET /exercise/:id", () => {
-    it("should return: 200", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + ExerciseOutputDto`, (done) => {
         const exerciseId = "321d87b8b230cf25177998c0";
         return request(app).get("/exercise/" + exerciseId)
             .end(  async (err, res) => {
@@ -53,8 +56,8 @@ describe("GET /exercise/:id", () => {
             });
     });
 });
-describe("DELETE /exercise/:id", () => {
-    it("should return: 204", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const exerciseId = "751d87b8b230cf25177998c0";
         return request(app).delete("/exercise/" + exerciseId)
             .end(  async (err, res) => {
@@ -63,8 +66,8 @@ describe("DELETE /exercise/:id", () => {
             });
     });
 });
-describe("PUT /exercise/:id", () => {
-    it("should return: 200", (done) => {
+describe("PUT " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + ExerciseOutputDto`, (done) => {
         const exerciseId = "851d87b8b230cf25177998c0";
         const exerciseInputDto: ExerciseInputDto = {"formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
         return request(app).put("/exercise/" + exerciseId)

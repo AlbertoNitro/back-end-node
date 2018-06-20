@@ -8,6 +8,9 @@ import { VideoInputDto } from "../../src/dtos/input/videoInput.dto";
 const chai = require("chai");
 const expect = chai.expect;
 
+const END_POINT = "/video";
+const ID = "/:id";
+
 describe("POST /video", () => {
     it("should return: 201 - CREATED + Video", (done) => {
         const videoInputDto: VideoInputDto = {"lessonId": "773d87b4b130cf35177177c7", "url": "www.elpais.es"};
