@@ -24,7 +24,6 @@ describe("POST /relation", () => {
             });
     });
 });
-
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
         const relationInputDto: RelationInputDto = {"type": "COMPOSE", "topUnitCode": 51, "lowerUnitCode": 53, "semantics": "Description", "cardinalTopUnit": "1..n", "cardinalLowerUnit": "1..2"};
@@ -46,7 +45,6 @@ describe("POST /relation", () => {
             });
     });
 });
-
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
         const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 9999, lowerUnitCode: 51};
@@ -58,7 +56,6 @@ describe("POST /relation", () => {
             });
     });
 });
-
 describe("POST /relation", () => {
     it("should return: 400 - BAD_REQUEST", (done) => {
         const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 9999};
@@ -70,7 +67,6 @@ describe("POST /relation", () => {
             });
     });
 });
-
 describe("POST /relation", () => {
     it("should return: 201 - CREATED + Relation", (done) => {
         const relationInputDto: RelationInputDto = {type: "COMPOSE", topUnitCode: 51, lowerUnitCode: 53};
@@ -88,7 +84,6 @@ describe("POST /relation", () => {
             });
     });
 });
-
 describe("GET /relation", () => {
     it("should return 200 - OK and Relation[]", (done) => {
         return request(app).get("/relation")
@@ -100,7 +95,6 @@ describe("GET /relation", () => {
             });
     });
 });
-
 describe("DELETE /relation", () => {
     it("should return 204 - NOT_CONTENT", (done) => {
         const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 50, lowerUnitCode: 61 };
@@ -124,7 +118,6 @@ describe("DELETE /relation", () => {
             });
     });
 });
-
 describe("DELETE /relation", () => {
     it("should return 404 - NOT_FOUND", (done) => {
         const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 50, lowerUnitCode: 99999 };
@@ -136,7 +129,6 @@ describe("DELETE /relation", () => {
             });
     });
 });
-
 describe("DELETE /relation", () => {
     it("should return 404 - NOT_FOUND", (done) => {
         const deleteRelationInputDto: DeleteRelationInputDto = { topUnitCode: 99999, lowerUnitCode: 50 };

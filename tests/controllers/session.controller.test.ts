@@ -25,7 +25,6 @@ describe("POST /session", () => {
             });
     });
 });
-
 describe("GET /session/862d87b8b522cf35117998c1", () => {
     it("should return: 200", (done) => {
         const sessionId = "862d87b8b522cf35117998c1";
