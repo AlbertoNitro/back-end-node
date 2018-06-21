@@ -2,31 +2,13 @@ import { Document } from "mongoose";
 import { Itinerary } from "../models/itinerary.model";
 import ItinerarySchema from "../schemas/itinerary.schema";
 import logger from "../utils/logger";
-import { Formation } from "../models/formation.model";
-import { SessionDao } from "./session.dao";
 import { ItineraryBuilder } from "../models/builders/itinerary.builder";
+import { ConverterDocumentsToModelsService } from "../services/converterDocumentsToModels.service";
 
 export class ItineraryDao {
     constructor() {
     }
 
-    static toItinerary(document: Document): Itinerary {
-        const formations: Formation[] = [];
-        const formationsDocuments: Document[] = document.get("formations");
-        for (let i = 0 ; i < formationsDocuments.length ; i++) {
-            const formationDocument: Document = formationsDocuments[i];
-            formationDocument.get("kind") === "Session" ? formations.push(SessionDao.toSession(formationDocument)) : formations.push(ItineraryDao.toItinerary(formationDocument));
-        }
-        const itinerary: Itinerary = new ItineraryBuilder(document.get("name")).setId(document.get("_id")).setFormations(formations).build();
-        return itinerary;
-    }
-    static toArrayItineraries(documents: Document[]): Itinerary[] {
-        const itineraries: Itinerary[] = [];
-        for (let i = 0; i < documents.length; i++) {
-            itineraries.push(ItineraryDao.toItinerary(documents[i]));
-        }
-        return itineraries;
-    }
     async delete(id: string): Promise<boolean> {
         return await ItinerarySchema.deleteOne({_id: id })
             .then( () => {
@@ -40,7 +22,7 @@ export class ItineraryDao {
     async findById(id: string): Promise<Itinerary> {
         return await ItinerarySchema.findById(id)
             .then( async (itineraryDocument: Document) => {
-                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+                const itinerary: Itinerary = itineraryDocument ? ConverterDocumentsToModelsService.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
             .catch ( err => {
@@ -53,7 +35,7 @@ export class ItineraryDao {
         const itinerarySchema = new ItinerarySchema(itinerary);
         return itinerarySchema.save()
             .then( async(itineraryDocument: Document) => {
-                const itinerary: Itinerary = itineraryDocument ? ItineraryDao.toItinerary(itineraryDocument) : undefined;
+                const itinerary: Itinerary = itineraryDocument ? ConverterDocumentsToModelsService.toItinerary(itineraryDocument) : undefined;
                 return itinerary;
             })
             .catch ( err => {
@@ -75,7 +57,7 @@ export class ItineraryDao {
     async findAll(): Promise<Itinerary[]> {
         return await ItinerarySchema.find({})
             .then( (itinerariesDocument: Document[]) => {
-                const itineraries: Itinerary[] = itinerariesDocument ? ItineraryDao.toArrayItineraries(itinerariesDocument) : undefined;
+                const itineraries: Itinerary[] = itinerariesDocument ? ConverterDocumentsToModelsService.toArrayItineraries(itinerariesDocument) : undefined;
                 return itineraries;
             })
             .catch ( err => {

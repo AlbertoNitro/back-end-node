@@ -8,6 +8,7 @@ import { Document } from "mongoose";
 import UnitSchema from "../schemas/unit.schema";
 import { UnitBuilder } from "../models/builders/unit.builder";
 import logger from "../utils/logger";
+import { ConverterDocumentsToModelsService } from "../services/converterDocumentsToModels.service";
 
 export class RelationDao {
     private unitDao: UnitDao;
@@ -16,21 +17,11 @@ export class RelationDao {
         this.unitDao = new UnitDao();
     }
 
-    static toRelation(document: any): Relation {
-        return new RelationBuilder().setCardinalTopUnit(document.get("cardinalTopUnit")).setCardinalLowerUnit(document.get("cardinalLowerUnit")).setSemantics(document.get("semantics")).setId(document.get("_id")).setType(document.get("type")).setTopUnit(new UnitBuilder(document.get("topUnit").get("name")).setId(document.get("topUnit").get("_id")).setCode(document.get("topUnit").get("code")).build()).setLowerUnit(new UnitBuilder(document.get("lowerUnit").get("name")).setId(document.get("lowerUnit").get("_id")).setCode(document.get("lowerUnit").get("code")).build()).build();
-    }
-    static toArrayRelations(documents: Document[]): Relation[] {
-        const relations: Relation[] = [];
-        for ( let i = 0; i < documents.length; i++) {
-            relations.push(RelationDao.toRelation(documents[i]));
-        }
-        return relations;
-    }
     async findByLowerUnit(unitId: string): Promise<Relation[]> {
         return await RelationSchema.find({lowerUnit: unitId})
             .then( async (relationsDocument: Document[]) => {
                 const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
-                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                const relations: Relation[] = relationsPopulate ? ConverterDocumentsToModelsService.toArrayRelations(relationsPopulate) : undefined;
                 return relations;
             })
             .catch ( err => {
@@ -42,7 +33,7 @@ export class RelationDao {
         return await RelationSchema.find({topUnit: unitId})
             .then( async (relationsDocument: Document[]) => {
                 const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
-                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                const relations: Relation[] = relationsPopulate ? ConverterDocumentsToModelsService.toArrayRelations(relationsPopulate) : undefined;
                 return relations;
             })
             .catch ( err => {
@@ -54,7 +45,7 @@ export class RelationDao {
         return await RelationSchema.find({})
             .then( async (relationsDocument: Document[]) => {
                 const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
-                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                const relations: Relation[] = relationsPopulate ? ConverterDocumentsToModelsService.toArrayRelations(relationsPopulate) : undefined;
                 return relations;
             })
             .catch ( err => {
@@ -72,7 +63,7 @@ export class RelationDao {
             .then( async (relations: Document) => {
                 const relationsDocument: any = await UnitSchema.populate(relations, {path: "topUnit lowerUnit"});
                 if (relationsDocument) {
-                    return RelationDao.toRelation(relationsDocument);
+                    return ConverterDocumentsToModelsService.toRelation(relationsDocument);
                 } else {
                     return undefined;
                 }
@@ -99,7 +90,7 @@ export class RelationDao {
         return RelationSchema.find({ topUnit: top, lowerUnit: lower})
             .then( async (relationsDocument: Document[]) => {
                 const relationsPopulate: Document[] = await UnitSchema.populate(relationsDocument, {path: "topUnit lowerUnit"});
-                const relations: Relation[] = relationsPopulate ? RelationDao.toArrayRelations(relationsPopulate) : undefined;
+                const relations: Relation[] = relationsPopulate ? ConverterDocumentsToModelsService.toArrayRelations(relationsPopulate) : undefined;
                 return relations;
             })
             .catch ( err => {
