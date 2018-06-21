@@ -2,6 +2,7 @@ import app from "./app";
 /**
  * Error Handler. Provides full stack - remove for production
  * app.use(errorHandler());
+ * 
  */
 
 const server = app.listen(app.get("port"), () => {
