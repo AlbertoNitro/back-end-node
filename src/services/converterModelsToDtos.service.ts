@@ -21,8 +21,6 @@ import { Formation } from "../models/formation.model";
 import { InteractionVisitor } from "../models/interaction.visitor";
 import { FormationVisitor } from "../models/formation.visitor";
 import { FormationMinimunOutputDto } from "../dtos/output/formationMinimunOutput.dto";
-import { ItineraryMinimunOutputDto } from "../dtos/output/itineraryMinimunOutput.dto";
-import { SessionMinimunOutputDto } from "../dtos/output/sessionMinimunOutput.dto";
 
 export class ConverterModelsToDtosService implements InteractionVisitor, FormationVisitor {
     interactionOutputDto: InteractionOutputDto;
@@ -224,23 +222,23 @@ export class ConverterModelsToDtosService implements InteractionVisitor, Formati
         }
         return formationMinimunOutputDtos;
     }
-    toItineraryMinimunOutputDto(itinerary: Itinerary): ItineraryMinimunOutputDto {
-        let itineraryMinimunOutputDto: ItineraryMinimunOutputDto = undefined;
+    toItineraryMinimunOutputDto(itinerary: Itinerary): ItineraryOutputDto {
+        let itineraryOutputDto: ItineraryOutputDto = undefined;
         if (itinerary) {
-            itineraryMinimunOutputDto = {
+            itineraryOutputDto = {
                 id: itinerary.getId(),
                 name: itinerary.getName()};
         }
-        return itineraryMinimunOutputDto;
+        return itineraryOutputDto;
     }
-    toSessionMinimunOutputDto(session: Session): SessionMinimunOutputDto {
-        let sessionMinimunOutputDto: SessionMinimunOutputDto = undefined;
+    toSessionMinimunOutputDto(session: Session): SessionOutputDto {
+        let sessionOutputDto: SessionOutputDto = undefined;
         if (session) {
-            sessionMinimunOutputDto = {
+            sessionOutputDto = {
                 id: session.getId(),
                 name: session.getName()};
         }
-        return sessionMinimunOutputDto;
+        return sessionOutputDto;
     }
     visitVideo(video: Video): void {
         this.interactionOutputDto = {video: {id: video.getId()}};
