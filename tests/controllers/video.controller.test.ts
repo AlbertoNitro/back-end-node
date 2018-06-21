@@ -24,7 +24,6 @@ describe("POST /video", () => {
             });
     });
 });
-
 describe("GET /video/:id", () => {
     it("should return: 200 - OK ", (done) => {
         const videoId = "661d57b8b030cf35177998c1";
@@ -37,7 +36,6 @@ describe("GET /video/:id", () => {
             });
     });
 });
-
 describe("DELETE /video/:id", () => {
     it("should return: 204 - NO_CONTENT", (done) => {
         const videoId = "261d87b8b130cf59170998c1";
@@ -48,17 +46,16 @@ describe("DELETE /video/:id", () => {
             });
     });
 });
-
 describe("PUT /video/:id", () => {
     it("should return: 200", (done) => {
         const videoId = "991d57b8b030cf35177998c1";
-        const videoUpdationInputDto: VideoUpdationInputDto = {url: "www.hotmail.es", lessonId: "1234"};
+        const videoInputDto: VideoInputDto = {url: "www.hotmail.es"};
         return request(app).put("/video/" + videoId)
-            .send(videoUpdationInputDto)
+            .send(videoInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const videoOutputDto: VideoOutputDto = res.body;
-                expect(videoOutputDto.url).to.equal(videoUpdationInputDto.url);
+                expect(videoOutputDto.url).to.equal(videoInputDto.url);
                 done();
             });
     });

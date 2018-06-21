@@ -20,12 +20,11 @@ import { FormationOutputDto } from "../dtos/output/formationOutput.dto";
 import { Formation } from "../models/formation.model";
 import { InteractionVisitor } from "../models/interaction.visitor";
 import { FormationVisitor } from "../models/formation.visitor";
-import { FormationMinimunOutputDto } from "../dtos/output/formationMinimunOutput.dto";
 
 export class ConverterModelsToDtosService implements InteractionVisitor, FormationVisitor {
     interactionOutputDto: InteractionOutputDto;
     formationOutputDto: FormationOutputDto;
-    formationMinimunOutputDto: FormationMinimunOutputDto;
+    formationMinimunOutputDto: FormationOutputDto;
     wantMinimunDto: boolean;
 
     constructor() {
@@ -207,20 +206,20 @@ export class ConverterModelsToDtosService implements InteractionVisitor, Formati
         }
         return formationsOutputDtos;
     }
-    toFormationMinimunOutputDto(formation: Formation): FormationMinimunOutputDto {
+    toFormationMinimunOutputDto(formation: Formation): FormationOutputDto {
         this.wantMinimunDto = true;
         formation.accept(this);
         this.wantMinimunDto = false;
         return this.formationMinimunOutputDto;
     }
-    toArrayFormationMinimunOutputDto(formations: Formation[]): FormationMinimunOutputDto[] {
-        const formationMinimunOutputDtos: FormationMinimunOutputDto[] = [];
+    toArrayFormationMinimunOutputDto(formations: Formation[]): FormationOutputDto[] {
+        const formationOutputDtos: FormationOutputDto[] = [];
         if (formations.length > 0) {
             for (let i = 0 ; i < formations.length ; i++ ) {
-                formationMinimunOutputDtos.push(this.toFormationMinimunOutputDto(formations[i]));
+                formationOutputDtos.push(this.toFormationMinimunOutputDto(formations[i]));
             }
         }
-        return formationMinimunOutputDtos;
+        return formationOutputDtos;
     }
     toItineraryMinimunOutputDto(itinerary: Itinerary): ItineraryOutputDto {
         let itineraryOutputDto: ItineraryOutputDto = undefined;

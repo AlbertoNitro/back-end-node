@@ -93,6 +93,6 @@ export class UnitController {
         const unitInputDto: UnitInputDto = req.body;
         const unit: Unit = await this.unitResource.update(code, unitInputDto.name, unitInputDto.content);
         const unitOutputDto: UnitOutputDto = this.converterModelsToDtosService.toUnitOutputDto(unit);
-        unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
 }

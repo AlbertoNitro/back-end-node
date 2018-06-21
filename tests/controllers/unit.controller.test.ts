@@ -5,6 +5,7 @@ import logger from "../../src/utils/logger";
 import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
 import { NeighborsOutputDto } from "../../src/dtos/output/neighborsOutput.dto";
 import { RelatedUnitsOutputDto } from "../../src/dtos/output/relatedUnitsOutput.dto";
+import {UnitInputDto} from "../../src/dtos/input/unitInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
@@ -25,7 +26,6 @@ describe("POST /unit", () => {
             });
     });
 });
-
 describe("DELETE /unit/99999", () => {
     it("should return 404 - NOT FOUND", (done) => {
         const unitCode = 99999;
@@ -36,7 +36,6 @@ describe("DELETE /unit/99999", () => {
             });
   });
 });
-
 describe("DELETE /unit/60", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 60;
@@ -47,7 +46,6 @@ describe("DELETE /unit/60", () => {
             });
     });
 });
-
 describe("DELETE /unit/52", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 52;
@@ -58,7 +56,6 @@ describe("DELETE /unit/52", () => {
             });
     });
 });
-
 describe("DELETE /unit/58", () => {
     it("should return 204 - NOT CONTENT", (done) => {
         const unitCode = 58;
@@ -69,7 +66,6 @@ describe("DELETE /unit/58", () => {
             });
     });
 });
-
 describe("GET /unit", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         return request(app).get("/unit")
@@ -81,7 +77,6 @@ describe("GET /unit", () => {
             });
     });
 });
-
 describe("GET /unit/61", () => {
     it("should return 200 - OK and Unit", (done) => {
         const unitCode = 61;
@@ -94,7 +89,6 @@ describe("GET /unit/61", () => {
             });
     });
 });
-
 describe("GET /unit/search?name=Unidad", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const nameToSearch = "Unidad";
@@ -107,7 +101,6 @@ describe("GET /unit/search?name=Unidad", () => {
         });
   });
 });
-
 describe("GET /unit/friends/51", () => {
     it("should return 200 - OK and Unit[]", (done) => {
         const unitCode = 51;
@@ -123,7 +116,6 @@ describe("GET /unit/friends/51", () => {
           });
     });
 });
-
 describe("GET /unit/friends/99999", () => {
     it("should return 404 - NOT_FOUND", (done) => {
         const unitCode = 99999;
@@ -141,6 +133,21 @@ describe("GET /unit/notrelated", () => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const unitOutputDtos: UnitOutputDto[] = res.body;
                 expect(unitOutputDtos.length).to.be.above(1);
+                done();
+            });
+    });
+});
+describe("PUT /unit/:id", () => {
+    it("should return: 200", (done) => {
+        const unitCode = "64";
+        const unitInputDto: UnitInputDto = {name: "UnidadModificada", content: "{\"ejemplo\": \"¿Porque?\"}"};
+        return request(app).put("/unit/" + unitCode)
+            .send(unitInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.OK);
+                const unitOutputDto: UnitOutputDto = res.body;
+                expect(unitOutputDto.name).to.equal(unitInputDto.name);
+                expect(unitOutputDto.content).to.equal(unitInputDto.content);
                 done();
             });
     });

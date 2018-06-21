@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema } from "mongoose";
 import InteractionSchema from "./interaction.schema";
 
 const Video = new Schema({

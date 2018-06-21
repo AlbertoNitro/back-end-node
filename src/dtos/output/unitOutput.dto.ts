@@ -1,8 +1,8 @@
-import { FormationMinimunOutputDto } from "./formationMinimunOutput.dto";
+import { FormationOutputDto } from "./formationOutput.dto";
 
 export interface UnitOutputDto  {
     name: string;
     code: number;
     content: string;
-    itineraries?: FormationMinimunOutputDto[]; // Array de identificadores
+    itineraries?: FormationOutputDto[]; // Array de identificadores
 }
