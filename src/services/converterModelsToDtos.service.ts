@@ -24,7 +24,7 @@ import { FormationMinimunOutputDto } from "../dtos/output/formationMinimunOutput
 import { ItineraryMinimunOutputDto } from "../dtos/output/itineraryMinimunOutput.dto";
 import { SessionMinimunOutputDto } from "../dtos/output/sessionMinimunOutput.dto";
 
-export class DtoService implements InteractionVisitor, FormationVisitor {
+export class ConverterModelsToDtosService implements InteractionVisitor, FormationVisitor {
     interactionOutputDto: InteractionOutputDto;
     formationOutputDto: FormationOutputDto;
     formationMinimunOutputDto: FormationMinimunOutputDto;

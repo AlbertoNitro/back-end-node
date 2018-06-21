@@ -50,7 +50,7 @@ export class DbService {
         });
         return promise;
     }
-    async saveInBackup(): Promise<boolean> { // -> Metodo no funcionando
+    async doBackup(): Promise<boolean> { // -> Metodo no funcionando
         let success: boolean = false;
         await this.dookie.pull(MONGODB_URI)
             .then((res: any) => {

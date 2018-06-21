@@ -8,6 +8,9 @@ import { SessionInputDto } from "../../src/dtos/input/sessionInput.dto";
 const chai = require("chai");
 const expect = chai.expect;
 
+const END_POINT = "/session";
+const ID = "/:id";
+
 describe("POST /session", () => {
     it("should return: 201 - CREATED + Session", (done) => {
         const sessionInputDto: SessionInputDto = {itineraryId: "666d66b4b122cf35117155c5", "name": "Sesion4"};

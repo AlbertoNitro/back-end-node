@@ -186,7 +186,11 @@ units:
     code: 50
     name: Unidad50 # ROOT
     content: "PRUEBA"
+<<<<<<< HEAD
     itineraries: [{$oid: "315d87b4b122cf35117198c4"}]
+=======
+    itineraries: [{$oid: "115d87b4b122cf35117198c5"}, {$oid: "415d87b4b122cf35117198c3"}, {$oid: "515d87b4b122cf35117198c2"}]
+>>>>>>> develop
 - &unit1
     _id: {$oid: "261d87b8b260cf35147998ca"}
     code: 51

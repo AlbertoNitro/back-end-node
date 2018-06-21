@@ -4,16 +4,18 @@ import { LessonController } from "../../controllers/lesson.controller";
 const lessonRoutes = express.Router();
 const lessonController: LessonController = new LessonController();
 
+const ID = "/:id";
+
 lessonRoutes.post("", (req, res) => {
     lessonController.create(req, res);
 });
-lessonRoutes.get("/:id", (req, res) => {
+lessonRoutes.get(ID, (req, res) => {
     lessonController.findById(req, res);
 });
-lessonRoutes.delete("/:id", (req, res) => {
+lessonRoutes.delete(ID, (req, res) => {
     lessonController.delete(req, res);
 });
-lessonRoutes.put("/:id", (req, res) => {
+lessonRoutes.put(ID, (req, res) => {
     lessonController.update(req, res);
 });
 

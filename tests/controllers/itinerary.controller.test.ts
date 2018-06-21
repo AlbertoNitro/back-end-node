@@ -8,6 +8,9 @@ import { ItineraryOutputDto } from "../../src/dtos/output/itineraryOutput.dto";
 const chai = require("chai");
 const expect = chai.expect;
 
+const END_POINT = "/itinerary";
+const ID = "/:id";
+
 describe("POST /itinerary", () => {
     it("should return: 201 - CREATED + Itinerary", (done) => {
         const itineraryInputDto: ItineraryInputDto = {itineraryId: "999d66b4b122cf35117999c5", name: "Itinerario10"};

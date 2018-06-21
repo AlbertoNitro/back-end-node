@@ -6,20 +6,20 @@ import { RelationResource } from "../resources/relation.resource";
 import logger from "../utils/logger";
 import { Relation } from "../models/relation.model";
 import { UnitOutputDto } from "../dtos/output/unitOutput.dto";
-import { DtoService } from "../services/dto.service";
 import { NeighborsOutputDto } from "../dtos/output/neighborsOutput.dto";
 import { RelatedUnitsOutputDto } from "../dtos/output/relatedUnitsOutput.dto";
 import { UnitInputDto } from "../dtos/input/unitInput.dto";
+import { ConverterModelsToDtosService } from "../services/converterModelsToDtos.service";
 
 export class UnitController {
     private unitResource: UnitResource;
     private relationResource: RelationResource;
-    private dtoService: DtoService;
+    private converterModelsToDtosService: ConverterModelsToDtosService;
 
     constructor() {
         this.unitResource = new UnitResource();
         this.relationResource = new RelationResource();
-        this.dtoService = new DtoService();
+        this.converterModelsToDtosService = new ConverterModelsToDtosService();
     }
 
     async getNeighbors(req: Request, res: Response): Promise<any> {
@@ -31,7 +31,7 @@ export class UnitController {
             const lowerUnitsIds: string[] = Array.from(await this.unitResource.getFriends(unit.getId(), LEVELS_TO_EXPLORER));
             const lowerUnits: Unit[] = await this.unitResource.getUnits(lowerUnitsIds);
             const relations: Relation[] = await this.relationResource.getRelations(topUnits.concat(unit).concat(lowerUnits));
-            const neighborsOutputDto: NeighborsOutputDto = this.dtoService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);
+            const neighborsOutputDto: NeighborsOutputDto = this.converterModelsToDtosService.toNeighborsOutputDto(unit, topUnits, lowerUnits, relations);
             neighborsOutputDto ? res.status(HttpStatusCode.OK).json(neighborsOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
@@ -39,7 +39,7 @@ export class UnitController {
     }
     async create(req: Request, res: Response): Promise<any> {
         const unit: Unit = await this.unitResource.create(req.body.name);
-        const unitOutputDto: UnitOutputDto = this.dtoService.toUnitOutputDto(unit);
+        const unitOutputDto: UnitOutputDto = this.converterModelsToDtosService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async findByName(req: Request, res: Response) {
@@ -64,7 +64,7 @@ export class UnitController {
     }
     async findAll(req: Request, res: Response): Promise<any> {
         const units: Unit[] = await this.unitResource.findAll();
-        const unitOutputDtos: UnitOutputDto[] = this.dtoService.toArrayUnitOutputDto(units);
+        const unitOutputDtos: UnitOutputDto[] = this.converterModelsToDtosService.toArrayUnitOutputDto(units);
         units ? res.status(HttpStatusCode.OK).json(unitOutputDtos) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
     async delete(req: Request, res: Response): Promise<any> {
@@ -80,11 +80,11 @@ export class UnitController {
     async findByCode(req: Request, res: Response): Promise<any> {
         const code: number = req.params.code;
         const unit: Unit = await this.unitResource.findByCode(code);
-        const unitOutputDto: UnitOutputDto = this.dtoService.toUnitOutputDto(unit);
+        const unitOutputDto: UnitOutputDto = this.converterModelsToDtosService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.OK).json(unitOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
     }
     async findNotRelated(req: Request, res: Response): Promise<any> {
-        const unit: UnitOutputDto[] = this.dtoService.toArrayUnitOutputDto(await this.unitResource.findNotRelated());
+        const unit: UnitOutputDto[] = this.converterModelsToDtosService.toArrayUnitOutputDto(await this.unitResource.findNotRelated());
         unit ? res.status(HttpStatusCode.OK).json(unit) : res.status(HttpStatusCode.NOT_FOUND).end();
 
     }
@@ -92,7 +92,7 @@ export class UnitController {
         const code: number = req.params.code;
         const unitInputDto: UnitInputDto = req.body;
         const unit: Unit = await this.unitResource.update(code, unitInputDto.name, unitInputDto.content);
-        const unitOutputDto: UnitOutputDto = this.dtoService.toUnitOutputDto(unit);
+        const unitOutputDto: UnitOutputDto = this.converterModelsToDtosService.toUnitOutputDto(unit);
         unit ? res.status(HttpStatusCode.CREATED).json(unitOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
 }
