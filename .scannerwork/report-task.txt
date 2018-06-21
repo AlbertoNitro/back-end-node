@@ -3,5 +3,5 @@ projectKey=back-end
 serverUrl=https://sonarcloud.io
 serverVersion=7.3.0.13459
 dashboardUrl=https://sonarcloud.io/dashboard?id=back-end
-ceTaskId=AWQh5FNoXjY49gwGA-Jh
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWQh5FNoXjY49gwGA-Jh
+ceTaskId=AWQh6_ynXjY49gwGA-KS
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWQh6_ynXjY49gwGA-KS

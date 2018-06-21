@@ -14,7 +14,7 @@ results
 tmp
 
 #Sonarcloud reports
-.scannerwork
+.scannerwork/**
 
 # Build
 public/css/main.css
