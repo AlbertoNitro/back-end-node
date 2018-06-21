@@ -11,10 +11,10 @@ const expect = chai.expect;
 const END_POINT = "/lesson";
 const ID = "/:id";
 
-describe("POST /lesson", () => {
-    it("should return: 201 - CREATED + Lesson", (done) => {
+describe("POST " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.CREATED} + LessonOutputDto`, (done) => {
         const lessonInputDto: LessonInputDto = {sessionId: "881d87b5b122cf34127993c2", name: "Herencia en Java"};
-        return request(app).post("/lesson")
+        return request(app).post(END_POINT)
             .send(lessonInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
@@ -25,10 +25,10 @@ describe("POST /lesson", () => {
             });
     });
 });
-describe("GET /lesson/:id", () => {
-    it("should return: 200 - OK ", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + LessonOutputDto`, (done) => {
         const lessonId = "862d87b8b530cf35177998c1";
-        return request(app).get("/lesson/" + lessonId)
+        return request(app).get(END_POINT + "/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const lessonOutputDto: LessonOutputDto = res.body;
@@ -38,10 +38,10 @@ describe("GET /lesson/:id", () => {
             });
     });
 });
-describe("GET /lesson/:id", () => {
-    it("should return: 200 - OK ", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + LessonOutputDto`, (done) => {
         const lessonId = "165d87b4b130cf35177198c2";
-        return request(app).get("/lesson/" + lessonId)
+        return request(app).get(END_POINT + "/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const lessonOutputDto: LessonOutputDto = res.body;
@@ -51,21 +51,21 @@ describe("GET /lesson/:id", () => {
             });
     });
 });
-describe("DELETE /lesson/:id", () => {
-    it("should return: 204 - NO_CONTENT", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const lessonId = "863d87b8b130cf35177998c2";
-        return request(app).delete("/lesson/" + lessonId)
+        return request(app).delete(END_POINT + "/" + lessonId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
 });
-describe("PUT /lesson/:id", () => {
-    it("should return: 200", (done) => {
+describe("PUT " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + LessonOutputDto`, (done) => {
         const lessonId = "213d87b4b130cf35177191c5";
         const lessonInputDto: LessonInputDto = {name: "Lecciones de la vida"};
-        return request(app).put("/lesson/" + lessonId)
+        return request(app).put(END_POINT + "/" + lessonId)
             .send(lessonInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);

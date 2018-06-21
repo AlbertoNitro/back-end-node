@@ -11,10 +11,10 @@ const expect = chai.expect;
 const END_POINT = "/video";
 const ID = "/:id";
 
-describe("POST /video", () => {
-    it("should return: 201 - CREATED + Video", (done) => {
+describe("POST " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.CREATED} + VideoOutputDto`, (done) => {
         const videoInputDto: VideoInputDto = {"lessonId": "773d87b4b130cf35177177c7", "url": "www.elpais.es"};
-        return request(app).post("/video")
+        return request(app).post(END_POINT)
             .send(videoInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
@@ -24,10 +24,10 @@ describe("POST /video", () => {
             });
     });
 });
-describe("GET /video/:id", () => {
-    it("should return: 200 - OK ", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + VideoOutputDto`, (done) => {
         const videoId = "661d57b8b030cf35177998c1";
-        return request(app).get("/video/" + videoId)
+        return request(app).get(END_POINT + "/" + videoId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const videoOutputDto: VideoOutputDto = res.body;
@@ -36,21 +36,21 @@ describe("GET /video/:id", () => {
             });
     });
 });
-describe("DELETE /video/:id", () => {
-    it("should return: 204 - NO_CONTENT", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const videoId = "261d87b8b130cf59170998c1";
-        return request(app).delete("/video/" + videoId)
+        return request(app).delete(END_POINT + "/" + videoId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
 });
-describe("PUT /video/:id", () => {
-    it("should return: 200", (done) => {
+describe("PUT " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + VideoOutputDto`, (done) => {
         const videoId = "991d57b8b030cf35177998c1";
         const videoInputDto: VideoInputDto = {url: "www.hotmail.es"};
-        return request(app).put("/video/" + videoId)
+        return request(app).put(END_POINT + "/" + videoId)
             .send(videoInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);

@@ -19,7 +19,7 @@ describe("POST " + END_POINT, () => {
         const justificationInputDtos2: JustificationInputDto[] = [{"isCorrect" : false, "text" : "No murio en 1917"}, {"isCorrect" : false, "text" : "No murio en 1917"}];
         const solutionInputDtos: SolutionInputDto[] = [{"isCorrect": true, "text": "1791", "justifications": justificationInputDtos1}];
         const exerciseInputDto: ExerciseInputDto = {"lessonId": "773d87b4b130cf35177177c7", "formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
-        return request(app).post("/exercise")
+        return request(app).post(END_POINT)
             .send(exerciseInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
@@ -33,7 +33,7 @@ describe("POST " + END_POINT, () => {
 describe("GET " + END_POINT + ID, () => {
     it(`expect return: ${HttpStatusCode.OK} + ExerciseOutputDto`, (done) => {
         const exerciseId = "851d87b8b230cf25177998c0";
-        return request(app).get("/exercise/" + exerciseId)
+        return request(app).get(END_POINT + "/" + exerciseId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
@@ -46,7 +46,7 @@ describe("GET " + END_POINT + ID, () => {
 describe("GET " + END_POINT + ID, () => {
     it(`expect return: ${HttpStatusCode.OK} + ExerciseOutputDto`, (done) => {
         const exerciseId = "321d87b8b230cf25177998c0";
-        return request(app).get("/exercise/" + exerciseId)
+        return request(app).get(END_POINT + "/" + exerciseId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
@@ -59,7 +59,7 @@ describe("GET " + END_POINT + ID, () => {
 describe("DELETE " + END_POINT + ID, () => {
     it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const exerciseId = "751d87b8b230cf25177998c0";
-        return request(app).delete("/exercise/" + exerciseId)
+        return request(app).delete(END_POINT + "/" + exerciseId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
@@ -70,7 +70,7 @@ describe("PUT " + END_POINT + ID, () => {
     it(`expect return: ${HttpStatusCode.OK} + ExerciseOutputDto`, (done) => {
         const exerciseId = "851d87b8b230cf25177998c0";
         const exerciseInputDto: ExerciseInputDto = {"formulation": "¿En que año se descubrio pluton?", "solutions": [{"isCorrect": true, "text": "1791", "justifications": [{"isCorrect" : false, "text" : "No murio en 1917"}]}]};
-        return request(app).put("/exercise/" + exerciseId)
+        return request(app).put(END_POINT + "/" + exerciseId)
             .send(exerciseInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
