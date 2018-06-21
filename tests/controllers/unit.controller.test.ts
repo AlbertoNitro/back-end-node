@@ -5,18 +5,20 @@ import logger from "../../src/utils/logger";
 import { UnitOutputDto } from "../../src/dtos/output/unitOutput.dto";
 import { NeighborsOutputDto } from "../../src/dtos/output/neighborsOutput.dto";
 import { RelatedUnitsOutputDto } from "../../src/dtos/output/relatedUnitsOutput.dto";
-import {UnitInputDto} from "../../src/dtos/input/unitInput.dto";
+import { UnitInputDto } from "../../src/dtos/input/unitInput.dto";
 
 const chai = require("chai");
 const expect = chai.expect;
 
-
 const END_POINT = "/unit";
 const ID = "/:id";
+const FRIENDS = "/friends";
+const NOT_RELATED = "/notrelated";
+const SEARCH = "/search";
 
-describe("POST /unit", () => {
-    it("should return: 201 - CREATED + Unit", (done) => {
-        return request(app).post("/unit")
+describe("POST " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.CREATED} + UnitOutputDto`, (done) => {
+        return request(app).post(END_POINT)
             .send({"name": "Unidad2000" })
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
@@ -26,49 +28,49 @@ describe("POST /unit", () => {
             });
     });
 });
-describe("DELETE /unit/99999", () => {
-    it("should return 404 - NOT FOUND", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NOT_FOUND}`, (done) => {
         const unitCode = 99999;
-        return request(app).delete("/unit/" + unitCode)
+        return request(app).delete(END_POINT + "/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
                 done();
             });
   });
 });
-describe("DELETE /unit/60", () => {
-    it("should return 204 - NOT CONTENT", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const unitCode = 60;
-        return request(app).delete("/unit/" + unitCode)
+        return request(app).delete(END_POINT + "/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
 });
-describe("DELETE /unit/52", () => {
-    it("should return 204 - NOT CONTENT", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const unitCode = 52;
-        return request(app).delete("/unit/" + unitCode)
+        return request(app).delete(END_POINT + "/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
 });
-describe("DELETE /unit/58", () => {
-    it("should return 204 - NOT CONTENT", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const unitCode = 58;
-        return request(app).delete("/unit/" + unitCode)
+        return request(app).delete(END_POINT + "/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
 });
-describe("GET /unit", () => {
-    it("should return 200 - OK and Unit[]", (done) => {
-        return request(app).get("/unit")
+describe("GET " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.OK} + UnitOutputDto[]`, (done) => {
+        return request(app).get(END_POINT)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const unitOutputDtos: UnitOutputDto[] = res.body;
@@ -77,10 +79,10 @@ describe("GET /unit", () => {
             });
     });
 });
-describe("GET /unit/61", () => {
-    it("should return 200 - OK and Unit", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + UnitOutputDto`, (done) => {
         const unitCode = 61;
-        return request(app).get("/unit/" + unitCode)
+        return request(app).get(END_POINT + "/" + unitCode)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const unitOutputDto: UnitOutputDto = res.body;
@@ -89,10 +91,10 @@ describe("GET /unit/61", () => {
             });
     });
 });
-describe("GET /unit/search?name=Unidad", () => {
-    it("should return 200 - OK and Unit[]", (done) => {
+describe("GET " + END_POINT + SEARCH + "?name=X", () => {
+    it(`expect return: ${HttpStatusCode.OK} + UnitOutputDto[]`, (done) => {
         const nameToSearch = "Unidad";
-        return request(app).get("/unit/search?name=" + nameToSearch)
+        return request(app).get(END_POINT + SEARCH + "?name=" + nameToSearch)
         .end( (err, res) => {
             expect(res.status).to.equal(HttpStatusCode.OK);
             const relatedUnitsOutputDtos: RelatedUnitsOutputDto[] = res.body;
@@ -101,10 +103,10 @@ describe("GET /unit/search?name=Unidad", () => {
         });
   });
 });
-describe("GET /unit/friends/51", () => {
-    it("should return 200 - OK and Unit[]", (done) => {
+describe("GET " + END_POINT + FRIENDS + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + UnitOutputDto[]`, (done) => {
         const unitCode = 51;
-        return request(app).get("/unit/friends/" + unitCode)
+        return request(app).get(END_POINT + FRIENDS + "/" + unitCode)
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const cincoNivelesOutputDto: NeighborsOutputDto = res.body;
@@ -116,19 +118,19 @@ describe("GET /unit/friends/51", () => {
           });
     });
 });
-describe("GET /unit/friends/99999", () => {
-    it("should return 404 - NOT_FOUND", (done) => {
+describe("GET " + END_POINT + FRIENDS + ID, () => {
+    it(`expect return: ${HttpStatusCode.NOT_FOUND}`, (done) => {
         const unitCode = 99999;
-        return request(app).get("/unit/friends/" + unitCode)
+        return request(app).get(END_POINT + FRIENDS + "/" + unitCode)
             .end( (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
                 done();
             });
     });
 });
-describe("GET /unit/notrelated", () => {
-    it("should return 200 - OK and Unit[]", (done) => {
-        return request(app).get("/unit/notrelated")
+describe("GET " + END_POINT + NOT_RELATED, () => {
+    it(`expect return: ${HttpStatusCode.OK} + UnitOutputDto[]`, (done) => {
+        return request(app).get(END_POINT + NOT_RELATED)
             .end( async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const unitOutputDtos: UnitOutputDto[] = res.body;
@@ -137,11 +139,11 @@ describe("GET /unit/notrelated", () => {
             });
     });
 });
-describe("PUT /unit/:id", () => {
-    it("should return: 200", (done) => {
+describe("PUT " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + UnitOutputDto`, (done) => {
         const unitCode = "64";
         const unitInputDto: UnitInputDto = {name: "UnidadModificada", content: "{\"ejemplo\": \"¿Porque?\"}"};
-        return request(app).put("/unit/" + unitCode)
+        return request(app).put(END_POINT + "/" + unitCode)
             .send(unitInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);

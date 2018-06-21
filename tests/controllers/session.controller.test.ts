@@ -11,10 +11,10 @@ const expect = chai.expect;
 const END_POINT = "/session";
 const ID = "/:id";
 
-describe("POST /session", () => {
-    it("should return: 201 - CREATED + Session", (done) => {
+describe("POST " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.CREATED} + SessionOutputDto`, (done) => {
         const sessionInputDto: SessionInputDto = {itineraryId: "666d66b4b122cf35117155c5", "name": "Sesion4"};
-        return request(app).post("/session")
+        return request(app).post(END_POINT)
             .send(sessionInputDto)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.CREATED);
@@ -25,10 +25,10 @@ describe("POST /session", () => {
             });
     });
 });
-describe("GET /session/862d87b8b522cf35117998c1", () => {
-    it("should return: 200", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + SessionOutputDto`, (done) => {
         const sessionId = "862d87b8b522cf35117998c1";
-        return request(app).get("/session/" + sessionId)
+        return request(app).get(END_POINT + "/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const sessionOutputDto: SessionOutputDto = res.body;
@@ -38,10 +38,10 @@ describe("GET /session/862d87b8b522cf35117998c1", () => {
             });
     });
 });
-describe("GET /session/665d87b4b122cf35117198c2", () => {
-    it("should return: 200", (done) => {
+describe("GET " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + SessionOutputDto`, (done) => {
         const sessionId = "665d87b4b122cf35117198c2";
-        return request(app).get("/session/" + sessionId)
+        return request(app).get(END_POINT + "/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const sessionOutputDto: SessionOutputDto = res.body;
@@ -51,21 +51,21 @@ describe("GET /session/665d87b4b122cf35117198c2", () => {
             });
     });
 });
-describe("DELETE /session/763d87b8b122cf35117998c2", () => {
-    it("should return: 204", (done) => {
+describe("DELETE " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.NO_CONTENT}`, (done) => {
         const sessionId = "763d87b8b122cf35117998c2";
-        return request(app).delete("/session/" + sessionId)
+        return request(app).delete(END_POINT + "/" + sessionId)
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.NO_CONTENT);
                 done();
             });
     });
 });
-describe("PUT /session/:id", () => {
-    it("should return: 200", (done) => {
+describe("PUT " + END_POINT + ID, () => {
+    it(`expect return: ${HttpStatusCode.OK} + SessionOutputDto`, (done) => {
         const sessionId = "991d87b2b122cf35117993c2";
         const sessionInputDto: SessionInputDto = {"name": "Sesion99"};
-        return request(app).put("/session/" + sessionId)
+        return request(app).put(END_POINT + "/" + sessionId)
             .send(sessionInputDto)
             .end(async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
