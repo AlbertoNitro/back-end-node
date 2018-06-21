@@ -1,7 +1,7 @@
 organization=s2a0r1a8
-projectKey=nb24df435klvn5asd8235
+projectKey=back-end
 serverUrl=https://sonarcloud.io
 serverVersion=7.3.0.13459
-dashboardUrl=https://sonarcloud.io/dashboard?id=nb24df435klvn5asd8235
-ceTaskId=AWQh1FNxHlEhtnAoG5sy
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWQh1FNxHlEhtnAoG5sy
+dashboardUrl=https://sonarcloud.io/dashboard?id=back-end
+ceTaskId=AWQh5FNoXjY49gwGA-Jh
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWQh5FNoXjY49gwGA-Jh

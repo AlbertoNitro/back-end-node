@@ -12,6 +12,6 @@ before_script:
     - npm install
 script:
     - npm run all-test-travis
-    - sonar-scanner -Dsonar.projectKey=nb24df435klvn5asd8235 -Dsonar.organization=s2a0r1a8 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=30dcc16a7e4147bf556ea1249f152886bd03dc13
+    - sonar-scanner -Dsonar.projectKey=back-end -Dsonar.organization=s2a0r1a8 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=44e060d192a6f88aafefff305a7cbdb5633d38f2
 
 
