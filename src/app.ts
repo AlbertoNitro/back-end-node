@@ -38,4 +38,5 @@ app.disable("etag"); // Evitar devolver HTTP 304
 app.use(expressStatusMonitor());
 logger.info("\n  >Estado del servidor en: http://localhost:3000/status \n");
 app.use("/", api);
+
 export default app;
