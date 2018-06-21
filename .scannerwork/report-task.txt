@@ -1,7 +1,7 @@
-organization=chinegua-github
-projectKey=wvfgh
+organization=s2a0r1a8
+projectKey=nb24df435klvn5asd8235
 serverUrl=https://sonarcloud.io
-serverVersion=7.1.1.10702
-dashboardUrl=https://sonarcloud.io/dashboard/index/wvfgh
-ceTaskId=AWMEQzkAOnVewt-wir8H
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWMEQzkAOnVewt-wir8H
+serverVersion=7.3.0.13459
+dashboardUrl=https://sonarcloud.io/dashboard?id=nb24df435klvn5asd8235
+ceTaskId=AWQh1FNxHlEhtnAoG5sy
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWQh1FNxHlEhtnAoG5sy
