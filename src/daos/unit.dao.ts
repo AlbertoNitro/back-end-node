@@ -3,28 +3,19 @@ import UnitSchema from "../schemas/unit.schema";
 import { UnitBuilder } from "../models/builders/unit.builder";
 import { Document } from "mongoose";
 import logger from "../utils/logger";
-import { ItineraryDao } from "./itinerary.dao";
+import { ConverterDocumentsToModelsService } from "../services/converterDocumentsToModels.service";
 
 export class UnitDao {
     constructor() {
     }
 
-    static toUnit(document: Document): Unit {
-        return new UnitBuilder(document.get("name")).setId(document.get("_id")).setCode(document.get("code")).setContent(document.get("content")).setItineraries(ItineraryDao.toArrayItineraries(document.get("itineraries"))).build();
-    }
-    static toArrayUnits(documents: Document[]): Unit[] {
-        const units: Unit[] = [];
-        for (let i = 0; i < documents.length; i++) {
-            units.push(UnitDao.toUnit(documents[i]));
-        }
-        return units;
-    }
+
     async create(name: string): Promise<Unit> {
         const unit: Unit = new UnitBuilder(name).build();
         const unitSchema = new UnitSchema(unit);
         return unitSchema.save()
             .then( (unitDocument: Document) => {
-                const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                const unit: Unit = unitDocument ? ConverterDocumentsToModelsService.toUnit(unitDocument) : undefined;
                 return unit;
             })
             .catch ( err => {
@@ -35,7 +26,7 @@ export class UnitDao {
     async findById(id: string): Promise<Unit> {
         return await UnitSchema.findById(id)
             .then( (unitDocument: Document) => {
-                const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                const unit: Unit = unitDocument ? ConverterDocumentsToModelsService.toUnit(unitDocument) : undefined;
                 return unit;
             })
             .catch ( err => {
@@ -46,7 +37,7 @@ export class UnitDao {
     async findByName(name: string): Promise<Unit[]> {
         return await UnitSchema.find({name: new RegExp("^" + name + "[a-zA-Z]*?")})
             .then( (unitsDocument: Document[]) => {
-                const units: Unit[] = unitsDocument ? UnitDao.toArrayUnits(unitsDocument) : undefined;
+                const units: Unit[] = unitsDocument ? ConverterDocumentsToModelsService.toArrayUnits(unitsDocument) : undefined;
                 return units;
             })
             .catch ( err => {
@@ -57,7 +48,7 @@ export class UnitDao {
     async findByCode(code: number): Promise<Unit> {
         return await UnitSchema.findOne({ code: code })
             .then( (unitDocument: Document) => {
-                const unit: Unit = unitDocument ? UnitDao.toUnit(unitDocument) : undefined;
+                const unit: Unit = unitDocument ? ConverterDocumentsToModelsService.toUnit(unitDocument) : undefined;
                 return unit;
             })
             .catch ( err => {
@@ -68,7 +59,7 @@ export class UnitDao {
     async findAll(): Promise<Unit[]> {
         return await UnitSchema.find({})
             .then( (unitsDocument: Document[]) => {
-                const units: Unit[] = unitsDocument ? UnitDao.toArrayUnits(unitsDocument) : undefined;
+                const units: Unit[] = unitsDocument ? ConverterDocumentsToModelsService.toArrayUnits(unitsDocument) : undefined;
                 return units;
             })
             .catch ( err => {

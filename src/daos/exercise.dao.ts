@@ -2,24 +2,13 @@ import { Document } from "mongoose";
 import logger from "../utils/logger";
 import { Exercise } from "../models/exercise.model";
 import ExerciseSchema from "../schemas/exercise.schema";
-import { ExerciseBuilder } from "../models/builders/exercise.builder";
 import { SolutionInputDto } from "../dtos/input/solutionInput.dto";
+import { ConverterDocumentsToModelsService } from "../services/converterDocumentsToModels.service";
 
 export class ExerciseDao {
     constructor() {
     }
 
-    static toExercise(document: Document): Exercise {
-        return new ExerciseBuilder(document.get("formulation")).setId(document.get("_id")).setSolutions(document.get("solutions")).build();
-
-    }
-    static toArrayExercises(documents: Document[]): Exercise[] {
-        const exercises: Exercise[] = [];
-        for (let i = 0; i < documents.length; i++) {
-            exercises.push(ExerciseDao.toExercise(documents[i]));
-        }
-        return exercises;
-    }
     async delete(id: string): Promise<boolean> {
         return await ExerciseSchema.deleteOne({_id: id })
             .then( () => {
@@ -33,7 +22,7 @@ export class ExerciseDao {
     async findById(id: string): Promise<Exercise> {
         return await ExerciseSchema.findById(id)
             .then(async(exerciseDocument: Document) => {
-                const exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                const exercise: Exercise = exerciseDocument ? ConverterDocumentsToModelsService.toExercise(exerciseDocument) : undefined;
                 return exercise;
             })
             .catch ( err => {
@@ -45,7 +34,7 @@ export class ExerciseDao {
         const exerciseSchema = new ExerciseSchema({ formulation: formulation});
         return exerciseSchema.save()
             .then(async(exerciseDocument: Document) => {
-                let exercise: Exercise = exerciseDocument ? ExerciseDao.toExercise(exerciseDocument) : undefined;
+                let exercise: Exercise = exerciseDocument ? ConverterDocumentsToModelsService.toExercise(exerciseDocument) : undefined;
                 exercise = await this.update(exercise.getId(), exercise.getFormulation(), solutions);
                 return exercise;
             })

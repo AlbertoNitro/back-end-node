@@ -2,21 +2,12 @@ import { Document } from "mongoose";
 import { Video } from "../models/video.model";
 import VideoSchema from "../schemas/video.schema";
 import logger from "../utils/logger";
+import { ConverterDocumentsToModelsService } from "../services/converterDocumentsToModels.service";
 
 export class VideoDao {
     constructor() {
     }
 
-    static toVideo(document: Document): Video {
-        return new Video(document.get("url")).setId(document.get("_id"));
-    }
-    static toArrayVideos(documents: Document[]): Video[] {
-        const videos: Video[] = [];
-        for (let i = 0; i < documents.length; i++) {
-            videos.push(VideoDao.toVideo(documents[i]));
-        }
-        return videos;
-    }
     async delete(id: string): Promise<boolean> {
         return await VideoSchema.deleteOne({_id: id })
             .then( () => {
@@ -30,7 +21,7 @@ export class VideoDao {
     async findById(id: string): Promise<Video> {
         return await VideoSchema.findById(id)
             .then( (videoDocument: Document) => {
-                const video: Video = videoDocument ? VideoDao.toVideo(videoDocument) : undefined;
+                const video: Video = videoDocument ? ConverterDocumentsToModelsService.toVideo(videoDocument) : undefined;
                 return video;
             })
             .catch ( err => {
@@ -43,7 +34,7 @@ export class VideoDao {
         const videoSchema = new VideoSchema(video);
         return videoSchema.save()
             .then((videoDocument: Document) => {
-                const video: Video = videoDocument ? VideoDao.toVideo(videoDocument) : undefined;
+                const video: Video = videoDocument ? ConverterDocumentsToModelsService.toVideo(videoDocument) : undefined;
                 return video;
             })
             .catch ( err => {
@@ -54,7 +45,7 @@ export class VideoDao {
     async update(id: string, url: string): Promise<Video> {
         return await VideoSchema.findOneAndUpdate({ _id: id }, { $set: {url: url} }, { new: true })
             .then(async (videoDocument: Document) => {
-                const updatedVideo: Video = videoDocument ? VideoDao.toVideo(videoDocument) : undefined;
+                const updatedVideo: Video = videoDocument ? ConverterDocumentsToModelsService.toVideo(videoDocument) : undefined;
                 return updatedVideo;
             })
             .catch ( err => {
