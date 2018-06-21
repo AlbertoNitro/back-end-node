@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "netlify": "npm install -g typescript && start",
+    "netlify": "npm install -g typescript && npm run start",
     "start": "npm run build && npm run serve",
     "start:prod": "npm run build && SET NODE_ENV=production&& npm run serve",
     "build": "npm run build-ts && npm run tslint && npm run copy-static-assets",
