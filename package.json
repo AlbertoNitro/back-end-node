@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "netlify": "npm i && npm i --only=dev && npm run build",
     "start": "npm run build && npm run serve",
     "build": "npm run build-ts && npm run tslint && npm run copy-static-assets",
     "serve": "node dist/server.js",
