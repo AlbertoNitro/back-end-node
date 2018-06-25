@@ -1,6 +1,9 @@
 {
   "name": "SARA2018",
   "version": "0.1.0",
+  "engines": {
+    "node": "8.9.4"
+  },
   "description": "FAST AND AUTONOMOUS LEARNING SYSTEM. BACK-END",
   "repository": {
     "type": "git",
