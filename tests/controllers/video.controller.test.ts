@@ -24,6 +24,19 @@ describe("POST " + END_POINT, () => {
             });
     });
 });
+describe("POST " + END_POINT, () => {
+    it(`expect return: ${HttpStatusCode.CREATED} + VideoOutputDto`, (done) => {
+        const videoInputDto: VideoInputDto = {"lessonId": "773d87b4b130cf35177177c7", "url": ""};
+        return request(app).post(END_POINT)
+            .send(videoInputDto)
+            .end(  async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.CREATED);
+                const videoOutputDto: VideoOutputDto = res.body;
+                expect(videoOutputDto.url).to.equal(videoInputDto.url);
+                done();
+            });
+    });
+});
 describe("GET " + END_POINT + ID, () => {
     it(`expect return: ${HttpStatusCode.OK} + VideoOutputDto`, (done) => {
         const videoId = "661d57b8b030cf35177998c1";
