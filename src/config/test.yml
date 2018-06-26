@@ -86,7 +86,7 @@ lessons:
     - &lesson0
         _id: {$oid: "862d87b8b530cf35177998c1"}
         name: Variables
-        interactions: []
+        interactions: [{$oid: "851d87b8b230cf25177998c0"}, {$oid: "261d87b8b130cf59170998c1"}]
     - &lesson1
         _id: {$oid: "863d87b8b130cf35177998c2"} #DELETE
         name: Constantes
