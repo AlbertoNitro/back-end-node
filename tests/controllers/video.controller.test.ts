@@ -44,7 +44,7 @@ describe("GET " + END_POINT + ID, () => {
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const videoOutputDto: VideoOutputDto = res.body;
-                expect(videoOutputDto.url).to.equal("www.mundodeportivo.es");
+                expect(videoOutputDto.url).to.equal("https://youtu.be/sOrtAjyk4lQ");
                 done();
             });
     });
