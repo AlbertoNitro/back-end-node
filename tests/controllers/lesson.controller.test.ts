@@ -32,7 +32,7 @@ describe("GET " + END_POINT + ID, () => {
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const lessonOutputDto: LessonOutputDto = res.body;
-                expect(lessonOutputDto.name).to.equal("Variables en Java");
+                expect(lessonOutputDto.name).to.equal("Variables");
                 expect(lessonOutputDto.interactions.length).to.equal(0);
                 done();
             });
@@ -45,7 +45,7 @@ describe("GET " + END_POINT + ID, () => {
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const lessonOutputDto: LessonOutputDto = res.body;
-                expect(lessonOutputDto.name).to.equal("Datos cientificos");
+                expect(lessonOutputDto.name).to.equal("Contexto");
                 expect(lessonOutputDto.interactions.length).to.equal(2);
                 done();
             });

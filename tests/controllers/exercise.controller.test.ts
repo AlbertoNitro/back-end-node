@@ -37,8 +37,8 @@ describe("GET " + END_POINT + ID, () => {
             .end(  async (err, res) => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const exerciseOutputDto: ExerciseOutputDto = res.body;
-                expect(exerciseOutputDto.formulation).to.equal("¿En que año se descubrio la luna?");
-                expect(exerciseOutputDto.solutions.length).to.equal(2);
+                expect(exerciseOutputDto.formulation).to.equal("¿Que es el software?");
+                expect(exerciseOutputDto.solutions.length).to.equal(4);
                 done();
             });
     });

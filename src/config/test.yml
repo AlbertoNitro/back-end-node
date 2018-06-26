@@ -85,19 +85,19 @@ formations:
 lessons:
     - &lesson0
         _id: {$oid: "862d87b8b530cf35177998c1"}
-        name: Variables en Java
+        name: Variables
         interactions: []
     - &lesson1
         _id: {$oid: "863d87b8b130cf35177998c2"} #DELETE
-        name: Constantes en Java
+        name: Constantes
         interactions: []
     - &lesson2
         _id: {$oid: "165d87b4b130cf35177198c2"}
-        name: Datos cientificos
+        name: Contexto
         interactions: [{$oid: "851d87b8b230cf25177998c0"}, {$oid: "261d87b8b130cf59170998c1"}]
     - &lesson3
         _id: {$oid: "213d87b4b130cf35177191c5"} #UPDATE
-        name: Leccion de Javascript
+        name: Funciones
         interactions: []
     - &lesson4
         _id: {$oid: "773d87b4b130cf35177177c7"} #Leccion a la que se le añaden ejercicios en el test POST Exercise
@@ -116,37 +116,37 @@ lessons:
 justifications:
 - &justification0
     isCorrect: false
-    text: El descubrimiento de la luna fue en 1999
-- &justification1 #DELETE
+    text: No, porque no.
+- &justification1
     isCorrect: true
-    text: El descubrimiento de la luna fue en 1969
+    text: No, porque esa definicion no engloba los ficheros de configuración en diversos formatos.
 - &justification2
     isCorrect: false
-    text: El descubrimiento de la luna fue en 2005
+    text: No, porque los programas son hardware.
 - &justification3
     isCorrect: true
-    text: El agua es una molecula formada por dos moleculas de oxigeno y una de hidrogeno
+    text: No, en esa definicion no se contemplan scripts para la creación de las tablas de las bases de datos y su población
 - &justification4
     isCorrect: true
-    text: Fue en 1794
+    text: No, en esa definicion no se contemplan archivos multimedia en formatos de imagen, sonido o video.
 
 # Solutions
 solutions:
 - &solution0
     isCorrect: false
-    text: 1974
+    text: Conjunto de programas y rutinas que permiten a la computadora realizar determinadas tareas.
     justifications: [*justification0, *justification4, *justification2]
 - &solution1
     isCorrect: true
-    text: La oveja Dolly
+    text: Es la información que se suministra el desarrollador a la computadora para que manipule la información que suministra el usuario.
     justifications: []
-- &solution2 #DELETE
-    isCorrect: true
-    text: La formula del agua H20
-    justifications: [*justification3]
-- &solution3 #PUT
+- &solution2
     isCorrect: false
-    text: 6666
+    text: Conjunto de programas, instrucciones y reglas informáticas que permiten ejecutar distintas tareas en una computadora.
+    justifications: [*justification3]
+- &solution3
+    isCorrect: false
+    text: Programas informáticos que hacen posible la realización de tareas específicas dentro de un computador.
     justifications: [*justification0, *justification1, *justification2]
 
 #Interactions
@@ -154,16 +154,16 @@ interactions:
     - &interaction0
         _id: {$oid: "851d87b8b230cf25177998c0"}
         kind: Exercise
-        formulation: ¿En que año se descubrio la luna?
-        solutions: [*solution0, *solution1]
+        formulation: ¿Que es el software?
+        solutions: [*solution0, *solution1, *solution2, *solution3]
     - &interaction1
         _id: {$oid: "261d87b8b130cf59170998c1"} #DELETE
         kind: Video
-        url: www.marca.es
+        url: https://youtu.be/bjNQ-aFej0k
     - &interaction2
         _id: {$oid: "661d57b8b030cf35177998c1"}
         kind: Video
-        url: www.mundodeportivo.es
+        url: https://youtu.be/sOrtAjyk4lQ
     - &interaction3
         _id: {$oid: "321d87b8b230cf25177998c0"}
         kind: Exercise
@@ -177,14 +177,14 @@ interactions:
     - &interaction5
         _id: {$oid: "991d57b8b030cf35177998c1"}
         kind: Video
-        url: www.yahoo.es
+        url: https://youtu.be/lP_7H467pA8
 
 # Units
 units:
 - &unit0 #ROOT
     _id: {$oid: "161d87b8b260cf35147998ca"}
     code: 50
-    name: Unidad50 # ROOT
+    name: Software # ROOT
     content: "PRUEBA"
     itineraries: [{$oid: "315d87b4b122cf35117198c4"}]
 - &unit1
