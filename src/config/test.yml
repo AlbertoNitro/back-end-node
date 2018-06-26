@@ -270,28 +270,28 @@ relations:
     semantics: Nada
     cardinalTopUnit: 1
 - &relation4
-    type: USE
+    type: COMPOSE
     topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     lowerUnit: {$oid: "661d87b8b260cf35147998ca"} #unit55
     semantics: Nada
     cardinalTopUnit: 1
     cardinalLowerUnit: n
 - &relation5
-    type: USE
+    type: COMPOSE
     topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     lowerUnit: {$oid: "761d87b8b260cf35147998ca"} #unit56
     semantics: Nada
     cardinalTopUnit: 1
     cardinalLowerUnit: n
 - &relation6
-    type: ASSOCIATION
+    type: COMPOSE
     topUnit: {$oid: "261d87b8b260cf35147998ca"} #unit51
     lowerUnit: {$oid: "861d87b8b260cf35147998ca"} #unit57
     semantics: Nada
     cardinalTopUnit: 1
     cardinalLowerUnit: n
 - &relation7
-    type: ASSOCIATION
+    type: COMPOSE
     topUnit: {$oid: "361d87b8b260cf35147998ca"} #unit52
     lowerUnit: {$oid: "961d87b8b260cf35147998ca"} #unit58
     semantics: Nada
