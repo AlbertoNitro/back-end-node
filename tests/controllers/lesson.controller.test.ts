@@ -33,7 +33,7 @@ describe("GET " + END_POINT + ID, () => {
                 expect(res.status).to.equal(HttpStatusCode.OK);
                 const lessonOutputDto: LessonOutputDto = res.body;
                 expect(lessonOutputDto.name).to.equal("Variables");
-                expect(lessonOutputDto.interactions.length).to.equal(0);
+                expect(lessonOutputDto.interactions.length).to.equal(2);
                 done();
             });
     });
