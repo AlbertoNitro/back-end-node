@@ -30,7 +30,7 @@
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\"",
-    "sonarcloud": "sonar-scanner -Dsonar.projectKey=back-end -Dsonar.organization=s2a0r1a8 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=44e060d192a6f88aafefff305a7cbdb5633d38f2"
+    "sonarcloud": "sonar-scanner -Dsonar.projectKey=back-end -Dsonar.organization=s2a0r1a8 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=44e060d192a6f88aafefff305a7cbdb5633d38f2",
     "postinstall": "npm run build && npm run serve"
   },
   "dependencies": {
